@@ -17,7 +17,6 @@ class InvoiceFactory extends Factory
     public function definition()
     {
         return [
-            'visit_id' => $this->faker->numberBetween(1, 9000),
             'payment_type' => $this->faker->randomElement(['efectivo','tarjeta']),
             'invoice_date' => $this->faker->dateTime('now', null),
             'total_price' => $this->faker->randomFloat(2,10,100)
