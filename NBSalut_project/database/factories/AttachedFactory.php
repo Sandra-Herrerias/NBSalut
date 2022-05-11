@@ -22,7 +22,7 @@ class AttachedFactory extends Factory
         return [
             'id' => id(),
             'visit_id' => Visit::pluck('id')->random(),
-            'type' => $this->faker->string(),
+            'type' => $this->faker->randomElement([".jpg",".png",".jpeg"]),
             'document' => $this->faker->nullable()
         ];
     }

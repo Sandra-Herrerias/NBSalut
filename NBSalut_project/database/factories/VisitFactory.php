@@ -22,8 +22,8 @@ class VisitFactory extends Factory
         return [
             'person_id' => Person::pluck('id')->random(),
             'id' => id(),
-            'visit_description' => $this->faker->randomDigit(),
-            'recommendations' => $this->faker->randomDigit(),
+            'visit_description' => $this->faker->text(),
+            'recommendations' => $this->faker->text(),
             'visit_date' => $this->faker->date(),
             'ss_private' => $this->faker->text()
         ];
