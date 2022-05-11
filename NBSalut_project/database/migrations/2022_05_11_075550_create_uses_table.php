@@ -33,7 +33,7 @@ return new class extends Migration
 
             $table->foreign('treatment_id')
                 ->references('id')
-                ->on('treatment')
+                ->on('treatments')
                 ->nullOnDelete();
 
             $table->timestamps();

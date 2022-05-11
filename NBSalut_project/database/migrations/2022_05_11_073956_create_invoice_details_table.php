@@ -14,26 +14,25 @@ return new class extends Migration
     public function up()
     {
         Schema::create('invoice_details', function (Blueprint $table) {
-            $table->id();
+         
 
             $table->float('price');
             $table->integer('quantity');
             $table->float('total');
 
-            //camp foreign key de user id
-            $table->unsignedBigInteger('treatment_id')->nullable();
+            $table->unsignedBigInteger('treatment_id');
+
+            $table->unsignedBigInteger('invoice_id');
+
             //constraints FK (foreign key)
-            $table->foreign('treatment_id') //camp user id tindrà aquesta constraint
-                ->references('id') //camp
-                ->on('treatments') //taula
-                ->onDelete('set null');
-            //camp foreign key de user id
-            $table->unsignedBigInteger('invoice_id')->nullable();
+            $table->foreign('invoice_id') 
+                ->references('id') 
+                ->on('invoices');
+
             //constraints FK (foreign key)
-            $table->foreign('invoice_id') //camp user id tindrà aquesta constraint
-                ->references('id') //camp
-                ->on('invoices') //taula
-                ->onDelete('set null');
+            $table->foreign('treatment_id') 
+                ->references('id') 
+                ->on('treatments');
 
             $table->primary(['treatment_id', 'invoice_id']);
 

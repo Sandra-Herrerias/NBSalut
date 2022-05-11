@@ -20,14 +20,14 @@ return new class extends Migration
             $table->string('password');
             $table->string('dni');
             $table->string('email')->unique();
-            $table->string('phone', 9);
+            // $table->string('phone', 9);
             $table->date('birthdate');
             $table->string('city');
             $table->string('address');
             $table->string('postal_code');
 
             $table->boolean('active')->default(true)->nullable(); // Patient
-            $table->varchar('previous_pathologies')->nullable(); // Patient
+            $table->string('previous_pathologies')->nullable(); // Patient
             $table->boolean('diabetic')->default(false)->nullable(); // Patient
             $table->string('ss_CIP')->nullable();; // Patient
             $table->string('center_code')->nullable(); // Patient

@@ -24,7 +24,7 @@ return new class extends Migration
                         //constraints FK (foreign key)
                         $table->foreign('visit_id') //camp user id tindrà aquesta constraint
                             ->references('id') //camp
-                            ->on('visits') //taula
+                            ->on('visit') //taula
                             ->onDelete('set null');
 
             $table->timestamps();

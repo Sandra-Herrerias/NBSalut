@@ -31,7 +31,6 @@ class PersonFactory extends Factory
             'previous_pathologies'     => $this->faker->text(40),        
             'diabetic' => $this->faker->randomElement([true,false]),
 
-
             // $table->string('ss_CIP')->nullable();; // Patient
             // $table->string('center_code')->nullable(); // Patient
             // $table->string('num_clinical_log')->nullable(); // Patient
