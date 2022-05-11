@@ -15,6 +15,26 @@ return new class extends Migration
     {
         Schema::create('partner_invoices', function (Blueprint $table) {
             $table->id();
+
+            $table->string('phone');
+            $table->string('dni');
+            $table->string('collegiate_num');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('role');
+            $table->string('nif');
+            $table->string('postal_code');
+            $table->string('address');
+            $table->string('city');
+
+            //camp foreign key de user id
+            $table->unsignedBigInteger('invoice_id')->nullable();
+            //constraints FK (foreign key)
+            $table->foreign('invoice_id') //camp user id tindrà aquesta constraint
+                ->references('id') //camp
+                ->on('invoices') //taula
+                ->onDelete('set null');
+
             $table->timestamps();
         });
     }

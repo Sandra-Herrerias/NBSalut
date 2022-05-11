@@ -13,23 +13,28 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('person', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('password');
             $table->string('dni');
             $table->string('email')->unique();
-            $table->integer('number', 9);
+            $table->integer('phone', 9);
             $table->date('birthdate');
             $table->string('city');
             $table->string('address');
             $table->string('postal_code');
-            $table->boolean('active')->default(true);
-            // $table->string('password');
-            // $table->timestamp('email_verified_at')->nullable();
-            $table->string('collegiate_num');
-            // $table->('role', ['admin', 'especialist'])->default('especialist');
-            $table->rememberToken();
+
+            $table->boolean('active')->default(true)->nullable(); // Patient
+            $table->varchar('previous_pathologies')->nullable(); // Patient
+            $table->boolean('diabetic')->default(false)->nullable(); // Patient
+            $table->string('ss_CIP')->nullable();; // Patient
+            $table->string('center_code')->nullable(); // Patient
+            $table->string('num_clinical_log')->nullable(); // Patient
+ 
+            $table->string('collegiate_num')->nullable(); // Specialist
+            $table->enum('role', ['admin', 'specialist'])->nullable();
             $table->timestamps();
         });
     }
@@ -41,6 +46,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('person');
     }
 };
