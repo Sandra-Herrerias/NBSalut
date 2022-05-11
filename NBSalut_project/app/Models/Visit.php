@@ -36,4 +36,12 @@ class Visit extends Model
     public function attached() {
         return $this->hasOne(Attached::class);
     }
+
+        /**
+     * Get the invoice associated with the user.
+     */
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
+    }
 }

@@ -9,4 +9,14 @@ class Invoice_detail extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class);
+    }
+
+    public function treatment()
+    {
+        return $this->hasOne(Treatment::class);
+    }
 }

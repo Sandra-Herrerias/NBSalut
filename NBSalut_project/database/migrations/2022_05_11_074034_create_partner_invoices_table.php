@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('collegiate_num');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('role');
+            $table->enum('role',['admin','specialist'])->nullable();
             $table->string('nif');
             $table->string('postal_code');
             $table->string('address');
