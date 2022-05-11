@@ -17,7 +17,7 @@ class AttachedTableSeeder extends Seeder
      */
     public function run()
     {
-        Attached::factory(15)->create();
+        // Attached::factory(15)->create();
 
     }
 }

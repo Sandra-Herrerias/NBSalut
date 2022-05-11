@@ -16,27 +16,32 @@ return new class extends Migration
         Schema::create('uses', function (Blueprint $table) {
 
             //Foreign keys
-            $table->unsignedBigInteger('visit_id')->unsigned()->nullable();
-            $table->unsignedBigInteger('person_id')->unsigned()->nullable();
-            $table->unsignedBigInteger('treatment_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('visit_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('treatment_id');
 
             //Constraints FK
-            $table->foreign('visit_id')
-                ->references('id')
-                ->on('visit')
-                ->nullOnDelete();
+            // $table->foreign('visit_id')
+            //     ->references('id')
+            //     ->on('visit')
+            //     ->nullOnDelete();
 
-            $table->foreign('person_id')
-                ->references('person_id')
-                ->on('offers')
-                ->nullOnDelete();
+            // $table->foreign('person_id')
+            //     ->references('person_id')
+            //     ->on('offers')
+            //     ->nullOnDelete();
 
-            $table->foreign('treatment_id')
-                ->references('treatment_id')
-                ->on('offers')
-                ->nullOnDelete();
+            // $table->foreign('treatment_id')
+            //     ->references('treatment_id')
+            //     ->on('offers')
+            //     ->nullOnDelete();
 
-            $table->primary(['visit_id','person_id', 'treatment_id']);
+            $table->foreign('visit_id')->references('id')->on('visits');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('treatment_id')->references('id')->on('treatments');
+
+
+            $table->primary(['visit_id','user_id', 'treatment_id']);
 
             $table->timestamps();
         });

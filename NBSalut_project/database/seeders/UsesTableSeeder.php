@@ -17,6 +17,6 @@ class UsesTableSeeder extends Seeder
      */
     public function run()
     {
-        Uses::factory(15)->create();
+        // Uses::factory(15)->create();
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-use App\Models\Person;
+use App\Models\User;
 
 
 /**
@@ -20,12 +20,11 @@ class VisitFactory extends Factory
     public function definition()
     {
         return [
-            'person_id' => Person::pluck('id')->random(),
-            'id' => id(),
-            'visit_description' => $this->faker->text(),
-            'recommendations' => $this->faker->text(),
+            'person_id' => User::pluck('id')->random(),
+            'visit_description' => $this->faker->text(50),
+            'recommendations' => $this->faker->text(20),
             'visit_date' => $this->faker->date(),
-            'ss_private' => $this->faker->text()
+            'ss_private' => $this->faker->randomElement(['Sí', 'No'])
         ];
     }
 }

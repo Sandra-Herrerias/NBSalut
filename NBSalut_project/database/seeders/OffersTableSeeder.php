@@ -16,6 +16,6 @@ class OffersTableSeeder extends Seeder
      */
     public function run()
     {
-        Offer::factory(15)->create();
+        // Offer::factory(15)->create();
     }
 }

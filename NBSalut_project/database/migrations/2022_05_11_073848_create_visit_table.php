@@ -13,22 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('visit', function (Blueprint $table) {
+        Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->string('visit_description');
             $table->string('recommendations');
             $table->date('visit_date');
             $table->string('ss_private');
 
-            //Foreign keys
-            $table->unsignedBigInteger('person_id')->unsigned()->nullable();
+            // //Foreign keys
+            $table->unsignedBigInteger('person_id');
 
-            //Constraints FK
-            $table->foreign('person_id')
-                ->references('id')
-                ->on('person')
-                ->nullOnDelete();
-
+            // //Constraints FK
+            // $table->foreign('person_id')
+            //     ->references('id')
+            //     ->on('person')
+            //     ->nullOnDelete();
+            $table->foreign('person_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('visit');
+        Schema::dropIfExists('visits');
     }
 };

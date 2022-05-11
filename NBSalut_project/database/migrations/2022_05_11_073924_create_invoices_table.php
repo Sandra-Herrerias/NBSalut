@@ -16,16 +16,16 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
 
-            $table->enum('payment_type',['efectivo','tarjeta'])->nullable();
+            $table->enum('payment_type', ['efectivo', 'tarjeta'])->nullable();
             $table->dateTime('invoice_date');
             $table->float('total_price');
-                        //camp foreign key de user id
-                        $table->unsignedBigInteger('visit_id')->nullable();
-                        //constraints FK (foreign key)
-                        $table->foreign('visit_id') //camp user id tindrà aquesta constraint
-                            ->references('id') //camp
-                            ->on('visit') //taula
-                            ->onDelete('set null');
+            //camp foreign key de user id
+            $table->unsignedBigInteger('visit_id')->nullable();
+            //constraints FK (foreign key)
+            $table->foreign('visit_id') //camp user id tindrà aquesta constraint
+                ->references('id') //camp
+                ->on('visits') //taula
+                ->onDelete('set null');
 
             $table->timestamps();
         });

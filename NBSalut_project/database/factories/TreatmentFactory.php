@@ -17,8 +17,10 @@ class TreatmentFactory extends Factory
     public function definition()
     {
         return [
-            'name' =>$this->faker->name(),
-            'price' => $this->faker->randomFloat(2,10,100),
+            'name' => $this->faker->unique(true)->randomElement([
+                'QUIROPODOLOGIA', 'CURAS', 'TRATAMIENTO VERRUGAS', 'REEDUCACIÓN UNGUEAL', 'PROTESIS PEQUEÑAS', 'PROTESIS MEDIANA', 'PROTESIS GRANDE', 'SILMA', 'VENDAJE NEUROMUSCULAR', 'CIRUGÍA DE LA UÑA', 'ESTUDIO BIOMECANICO', 'ESTUDIO BIOMECÁNICO + SP ADULTO', 'ESTUDIO BIOMECÁNICO + SP INFANTIL', 'RETOQUES O CAMBIO FORROS SP', 'OTRAS PRUEBAS',
+            ]),
+            'price' => $this->faker->randomFloat(2, 10, 100),
             'description' => $this->faker->text(50)
         ];
     }
