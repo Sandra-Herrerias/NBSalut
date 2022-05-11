@@ -21,12 +21,6 @@ class Treatment extends Model
         return $this->hasMany(Offer::class);
     }
 
-    /**
-     * Get the uses of the treatment.
-     */
-    public function uses() {
-        return $this->hasMany(Uses::class);
-    }
     
     public function invoice_details() {
         return $this->hasMany(Invoice_detail::class);

@@ -34,7 +34,7 @@ class Visit extends Model
      * Get the attached of the user.
      */
     public function attached() {
-        return $this->hasOne(Attached::class);
+        return $this->hasMany(Attached::class);
     }
 
         /**

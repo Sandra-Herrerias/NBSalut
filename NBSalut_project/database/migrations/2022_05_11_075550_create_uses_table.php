@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('uses', function (Blueprint $table) {
-            
+
             //Foreign keys
             $table->unsignedBigInteger('visit_id')->unsigned()->nullable();
             $table->unsignedBigInteger('person_id')->unsigned()->nullable();
@@ -27,14 +27,16 @@ return new class extends Migration
                 ->nullOnDelete();
 
             $table->foreign('person_id')
-                ->references('id')
-                ->on('person')
+                ->references('person_id')
+                ->on('offers')
                 ->nullOnDelete();
 
             $table->foreign('treatment_id')
-                ->references('id')
-                ->on('treatments')
+                ->references('treatment_id')
+                ->on('offers')
                 ->nullOnDelete();
+
+            $table->primary(['visit_id','person_id', 'treatment_id']);
 
             $table->timestamps();
         });

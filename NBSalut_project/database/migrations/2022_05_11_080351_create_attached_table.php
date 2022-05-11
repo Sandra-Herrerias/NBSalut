@@ -19,12 +19,12 @@ return new class extends Migration
             $table->text('document');
 
             //Foreign keys
-            $table->unsignedBigInteger('person_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('visit_id')->unsigned()->nullable();
 
             //Constraints FK
-            $table->foreign('person_id')
+            $table->foreign('visit_id')
                 ->references('id')
-                ->on('person')
+                ->on('visit')
                 ->nullOnDelete();
 
             $table->timestamps();

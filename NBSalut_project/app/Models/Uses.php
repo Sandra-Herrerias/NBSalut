@@ -17,9 +17,9 @@ class Uses extends Model
     /**
      * Get the treatment that belongs to the use.
      */
-    public function treatment()
+    public function offer()
     {
-        return $this->belongsTo(Treatment::class);
+        return $this->belongsTo(Offer::class);
     }
 
      /**
@@ -30,11 +30,4 @@ class Uses extends Model
         return $this->belongsTo(Visit::class);
     }
 
-     /**
-     * Get the person that belongs to the use.
-     */
-    public function person()
-    {
-        return $this->belongsTo(Person::class);
-    }
 }

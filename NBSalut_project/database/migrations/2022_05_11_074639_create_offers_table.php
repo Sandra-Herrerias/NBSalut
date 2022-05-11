@@ -22,11 +22,13 @@ return new class extends Migration
             //Constraints FK
             $table->foreign('person_id')
                 ->references('id')
-                ->on('person');
+                ->on('person')
+                ->nullOnDelete();
 
             $table->foreign('treatment_id')
                 ->references('id')
-                ->on('treatments');
+                ->on('treatments')
+                ->nullOnDelete();
 
             $table->timestamps();
         });
