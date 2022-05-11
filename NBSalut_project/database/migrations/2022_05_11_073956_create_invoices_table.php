@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+
+            $table->integer('visit_id');
+            $table->enum('payment_type',['efectivo','tarjeta'])->nullable();
+            $table->dateTime('invoice_date');
+            $table->float('total_price');
+
             $table->timestamps();
         });
     }

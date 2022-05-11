@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice_detail extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 }
