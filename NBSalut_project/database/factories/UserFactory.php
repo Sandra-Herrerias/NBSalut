@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'dni' => $this->faker->regexify('[0-9]{8}[A-Z]{1}'),
             'phone' => $this->faker->numerify('6########'),
             'birthdate' => $this->faker->dateTime(),
-            'age' => $this->faker->randomDigit(2),
+            //'age' => $this->faker->randomDigit(2),
             'city' => $this->faker->cityPrefix(),
             'address' => $this->faker->address(),
             'postal_code' => $this->faker->randomNumber(5, true),

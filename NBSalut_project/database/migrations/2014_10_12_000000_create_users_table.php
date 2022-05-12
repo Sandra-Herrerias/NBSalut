@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->unsignedInteger('age');
+           // $table->unsignedInteger('age');
             $table->string('password');
             $table->string('dni');
             $table->string('email')->unique();
