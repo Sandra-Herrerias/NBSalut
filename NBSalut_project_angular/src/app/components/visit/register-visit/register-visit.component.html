@@ -7,7 +7,7 @@
 </nav>
 <div class="container mt-5">
    <div class="row">
-      <form [formGroup]="registerVisitForm"> 
+      <form [formGroup]="registerVisitForm">
          <!-- Text inputs -->
          <div class="row mb-3">
             <!-- CH Number field -->
@@ -15,7 +15,8 @@
                <label class="form-label fw-bold">Nº del historial clínico *</label>
                <input type="text" formControlName="numHis" class="form-control" required>
                <label class="text-danger mt-1"
-                  *ngIf="registerVisitForm.get('numHis')?.errors?.['required'] && registerVisitForm.get('numHis')?.touched">Nº del historial clínico
+                  *ngIf="registerVisitForm.get('numHis')?.errors?.['required'] && registerVisitForm.get('numHis')?.touched">Nº
+                  del historial clínico
                   requerido
                </label>
             </div>
@@ -24,7 +25,8 @@
                <label class="form-label fw-bold">Nº de la seguridad social *</label>
                <input type="text" formControlName="numSeg" class="form-control" required>
                <label class="text-danger mt-1"
-                  *ngIf="registerVisitForm.get('numSeg')?.errors?.['required'] && registerVisitForm.get('numSeg')?.touched">Nº de la seguridad social
+                  *ngIf="registerVisitForm.get('numSeg')?.errors?.['required'] && registerVisitForm.get('numSeg')?.touched">Nº
+                  de la seguridad social
                   requerido
                </label>
             </div>
@@ -69,11 +71,14 @@
                   requerida
                </label> -->
                <div>
-                  <ng-multiselect-dropdown
-                      [settings]="selectTreatmentsOptions"
-                      [data]="selectTreatments">
+                  <ng-multiselect-dropdown formControlName="treat" required [settings]="selectTreatmentsOptions"
+                     [data]="selectTreatments">
                   </ng-multiselect-dropdown>
-              </div>
+                  <label class="text-danger mt-1"
+                     *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
+                     requerida
+                  </label>
+               </div>
             </div>
          </div>
          <!-- Textarea inputs -->
@@ -81,13 +86,12 @@
             <!-- Recommendations field -->
             <div class="mb-3 col-6">
                <label class="form-label fw-bold">Recomendaciones</label>
-               <textarea name="reco" class="form-control" placeholder="Escribe aquí..." style="height: 100px">{{recom}}</textarea>
+               <textarea name="reco" class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
             </div>
-            {{recom}}
             <!-- Description field -->
             <div class="mb-3 col-6">
                <label class="form-label fw-bold">Descripción de la visita</label>
-               <textarea name="des" class="form-control" placeholder="Escribe aquí..." style="height: 100px" value="{{desc}}">{{desc}}</textarea>
+               <textarea name="des" class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
             </div>
             {{desc}}
          </div>
@@ -101,7 +105,8 @@
          <!-- Submit button -->
          <div class="row text-center mt-5">
             <div class="col-4"></div>
-               <button type="button" class="btn btn-primary btn-lg col-4" [disabled]="registerVisitForm.invalid" (click)="addVisit()">Registrar visita</button>
+            <button type="button" class="btn btn-primary btn-lg col-4" [disabled]="registerVisitForm.invalid"
+               (click)="addVisit()">Registrar visita</button>
             <div class="col-4"></div>
 
          </div>
