@@ -12,27 +12,40 @@ export class RegisterVisitComponent implements OnInit {
 
   listTreatments: TreatmentClass[] = [];
 
+  // No required fields
+  recom: string;
+  desc: string;
+
   message: string | undefined;
+
 
   public registerVisitForm = this.formBuilder.group({
     name: [
-      '',[Validators.required]
+      '', [Validators.required]
     ],
     surnames: [
-      '',[Validators.required]
+      '', [Validators.required]
     ],
     numHis: [
-      '',[Validators.required]
+      '', [Validators.required]
     ],
     numSeg: [
-      '',[Validators.required]
+      '', [Validators.required]
+    ],
+    date: [
+      '', [Validators.required]
+    ],
+    treat: [
+      '', [Validators.required]
     ]
 
   });
 
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService) {
     this.loadTreatments();
-   }
+    this.recom = "";
+    this.desc = "";
+  }
 
   ngOnInit(): void {
   }
@@ -40,9 +53,14 @@ export class RegisterVisitComponent implements OnInit {
   loadTreatments() {
     this.communicator.getTreatments().subscribe((data: any) => {
       data.forEach((t: any) => {
-        this.listTreatments.push(new TreatmentClass(t.id,t.name,t.price,t.description));
+        this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
       })
     })
   }
 
+  addVisit() {
+    console.log(this.registerVisitForm.value);
+    console.log(this.recom);
+    console.log(this.desc);
+  }
 }

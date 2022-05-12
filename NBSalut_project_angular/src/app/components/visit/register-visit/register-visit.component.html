@@ -12,68 +12,90 @@
          <div class="row mb-3">
             <!-- CH Number field -->
             <div class="mb-3 col-3">
-               <label class="form-label">Nº del historial clínico</label>
-               <input type="text" name="numHis" class="form-control" required>
+               <label class="form-label fw-bold">Nº del historial clínico *</label>
+               <input type="text" formControlName="numHis" class="form-control" required>
+               <label class="text-danger mt-1"
+                  *ngIf="registerVisitForm.get('numHis')?.errors?.['required'] && registerVisitForm.get('numHis')?.touched">Nº del historial clínico
+                  requerido
+               </label>
             </div>
             <!-- SS Number field -->
             <div class="mb-3 col-3">
-               <label class="form-label">Nº de la seguridad social</label>
-               <input type="text" name="numSeg" class="form-control" required>
+               <label class="form-label fw-bold">Nº de la seguridad social *</label>
+               <input type="text" formControlName="numSeg" class="form-control" required>
+               <label class="text-danger mt-1"
+                  *ngIf="registerVisitForm.get('numSeg')?.errors?.['required'] && registerVisitForm.get('numSeg')?.touched">Nº de la seguridad social
+                  requerido
+               </label>
             </div>
             <!-- Name field -->
             <div class="mb-3 col-3">
-               <label class="form-label">Nombre</label>
+               <label class="form-label fw-bold">Nombre *</label>
                <input type="text" formControlName="name" class="form-control" required>
-               <label class="text-danger"
-                  *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.dirty">Nombre
+               <label class="text-danger mt-1"
+                  *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                   requerido
                </label>
             </div>
             <!-- Surnames field -->
             <div class="mb-3 col-3">
-               <label class="form-label">Apellidos</label>
-               <input type="text" name="surnames" class="form-control" required>
+               <label class="form-label fw-bold">Apellidos *</label>
+               <input type="text" formControlName="surnames" class="form-control" required>
+               <label class="text-danger mt-1"
+                  *ngIf="registerVisitForm.get('surnames')?.errors?.['required'] && registerVisitForm.get('surnames')?.touched">Apellidos
+                  requerido
+               </label>
             </div>
          </div>
          <!-- Date & Select inputs -->
          <div class="row mb-3">
             <!-- Visit date field -->
             <div class="mb-3 col-3">
-               <label class="form-label">Fecha de la visita</label>
-               <input type="date" class="form-control">
+               <label class="form-label fw-bold">Fecha de la visita *</label>
+               <input type="date" formControlName="date" class="form-control" required>
+               <label class="text-danger mt-1"
+                  *ngIf="registerVisitForm.get('date')?.errors?.['required'] && registerVisitForm.get('date')?.touched">Fecha
+                  requerida
+               </label>
             </div>
             <!-- Treatment field -->
             <div class="mb-3 col-3">
-               <label class="form-label">Tratamiento</label>
-               <select class="form-select" aria-label="Default select example">
-                  <option selected>Selecciona un tratamiento</option>
-                  <option *ngFor="let t of listTreatments" value="t">{{t.name}}</option>
+               <label class="form-label fw-bold">Tratamiento *</label>
+               <select class="form-select" formControlName="treat" aria-label="Default select example" required>
+                  <option *ngFor="let t of listTreatments" value={{t.name}}>{{t.name}}</option>
                </select>
+               <label class="text-danger mt-1"
+                  *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
+                  requerida
+               </label>
             </div>
          </div>
          <!-- Textarea inputs -->
          <div class="row mb-3">
             <!-- Recommendations field -->
             <div class="mb-3 col-6">
-               <label for="floatingTextarea2" class="form-label">Recomendaciones</label>
-               <textarea class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
+               <label class="form-label fw-bold">Recomendaciones</label>
+               <textarea name="reco" class="form-control" placeholder="Escribe aquí..." style="height: 100px">{{recom}}</textarea>
             </div>
+            {{recom}}
             <!-- Description field -->
             <div class="mb-3 col-6">
-               <label for="floatingTextarea2" class="form-label">Descripción de la visita</label>
-               <textarea class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
+               <label class="form-label fw-bold">Descripción de la visita</label>
+               <textarea name="des" class="form-control" placeholder="Escribe aquí..." style="height: 100px" value="{{desc}}">{{desc}}</textarea>
             </div>
+            {{desc}}
          </div>
          <!-- File input -->
          <div class="row mb-3">
             <div class="mb-3 col-6">
-               <input class="form-control" type="file" id="formFile">
+               <label class="form-label fw-bold">Documento adjunto</label>
+               <input class="form-control" type="file" id="file">
             </div>
          </div>
          <!-- Submit button -->
-         <div class="row text-center">
+         <div class="row text-center mt-5">
             <div class="col-4"></div>
-            <button type="submit" class="btn btn-primary btn-lg col-4">Registrar visita</button>
+               <button type="button" class="btn btn-primary btn-lg col-4" [disabled]="registerVisitForm.invalid" (click)="addVisit()">Registrar visita</button>
             <div class="col-4"></div>
 
          </div>
