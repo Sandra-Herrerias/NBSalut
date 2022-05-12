@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { CommunicatorService } from 'src/app/services/communicator.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  user !: User | null;
+
+
+
+  constructor(private communicator: CommunicatorService) { }
 
   ngOnInit(): void {
+   this.user = this.communicator.usuariData();
+
   }
 
 }
