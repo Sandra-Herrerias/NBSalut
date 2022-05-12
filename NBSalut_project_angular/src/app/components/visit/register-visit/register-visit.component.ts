@@ -11,8 +11,15 @@ export class RegisterVisitComponent implements OnInit {
 
   listTreatments: TreatmentClass[] = [];
 
+  // Fields to validate
+  numSeg: number;
+  name: string;
+
   constructor(private communicator: CommunicatorService) {
     this.loadTreatments();
+
+    this.numSeg = 0;
+    this.name = "";
    }
 
   ngOnInit(): void {
