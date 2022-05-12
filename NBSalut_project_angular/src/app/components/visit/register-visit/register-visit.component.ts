@@ -12,7 +12,7 @@ import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 export class RegisterVisitComponent implements OnInit {
 
   listTreatments: TreatmentClass[] = [];
-  selectTreatments:any[] = [];
+  selectTreatments: any[] = [];
   selectTreatmentsOptions: IDropdownSettings = {};
 
   // No required fields
@@ -52,21 +52,27 @@ export class RegisterVisitComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
+    // this.selectTreatments = [
+    //   { item_id: 1, item_text: 'Item1' },
+    //   { item_id: 2, item_text: 'Item2' },
+    //   { item_id: 3, item_text: 'Item3' },
+    //   { item_id: 4, item_text: 'Item4' },
+    //   { item_id: 5, item_text: 'Item5' }
+    // ];
 
-    this.listTreatments.forEach(t => {
+
+    this.listTreatments.forEach((t: any) => {
       this.selectTreatments.push(
         {
           item_id: t.id,
           item_text: t.name
         }
       )
-      console.log(t.name);
     });
 
     this.selectTreatmentsOptions = {
-      idField: 'id',
-      textField: 't.name'
+      idField: 'item_id',
+      textField: 'item_text'
     }
   }
 
