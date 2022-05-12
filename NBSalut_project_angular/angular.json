@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "nb-angular:build:production"
+              "browserTarget": "NBSalut_project_angular:build:production"
             },
             "development": {
-              "browserTarget": "nb-angular:build:development"
+              "browserTarget": "NBSalut_project_angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nb-angular:build"
+            "browserTarget": "NBSalut_project_angular:build"
           }
         },
         "test": {
@@ -105,5 +105,5 @@
       }
     }
   },
-  "defaultProject": "nb-angular"
+  "defaultProject": "NBSalut_project_angular"
 }
