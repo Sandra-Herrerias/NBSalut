@@ -9,6 +9,14 @@ import { ListVisitComponent } from './components/visit/list-visit/list-visit.com
 import { RegisterVisitComponent } from './components/visit/register-visit/register-visit.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ListPatientsComponent } from './components/patients/list-patients/list-patients.component';
+import { RegisterPatientComponent } from './components/patients/register-patient/register-patient.component';
+import { QuarterlyReportComponent } from './components/invoices/quarterly-report/quarterly-report.component';
+import { ListInvoicesComponent } from './components/invoices/list-invoices/list-invoices.component';
+import { RegisterTreatmentComponent } from './components/treatments/register-treatment/register-treatment.component';
+import { ListTreatmentsComponent } from './components/treatments/list-treatments/list-treatments.component';
+
+
 
 @NgModule({
   declarations: [
@@ -16,7 +24,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     LoginComponent,
     ListVisitComponent,
-    RegisterVisitComponent
+    RegisterVisitComponent,
+    ListPatientsComponent,
+    RegisterPatientComponent,
+    QuarterlyReportComponent,
+    ListInvoicesComponent,
+    RegisterTreatmentComponent,
+    ListTreatmentsComponent
   ],
   imports: [
     BrowserModule,
