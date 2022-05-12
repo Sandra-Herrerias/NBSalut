@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TreatmentClass } from 'src/app/models/treatment-class.model';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 
 @Component({
@@ -8,17 +9,19 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 })
 export class RegisterVisitComponent implements OnInit {
 
-  listTreatments: string[] = [];
+  listTreatments: TreatmentClass[] = [];
 
-  constructor(private communicator: CommunicatorService) { }
+  constructor(private communicator: CommunicatorService) {
+    this.loadTreatments();
+   }
 
   ngOnInit(): void {
   }
 
-  loadData() {
+  loadTreatments() {
     this.communicator.getTreatments().subscribe((data: any) => {
-      data.forEach((treatment: any) => {
-        this.listTreatments.push(treatment.name);
+      data.forEach((t: any) => {
+        this.listTreatments.push(new TreatmentClass(t.id,t.name,t.price,t.description));
       })
     })
   }
