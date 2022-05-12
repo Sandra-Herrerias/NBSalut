@@ -61,13 +61,19 @@
             <!-- Treatment field -->
             <div class="mb-3 col-3">
                <label class="form-label fw-bold">Tratamiento *</label>
-               <select class="form-select" formControlName="treat" aria-label="Default select example" required>
+               <!-- <select class="form-select" formControlName="treat" aria-label="Default select example" required>
                   <option *ngFor="let t of listTreatments" value={{t.name}}>{{t.name}}</option>
                </select>
                <label class="text-danger mt-1"
                   *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
                   requerida
-               </label>
+               </label> -->
+               <div>
+                  <ng-multiselect-dropdown
+                      [settings]="selectTreatmentsOptions"
+                      [data]="selectTreatments">
+                  </ng-multiselect-dropdown>
+              </div>
             </div>
          </div>
          <!-- Textarea inputs -->

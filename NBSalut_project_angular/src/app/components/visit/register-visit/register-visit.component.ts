@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TreatmentClass } from 'src/app/models/treatment-class.model';
 import { CommunicatorService } from 'src/app/services/communicator.service';
+import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-register-visit',
@@ -11,6 +12,8 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 export class RegisterVisitComponent implements OnInit {
 
   listTreatments: TreatmentClass[] = [];
+  selectTreatments:any[] = [];
+  selectTreatmentsOptions: IDropdownSettings = {};
 
   // No required fields
   recom: string;
@@ -18,7 +21,7 @@ export class RegisterVisitComponent implements OnInit {
 
   message: string | undefined;
 
-
+  // Form builder validator
   public registerVisitForm = this.formBuilder.group({
     name: [
       '', [Validators.required]
@@ -48,6 +51,23 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    
+
+    this.listTreatments.forEach(t => {
+      this.selectTreatments.push(
+        {
+          item_id: t.id,
+          item_text: t.name
+        }
+      )
+      console.log(t.name);
+    });
+
+    this.selectTreatmentsOptions = {
+      idField: 'id',
+      textField: 't.name'
+    }
   }
 
   loadTreatments() {
