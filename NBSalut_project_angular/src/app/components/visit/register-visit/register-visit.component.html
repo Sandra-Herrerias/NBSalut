@@ -7,24 +7,29 @@
 </nav>
 <div class="container mt-5">
    <div class="row">
-      <form>
+      <form [formGroup]="registerVisitForm"> 
          <!-- Text inputs -->
          <div class="row mb-3">
+            <!-- CH Number field -->
             <div class="mb-3 col-3">
                <label class="form-label">Nº del historial clínico</label>
                <input type="text" name="numHis" class="form-control" required>
             </div>
+            <!-- SS Number field -->
             <div class="mb-3 col-3">
                <label class="form-label">Nº de la seguridad social</label>
-               <input type="text" name="numSeg" #numSeg="ngModel" [(ngModel)]="numSeg" class="form-control" required>
-               <span *ngIf="!numSeg.pristine && numSeg.errors?.['required']" class="text-danger">Requerido<br></span>
+               <input type="text" name="numSeg" class="form-control" required>
             </div>
+            <!-- Name field -->
             <div class="mb-3 col-3">
                <label class="form-label">Nombre</label>
-               <input type="text" name="nom" #nom="ngModel" [(ngModel)]="name" class="form-control" required>
-               <span *ngIf="!nom.pristine && nom.errors?.['required']" class="text-danger">Requerido<br></span>
-
+               <input type="text" formControlName="name" class="form-control" required>
+               <label class="text-danger"
+                  *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.dirty">Nombre
+                  requerido
+               </label>
             </div>
+            <!-- Surnames field -->
             <div class="mb-3 col-3">
                <label class="form-label">Apellidos</label>
                <input type="text" name="surnames" class="form-control" required>
@@ -32,10 +37,12 @@
          </div>
          <!-- Date & Select inputs -->
          <div class="row mb-3">
+            <!-- Visit date field -->
             <div class="mb-3 col-3">
                <label class="form-label">Fecha de la visita</label>
                <input type="date" class="form-control">
             </div>
+            <!-- Treatment field -->
             <div class="mb-3 col-3">
                <label class="form-label">Tratamiento</label>
                <select class="form-select" aria-label="Default select example">
@@ -46,10 +53,12 @@
          </div>
          <!-- Textarea inputs -->
          <div class="row mb-3">
+            <!-- Recommendations field -->
             <div class="mb-3 col-6">
                <label for="floatingTextarea2" class="form-label">Recomendaciones</label>
                <textarea class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
             </div>
+            <!-- Description field -->
             <div class="mb-3 col-6">
                <label for="floatingTextarea2" class="form-label">Descripción de la visita</label>
                <textarea class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>

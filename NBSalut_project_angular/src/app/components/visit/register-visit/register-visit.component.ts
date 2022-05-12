@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { TreatmentClass } from 'src/app/models/treatment-class.model';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 
@@ -11,15 +12,26 @@ export class RegisterVisitComponent implements OnInit {
 
   listTreatments: TreatmentClass[] = [];
 
-  // Fields to validate
-  numSeg: number;
-  name: string;
+  message: string | undefined;
 
-  constructor(private communicator: CommunicatorService) {
+  public registerVisitForm = this.formBuilder.group({
+    name: [
+      '',[Validators.required]
+    ],
+    surnames: [
+      '',[Validators.required]
+    ],
+    numHis: [
+      '',[Validators.required]
+    ],
+    numSeg: [
+      '',[Validators.required]
+    ]
+
+  });
+
+  constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService) {
     this.loadTreatments();
-
-    this.numSeg = 0;
-    this.name = "";
    }
 
   ngOnInit(): void {
