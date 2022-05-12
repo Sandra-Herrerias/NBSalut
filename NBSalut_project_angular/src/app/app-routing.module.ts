@@ -8,6 +8,8 @@ import { ListPatientsComponent } from './components/patients/list-patients/list-
 import { RegisterPatientComponent } from './components/patients/register-patient/register-patient.component';
 import { QuarterlyReportComponent } from './components/invoices/quarterly-report/quarterly-report.component';
 import { ListInvoicesComponent } from './components/invoices/list-invoices/list-invoices.component';
+import { ListTreatmentsComponent } from './components/treatments/list-treatments/list-treatments.component';
+import { RegisterTreatmentComponent } from './components/treatments/register-treatment/register-treatment.component';
 
 const routes: Routes = [
   {
@@ -41,6 +43,14 @@ const routes: Routes = [
   {
     path: 'listinvoices',
     component: ListInvoicesComponent
+  },
+  {
+    path: 'regtreatment',
+    component: RegisterTreatmentComponent
+  },
+  {
+    path: 'listtreatments',
+    component: ListTreatmentsComponent
   },
   {//default
     path: '**',

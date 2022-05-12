@@ -13,6 +13,9 @@ import { ListPatientsComponent } from './components/patients/list-patients/list-
 import { RegisterPatientComponent } from './components/patients/register-patient/register-patient.component';
 import { QuarterlyReportComponent } from './components/invoices/quarterly-report/quarterly-report.component';
 import { ListInvoicesComponent } from './components/invoices/list-invoices/list-invoices.component';
+import { RegisterTreatmentComponent } from './components/treatments/register-treatment/register-treatment.component';
+import { ListTreatmentsComponent } from './components/treatments/list-treatments/list-treatments.component';
+
 
 
 @NgModule({
@@ -25,7 +28,9 @@ import { ListInvoicesComponent } from './components/invoices/list-invoices/list-
     ListPatientsComponent,
     RegisterPatientComponent,
     QuarterlyReportComponent,
-    ListInvoicesComponent
+    ListInvoicesComponent,
+    RegisterTreatmentComponent,
+    ListTreatmentsComponent
   ],
   imports: [
     BrowserModule,

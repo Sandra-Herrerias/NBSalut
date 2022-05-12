@@ -32,8 +32,17 @@
                             <li><a class="dropdown-item nav-link fw-bold fs-4" routerLink="/listpatient" routerLinkActive="active">Listar pacientes</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-item nav-link fw-bold fs-4" routerLink="/treatments" routerLinkActive="active">Tratamientos</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle fw-bold fs-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tratamientos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item nav-link fw-bold fs-4" routerLink="/regtreatment" routerLinkActive="active">Nuevo Tratamiento</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item nav-link fw-bold fs-4" routerLink="/listtreatments" routerLinkActive="active">Listar tratamientos</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold fs-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,8 +56,6 @@
                             <li><a class="dropdown-item nav-link fw-bold fs-4" routerLink="/quarterlyreport" routerLinkActive="active">Envío trimestral</a></li>
                         </ul>
                     </li>
-
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold fs-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Visitas
