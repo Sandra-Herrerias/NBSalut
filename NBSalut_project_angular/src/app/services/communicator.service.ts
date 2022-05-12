@@ -26,7 +26,7 @@ export class CommunicatorService {
   // Register Visit Functions
 
   getTreatments() {
-    return this.http.get("http://127.0.0.1:8000/getTreatments",
+    return this.http.get("http://127.0.0.1:8000/api/getTreatments",
       {
         responseType: "json"
       });
