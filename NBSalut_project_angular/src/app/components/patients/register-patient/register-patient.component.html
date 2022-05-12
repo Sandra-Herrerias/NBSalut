@@ -1,1 +1,63 @@
-<p>register-patient works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="container">
+            <a class="navbar-brand">REGISTRO DE PACIENTE</a>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <div class="row">
+        <form>
+            <!-- Text inputs -->
+            <div class="row mb-6">
+                <div class="mb-6 col-6">
+                    <label for="numHis" class="form-label">Nº del historial clínico</label>
+                    <input type="text" name="numHis" class="form-control">
+                </div>
+                <div class="mb-6 col-6">
+                    <label for="numSeg" class="form-label">Nº de la seguridad social</label>
+                    <input type="text" name="numSeg" class="form-control">
+                </div>
+                <div class="mb-6 col-6">
+                    <label for="nom" class="form-label">Nombre</label>
+                    <input type="text" name="nom" class="form-control">
+                </div>
+                <div class="mb-6 col-6">
+                    <label for="surnames" class="form-label">Apellidos</label>
+                    <input type="text" name="surnames" class="form-control">
+                </div>
+            </div>
+            <!-- Date & Select inputs -->
+            <div class="row mb-3">
+                <div class="mb-3 col-3">
+                    <label class="form-label">Fecha de la visita</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+            <!-- Textarea inputs -->
+            <div class="row mb-3">
+                <div class="mb-3 col-6">
+                    <label for="floatingTextarea2" class="form-label">Recomendaciones</label>
+                    <textarea class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
+                </div>
+                <div class="mb-3 col-6">
+                    <label for="floatingTextarea2" class="form-label">Descripción de la visita</label>
+                    <textarea class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
+                </div>
+            </div>
+            <!-- File input -->
+            <div class="row mb-3">
+                <div class="mb-3 col-6">
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </div>
+            <!-- Submit button -->
+            <div class="row text-center">
+                <div class="col-4"></div>
+                <button type="submit" class="btn btn-primary btn-lg col-4">Registrar paciente</button>
+                <div class="col-4"></div>
+
+            </div>
+        </form>
+    </div>
+</div>
