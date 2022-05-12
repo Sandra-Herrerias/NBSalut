@@ -28,12 +28,12 @@ return new class extends Migration
             $table->string('city');
 
             //camp foreign key de user id
-            $table->unsignedBigInteger('invoice_id')->nullable();
+            $table->unsignedBigInteger('invoice_id');
             //constraints FK (foreign key)
             $table->foreign('invoice_id') //camp user id tindrà aquesta constraint
                 ->references('id') //camp
-                ->on('invoices') //taula
-                ->onDelete('set null');
+                ->on('invoices'); //taula
+
 
             $table->timestamps();
         });

@@ -20,10 +20,9 @@ class AttachedFactory extends Factory
     public function definition()
     {
         return [
-            'id' => id(),
             'visit_id' => Visit::pluck('id')->random(),
             'type' => $this->faker->randomElement([".jpg",".png",".jpeg"]),
-            'document' => $this->faker->nullable()
+            'document' => $this->faker->sentence()
         ];
     }
 }

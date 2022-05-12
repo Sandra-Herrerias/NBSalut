@@ -21,14 +21,10 @@ return new class extends Migration
             $table->string('ss_private');
 
             // //Foreign keys
-            $table->unsignedBigInteger('person_id');
+            $table->unsignedBigInteger('user_id');
 
             // //Constraints FK
-            // $table->foreign('person_id')
-            //     ->references('id')
-            //     ->on('person')
-            //     ->nullOnDelete();
-            $table->foreign('person_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

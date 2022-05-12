@@ -19,11 +19,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\Visit::factory(15)->create();
         \App\Models\Invoice::factory(15)->create();
         \App\Models\Invoice_detail::factory(15)->create();
-        \App\Models\Partner_invoice::factory(15)->create();
+        \App\Models\Partner_invoice::factory(5)->create();
         \App\Models\Offer::factory(15)->create();
         \App\Models\Uses::factory(15)->create();
         \App\Models\Attached::factory(15)->create();
-        // los seeders podemos borrarlos
-        // \App\Models\Person::factory(15)->create();
     }
 }

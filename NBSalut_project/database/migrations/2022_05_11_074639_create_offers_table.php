@@ -16,19 +16,17 @@ return new class extends Migration
         Schema::create('offers', function (Blueprint $table) {
 
             //Foreign keys
-            $table->unsignedBigInteger('person_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('user_id')->unsigned()->nullable();
             $table->unsignedBigInteger('treatment_id')->unsigned()->nullable();
 
             //Constraints FK
-            $table->foreign('person_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->nullOnDelete();
+                ->on('users');
 
             $table->foreign('treatment_id')
                 ->references('id')
-                ->on('treatments')
-                ->nullOnDelete();
+                ->on('treatments');
 
             $table->timestamps();
         });

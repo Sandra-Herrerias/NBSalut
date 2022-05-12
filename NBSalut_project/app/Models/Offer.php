@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Treatment;
-use App\Models\Person;
 
 class Offer extends Model
 {
@@ -24,8 +23,8 @@ class Offer extends Model
      /**
      * Get the treatment that belongs to the offer.
      */
-    public function person()
+    public function user()
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(User::class);
     }
 }

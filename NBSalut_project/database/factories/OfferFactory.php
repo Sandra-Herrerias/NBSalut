@@ -4,14 +4,14 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-use App\Models\Person;
-use App\Models\Treatment;
 
+use App\Models\Treatment;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Offer>
  */
-class OffersFactory extends Factory
+class OfferFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,7 +21,7 @@ class OffersFactory extends Factory
     public function definition()
     {
         return [
-            'person_id' => Person::pluck('id')->random(),
+            'user_id' => User::pluck('id')->random(),
             'treatment_id' => Treatment::pluck('id')->random()
         ];
     }

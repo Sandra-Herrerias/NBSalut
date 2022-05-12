@@ -20,7 +20,7 @@ class VisitFactory extends Factory
     public function definition()
     {
         return [
-            'person_id' => User::pluck('id')->random(),
+            'user_id' => User::pluck('id')->random(),
             'visit_description' => $this->faker->text(50),
             'recommendations' => $this->faker->text(20),
             'visit_date' => $this->faker->date(),

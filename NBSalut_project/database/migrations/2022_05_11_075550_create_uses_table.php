@@ -21,20 +21,6 @@ return new class extends Migration
             $table->unsignedBigInteger('treatment_id');
 
             //Constraints FK
-            // $table->foreign('visit_id')
-            //     ->references('id')
-            //     ->on('visit')
-            //     ->nullOnDelete();
-
-            // $table->foreign('person_id')
-            //     ->references('person_id')
-            //     ->on('offers')
-            //     ->nullOnDelete();
-
-            // $table->foreign('treatment_id')
-            //     ->references('treatment_id')
-            //     ->on('offers')
-            //     ->nullOnDelete();
 
             $table->foreign('visit_id')->references('id')->on('visits');
             $table->foreign('user_id')->references('id')->on('users');

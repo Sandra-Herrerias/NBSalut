@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Treatment;
 use App\Models\Visit;
-use App\Models\Person;
 
 
 class Uses extends Model

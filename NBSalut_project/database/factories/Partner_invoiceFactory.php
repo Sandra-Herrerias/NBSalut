@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Invoice;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,16 +18,17 @@ class Partner_invoiceFactory extends Factory
     public function definition()
     {
         return [
-            'phone' => $this->faker->sentence(),
-            'dni' => $this->faker->sentence(),
-            'collegiate_num' => $this->faker->sentence(),
-            'first_name' => $this->faker->sentence(),
-            'last_name' => $this->faker->sentence(),
-            'role' => $this->faker->randomElement(['admin','specialist']),
-            'nif' => $this->faker->sentence(),
-            'postal_code' => $this->faker->sentence(),
-            'address' => $this->faker->sentence(),
-            'city' => $this->faker->sentence()
+            'phone' => $this->faker->numerify('6########'),
+            'dni' => $this->faker->regexify('[0-9]{8}[A-Z]{1}'),
+            'collegiate_num' => $this->faker->numerify('#########'),
+            'first_name' => $this->faker->firstName('es_ES'),
+            'last_name' => $this->faker->lastName('es_ES'),
+            'role' => $this->faker->randomElement(['specialist']),
+            'nif' =>  $this->faker->regexify('[0-9]{8}[A-Z]{1}'),
+            'postal_code' => $this->faker->randomNumber(5, true),
+            'address' => $this->faker->address(),
+            'city' => $this->faker->cityPrefix(),
+            'invoice_id' => Invoice::pluck('id')->random()
            
         ];
     }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Person;
+
 use App\Models\Attached;
 use App\Models\Uses;
 
@@ -15,11 +15,11 @@ class Visit extends Model
     use HasFactory;
 
     /**
-     * Get the person that belongs to the visit.
+     * Get the user that belongs to the visit.
      */
-    public function person()
+    public function user()
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(User::class);
     }
 
     /**

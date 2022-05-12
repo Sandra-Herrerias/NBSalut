@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attached', function (Blueprint $table) {
+        Schema::create('attacheds', function (Blueprint $table) {
             $table->id();
             $table->string('type');
             $table->text('document');
@@ -24,8 +24,7 @@ return new class extends Migration
             //Constraints FK
             $table->foreign('visit_id')
                 ->references('id')
-                ->on('visits')
-                ->nullOnDelete();
+                ->on('visits');
 
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Visit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,8 @@ class InvoiceFactory extends Factory
         return [
             'payment_type' => $this->faker->randomElement(['efectivo','tarjeta']),
             'invoice_date' => $this->faker->dateTime('now', null),
-            'total_price' => $this->faker->randomFloat(2,10,100)
+            'total_price' => $this->faker->randomFloat(2,10,100),
+            'visit_id' => Visit::pluck('id')->random()
         ];
     }
 }
