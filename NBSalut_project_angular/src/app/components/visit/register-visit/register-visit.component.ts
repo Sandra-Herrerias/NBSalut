@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommunicatorService } from 'src/app/services/communicator.service';
 
 @Component({
   selector: 'app-register-visit',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterVisitComponent implements OnInit {
 
-  constructor() { }
+  listTreatments: string[] = [];
+
+  constructor(private communicator: CommunicatorService) { }
 
   ngOnInit(): void {
+  }
+
+  loadData() {
+    this.communicator.getTreatments().subscribe((data: any) => {
+      data.forEach((treatment: any) => {
+        this.listTreatments.push(treatment.name);
+      })
+    })
   }
 
 }
