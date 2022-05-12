@@ -48,18 +48,6 @@ export class RegisterVisitComponent implements OnInit {
     this.loadTreatments();
     this.recom = "";
     this.desc = "";
-  }
-
-  ngOnInit(): void {
-
-    // this.selectTreatments = [
-    //   { item_id: 1, item_text: 'Item1' },
-    //   { item_id: 2, item_text: 'Item2' },
-    //   { item_id: 3, item_text: 'Item3' },
-    //   { item_id: 4, item_text: 'Item4' },
-    //   { item_id: 5, item_text: 'Item5' }
-    // ];
-
 
     this.listTreatments.forEach((t: any) => {
       this.selectTreatments.push(
@@ -74,6 +62,32 @@ export class RegisterVisitComponent implements OnInit {
       idField: 'item_id',
       textField: 'item_text'
     }
+  }
+
+  ngOnInit(): void {
+
+    // this.selectTreatments = [
+    //   { item_id: 1, item_text: 'Item1' },
+    //   { item_id: 2, item_text: 'Item2' },
+    //   { item_id: 3, item_text: 'Item3' },
+    //   { item_id: 4, item_text: 'Item4' },
+    //   { item_id: 5, item_text: 'Item5' }
+    // ];
+
+
+    // this.listTreatments.forEach((t: any) => {
+    //   this.selectTreatments.push(
+    //     {
+    //       item_id: t.id,
+    //       item_text: t.name
+    //     }
+    //   )
+    // });
+
+    // this.selectTreatmentsOptions = {
+    //   idField: 'item_id',
+    //   textField: 'item_text'
+    // }
   }
 
   loadTreatments() {
