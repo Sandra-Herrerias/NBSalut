@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('recommendations');
             $table->date('visit_date');
             $table->string('ss_private');
-
+            $table->boolean('sent');
             // //Foreign keys
             $table->unsignedBigInteger('user_id');
 

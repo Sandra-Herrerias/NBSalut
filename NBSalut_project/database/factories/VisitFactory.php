@@ -24,6 +24,7 @@ class VisitFactory extends Factory
             'visit_description' => $this->faker->text(50),
             'recommendations' => $this->faker->text(20),
             'visit_date' => $this->faker->date(),
+            'sent' => $this->faker->randomElement([true, false]),
             'ss_private' => $this->faker->randomElement(['Sí', 'No'])
         ];
     }
