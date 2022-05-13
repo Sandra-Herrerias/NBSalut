@@ -29,14 +29,10 @@ class UserController extends Controller
         }
         return response()->json(['success' => true, 'user' => $patient]);
     }
-<<<<<<< HEAD
-
 
     public function getUser(Request $request){ 
         $data = User::all();
         return $data;
     }
+
 }
-=======
-}
->>>>>>> 5ece76eb1b1adf5e7017ea8728664ad5207081fb

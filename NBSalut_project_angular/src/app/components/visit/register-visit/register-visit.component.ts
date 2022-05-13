@@ -139,7 +139,7 @@ export class RegisterVisitComponent implements OnInit {
       this.listSelectTreatments.push(treat);
     });
 
-    console.log("Selected: " + this.listSelectTreatments.toString);
+    console.log("Selected: " + this.listSelectTreatments);
   }
 
   getTreatment(id: number) {
