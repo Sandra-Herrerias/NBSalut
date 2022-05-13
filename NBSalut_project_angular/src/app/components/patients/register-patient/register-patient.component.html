@@ -7,57 +7,94 @@
 </nav>
 <div class="container mt-5">
     <div class="row">
-        <form>
+        <form [formGroup]="userDetails" method="post" (ngSubmit)="onSubmit()">
             <!-- Text inputs -->
-            <div class="row mb-6">
-                <div class="mb-6 col-6">
+            <div class="row mb-3">
+                <div class="mb-3 col-4 form-group">
                     <label for="numHis" class="form-label">Nº del historial clínico</label>
-                    <input type="text" name="numHis" class="form-control">
+                    <input type="text" class="form-control" formControlName="numHis">
+                    <span class="text-danger" *ngIf="userDetailsFormControl['numHis'].errors?.['required'] && (userDetails.touched || userDetails.dirty || userDetails.invalid)">* Nº del
+            historial clínico es obligatorio</span>
+
                 </div>
-                <div class="mb-6 col-6">
+                <div class="mb-3 col-4 form-group">
                     <label for="numSeg" class="form-label">Nº de la seguridad social</label>
-                    <input type="text" name="numSeg" class="form-control">
+                    <input type="text" name="numSeg" class="form-control" formControlName="numSeg">
                 </div>
-                <div class="mb-6 col-6">
-                    <label for="nom" class="form-label">Nombre</label>
-                    <input type="text" name="nom" class="form-control">
-                </div>
-                <div class="mb-6 col-6">
-                    <label for="surnames" class="form-label">Apellidos</label>
-                    <input type="text" name="surnames" class="form-control">
+                <div class="mb-3 col-4 form-group">
+                    <label for="register_date" class="form-label">Fecha de registro</label>
+                    <input type="date" name="register_date" class="form-control" formControlName="register_date">
                 </div>
             </div>
-            <!-- Date & Select inputs -->
             <div class="row mb-3">
-                <div class="mb-3 col-3">
-                    <label class="form-label">Fecha de la visita</label>
-                    <input type="date" class="form-control">
+                <div class="mb-3 col-4 form-group">
+                    <label for="first_name" class="form-label">Nombre</label>
+                    <input type="text" name="first_name" class="form-control" formControlName="first_name">
+                    <div *ngIf="userDetailsFormControl['first_name'].touched && userDetailsFormControl['first_name'].invalid" class="alert alert-danger">
+                        <div *ngIf="userDetailsFormControl['first_name'].errors?.['required']">El nombre es obligatorio.</div>
+                        <div *ngIf="userDetailsFormControl['first_name'].errors?.['minlength']">Mínimo 2 carácteres.</div>
+                    </div>
+                </div>
+                <div class="mb-3 col-4 form-group">
+                    <label for="last_name" class="form-label">Apellidos</label>
+                    <input type="text" name="last_name" class="form-control" formControlName="last_name">
+                </div>
+                <div class="mb-3 col-4 form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" name="email" class="form-control" formControlName="email">
+                    <div *ngIf="userDetailsFormControl['email'].touched && userDetailsFormControl['email'].invalid" class="alert alert-danger">
+                        <div *ngIf="userDetailsFormControl['email'].errors?.['required']">Email es obligatorio.</div>
+                        <div *ngIf="userDetailsFormControl['email'].errors?.['email']">Porfavor, introduzca una dirección de email válida.</div>
+                        <div *ngIf="userDetailsFormControl['email'].errors?.['pattern']">Patrón de email incorrecto.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3 col-4 form-group">
+                    <label for="birthdate" class="form-label">Fecha de nacimiento</label>
+                    <input type="date" name="birthdate" class="form-control" formControlName="birthdate">
+                </div>
+                <div class="mb-3 col-4 form-group">
+                    <label for="dni" class="form-label">Dni</label>
+                    <input type="text" name="dni" class="form-control" formControlName="dni">
+                </div>
+                <div class="mb-3 col-4 form-group">
+                    <label for="phone" class="form-label">Teléfono</label>
+                    <input type="text" name="phone" class="form-control" formControlName="phone">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="mb-3 col-4 form-group">
+                    <label for="address" class="form-label">Dirección</label>
+                    <input type="text" name="address" class="form-control" formControlName="address">
+                </div>
+                <div class="mb-3 col-4 form-group">
+                    <label for="city" class="form-label">Ciudad</label>
+                    <input type="text" name="city" class="form-control" formControlName="city">
+                </div>
+                <div class="mb-3 col-4 form-group">
+                    <label for="postal_code" class="form-label">Código Postal</label>
+                    <input type="text" name="postal_code" class="form-control" formControlName="postal_code">
                 </div>
             </div>
             <!-- Textarea inputs -->
             <div class="row mb-3">
-                <div class="mb-3 col-6">
-                    <label for="floatingTextarea2" class="form-label">Recomendaciones</label>
-                    <textarea class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
-                </div>
-                <div class="mb-3 col-6">
-                    <label for="floatingTextarea2" class="form-label">Descripción de la visita</label>
-                    <textarea class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
-                </div>
-            </div>
-            <!-- File input -->
-            <div class="row mb-3">
-                <div class="mb-3 col-6">
-                    <input class="form-control" type="file" id="formFile">
+
+                <div class="mb-3 col-12 form-group">
+                    <label for="previous_pathologies" class="form-label">Antecedentes personales</label>
+                    <textarea class="form-control" formControlName="previous_pathologies" name="previous_pathologies" placeholder="
+          Alergias a medicamentos, enfermedades destacadas, cirugias importantes, medicación actual"></textarea>
                 </div>
             </div>
             <!-- Submit button -->
             <div class="row text-center">
                 <div class="col-4"></div>
-                <button type="submit" class="btn btn-primary btn-lg col-4">Registrar paciente</button>
+                <button type="submit" [disabled]="userDetails.invalid" class="btn btn-primary btn-lg col-4">Registrar paciente</button>
                 <div class="col-4"></div>
-
             </div>
         </form>
+
     </div>
+    <br>
 </div>

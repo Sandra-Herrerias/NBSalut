@@ -17,12 +17,13 @@ use App\Http\Controllers\InvoiceController;
 |
 */
 
+// User Routes
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::post('login', [UserController::class, 'login']);
-
+Route::get('getUser', [UserController::class, 'getUser']);
 
 // Treatment Routes
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);

@@ -17,8 +17,6 @@ export class CommunicatorService {
     this.user = this.userSubject.asObservable();////part public del Behabiour Subject que s'hi actualitza
   }
 
-  // User Functions
-
   login(user: any) {
 
     return this.http.post("http://127.0.0.1:8000/api/login",
@@ -27,7 +25,10 @@ export class CommunicatorService {
         responseType: "json",
       }).pipe(
         map((res: any) => {
+          // console.log(res);
+          // return res;
           if (res.success) {
+            // console.log(res);
             const user: User = new User(res.user.id,
               res.user.first_name, res.user.last_name,
               res.user.email, res.user.password, res.user.role);
@@ -41,11 +42,12 @@ export class CommunicatorService {
 
 
   public usuariData(): User | any {
+    // return this.usuariSubject;
     return this.userSubject.value;
   }
 
 
-  // Treatments Functions
+  // Register Visit Functions
 
   getTreatments() {
     return this.http.get("http://127.0.0.1:8000/api/getTreatments",
@@ -54,15 +56,24 @@ export class CommunicatorService {
       });
   }
 
-  // Invoices Functions
-  getInvoices() {
-    return this.http.get("http://127.0.0.1:8000/api/getInvoices",
+  //Register Patient Functions
+
+  getUser() {
+    return this.http.get("http://127.0.0.1:8000/api/getUser",
       {
         responseType: "json"
       });
   }
 
-  // Patients Functions
+    // Invoices Functions
+    getInvoices() {
+      return this.http.get("http://127.0.0.1:8000/api/getInvoices",
+        {
+          responseType: "json"
+        });
+    }
+
+    // Patients Functions
 
   checkPatient(user: any) {
     return this.http.post("http://127.0.0.1:8000/api/checkPatient",
