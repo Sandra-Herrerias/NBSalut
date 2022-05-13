@@ -28,8 +28,6 @@ Route::get('getUser', [UserController::class, 'getUser']);
 // Treatment Routes
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 
-<<<<<<< HEAD
-=======
 // Visits Routes
 // Route::get('getVisits', [VisitController::class, 'getVisits']); mal
 
@@ -38,4 +36,3 @@ Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
 
 // Patients Routes
 Route::post('checkPatient', [UserController::class, 'checkPatient']);
->>>>>>> 5ece76eb1b1adf5e7017ea8728664ad5207081fb

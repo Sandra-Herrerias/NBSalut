@@ -64,4 +64,32 @@ export class CommunicatorService {
         responseType: "json"
       });
   }
+
+    // Invoices Functions
+    getInvoices() {
+      return this.http.get("http://127.0.0.1:8000/api/getInvoices",
+        {
+          responseType: "json"
+        });
+    }
+
+    // Patients Functions
+
+  checkPatient(user: any) {
+    return this.http.post("http://127.0.0.1:8000/api/checkPatient",
+      { dni: user.dni },
+      {
+        responseType: "json"
+      }).pipe(
+        map((res: any) => {
+          if (res.success) {
+            const user: User = new User(res.user.id,
+              res.user.first_name, res.user.last_name,
+              res.user.email, res.user.password, res.user.role);
+            this.userSubject.next(user);
+          }
+          return res;
+        }));
+
+  }
 }
