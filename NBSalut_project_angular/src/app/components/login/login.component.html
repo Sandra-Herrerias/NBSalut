@@ -12,10 +12,10 @@
         </label>
         <input type="email" value="Juan@gmail.com" class="form-control" id="email" placeholder="example@gmail.com"
           formControlName="email" required>
-        <label class="text-danger"
+        <label class="text-danger mt-1"
           *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.dirty">Email
           requerido</label>
-        <label class="text-danger"
+        <label class="text-danger mt-1"
           *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.dirty">Email no
           válido</label>
       </div>
@@ -23,7 +23,7 @@
         <label class="form-label">Contraseña</label>
         <input type="password" id="password" formControlName="password" class="form-control" placeholder="*********"
           required>
-        <label class="text-danger"
+        <label class="text-danger mt-1"
           *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.dirty">Password
           requerido</label>
       </div>

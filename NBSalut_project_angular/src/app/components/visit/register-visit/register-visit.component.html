@@ -28,9 +28,9 @@
    <div class="row">
       <form [formGroup]="registerVisitForm">
          <!-- Text inputs -->
-         <div class="row mb-3">
+         <div class="row col-7 mb-3">
             <!-- CH Number field -->
-            <div class="mb-3 col-3">
+            <div class="mb-3 col-4">
                <label class="form-label fw-bold">Nº del historial clínico *</label>
                <input type="text" formControlName="numHis" class="form-control" required>
                <label class="text-danger mt-1"
@@ -39,18 +39,8 @@
                   requerido
                </label>
             </div>
-            <!-- SS Number field -->
-            <div class="mb-3 col-3">
-               <label class="form-label fw-bold">Nº de la seguridad social *</label>
-               <input type="text" formControlName="numSeg" class="form-control" required>
-               <label class="text-danger mt-1"
-                  *ngIf="registerVisitForm.get('numSeg')?.errors?.['required'] && registerVisitForm.get('numSeg')?.touched">Nº
-                  de la seguridad social
-                  requerido
-               </label>
-            </div>
             <!-- Name field -->
-            <div class="mb-3 col-3">
+            <div class="mb-3 col-4">
                <label class="form-label fw-bold">Nombre *</label>
                <input type="text" formControlName="name" class="form-control" required>
                <label class="text-danger mt-1"
@@ -59,7 +49,7 @@
                </label>
             </div>
             <!-- Surnames field -->
-            <div class="mb-3 col-3">
+            <div class="mb-3 col-4">
                <label class="form-label fw-bold">Apellidos *</label>
                <input type="text" formControlName="surnames" class="form-control" required>
                <label class="text-danger mt-1"
@@ -67,11 +57,8 @@
                   requerido
                </label>
             </div>
-         </div>
-         <!-- Date & Select inputs -->
-         <div class="row mb-3">
             <!-- Visit date field -->
-            <div class="mb-3 col-3">
+            <div class="mb-3 col-6">
                <label class="form-label fw-bold">Fecha de la visita *</label>
                <input type="date" formControlName="date" class="form-control" required>
                <label class="text-danger mt-1"
@@ -80,7 +67,7 @@
                </label>
             </div>
             <!-- Treatment field -->
-            <div class="mb-3 col-3">
+            <div class="mb-3 col-6">
                <label class="form-label fw-bold">Tratamiento *</label>
                <!-- <select class="form-select" formControlName="treat" aria-label="Default select example" required>
                   <option *ngFor="let t of listTreatments" value={{t.name}}>{{t.name}}</option>
@@ -96,35 +83,33 @@
                   </ng-multiselect-dropdown>
                </div>
             </div>
-         </div>
-         <!-- Textarea inputs -->
-         <div class="row mb-3">
             <!-- Recommendations field -->
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-12">
                <label class="form-label fw-bold">Recomendaciones</label>
                <textarea name="reco" class="form-control" placeholder="Escribe aquí..."
                   style="height: 100px"></textarea>
             </div>
             <!-- Description field -->
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-12">
                <label class="form-label fw-bold">Descripción de la visita</label>
                <textarea name="des" class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
             </div>
-            {{desc}}
-         </div>
-         <!-- File input -->
-         <div class="row mb-3">
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-12">
                <label class="form-label fw-bold">Documento adjunto</label>
                <input class="form-control" type="file" id="file">
             </div>
-            <div class="col-6">
+            <div class="mb-3 col-12">
                <label class="form-label fw-bold">Facturación</label><br>
-               <button type="button" class="btn btn-primary col-12" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+               <button type="button" class="btn btn-primary col-12" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
                   Generar
-                </button>
+               </button>
             </div>
          </div>
+
+
+
+
          <!-- Submit button -->
          <div class="row text-center mt-5">
             <div class="col-4"></div>
@@ -137,20 +122,21 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+   aria-labelledby="staticBackdropLabel" aria-hidden="true">
    <div class="modal-dialog">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-       </div>
-       <div class="modal-body">
-         ...
-       </div>
-       <div class="modal-footer">
-         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-         <button type="button" class="btn btn-primary">Understood</button>
-       </div>
-     </div>
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            ...
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+         </div>
+      </div>
    </div>
- </div>
+</div>
