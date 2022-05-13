@@ -145,4 +145,8 @@ export class RegisterVisitComponent implements OnInit {
   getTreatment(id: number) {
     return this.listTreatments.find(e => e.id == id);
   }
+
+  facturar() {
+    
+  }
 }

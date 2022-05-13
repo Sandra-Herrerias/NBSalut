@@ -17,6 +17,14 @@ export class CommunicatorService {
     this.user = this.userSubject.asObservable();////part public del Behabiour Subject que s'hi actualitza
   }
 
+
+  // Users Functions
+
+  /**
+   * 
+   * @param user the user to validate the login
+   * @returns the user validated & a response with a success variable.
+   */
   login(user: any) {
 
     return this.http.post("http://127.0.0.1:8000/api/login",
@@ -40,6 +48,15 @@ export class CommunicatorService {
       );
   }
 
+  /**
+   * Logout the actual sesion
+   */
+  logout() {
+    localStorage.removeItem('user');
+    this.userSubject.next(JSON.parse(null!));
+  }
+
+
 
   public usuariData(): User | any {
     // return this.usuariSubject;
@@ -47,8 +64,12 @@ export class CommunicatorService {
   }
 
 
-  // Register Visit Functions
+  // Treatment Functions
 
+  /**
+   * 
+   * @returns a list of treatments from the DDBB
+   */
   getTreatments() {
     return this.http.get("http://127.0.0.1:8000/api/getTreatments",
       {
@@ -65,16 +86,21 @@ export class CommunicatorService {
       });
   }
 
-    // Invoices Functions
-    getInvoices() {
-      return this.http.get("http://127.0.0.1:8000/api/getInvoices",
-        {
-          responseType: "json"
-        });
-    }
+  // Invoices Functions
+  getInvoices() {
+    return this.http.get("http://127.0.0.1:8000/api/getInvoices",
+      {
+        responseType: "json"
+      });
+  }
 
-    // Patients Functions
+  // Patients Functions
 
+  /**
+   * 
+   * @param user the user to check if exists in the DDBB
+   * @returns the patient validated & a response with a success variable.
+   */
   checkPatient(user: any) {
     return this.http.post("http://127.0.0.1:8000/api/checkPatient",
       { dni: user.dni },
