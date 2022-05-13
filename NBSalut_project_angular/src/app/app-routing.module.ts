@@ -54,7 +54,7 @@ const routes: Routes = [
   },
   {//default
     path: '**',
-    redirectTo: 'login'
+    redirectTo: 'home'
   }
 ];
 

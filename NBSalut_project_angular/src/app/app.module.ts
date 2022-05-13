@@ -15,6 +15,8 @@ import { QuarterlyReportComponent } from './components/invoices/quarterly-report
 import { ListInvoicesComponent } from './components/invoices/list-invoices/list-invoices.component';
 import { RegisterTreatmentComponent } from './components/treatments/register-treatment/register-treatment.component';
 import { ListTreatmentsComponent } from './components/treatments/list-treatments/list-treatments.component';
+import { DataTablesModule } from "angular-datatables";
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
@@ -38,6 +40,8 @@ import { ListTreatmentsComponent } from './components/treatments/list-treatments
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

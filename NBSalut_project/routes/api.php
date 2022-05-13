@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TreatmentController;
-
-
+use App\Http\Controllers\VisitController;
+use App\Http\Controllers\InvoiceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,3 +28,14 @@ Route::get('getUser', [UserController::class, 'getUser']);
 // Treatment Routes
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 
+<<<<<<< HEAD
+=======
+// Visits Routes
+// Route::get('getVisits', [VisitController::class, 'getVisits']); mal
+
+// Invoice Routes
+Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
+
+// Patients Routes
+Route::post('checkPatient', [UserController::class, 'checkPatient']);
+>>>>>>> 5ece76eb1b1adf5e7017ea8728664ad5207081fb
