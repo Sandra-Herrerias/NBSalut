@@ -91,12 +91,9 @@
                </label> -->
                <div>
                   <ng-multiselect-dropdown [placeholder]="'Seleccionar tratamientos'"
-                     [settings]="selectTreatmentsOptions" [data]="listTreatments">
+                     [settings]="selectTreatmentsOptions" [data]="listTreatments" formControlName="treat"
+                     (onSelect)="onItemSelect()" (onSelectAll)="onSelectAll()" (onDeSelect)="onItemSelect()">
                   </ng-multiselect-dropdown>
-                  <label class="text-danger mt-1"
-                     *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
-                     requerida
-                  </label>
                </div>
             </div>
          </div>
@@ -132,4 +129,3 @@
       </form>
    </div>
 </div>
-

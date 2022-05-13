@@ -15,7 +15,7 @@ import { User } from 'src/app/models/user';
 export class RegisterVisitComponent implements OnInit {
 
   listTreatments: TreatmentClass[] = [];
-  selectTreatments: any[] = [];
+  listSelectTreatments: TreatmentClass[] = [];
   selectTreatmentsOptions: IDropdownSettings = {};
 
   patientExist: boolean;
@@ -78,17 +78,8 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   loadTreatmentsSelect() {
-    // Static values
 
-    this.selectTreatments = [
-      { item_id: 1, item_text: 'Item1' },
-      { item_id: 2, item_text: 'Item2' },
-      { item_id: 3, item_text: 'Item3' },
-      { item_id: 4, item_text: 'Item4' },
-      { item_id: 5, item_text: 'Item5' }
-    ];
-
-    console.log(this.selectTreatments);
+    //console.log(this.selectTreatments);
 
     // Treatment values
 
@@ -105,6 +96,13 @@ export class RegisterVisitComponent implements OnInit {
       unSelectAllText: "Deseleccionar todos",
       noDataAvailablePlaceholderText: "No hay tratamientos"
     }
+  }
+
+  onItemSelect() {
+    console.log(this.registerVisitForm.value.treat);
+  }
+  onSelectAll() {
+    console.log(this.registerVisitForm.value.treat);
   }
 
   checkPatient() {
@@ -129,5 +127,22 @@ export class RegisterVisitComponent implements OnInit {
     console.log(this.registerVisitForm.value);
     console.log(this.recom);
     console.log(this.desc);
+    this.onSelectAll();
+
+    this.registerVisitForm.value.treat.forEach((t: any) => {
+      let treat: TreatmentClass = new TreatmentClass(
+        this.getTreatment(t.id)?.id,
+        this.getTreatment(t.id)?.name,
+        this.getTreatment(t.id)?.price,
+        this.getTreatment(t.id)?.description
+      );
+      this.listSelectTreatments.push(treat);
+    });
+
+    console.log("Selected: " + this.listSelectTreatments.toString);
+  }
+
+  getTreatment(id: number) {
+    return this.listTreatments.find(e => e.id == id);
   }
 }
