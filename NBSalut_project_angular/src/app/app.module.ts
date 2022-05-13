@@ -42,4 +42,5 @@ import { ListTreatmentsComponent } from './components/treatments/list-treatments
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

@@ -44,5 +44,4 @@ export class RegisterVisitComponent implements OnInit {
       })
     })
   }
-
 }
