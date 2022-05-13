@@ -27,7 +27,11 @@ Route::post('login', [UserController::class, 'login']);
 // Treatment Routes
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 
+// Visits Routes
 // Route::get('getVisits', [VisitController::class, 'getVisits']); mal
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
+
+// Patients Routes
+Route::post('checkPatient', [UserController::class, 'checkPatient']);

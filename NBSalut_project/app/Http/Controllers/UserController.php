@@ -21,4 +21,12 @@ class UserController extends Controller
         // $user= Auth::loginUsingId($user->id);
         return response()->json(['success' => true, 'user' => $user]);
     }
+
+    public function checkPatient(Request $request) {
+        $patient = User::where('dni', $request->dni)->first();
+        if (!$patient) {
+            return response()->json(['success' => false]);
+        }
+        return response()->json(['success' => true, 'user' => $patient]);
+    }
 }

@@ -5,7 +5,26 @@
       </div>
    </div>
 </nav>
-<div class="container mt-5">
+<div *ngIf="!patientExist" class="container mt-5">
+   <form [formGroup]="validatePatientForm">
+      <div class="row mb-3">
+         <!-- Patient field -->
+         <div class="mb-3 col-3">
+            <label class="form-label fw-bold">Introduce DNI del paciente *</label>
+            <input type="text" formControlName="dni" class="form-control" required>
+            <label class="text-danger mt-1"
+               *ngIf="registerVisitForm.get('dni')?.errors?.['required'] && registerVisitForm.get('dni')?.touched">DNI
+               requerido
+            </label>
+         </div>
+      </div>
+      <div class="row text-center mt-5">
+         <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientForm.invalid"
+            (click)="checkPatient()">Buscar Paciente</button>
+      </div>
+   </form>
+</div>
+<div *ngIf="patientExist" class="container mt-5">
    <div class="row">
       <form [formGroup]="registerVisitForm">
          <!-- Text inputs -->
@@ -71,8 +90,8 @@
                   requerida
                </label> -->
                <div>
-                  <ng-multiselect-dropdown formControlName="treat" required [settings]="selectTreatmentsOptions"
-                     [data]="selectTreatments">
+                  <ng-multiselect-dropdown [placeholder]="'Seleccionar tratamientos'"
+                     [settings]="selectTreatmentsOptions" [data]="listTreatments">
                   </ng-multiselect-dropdown>
                   <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
@@ -86,7 +105,8 @@
             <!-- Recommendations field -->
             <div class="mb-3 col-6">
                <label class="form-label fw-bold">Recomendaciones</label>
-               <textarea name="reco" class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
+               <textarea name="reco" class="form-control" placeholder="Escribe aquí..."
+                  style="height: 100px"></textarea>
             </div>
             <!-- Description field -->
             <div class="mb-3 col-6">
@@ -108,8 +128,8 @@
             <button type="button" class="btn btn-primary btn-lg col-4" [disabled]="registerVisitForm.invalid"
                (click)="addVisit()">Registrar visita</button>
             <div class="col-4"></div>
-
          </div>
       </form>
    </div>
 </div>
+
