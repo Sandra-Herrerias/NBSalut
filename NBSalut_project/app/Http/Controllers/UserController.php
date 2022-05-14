@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,8 +24,16 @@ class UserController extends Controller
         return response()->json(['success' => true, 'user' => $user]);
     }
 
-    public function checkPatient(Request $request) {
+    public function checkPatientDni(Request $request) {
         $patient = User::where('dni', $request->dni)->first();
+        if (!$patient) {
+            return response()->json(['success' => false]);
+        }
+        return response()->json(['success' => true, 'user' => $patient]);
+    }
+
+    public function checkPatientName(Request $request) {
+        $patient = User::where('first_name', $request->name)->where('last_name', $request->surname)->first();
         if (!$patient) {
             return response()->json(['success' => false]);
         }

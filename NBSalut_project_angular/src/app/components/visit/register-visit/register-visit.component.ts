@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TreatmentClass } from 'src/app/models/treatment-class.model';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 import { IDropdownSettings, } from 'ng-multiselect-dropdown';
@@ -47,9 +47,8 @@ export class RegisterVisitComponent implements OnInit {
     numSeg: [
       '', [Validators.required]
     ],
-    date: [
-      '', [Validators.required]
-    ],
+    date: new FormControl((new Date()).toISOString().substring(0,10))
+    ,
     treat: [
       '', [Validators.required]
     ]
@@ -70,6 +69,9 @@ export class RegisterVisitComponent implements OnInit {
       '', [Validators.required]
     ]
   });
+
+
+  // Constructor
 
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
     this.recom = "";
@@ -121,7 +123,7 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   checkPatientDni() {
-    this.communicator.checkPatient({
+    this.communicator.checkPatientDni({
       dni: this.validatePatientFormDni.value.dni
     }).subscribe((res: any) => {
       if (res.success) {
@@ -139,7 +141,7 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   checkPatientName() {
-    this.communicator.checkPatient({
+    this.communicator.checkPatientName({
       name: this.validatePatientFormName.value.name,
       surname: this.validatePatientFormName.value.surname
     }).subscribe((res: any) => {
@@ -148,6 +150,7 @@ export class RegisterVisitComponent implements OnInit {
           res.user.first_name, res.user.last_name,
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
+
         //console.log(this.visitPatient.name);
       } else {
         this.route.navigate(['/regpatient']);

@@ -91,7 +91,7 @@
             <!-- Name field -->
             <div class="mb-3 col-4">
                <label class="form-label fw-bold">Nombre *</label>
-               <input type="text" formControlName="name" class="form-control" required>
+               <input type="text" formControlName="name" class="form-control" value={{visitPatient.name}} required>
                <label class="text-danger mt-1"
                   *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                   requerido
@@ -100,7 +100,7 @@
             <!-- Surnames field -->
             <div class="mb-3 col-4">
                <label class="form-label fw-bold">Apellidos *</label>
-               <input type="text" formControlName="surnames" class="form-control" required>
+               <input type="text" formControlName="surnames" class="form-control" value="{{visitPatient.surname}}" required>
                <label class="text-danger mt-1"
                   *ngIf="registerVisitForm.get('surnames')?.errors?.['required'] && registerVisitForm.get('surnames')?.touched">Apellidos
                   requerido
@@ -109,7 +109,7 @@
             <!-- Visit date field -->
             <div class="mb-3 col-6">
                <label class="form-label fw-bold">Fecha de la visita *</label>
-               <input type="date" formControlName="date" class="form-control" required>
+               <input type="date" formControlName="date" class="form-control" readonly>
                <label class="text-danger mt-1"
                   *ngIf="registerVisitForm.get('date')?.errors?.['required'] && registerVisitForm.get('date')?.touched">Fecha
                   requerida
@@ -131,12 +131,6 @@
                      (onSelect)="onItemSelect()" (onSelectAll)="onSelectAll()" (onDeSelect)="onItemSelect()">
                   </ng-multiselect-dropdown>
                </div>
-            </div>
-            <!-- Recommendations field -->
-            <div class="mb-3 col-12">
-               <label class="form-label fw-bold">Recomendaciones</label>
-               <textarea name="reco" class="form-control" placeholder="Escribe aquí..."
-                  style="height: 100px"></textarea>
             </div>
             <!-- Description field -->
             <div class="mb-3 col-12">

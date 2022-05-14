@@ -98,12 +98,38 @@ export class CommunicatorService {
 
   /**
    * 
-   * @param user the user to check if exists in the DDBB
+   * @param user the user to check if exists in the DDBB with the DNI
    * @returns the patient validated & a response with a success variable.
    */
-  checkPatient(user: any) {
-    return this.http.post("http://127.0.0.1:8000/api/checkPatient",
+  checkPatientDni(user: any) {
+    return this.http.post("http://127.0.0.1:8000/api/checkPatientDni",
       { dni: user.dni },
+      {
+        responseType: "json"
+      }).pipe(
+        map((res: any) => {
+          if (res.success) {
+            const user: User = new User(res.user.id,
+              res.user.first_name, res.user.last_name,
+              res.user.email, res.user.password, res.user.role);
+            this.userSubject.next(user);
+          }
+          return res;
+        }));
+
+  }
+
+  /**
+   * 
+   * @param user the user to check if exists in the DDBB with the full name
+   * @returns the patient validated & a response with a success variable.
+   */
+  checkPatientName(user: any) {
+    return this.http.post("http://127.0.0.1:8000/api/checkPatientName",
+      {
+        name: user.name,
+        surname: user.surname
+      },
       {
         responseType: "json"
       }).pipe(
