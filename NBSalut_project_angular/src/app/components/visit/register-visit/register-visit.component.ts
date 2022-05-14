@@ -5,6 +5,7 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { VisitClass } from 'src/app/models/visit-class.model';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegisterVisitComponent implements OnInit {
   listTreatments: TreatmentClass[] = [];
   listSelectTreatments: TreatmentClass[] = [];
   selectTreatmentsOptions: IDropdownSettings = {};
-  visits: any;
+  visits: VisitClass[] = [];
 
   patientExist: boolean;
   visitPatient: any;
@@ -86,12 +87,10 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   loadVisits() {
-    this.communicator.getVisits().subscribe((response: any) => {
-      if (response.success) {
-        this.visits = response.data;
-        //this.dtTrigger.next(this.visits);
-      }
-
+    this.communicator.getVisits().subscribe((data: any) => {
+      data.forEach((t: any) => {
+        this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
+      })
     })
   }
 
