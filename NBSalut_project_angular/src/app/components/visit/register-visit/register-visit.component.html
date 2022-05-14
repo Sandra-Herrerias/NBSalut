@@ -165,6 +165,26 @@
       </div>
       <div class="col-6">
          <h2>Visits table</h2>
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Paciente</th>
+                    <th>Fecha de visita</th>
+                    <th>Precio</th>
+                    <th>Descripción de la visita </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let visit of visits">
+                    <td>{{visit.id}}</td>
+                    <td>{{visit.first_name}} {{visit.last_name}}</td>
+                    <td>{{visit.visit_date}}</td>
+                    <td>{{visit.price}}</td>
+                    <td>{{visit.id}}</td>
+                </tr>
+            </tbody>
+        </table>
       </div>
    </div>
 </div>

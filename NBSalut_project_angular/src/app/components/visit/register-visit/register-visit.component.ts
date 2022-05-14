@@ -17,6 +17,7 @@ export class RegisterVisitComponent implements OnInit {
   listTreatments: TreatmentClass[] = [];
   listSelectTreatments: TreatmentClass[] = [];
   selectTreatmentsOptions: IDropdownSettings = {};
+  visits: any;
 
   patientExist: boolean;
   visitPatient: any;
@@ -81,6 +82,17 @@ export class RegisterVisitComponent implements OnInit {
     this.loadTreatmentsSelect();
 
     console.log(this.listTreatments);
+    console.log(this.visits);
+  }
+
+  loadVisits() {
+    this.communicator.getVisits().subscribe((response: any) => {
+      if (response.success) {
+        this.visits = response.data;
+        //this.dtTrigger.next(this.visits);
+      }
+
+    })
   }
 
   loadTreatments() {
@@ -133,6 +145,10 @@ export class RegisterVisitComponent implements OnInit {
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
         this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
 
+        this.loadVisits();
+        console.log(this.visits);
+
+
       } else {
         this.route.navigate(['/regpatient']);
       }
@@ -156,6 +172,9 @@ export class RegisterVisitComponent implements OnInit {
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
         this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
+
+        this.loadVisits();
+        console.log(this.visits);
 
       } else {
         this.route.navigate(['/regpatient']);
