@@ -35,7 +35,7 @@
             </label>
          </div>
       </div>
-      <div class="row text-center mt-5">
+      <div class="row text-center mt-2">
          <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientFormDni.invalid"
             (click)="checkPatientDni()">Buscar Paciente</button>
       </div>
@@ -64,7 +64,7 @@
             </label>
          </div>
       </div>
-      <div class="row text-center mt-5">
+      <div class="row text-center mt-2">
          <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientFormName.invalid"
             (click)="checkPatientName()">Buscar Paciente</button>
       </div>
@@ -76,7 +76,7 @@
 <div *ngIf="patientExist" class="container mt-5">
    <div class="row">
       <form [formGroup]="registerVisitForm">
-         <!-- Text inputs -->
+         <!-- Inputs -->
          <div class="row col-7 mb-3">
             <!-- CH Number field -->
             <div class="mb-3 col-4">
@@ -149,8 +149,10 @@
                </button>
             </div>
          </div>
-
-
+         <!-- Visit table -->
+         <div class="row col-5 mb-3">
+            <h2>Visits table</h2>
+         </div>
 
 
          <!-- Submit button -->
@@ -170,15 +172,32 @@
    <div class="modal-dialog">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Facturación</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
          <div class="modal-body">
-            ...
+            <table class="table table-striped">
+               <thead>
+                  <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">First</th>
+                     <th scope="col">Last</th>
+                     <th scope="col">Handle</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <th scope="row">1</th>
+                     <td>Mark</td>
+                     <td>Otto</td>
+                     <td>@mdo</td>
+                  </tr>
+               </tbody>
+            </table>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <button type="button" class="btn btn-primary">Aceptar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
          </div>
       </div>
    </div>
