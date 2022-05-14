@@ -56,10 +56,13 @@ export class RegisterVisitComponent implements OnInit {
 
   });
 
-  public validatePatientForm = this.formBuilder.group({
+  public validatePatientFormDni = this.formBuilder.group({
     dni: [
       '', [Validators.required]
-    ],
+    ]
+  });
+
+  public validatePatientFormName = this.formBuilder.group({
     name: [
       '', [Validators.required]
     ],
@@ -119,7 +122,7 @@ export class RegisterVisitComponent implements OnInit {
 
   checkPatientDni() {
     this.communicator.checkPatient({
-      dni: this.validatePatientForm.value.dni
+      dni: this.validatePatientFormDni.value.dni
     }).subscribe((res: any) => {
       if (res.success) {
         this.visitPatient = new User(res.user.id,
@@ -137,8 +140,8 @@ export class RegisterVisitComponent implements OnInit {
 
   checkPatientName() {
     this.communicator.checkPatient({
-      name: this.validatePatientForm.value.name,
-      surname: this.validatePatientForm.value.surname
+      name: this.validatePatientFormName.value.name,
+      surname: this.validatePatientFormName.value.surname
     }).subscribe((res: any) => {
       if (res.success) {
         this.visitPatient = new User(res.user.id,
@@ -178,6 +181,6 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   facturar() {
-    
+
   }
 }

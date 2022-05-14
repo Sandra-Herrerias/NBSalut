@@ -21,8 +21,9 @@
 
 <!-- CHECK FORMS -->
 
+<!-- Dni Form -->
 <div *ngIf="!patientExist && checkTypeForm.value.checkType == 'dni'" class="container mt-5">
-   <form [formGroup]="validatePatientForm">
+   <form [formGroup]="validatePatientFormDni">
       <div class="row mb-3">
          <!-- Patient field -->
          <div class="mb-3 col-3">
@@ -35,13 +36,15 @@
          </div>
       </div>
       <div class="row text-center mt-5">
-         <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientForm.invalid"
+         <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientFormDni.invalid"
             (click)="checkPatientDni()">Buscar Paciente</button>
       </div>
    </form>
 </div>
+
+<!-- Name Form -->
 <div *ngIf="!patientExist && checkTypeForm.value.checkType == 'name'" class="container mt-5">
-   <form [formGroup]="validatePatientForm">
+   <form [formGroup]="validatePatientFormName">
       <div class="row mb-3">
          <!-- Patient field -->
          <div class="mb-3 col-3">
@@ -62,7 +65,7 @@
          </div>
       </div>
       <div class="row text-center mt-5">
-         <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientForm.invalid"
+         <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientFormName.invalid"
             (click)="checkPatientName()">Buscar Paciente</button>
       </div>
    </form>
