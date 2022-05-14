@@ -28,6 +28,12 @@ export class RegisterVisitComponent implements OnInit {
   message: string | undefined;
 
   // Form builder validator
+  public checkTypeForm = this.formBuilder.group({
+    checkType: [
+      '', [Validators.required]
+    ]
+  })
+
   public registerVisitForm = this.formBuilder.group({
     name: [
       '', [Validators.required]
@@ -52,6 +58,12 @@ export class RegisterVisitComponent implements OnInit {
 
   public validatePatientForm = this.formBuilder.group({
     dni: [
+      '', [Validators.required]
+    ],
+    name: [
+      '', [Validators.required]
+    ],
+    surname: [
       '', [Validators.required]
     ]
   });
@@ -105,7 +117,7 @@ export class RegisterVisitComponent implements OnInit {
     console.log(this.registerVisitForm.value.treat);
   }
 
-  checkPatient() {
+  checkPatientDni() {
     this.communicator.checkPatient({
       dni: this.validatePatientForm.value.dni
     }).subscribe((res: any) => {
@@ -115,6 +127,25 @@ export class RegisterVisitComponent implements OnInit {
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
         console.log(this.visitPatient.name);
+      } else {
+        this.route.navigate(['/regpatient']);
+      }
+    })
+
+
+  }
+
+  checkPatientName() {
+    this.communicator.checkPatient({
+      name: this.validatePatientForm.value.name,
+      surname: this.validatePatientForm.value.surname
+    }).subscribe((res: any) => {
+      if (res.success) {
+        this.visitPatient = new User(res.user.id,
+          res.user.first_name, res.user.last_name,
+          res.user.email, res.user.password, res.user.role)
+        this.patientExist = true;
+        //console.log(this.visitPatient.name);
       } else {
         this.route.navigate(['/regpatient']);
       }

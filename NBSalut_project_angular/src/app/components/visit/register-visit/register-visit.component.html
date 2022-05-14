@@ -6,6 +6,22 @@
    </div>
 </nav>
 <div *ngIf="!patientExist" class="container mt-5">
+   <div class="row">
+      <div class="col-3">
+         <form [formGroup]="checkTypeForm">
+            <label class="form-label fw-bold">Método de validación *</label>
+            <select class="form-select" formControlName="checkType" required>
+               <option value="dni">DNI</option>
+               <option value="name">Nombre completo</option>
+            </select>
+         </form>
+      </div>
+   </div>
+</div>
+
+<!-- CHECK FORMS -->
+
+<div *ngIf="!patientExist && checkTypeForm.value.checkType == 'dni'" class="container mt-5">
    <form [formGroup]="validatePatientForm">
       <div class="row mb-3">
          <!-- Patient field -->
@@ -20,10 +36,40 @@
       </div>
       <div class="row text-center mt-5">
          <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientForm.invalid"
-            (click)="checkPatient()">Buscar Paciente</button>
+            (click)="checkPatientDni()">Buscar Paciente</button>
       </div>
    </form>
 </div>
+<div *ngIf="!patientExist && checkTypeForm.value.checkType == 'name'" class="container mt-5">
+   <form [formGroup]="validatePatientForm">
+      <div class="row mb-3">
+         <!-- Patient field -->
+         <div class="mb-3 col-3">
+            <label class="form-label fw-bold">Introduce Nombre del paciente *</label>
+            <input type="text" formControlName="name" class="form-control" required>
+            <label class="text-danger mt-1"
+               *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">DNI
+               requerido
+            </label>
+         </div>
+         <div class="mb-3 col-3">
+            <label class="form-label fw-bold">Introduce los Apellidos del paciente *</label>
+            <input type="text" formControlName="surname" class="form-control" required>
+            <label class="text-danger mt-1"
+               *ngIf="registerVisitForm.get('surname')?.errors?.['required'] && registerVisitForm.get('surname')?.touched">DNI
+               requerido
+            </label>
+         </div>
+      </div>
+      <div class="row text-center mt-5">
+         <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientForm.invalid"
+            (click)="checkPatientName()">Buscar Paciente</button>
+      </div>
+   </form>
+</div>
+
+<!-- MAIN FORM -->
+
 <div *ngIf="patientExist" class="container mt-5">
    <div class="row">
       <form [formGroup]="registerVisitForm">
@@ -94,11 +140,11 @@
                <label class="form-label fw-bold">Descripción de la visita</label>
                <textarea name="des" class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
             </div>
-            <div class="mb-3 col-12">
+            <div class="mb-3 col-8">
                <label class="form-label fw-bold">Documento adjunto</label>
                <input class="form-control" type="file" id="file">
             </div>
-            <div class="mb-3 col-12">
+            <div class="mb-3 col-4">
                <label class="form-label fw-bold">Facturación</label><br>
                <button type="button" class="btn btn-primary col-12" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
