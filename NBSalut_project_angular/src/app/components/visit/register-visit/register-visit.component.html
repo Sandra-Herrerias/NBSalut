@@ -84,14 +84,14 @@
                <input type="text" formControlName="numHis" class="form-control" required>
                <label class="text-danger mt-1"
                   *ngIf="registerVisitForm.get('numHis')?.errors?.['required'] && registerVisitForm.get('numHis')?.touched">Nº
-                  del historial clínico
+                  del historial
                   requerido
                </label>
             </div>
             <!-- Name field -->
             <div class="mb-3 col-4">
                <label class="form-label fw-bold">Nombre *</label>
-               <input type="text" formControlName="name" class="form-control" value={{visitPatient.name}} required>
+               <input type="text" formControlName="name" class="form-control" required>
                <label class="text-danger mt-1"
                   *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                   requerido
@@ -100,7 +100,7 @@
             <!-- Surnames field -->
             <div class="mb-3 col-4">
                <label class="form-label fw-bold">Apellidos *</label>
-               <input type="text" formControlName="surnames" class="form-control" value="{{visitPatient.surname}}" required>
+               <input type="text" formControlName="surnames" class="form-control" required>
                <label class="text-danger mt-1"
                   *ngIf="registerVisitForm.get('surnames')?.errors?.['required'] && registerVisitForm.get('surnames')?.touched">Apellidos
                   requerido

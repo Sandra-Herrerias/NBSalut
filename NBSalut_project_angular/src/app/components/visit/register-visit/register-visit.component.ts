@@ -44,10 +44,7 @@ export class RegisterVisitComponent implements OnInit {
     numHis: [
       '', [Validators.required]
     ],
-    numSeg: [
-      '', [Validators.required]
-    ],
-    date: new FormControl((new Date()).toISOString().substring(0,10))
+    date: new FormControl((new Date()).toISOString().substring(0, 10))
     ,
     treat: [
       '', [Validators.required]
@@ -94,15 +91,10 @@ export class RegisterVisitComponent implements OnInit {
     })
   }
 
+  /**
+   * Load the treatments in the select of the form
+   */
   loadTreatmentsSelect() {
-
-    //console.log(this.selectTreatments);
-
-    // Treatment values
-
-    // this.listTreatments.forEach((t) => {
-    //   this.selectTreatments.push({ id: t.id, name: t.name})
-    // });
 
     // Multi select Options
 
@@ -115,6 +107,7 @@ export class RegisterVisitComponent implements OnInit {
     }
   }
 
+  // Multi select testing
   onItemSelect() {
     console.log(this.registerVisitForm.value.treat);
   }
@@ -122,6 +115,10 @@ export class RegisterVisitComponent implements OnInit {
     console.log(this.registerVisitForm.value.treat);
   }
 
+
+  /**
+   * Check if the user with the DNI given exists in the DDBB
+   */
   checkPatientDni() {
     this.communicator.checkPatientDni({
       dni: this.validatePatientFormDni.value.dni
@@ -131,15 +128,20 @@ export class RegisterVisitComponent implements OnInit {
           res.user.first_name, res.user.last_name,
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
-        console.log(this.visitPatient.name);
+
+        this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
+        this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
+        this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
+
       } else {
         this.route.navigate(['/regpatient']);
       }
     })
-
-
   }
 
+  /**
+   * Check if the user with the full name given exists in the DDBB
+   */
   checkPatientName() {
     this.communicator.checkPatientName({
       name: this.validatePatientFormName.value.name,
@@ -151,32 +153,36 @@ export class RegisterVisitComponent implements OnInit {
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
 
-        //console.log(this.visitPatient.name);
+        this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
+        this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
+        this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
+
       } else {
         this.route.navigate(['/regpatient']);
       }
     })
-
-
   }
 
+  /**
+   * Submit the visit and adds to the DDBB
+   */
   addVisit() {
-    console.log(this.registerVisitForm.value);
-    console.log(this.recom);
-    console.log(this.desc);
-    this.onSelectAll();
+    // console.log(this.registerVisitForm.value);
+    // console.log(this.recom);
+    // console.log(this.desc);
+    // this.onSelectAll();
 
-    this.registerVisitForm.value.treat.forEach((t: any) => {
-      let treat: TreatmentClass = new TreatmentClass(
-        this.getTreatment(t.id)?.id,
-        this.getTreatment(t.id)?.name,
-        this.getTreatment(t.id)?.price,
-        this.getTreatment(t.id)?.description
-      );
-      this.listSelectTreatments.push(treat);
-    });
+    // this.registerVisitForm.value.treat.forEach((t: any) => {
+    //   let treat: TreatmentClass = new TreatmentClass(
+    //     this.getTreatment(t.id)?.id,
+    //     this.getTreatment(t.id)?.name,
+    //     this.getTreatment(t.id)?.price,
+    //     this.getTreatment(t.id)?.description
+    //   );
+    //   this.listSelectTreatments.push(treat);
+    // });
 
-    console.log("Selected: " + this.listSelectTreatments);
+    // console.log("Selected: " + this.listSelectTreatments);
   }
 
   getTreatment(id: number) {
@@ -184,6 +190,6 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   facturar() {
-
+    console.log("Abriendo menu de facturacion...");
   }
 }
