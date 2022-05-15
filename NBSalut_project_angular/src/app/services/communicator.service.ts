@@ -61,7 +61,7 @@ export class CommunicatorService {
 
 
   /**
-   * Retrieve all users in the DDBB.
+   * Retrieve all users (patients and specialists) from the DDBB.
    * @returns a list of all the users.
    */
   getUser() {

@@ -17,6 +17,7 @@ import { RegisterTreatmentComponent } from './components/treatments/register-tre
 import { ListTreatmentsComponent } from './components/treatments/list-treatments/list-treatments.component';
 import { DataTablesModule } from "angular-datatables";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -43,7 +44,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     DataTablesModule,
     NgMultiSelectDropDownModule.forRoot()
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 
