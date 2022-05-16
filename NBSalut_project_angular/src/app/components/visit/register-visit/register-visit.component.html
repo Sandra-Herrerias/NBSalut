@@ -176,12 +176,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let visit of visits">
-                    <!-- <td>{{visit.id}}</td>
-                    <td>{{visit.first_name}} {{visit.last_name}}</td>
-                    <td>{{visit.visit_date}}</td>
+                <tr *ngFor="let visit of listVisits">
+                    <td>{{visit.id}}</td>
+                    <td>{{visit.patient}}</td>
+                    <td>{{visit.date}}</td>
                     <td>{{visit.price}}</td>
-                    <td>{{visit.id}}</td> -->
+                    <td>{{visit.id}}</td>
                 </tr>
             </tbody>
         </table>
