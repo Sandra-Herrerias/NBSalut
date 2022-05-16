@@ -88,7 +88,7 @@ export class RegisterPatientComponent implements OnInit {
   }
 
   /**
-   * Function that validates dni
+   * Function that validates NIF/NIE
    * @returns 
    */
   createDniValidator(): ValidatorFn {
