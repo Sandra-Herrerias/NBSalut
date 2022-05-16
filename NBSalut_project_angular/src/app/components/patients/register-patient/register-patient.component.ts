@@ -2,7 +2,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 import { DatePipe } from '@angular/common';
-import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-register-patient',
@@ -12,16 +13,21 @@ import {AbstractControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 export class RegisterPatientComponent implements OnInit {
 
   //Attributes
+  dataPatient: any;
   clinicalNumLog!: String;
   public userDetails: FormGroup;
   submitted = false;
   currentDateTime: string | null;
   textoDeInput!: string | null;
   newClinicalNum!: Number;
-  today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
-
+  today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2); 
+  todayFormatRegDate = 
+  ("0" + new Date().getDate()).slice(-2)
+  + "/" + ("0" + (new Date().getMonth() + 1)).slice(-2) 
+  + "/" + new Date().getFullYear(); 
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
+  regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
   /**
    * Constructor
    * @param formBuilder 
@@ -36,8 +42,11 @@ export class RegisterPatientComponent implements OnInit {
 
     //Validations from reactive form
     this.userDetails = this.formBuilder.group({
-      numHis: ['', [Validators.required]],
+      num_clinical_log: ['', [Validators.required]],
       register_date: ['', [Validators.required]],
+      center_code: ['', [Validators.required]],
+      ss_CIP: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.regexNumbersCapLetters)]],
+      diabetic: [''],
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       last_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern(this.regexEmail)]],
@@ -50,13 +59,9 @@ export class RegisterPatientComponent implements OnInit {
       previous_pathologies: ['', [Validators.required]]
     });
 
-
     //Get current date in order to insert it into the field ("Fecha de registro")
     this.currentDateTime = this.datepipe.transform(new Date(), 'dd/MM/yyyy');
   }
-
-
-  
 
   ngOnInit(): void {
   }
@@ -65,13 +70,7 @@ export class RegisterPatientComponent implements OnInit {
     return this.userDetails.controls;
   }
 
-  onSubmit() {
-    this.submitted = true;
-    if (this.userDetails.valid) {
-      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
-      console.table(this.userDetails.value);
-    }
-  }
+
 
   /**
    * Function that gets the new clinical number from the patient
@@ -81,53 +80,108 @@ export class RegisterPatientComponent implements OnInit {
     this.communicator.getUser().subscribe((data: any) => {
       data.forEach((t: any, index: any) => {
         this.clinicalNumLog = t.num_clinical_log;
-        console.log("CLINICAL NUM: ");
-        console.log(this.clinicalNumLog);
-        console.log(t);
-        console.log(index + 1);
         let maxClinicalNum = Math.max(Number(this.clinicalNumLog));
         this.newClinicalNum = maxClinicalNum + 1;
       })
     })
+    return this.newClinicalNum;
   }
 
+  /**
+   * Function that validates dni
+   * @returns 
+   */
   createDniValidator(): ValidatorFn {
-    return (control:AbstractControl) : ValidationErrors | null => {
+    return (control: AbstractControl): ValidationErrors | null => {
 
-        const value = control.value;
+      const value = control.value;
 
-        if (!value) {
-            return null;
+      if (!value) {
+        return null;
+      }
+
+      var numero;
+      var letr;
+      var letra;
+      var expresion_regular_dni;
+      var dniValid = false;
+      expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
+
+      if (expresion_regular_dni.test(value) == true) {
+        numero = value.substr(0, value.length - 1);
+        numero = numero.replace('X', 0);
+        numero = numero.replace('Y', 1);
+        numero = numero.replace('Z', 2);
+        letr = value.substr(value.length - 1, 1);
+        numero = numero % 23;
+        letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+        letra = letra.substring(numero, numero + 1);
+        if (letra != letr.toUpperCase()) {
+          //alert('Dni erroneo, la letra del NIF no se corresponde');
+          dniValid = false;
+        } else {
+          //alert('Dni correcto');
+          dniValid = true;
         }
-
-        var numero
-        var letr
-        var letra
-        var expresion_regular_dni
-        var dniValid= false;
-        expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
-       
-        if(expresion_regular_dni.test(value) == true){
-           numero = value.substr(0,value.length-1);
-           letr = value.substr(value.length-1,1);
-           numero = numero % 23;
-           letra='TRWAGMYFPDXBNJZSQVHLCKET';
-           letra=letra.substring(numero,numero+1);
-          if (letra!=letr.toUpperCase()) {
-             //alert('Dni erroneo, la letra del NIF no se corresponde');
-             dniValid= false;
-           }else{
-             //alert('Dni correcto');
-             dniValid= true;
-           }
-        }else{
-           //alert('Dni erroneo, formato no válido');
-           dniValid= false;
-         }
-
-
-        return !dniValid ? {correctDni:true}: null;
+      } else {
+        //alert('Dni erroneo, formato no válido');
+        dniValid = false;
+      }
+      return !dniValid ? { correctDni: true } : null;
     }
-}
+  }
 
+  /**
+   * Function to add the new patient
+   */
+  addNewPatient() {
+    this.submitted = true;
+  
+    let info = {
+      first_name: this.userDetails.value.first_name,
+      last_name: this.userDetails.value.last_name,
+      dni: this.userDetails.value.dni,
+      email: this.userDetails.value.email,
+      phone: this.userDetails.value.phone,
+      birthdate:  this.userDetails.value.birthdate,
+      city: this.userDetails.value.city,
+      address: this.userDetails.value.address,
+      postal_code: this.userDetails.value.postal_code,
+      active: 1,
+      previous_pathologies: this.userDetails.value.previous_pathologies,
+      diabetic: this.userDetails.value.diabetic,
+      ss_CIP: this.userDetails.value.ss_CIP,
+      center_code: this.userDetails.value.center_code,
+      num_clinical_log: this.getNumClinicalLog(),
+      role: 'patient',  
+      created_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS'),
+      updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
+    }
+
+
+    if (this.userDetails.valid) {
+      this.communicator.addPatient(info).subscribe(
+        (result: any) => {
+          if (result.success) {//success message
+            
+            //this.dataPatient.push(info);
+            alert("Paciente insertado correctamente");
+            //clear form
+            this.userDetails.reset();
+            //sets num_clinical_log value and register_date
+            this.userDetails.patchValue({
+              num_clinical_log: this.getNumClinicalLog(),
+              register_date: this.todayFormatRegDate
+            });
+          } else {//error message
+            alert("El paciente no se ha podido añadir");
+          }
+        }
+      );
+      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
+      console.table(this.userDetails.value);
+    } else {//error message
+      alert("Los datos del paciente no pueden estar vacíos");
+    }
+  }
 }

@@ -37,4 +37,4 @@ Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
 // Patients Routes
 Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
 Route::post('checkPatientName', [UserController::class, 'checkPatientName']);
-
+Route::post('addPatient', [UserController::class, 'addPatient']);
