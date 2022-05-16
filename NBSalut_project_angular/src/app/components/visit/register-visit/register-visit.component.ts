@@ -51,6 +51,9 @@ export class RegisterVisitComponent implements OnInit {
     ,
     treat: [
       '', [Validators.required]
+    ],
+    dni: [
+      '', [Validators.required]
     ]
 
   });
@@ -144,6 +147,8 @@ export class RegisterVisitComponent implements OnInit {
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
         this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
+        this.registerVisitForm.get('dni')?.setValue(res.user.dni);
+
 
         this.loadVisits(res.user);
         console.log(this.listVisits);
