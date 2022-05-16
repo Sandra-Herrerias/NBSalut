@@ -83,14 +83,14 @@ export class RegisterVisitComponent implements OnInit {
     this.loadTreatments();
     this.loadTreatmentsSelect();
 
-    console.log(this.listTreatments);
+    //console.log(this.listTreatments);
     //console.log(this.listVisits);
   }
 
-  loadVisits() {
-    this.communicator.getVisits().subscribe((data: any) => {
+  loadVisits(patient: any) {
+    this.communicator.getVisits(patient).subscribe((data: any) => {
       data.forEach((t: any) => {
-        this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
+        this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.visit_date, t.price, t.visit_description));
       })
     })
   }
@@ -98,7 +98,7 @@ export class RegisterVisitComponent implements OnInit {
   loadTreatments() {
     this.communicator.getTreatments().subscribe((data: any) => {
       data.forEach((t: any) => {
-        this.listVisits.push(new VisitClass(t.visit_id, t.first_name + t.last_name, t.visit_date, t.price, t.description));
+        this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
       })
     })
   }
@@ -145,7 +145,7 @@ export class RegisterVisitComponent implements OnInit {
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
         this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
 
-        this.loadVisits();
+        this.loadVisits(res.user);
         console.log(this.listVisits);
 
 
@@ -173,7 +173,7 @@ export class RegisterVisitComponent implements OnInit {
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
         this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
 
-        this.loadVisits();
+        this.loadVisits(res.user);
         console.log(this.listVisits);
 
       } else {

@@ -10,17 +10,16 @@ use DB;
 class VisitController extends Controller
 {
     
-    public function getVisits()
+    public function getVisits(Request $request)
     {
         $visits = DB::table('visits')
-            ->join('users', 'visits.id', '=', 'users.id')
+            
+            ->join('users', 'visits.user_id', '=', 'users.id')
             ->join('uses', 'visits.id', '=', 'uses.visit_id')
-            ->join('offers', 'uses.treatment_id', '=', 'offers.treatment_id')
-            ->join('treatments', 'offers.treatment_id', '=', 'treatments.id')
-            ->join('invoices', 'visits.id', '=', 'invoices.visit_id')
-            ->select('visits.visit_date', 'invoices.id as invoice_id', 'users.first_name','users.last_name','users.num_clinical_log','users.address','users.postal_code','treatments.name','treatments.price')
-
-
+            ->join('treatments', 'uses.treatment_id', '=', 'treatments.id')
+            ->where('visits.user_id', $request->id)
+            ->select('visits.id', 'visits.visit_date', 'users.first_name','users.last_name', 'treatments.name','treatments.price','visits.visit_description')
+            
             ->get();
         return $visits;
     }

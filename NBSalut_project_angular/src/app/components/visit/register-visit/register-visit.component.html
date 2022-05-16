@@ -13,6 +13,7 @@
          <form [formGroup]="checkTypeForm">
             <label class="form-label fw-bold">Método de validación *</label>
             <select class="form-select" formControlName="checkType" required>
+               <option selected>Choose a state</option>
                <option value="dni">DNI</option>
                <option value="name">Nombre completo</option>
             </select>
@@ -75,9 +76,9 @@
 
 <!-- REGISTER FORM -->
 
-<!-- Main Form -->
 <div *ngIf="patientExist" class="container mt-5">
    <div class="row">
+      <!-- Form -->
       <div class="col-6">
          <form [formGroup]="registerVisitForm">
             <!-- Inputs -->
@@ -163,25 +164,27 @@
             </div>
          </form>
       </div>
-      <div class="col-6">
-         <h2>Visits table</h2>
+      <div class="col-1"></div>
+      <!-- Previous Visits Table -->
+      <div class="col-5">
+         <h2>Visitas anteriores de {{visitPatient.first_name}}</h2>
          <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Paciente</th>
-                    <th>Fecha de visita</th>
-                    <th>Precio</th>
+                    <!-- <th>ID</th> -->
+                    <!-- <th>Paciente</th> -->
+                    <th class="text-center">Fecha de visita</th>
+                    <!-- <th>Precio</th> -->
                     <th>Descripción de la visita </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 <tr *ngFor="let visit of listVisits">
-                    <td>{{visit.id}}</td>
-                    <td>{{visit.patient}}</td>
-                    <td>{{visit.date}}</td>
-                    <td>{{visit.price}}</td>
-                    <td>{{visit.id}}</td>
+                    <!-- <td>{{visit.id}}</td> -->
+                    <!-- <td>{{visit.patient}}</td> -->
+                    <td class="text-center">{{visit.date}}</td>
+                    <!-- <td>{{visit.price}}</td> -->
+                    <td>{{visit.description}}</td>
                 </tr>
             </tbody>
         </table>
