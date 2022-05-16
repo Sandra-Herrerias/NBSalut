@@ -185,12 +185,15 @@ export class CommunicatorService {
 
   // Visit Functions
 
-   /**
-   * 
-   * @returns a list of visits from the DDBB
-   */
-  getVisits() {
-    return this.http.get("http://127.0.0.1:8000/api/getVisits",
+  /**
+  * 
+  * @returns a list of visits from the DDBB
+  */
+  getVisits(patient: any) {
+    return this.http.post("http://127.0.0.1:8000/api/getVisits",
+      {
+        id: patient.id
+      },
       {
         responseType: "json"
       });

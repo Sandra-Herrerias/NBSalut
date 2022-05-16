@@ -18,7 +18,8 @@ export class RegisterVisitComponent implements OnInit {
   listTreatments: TreatmentClass[] = [];
   listSelectTreatments: TreatmentClass[] = [];
   selectTreatmentsOptions: IDropdownSettings = {};
-  visits: VisitClass[] = [];
+
+  listVisits: VisitClass[] = [];
 
   patientExist: boolean;
   visitPatient: any;
@@ -50,6 +51,12 @@ export class RegisterVisitComponent implements OnInit {
     ,
     treat: [
       '', [Validators.required]
+    ],
+    dni: [
+      '', [Validators.required]
+    ],
+    facturation: [
+      ''
     ]
 
   });
@@ -82,14 +89,14 @@ export class RegisterVisitComponent implements OnInit {
     this.loadTreatments();
     this.loadTreatmentsSelect();
 
-    console.log(this.listTreatments);
-    console.log(this.visits);
+    //console.log(this.listTreatments);
+    //console.log(this.listVisits);
   }
 
-  loadVisits() {
-    this.communicator.getVisits().subscribe((data: any) => {
+  loadVisits(patient: any) {
+    this.communicator.getVisits(patient).subscribe((data: any) => {
       data.forEach((t: any) => {
-        this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
+        this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.visit_date, t.price, t.visit_description));
       })
     })
   }
@@ -143,9 +150,11 @@ export class RegisterVisitComponent implements OnInit {
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
         this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
+        this.registerVisitForm.get('dni')?.setValue(res.user.dni);
 
-        this.loadVisits();
-        console.log(this.visits);
+
+        this.loadVisits(res.user);
+        console.log(this.listVisits);
 
 
       } else {
@@ -172,8 +181,8 @@ export class RegisterVisitComponent implements OnInit {
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
         this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
 
-        this.loadVisits();
-        console.log(this.visits);
+        this.loadVisits(res.user);
+        console.log(this.listVisits);
 
       } else {
         this.route.navigate(['/regpatient']);
