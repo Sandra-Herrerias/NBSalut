@@ -23,4 +23,15 @@ class VisitController extends Controller
             ->get();
         return $visits;
     }
+
+    public function insertVisit(Request $request) {
+
+        $visit = DB::table('visits')
+            ->insert([
+                'visit_description' => $request->desc,
+                'visit_date' => $request->date
+            ]);
+
+        return $visit;
+    }
 }

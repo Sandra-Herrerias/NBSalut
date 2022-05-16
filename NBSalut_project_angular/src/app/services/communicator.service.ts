@@ -198,4 +198,19 @@ export class CommunicatorService {
         responseType: "json"
       });
   }
+
+  /**
+   * Register visit in the DDBB
+   * @returns the visit inserted & a response with a success variable.
+   */
+  registerVisit(visit: any) {
+    return this.http.post("http://127.0.0.1:8000/api/insertVisit",
+      {
+        date: visit.date,
+        desc: visit.description
+      },
+      {
+        responseType: "json"
+      });
+  }
 }

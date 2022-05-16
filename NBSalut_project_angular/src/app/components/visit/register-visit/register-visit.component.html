@@ -160,10 +160,14 @@
                <div class="mb-3 col-4">
                   <label class="form-label fw-bold">Facturación</label><br>
                   <div class="form-check">
-                     <input class="form-check-input" formControlName="facturation" type="checkbox" value="" checked>
+                     <input class="form-check-input" formControlName="facturation" type="checkbox" value="" (change)="checked()">
                      <label class="form-check-label" for="flexCheckChecked">
                        Realizar facturación
                      </label>
+                     <label class="text-danger mt-1"
+                     *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
+                     requerida
+                  </label>
                    </div>
                </div>
             </div>  

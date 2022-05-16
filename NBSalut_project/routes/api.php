@@ -30,6 +30,7 @@ Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 
 // Visits Routes
 Route::post('getVisits', [VisitController::class, 'getVisits']);
+Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
