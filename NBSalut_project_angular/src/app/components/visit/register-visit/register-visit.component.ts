@@ -54,6 +54,9 @@ export class RegisterVisitComponent implements OnInit {
     ],
     dni: [
       '', [Validators.required]
+    ],
+    facturation: [
+      ''
     ]
 
   });

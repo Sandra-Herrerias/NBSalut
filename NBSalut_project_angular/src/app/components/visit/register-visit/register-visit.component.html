@@ -151,14 +151,16 @@
                   <label class="form-label fw-bold">Descripción de la visita</label>
                   <textarea name="des" class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
                </div>
+               <!-- Document field -->
                <div class="mb-3 col-8">
                   <label class="form-label fw-bold">Documento adjunto</label>
                   <input class="form-control" type="file" id="file">
                </div>
+               <!-- Facturation check -->
                <div class="mb-3 col-4">
                   <label class="form-label fw-bold">Facturación</label><br>
                   <div class="form-check">
-                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                     <input class="form-check-input" formControlName="facturation" type="checkbox" value="" checked>
                      <label class="form-check-label" for="flexCheckChecked">
                        Realizar facturación
                      </label>
