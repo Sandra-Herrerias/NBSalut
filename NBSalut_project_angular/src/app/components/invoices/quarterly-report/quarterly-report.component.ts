@@ -13,9 +13,7 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy {
   dtOptions: any | DataTables.Settings = {};
   invoices: any;
   dtTrigger: Subject<any> = new Subject<any>();
-
-  // @ViewChild(DataTableDirective, { static: false })
-  // datatableElement: any = DataTableDirective;
+  date = new Date();
 
   constructor(private http: CommunicatorService) { }
 
@@ -23,6 +21,7 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy {
     this.dtOptions = {
       select: {
         style: 'multi',
+        info: false
       },
       processing: true,
       pagingType: 'full_numbers',
@@ -47,7 +46,8 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy {
     this.http.getInvoices().subscribe((response: any) => {
       if (response.success) {
         this.invoices = response.data;
-        this.dtTrigger.next(this.invoices);
+        console.log(this.invoices);
+        this.dtTrigger.next;
       }
 
     })
