@@ -1,50 +1,54 @@
-<div class="container">
-  <div class="table-responsive">
-    <div class="text-end">
-      <button (click)="export()" class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Excel</button>
-    </div>
-    <table *ngIf="this.invoices" datatable id="tableId" [dtOptions]="dtOptions"
-      class="table table-striped table-hover table-bordered ">
-
-      <thead>
-        <tr class="text-uppercase">
-          <th><input type="checkbox" [(ngModel)]="isMasterSel" name="send-invoice" (change)="checkUncheckAll()"></th>
-          <th>Nº Factura</th>
-          <th>Fecha</th>
-          <th>Nombre del paciente</th>
-          <th>Dirección</th>
-          <th>DNI</th>
-          <th>Tratamiento</th>
-          <th>Precio</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let invoice of invoicesList; let i = index">
-          <td><input type="checkbox" name="send-invoice" [value]="invoice.id" [(ngModel)]="invoice.Selected"
-              (change)="isAllSelected()"></td>
-          <!-- <td>{{ invoice.number_invoice }}</td> -->
-          <td>{{ invoice.id }}</td>
-          <td>{{ invoice.invoice_date | date:'dd/MM/yyyy' }}</td>
-          <td>{{ invoice.first_name }} {{ invoice.last_name }}</td>
-          <td>{{ invoice.address }}, {{ invoice.postal_code }}</td>
-          <td>{{ invoice.dni }}</td>
-          <td>{{ invoice.name }}</td>
-          <td>{{ invoice.price }}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr class="text-uppercase">
-          <th></th>
-          <th>Nº Factura</th>
-          <th>Fecha</th>
-          <th>Nombre del paciente</th>
-          <th>Dirección</th>
-          <th>DNI</th>
-          <th>Tratamiento</th>
-          <th>Precio</th>
-        </tr>
-      </tfoot>
-    </table>
+<div class="card">
+  <div class="card-header">
+    Facturas
   </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <div class="text-end">
+        <button (click)="export()" class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+      </div>
+      <table *ngIf="this.invoices" datatable id="tableId" [dtOptions]="dtOptions"
+        class="table table-striped table-hover table-bordered ">
 
+        <thead>
+          <tr class="text-uppercase">
+            <th><input type="checkbox" [(ngModel)]="isMasterSel" name="send-invoice" (change)="checkUncheckAll()"></th>
+            <th>Nº Factura</th>
+            <th>Fecha</th>
+            <th>Nombre del paciente</th>
+            <th>Dirección</th>
+            <th>DNI</th>
+            <th>Tratamiento</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of invoicesList; let i = index">
+            <td><input type="checkbox" name="send-invoice" [value]="invoice.id" [(ngModel)]="invoice.Selected"
+                (change)="isAllSelected()"></td>
+            <!-- <td>{{ invoice.number_invoice }}</td> -->
+            <td>{{ invoice.id }}</td>
+            <td>{{ invoice.invoice_date | date:'dd/MM/yyyy' }}</td>
+            <td>{{ invoice.first_name }} {{ invoice.last_name }}</td>
+            <td>{{ invoice.address }}, {{ invoice.postal_code }}</td>
+            <td>{{ invoice.dni }}</td>
+            <td>{{ invoice.name }}</td>
+            <td>{{ invoice.price }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="text-uppercase">
+            <th></th>
+            <th>Nº Factura</th>
+            <th>Fecha</th>
+            <th>Nombre del paciente</th>
+            <th>Dirección</th>
+            <th>DNI</th>
+            <th>Tratamiento</th>
+            <th>Precio</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
 </div>
