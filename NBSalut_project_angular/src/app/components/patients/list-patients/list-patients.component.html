@@ -27,7 +27,7 @@
                 <td>{{item.email}}</td>
                 <td>{{item.phone}}</td>
                 <td>{{item.diabetic}}</td>
-                <td><button class="btn"><i
+                <td><button class="btn" (click)="showFormModifyPatient();"><i
                             class="bi bi-pencil-fill"></i></button></td>
                 <td><button class="btn" (click)="confirmDeactivate(item)"><i
                             class="bi bi-trash-fill"></i></button>
@@ -35,4 +35,3 @@
             </tr>
         </tbody>
     </table>
-</div>

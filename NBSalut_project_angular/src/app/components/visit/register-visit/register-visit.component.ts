@@ -256,10 +256,19 @@ export class RegisterVisitComponent implements OnInit {
       document: this.registerVisitForm.value.document
     };
 
-    console.log("Visita del formulario: " + this.actualVisit);
+    console.log("Visita del formulario: " + this.actualVisit.dni);
+
+    this.communicator.registerVisit(this.actualVisit).subscribe(
+      (result: any) => {
+        if (result.success) {//success message
+          alert("Visita insertado correctamente");
+        } else {//error message
+          alert("La visita no se ha podido añadir!");
+        }
+      }
+    );
 
 
-    console.log("Visita registrada: " + this.communicator.registerVisit(this.actualVisit));
 
   }
 }

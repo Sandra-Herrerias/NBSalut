@@ -10,6 +10,7 @@ import { QuarterlyReportComponent } from './components/invoices/quarterly-report
 import { ListInvoicesComponent } from './components/invoices/list-invoices/list-invoices.component';
 import { ListTreatmentsComponent } from './components/treatments/list-treatments/list-treatments.component';
 import { RegisterTreatmentComponent } from './components/treatments/register-treatment/register-treatment.component';
+import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'listpatient',
     component: ListPatientsComponent
+  },
+  {
+    path: 'editpatient',
+    component: EditPatientComponent
   },
   {
     path: 'quarterlyreport',

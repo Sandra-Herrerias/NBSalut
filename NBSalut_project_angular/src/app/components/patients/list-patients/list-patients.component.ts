@@ -1,7 +1,7 @@
 import { CommunicatorService } from 'src/app/services/communicator.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-list-patients',
   templateUrl: './list-patients.component.html',
@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user';
 export class ListPatientsComponent implements OnInit {
   dataPatients: any[] = [];
   userSelected !: User;
-  constructor(private communicator: CommunicatorService) { }
+  constructor(private communicator: CommunicatorService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadPatients();
@@ -48,5 +48,9 @@ export class ListPatientsComponent implements OnInit {
     }
   }
 
+  
+  showFormModifyPatient() {
+    this.router.navigateByUrl('/editpatient');
+  };
 
 }
