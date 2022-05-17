@@ -208,7 +208,7 @@ export class CommunicatorService {
 
   /**
   * 
-  * @returns a list of visits from the DDBB
+  * @returns a list of visits of the patient given from the DDBB
   */
   getVisitsPatient(patient: any) {
 
@@ -216,6 +216,18 @@ export class CommunicatorService {
       {
         id: patient.id
       },
+      {
+        responseType: "json"
+      });
+  }
+
+  /**
+  * 
+  * @returns a list of visits from the DDBB
+  */
+   getVisits() {
+
+    return this.http.get("http://127.0.0.1:8000/api/getVisits",
       {
         responseType: "json"
       });

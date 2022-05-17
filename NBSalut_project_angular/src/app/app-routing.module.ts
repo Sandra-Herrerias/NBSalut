@@ -26,7 +26,7 @@ const routes: Routes = [
     component: RegisterVisitComponent
   },
   {
-    path: 'listvisit',
+    path: 'listvisits',
     component: ListVisitComponent
   },
   {

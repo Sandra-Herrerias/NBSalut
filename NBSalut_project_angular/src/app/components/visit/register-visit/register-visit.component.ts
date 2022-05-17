@@ -26,6 +26,7 @@ export class RegisterVisitComponent implements OnInit {
 
   patientExist: boolean;
   visitPatient: any;
+  visitPatientId: number;
 
   file: File | null = null;
 
@@ -91,6 +92,7 @@ export class RegisterVisitComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
     this.patientExist = false;
+    this.visitPatientId = -1;
   }
 
   ngOnInit(): void {
@@ -189,6 +191,7 @@ export class RegisterVisitComponent implements OnInit {
           res.user.first_name, res.user.last_name,
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
+        this.visitPatientId = res.user.id;
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
@@ -219,6 +222,7 @@ export class RegisterVisitComponent implements OnInit {
           res.user.first_name, res.user.last_name,
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
+        this.visitPatientId = res.user.id;
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
@@ -244,29 +248,37 @@ export class RegisterVisitComponent implements OnInit {
    */
   addVisit() {
 
-    this.actualVisit = {
-      num: this.registerVisitForm.value.numHis,
-      dni: this.registerVisitForm.value.dni,
-      name: this.registerVisitForm.value.name,
-      surname: this.registerVisitForm.value.surnames,
-      date: this.registerVisitForm.value.date,
-      treats: this.registerVisitForm.value.treat,
-      facturate: this.registerVisitForm.value.facturation,
-      description: "Paciente tratado por Jordi",
-      document: this.registerVisitForm.value.document
-    };
+
 
     console.log("Visita del formulario: " + this.actualVisit.dni);
 
-    this.communicator.registerVisit(this.actualVisit).subscribe(
-      (result: any) => {
-        if (result.success) {//success message
-          alert("Visita insertado correctamente");
-        } else {//error message
-          alert("La visita no se ha podido añadir!");
+    this.registerVisitForm.value.treats.forEach((t: any) => {
+      this.actualVisit = {
+        num: this.registerVisitForm.value.numHis,
+        dni: this.registerVisitForm.value.dni,
+        name: this.registerVisitForm.value.name,
+        surname: this.registerVisitForm.value.surnames,
+        date: this.registerVisitForm.value.date,
+        treat: t,
+        facturate: this.registerVisitForm.value.facturation,
+        description: "Paciente tratado por Jordi",
+        document: this.registerVisitForm.value.document,
+        user_id: this.visitPatientId
+      };
+
+      this.communicator.registerVisit(this.actualVisit).subscribe(
+        (result: any) => {
+          if (result.success) {//success message
+            console.log("Visita insertado correctamente");
+          } else {//error message
+            console.log("La visita no se ha podido añadir!");
+          }
         }
-      }
-    );
+      );
+
+    });
+
+
 
 
 

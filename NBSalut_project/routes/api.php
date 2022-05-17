@@ -29,6 +29,7 @@ Route::get('getUser', [UserController::class, 'getUser']);
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 
 // Visits Routes
+Route::get('getVisits', [VisitController::class, 'getVisits']);
 Route::post('getVisitsPatient', [VisitController::class, 'getVisitsPatient']);
 Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 

@@ -1,1 +1,34 @@
-<p>list-visit works!</p>
+<div id="titulo" class="p-5">
+    <div class="text-white text-center">
+        <h1 class="text-dark display-1"></h1>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <table class="table table-hover table-borderless table-striped">
+        <thead>
+            <tr>
+                <th id="colTitle">ID</th>
+                <th id="colTitle">Paciente</th>
+                <th id="colTitle">NIF / NIE</th>
+                <th id="colTitle">Fecha de la visita</th>
+                <th id="colTitle">Precio Total</th>
+                <th id="colTitle">Facturado</th>
+                <th id="colTitle"><i class="bi bi-trash-fill"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of listVisits">
+                <td>{{item.id}}</td>
+                <td>{{item.first_name}} {{item.last_name}} </td>
+                <td>{{item.dni}}</td>
+                <td>{{item.visit_date}}</td>
+                <td>{{item.total_price}}</td>
+                <td>{{item.total_price}}</td>
+                <!-- <td><button class="btn" (click)="confirmDeactivate(item)"><i
+                            class="bi bi-trash-fill"></i></button>
+                </td> -->
+            </tr>
+        </tbody>
+    </table>
