@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->string('visit_description');
-            $table->string('recommendations');
             $table->date('visit_date');
             $table->string('ss_private');
             $table->boolean('sent');
