@@ -42,11 +42,18 @@ class UserController extends Controller
         return response()->json(['success' => true, 'user' => $patient]);
     }
 
-    public function getUser(Request $request)
+    public function getUser()
     {
-        $data = User::all();
+        $data = User::orderBy('num_clinical_log', 'DESC')->get();
         return $data;
     }
+
+    public function getPatients()
+    {
+        $data = User::where('role', 'patient')->orderBy('num_clinical_log', 'DESC')->get();
+        return $data;
+    }
+
     
     /**
      * Method to add a new patient
@@ -76,12 +83,7 @@ class UserController extends Controller
         $patient->num_clinical_log = $request->num_clinical_log;
         $patient->collegiate_num = $request->collegiate_num;
         $patient->role = $request->role;
-        error_log($patient->first_name);
-        error_log($patient->dni);
-        error_log($patient->phone);
-        error_log($patient->address);
-        error_log($patient->previous_pathologies);
-        error_log($patient->birthdate);
+
         $patient->save();
         /*
         if (Auth::user()->role == 'admin') {
