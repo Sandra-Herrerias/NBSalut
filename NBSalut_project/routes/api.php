@@ -40,3 +40,4 @@ Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
 Route::post('checkPatientName', [UserController::class, 'checkPatientName']);
 Route::post('addPatient', [UserController::class, 'addPatient']);
 Route::get('getPatients', [UserController::class, 'getPatients']);
+Route::put('updatePatient',[UserController::class, 'updatePatient']);
