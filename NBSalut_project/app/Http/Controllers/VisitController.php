@@ -10,7 +10,7 @@ use DB;
 class VisitController extends Controller
 {
     
-    public function getVisits(Request $request)
+    public function getVisitsPatient(Request $request)
     {
         $visits = DB::table('visits')
             
@@ -26,20 +26,23 @@ class VisitController extends Controller
 
     public function insertVisit(Request $request) {
 
-        $visit = new Visit;
-        $visit->id;
-        $visit->visit_description = $request->desc;
-        $visit->recommendations = "xxxxxx";
-        $visit->visit_date = $request->date;
-        $viit->user_id = 7;
+        // $visit = new Visit;
+        // $visit->id;
+        // $visit->visit_description = $request->desc;
+        // $visit->recommendations = "xxxxxx";
+        // $visit->visit_date = $request->date;
+        // $visit->ss_private = "No";
+        // $viit->user_id = 7;
+        // $visit->save();
 
-        // $visits = DB::table('visits')
-        //     ->insert([
-        //         'visit_description' => $request->desc,
-        //         'visit_date' => $request->date
-        //     ]);
+        $visits = DB::table('visits')
+            ->insert([
+                'visit_description' => $request->desc,
+                'visit_date' => $request->date
+            ]);
+        $visits->save();
 
-        return response()->json(['success' => true, 'visit' => $visit]);
+        return response()->json(['success' => true, 'visit' => $visits]);
         //return $visits;
     }
 }

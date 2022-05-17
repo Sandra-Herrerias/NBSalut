@@ -22,6 +22,7 @@ export class RegisterVisitComponent implements OnInit {
   selectTreatmentsOptions: IDropdownSettings = {};
 
   listVisits: VisitClass[] = [];
+  actualVisit: any;
 
   patientExist: boolean;
   visitPatient: any;
@@ -167,7 +168,7 @@ export class RegisterVisitComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.file = files.item(0);
-}
+  }
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -243,19 +244,7 @@ export class RegisterVisitComponent implements OnInit {
    */
   addVisit() {
 
-    // let visit = {
-    //   num: this.registerVisitForm.value.numHis,
-    //   dni: this.registerVisitForm.value.dni,
-    //   name: this.registerVisitForm.value.name,
-    //   surname: this.registerVisitForm.value.surnames,
-    //   date: this.registerVisitForm.value.date,
-    //   treats: this.registerVisitForm.value.treat,
-    //   facturate: this.registerVisitForm.value.facturation,
-    //   description: "Paciente tratado por Jordi",
-    //   document: this.registerVisitForm.value.document
-    // };
-
-    console.log("Visita del formulario: " + {
+    this.actualVisit = {
       num: this.registerVisitForm.value.numHis,
       dni: this.registerVisitForm.value.dni,
       name: this.registerVisitForm.value.name,
@@ -265,22 +254,12 @@ export class RegisterVisitComponent implements OnInit {
       facturate: this.registerVisitForm.value.facturation,
       description: "Paciente tratado por Jordi",
       document: this.registerVisitForm.value.document
-    });
+    };
+
+    console.log("Visita del formulario: " + this.actualVisit);
 
 
-    console.log("Visita registrada: " + this.communicator.registerVisit(
-      {
-        num: this.registerVisitForm.value.numHis,
-        dni: this.registerVisitForm.value.dni,
-        name: this.registerVisitForm.value.name,
-        surname: this.registerVisitForm.value.surnames,
-        date: this.registerVisitForm.value.date,
-        treats: this.registerVisitForm.value.treat,
-        facturate: this.registerVisitForm.value.facturation,
-        description: "Paciente tratado por Jordi",
-        document: this.registerVisitForm.value.document
-      }
-    ));
+    console.log("Visita registrada: " + this.communicator.registerVisit(this.actualVisit));
 
   }
 }

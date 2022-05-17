@@ -178,6 +178,18 @@ export class CommunicatorService {
 
   }
 
+    /**
+   * Retrieve all users (patients and specialists) from the DDBB.
+   * @returns a list of all the users.
+   */
+     getPatients() {
+      return this.http.get("http://127.0.0.1:8000/api/getPatients",
+        {
+          responseType: "json"
+        });
+    }
+  
+
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -205,6 +217,7 @@ export class CommunicatorService {
    * @returns the visit inserted & a response with a success variable.
    */
   registerVisit(visit: any) {
+    console.log("service-> fecha: " + visit.date + ", desc: " + visit.description);
     return this.http.post("http://127.0.0.1:8000/api/insertVisit",
       {
         date: visit.date,
