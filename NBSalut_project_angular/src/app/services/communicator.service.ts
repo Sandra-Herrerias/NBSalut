@@ -166,14 +166,14 @@ export class CommunicatorService {
 
   }
 
-/**
- * Method to add a new patient in the DDBB
- * @param info data to add in the DDBB
- * @returns patient data
- */
+  /**
+   * Method to add a new patient in the DDBB
+   * @param info data to add in the DDBB
+   * @returns patient data
+   */
   addPatient(info: any) {
-     return this.http.post("http://127.0.0.1:8000/api/addPatient",
-       info,
+    return this.http.post("http://127.0.0.1:8000/api/addPatient",
+      info,
       { responseType: "json" });
 
   }
@@ -189,8 +189,9 @@ export class CommunicatorService {
   * 
   * @returns a list of visits from the DDBB
   */
-  getVisits(patient: any) {
-    return this.http.post("http://127.0.0.1:8000/api/getVisits",
+  getVisitsPatient(patient: any) {
+
+    return this.http.post("http://127.0.0.1:8000/api/getVisitsPatient",
       {
         id: patient.id
       },

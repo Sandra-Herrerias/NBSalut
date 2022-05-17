@@ -107,7 +107,7 @@ export class RegisterVisitComponent implements OnInit {
   // Loading elements functions
 
   loadVisits(patient: any) {
-    this.communicator.getVisits(patient).subscribe((data: any) => {
+    this.communicator.getVisitsPatient(patient).subscribe((data: any) => {
       data.forEach((t: any) => {
         this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.visit_date, t.price, t.visit_description));
       })
