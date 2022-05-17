@@ -7,16 +7,40 @@
 </nav>
 <div class="container mt-5">
     <div class="row">
-        <form [formGroup]="userDetails" method="post" (ngSubmit)="onSubmit()">
+        <form [formGroup]="userDetails" method="post" (ngSubmit)="addNewPatient()">
             <!-- Text inputs -->
             <div class="row mb-3">
                 <div class="mb-3 col-4 form-group">
-                    <label for="numHis" class="form-label">Nº del historial clínico</label>
-                    <input type="text" class="form-control" formControlName="numHis" [(ngModel)]="newClinicalNum" readonly>
+                    <label for="num_clinical_log" class="form-label">Nº del historial clínico</label>
+                    <input type="text" class="form-control" formControlName="num_clinical_log" [(ngModel)]="newClinicalNum" readonly>
                 </div>
                 <div class="mb-3 col-4 form-group">
                     <label for="register_date" class="form-label">Fecha de registro</label>
                     <input type="text" name="register_date" class="form-control" formControlName="register_date" [(ngModel)]="currentDateTime" readonly>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3 col-4 form-group">
+                    <label for="center_code" class="form-label">Código del centro</label>
+                    <input type="text" name="center_code" class="form-control" formControlName="center_code">
+                    <div *ngIf="userDetailsFormControl['center_code'].touched && userDetailsFormControl['center_code'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['center_code'].errors?.['required']">Código del centro es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 col-4 form-group">
+                    <label for="ss_CIP" class="form-label">CIP</label>
+                    <input type="text" name="ss_CIP" class="form-control" formControlName="ss_CIP">
+                    <div *ngIf="userDetailsFormControl['ss_CIP'].touched && userDetailsFormControl['ss_CIP'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['required']">CIP es obligatorio.</div>
+                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['maxlength']">Máximo 14 carácteres.</div>
+                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['pattern']">Sólo se aceptan letras en mayúscula y números. Debe contener 14 carácteres.
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3 col-4 form-group">
+                    <label for="diabetic" id="diabetic"> Diabética/o</label><br><br>
+                    <input type="checkbox" formControlName="diabetic" id="diabeticCheckbox" aria-labelledby="check1">
                 </div>
             </div>
             <div class="row mb-3">
@@ -54,14 +78,17 @@
                 <div class="mb-3 col-4 form-group">
                     <label for="birthdate" class="form-label">Fecha de nacimiento</label>
                     <input type="date" name="birthdate" class="form-control" formControlName="birthdate" [max]="today">
+                    <div *ngIf="userDetailsFormControl['birthdate'].touched && userDetailsFormControl['birthdate'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['birthdate'].errors?.['required']">Fecha de nacimiento es obligatoria.</div>
+                    </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
-                    <label for="dni" class="form-label">Dni</label>
+                    <label for="dni" class="form-label">NIF/NIE</label>
                     <input type="text" name="dni" class="form-control" formControlName="dni">
                     <div *ngIf="userDetailsFormControl['dni'].touched && userDetailsFormControl['dni'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['dni'].errors?.['required']">Dni es obligatorio.</div>
+                        <div *ngIf="userDetailsFormControl['dni'].errors?.['required']">NIF/NIE es obligatorio.</div>
                         <div class="field-message" *ngIf="userDetailsFormControl['dni'].errors?.['correctDni']">
-                            Formato de dni incorrecto.
+                            Formato de NIF/NIE incorrecto.
                         </div>
                     </div>
                 </div>

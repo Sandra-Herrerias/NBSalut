@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
            // $table->unsignedInteger('age');
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('dni');
             $table->string('email')->unique();
             $table->string('phone');

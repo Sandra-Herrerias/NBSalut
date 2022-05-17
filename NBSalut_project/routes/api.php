@@ -29,7 +29,8 @@ Route::get('getUser', [UserController::class, 'getUser']);
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 
 // Visits Routes
-Route::post('getVisits', [VisitController::class, 'getVisits']);
+Route::post('getVisitsPatient', [VisitController::class, 'getVisitsPatient']);
+Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
@@ -37,4 +38,4 @@ Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
 // Patients Routes
 Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
 Route::post('checkPatientName', [UserController::class, 'checkPatientName']);
-
+Route::post('addPatient', [UserController::class, 'addPatient']);

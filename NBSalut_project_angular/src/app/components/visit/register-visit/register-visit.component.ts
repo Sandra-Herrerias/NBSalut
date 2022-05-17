@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { CheckboxControlValueAccessor, CheckboxRequiredValidator, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TreatmentClass } from 'src/app/models/treatment-class.model';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 import { IDropdownSettings, } from 'ng-multiselect-dropdown';
@@ -15,6 +15,8 @@ import { VisitClass } from 'src/app/models/visit-class.model';
 })
 export class RegisterVisitComponent implements OnInit {
 
+  // Variables
+
   listTreatments: TreatmentClass[] = [];
   listSelectTreatments: TreatmentClass[] = [];
   selectTreatmentsOptions: IDropdownSettings = {};
@@ -24,13 +26,16 @@ export class RegisterVisitComponent implements OnInit {
   patientExist: boolean;
   visitPatient: any;
 
-  // No required fields
-  recom: string;
-  desc: string;
+  file: File | null = null;
 
   message: string | undefined;
 
-  // Form builder validator
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Form builder
+
   public checkTypeForm = this.formBuilder.group({
     checkType: [
       '', [Validators.required]
@@ -50,13 +55,13 @@ export class RegisterVisitComponent implements OnInit {
     date: new FormControl((new Date()).toISOString().substring(0, 10))
     ,
     treat: [
-      '', [Validators.required]
+      ''
     ],
     dni: [
       '', [Validators.required]
     ],
     facturation: [
-      ''
+      true
     ]
 
   });
@@ -76,12 +81,14 @@ export class RegisterVisitComponent implements OnInit {
     ]
   });
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // Constructor
+
+  // Constructor & ngOnInit
 
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
-    this.recom = "";
-    this.desc = "";
     this.patientExist = false;
   }
 
@@ -93,8 +100,14 @@ export class RegisterVisitComponent implements OnInit {
     //console.log(this.listVisits);
   }
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Loading elements functions
+
   loadVisits(patient: any) {
-    this.communicator.getVisits(patient).subscribe((data: any) => {
+    this.communicator.getVisitsPatient(patient).subscribe((data: any) => {
       data.forEach((t: any) => {
         this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.visit_date, t.price, t.visit_description));
       })
@@ -125,6 +138,12 @@ export class RegisterVisitComponent implements OnInit {
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Testing functions
+
   // Multi select testing
   onItemSelect() {
     console.log(this.registerVisitForm.value.treat);
@@ -133,6 +152,29 @@ export class RegisterVisitComponent implements OnInit {
     console.log(this.registerVisitForm.value.treat);
   }
 
+  // Facturation checkbox
+
+  checked() {
+    console.log(this.registerVisitForm.value.facturation);
+
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Inputs functions
+
+  handleFileInput(files: FileList) {
+    this.file = files.item(0);
+}
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Checking if patient exists functions
 
   /**
    * Check if the user with the DNI given exists in the DDBB
@@ -190,33 +232,55 @@ export class RegisterVisitComponent implements OnInit {
     })
   }
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // Create visit functions
+
   /**
    * Submit the visit and adds to the DDBB
    */
   addVisit() {
-    // console.log(this.registerVisitForm.value);
-    // console.log(this.recom);
-    // console.log(this.desc);
-    // this.onSelectAll();
 
-    // this.registerVisitForm.value.treat.forEach((t: any) => {
-    //   let treat: TreatmentClass = new TreatmentClass(
-    //     this.getTreatment(t.id)?.id,
-    //     this.getTreatment(t.id)?.name,
-    //     this.getTreatment(t.id)?.price,
-    //     this.getTreatment(t.id)?.description
-    //   );
-    //   this.listSelectTreatments.push(treat);
-    // });
+    // let visit = {
+    //   num: this.registerVisitForm.value.numHis,
+    //   dni: this.registerVisitForm.value.dni,
+    //   name: this.registerVisitForm.value.name,
+    //   surname: this.registerVisitForm.value.surnames,
+    //   date: this.registerVisitForm.value.date,
+    //   treats: this.registerVisitForm.value.treat,
+    //   facturate: this.registerVisitForm.value.facturation,
+    //   description: "Paciente tratado por Jordi",
+    //   document: this.registerVisitForm.value.document
+    // };
 
-    // console.log("Selected: " + this.listSelectTreatments);
-  }
+    console.log("Visita del formulario: " + {
+      num: this.registerVisitForm.value.numHis,
+      dni: this.registerVisitForm.value.dni,
+      name: this.registerVisitForm.value.name,
+      surname: this.registerVisitForm.value.surnames,
+      date: this.registerVisitForm.value.date,
+      treats: this.registerVisitForm.value.treat,
+      facturate: this.registerVisitForm.value.facturation,
+      description: "Paciente tratado por Jordi",
+      document: this.registerVisitForm.value.document
+    });
 
-  getTreatment(id: number) {
-    return this.listTreatments.find(e => e.id == id);
-  }
 
-  facturar() {
-    console.log("Abriendo menu de facturacion...");
+    console.log("Visita registrada: " + this.communicator.registerVisit(
+      {
+        num: this.registerVisitForm.value.numHis,
+        dni: this.registerVisitForm.value.dni,
+        name: this.registerVisitForm.value.name,
+        surname: this.registerVisitForm.value.surnames,
+        date: this.registerVisitForm.value.date,
+        treats: this.registerVisitForm.value.treat,
+        facturate: this.registerVisitForm.value.facturation,
+        description: "Paciente tratado por Jordi",
+        document: this.registerVisitForm.value.document
+      }
+    ));
+
   }
 }

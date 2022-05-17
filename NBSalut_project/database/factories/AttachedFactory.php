@@ -21,7 +21,7 @@ class AttachedFactory extends Factory
     {
         return [
             'visit_id' => Visit::pluck('id')->random(),
-            'type' => $this->faker->randomElement([".jpg",".png",".jpeg"]),
+            'type' => $this->faker->randomElement(["image","document"]),
             'document' => $this->faker->sentence()
         ];
     }
