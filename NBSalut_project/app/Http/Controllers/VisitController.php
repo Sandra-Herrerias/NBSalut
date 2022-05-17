@@ -33,12 +33,13 @@ class VisitController extends Controller
         $visit->visit_date = $request->date;
         $viit->user_id = 7;
 
-        $visits = DB::table('visits')
-            ->insert([
-                'visit_description' => $request->desc,
-                'visit_date' => $request->date
-            ]);
+        // $visits = DB::table('visits')
+        //     ->insert([
+        //         'visit_description' => $request->desc,
+        //         'visit_date' => $request->date
+        //     ]);
 
-        return $visits;
+        return response()->json(['success' => true, 'visit' => $visit]);
+        //return $visits;
     }
 }
