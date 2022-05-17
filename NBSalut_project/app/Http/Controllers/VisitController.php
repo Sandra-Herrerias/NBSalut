@@ -10,7 +10,7 @@ use DB;
 class VisitController extends Controller
 {
     
-    public function getVisits(Request $request)
+    public function getVisitsPatient(Request $request)
     {
         $visits = DB::table('visits')
             

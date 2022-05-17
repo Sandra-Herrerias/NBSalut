@@ -263,8 +263,8 @@ export class RegisterVisitComponent implements OnInit {
       date: this.registerVisitForm.value.date,
       treats: this.registerVisitForm.value.treat,
       facturate: this.registerVisitForm.value.facturation,
-      description: "Paciente tratado por Jordi",
-      document: this.registerVisitForm.value.document
+      description: "Paciente tratado por Jordi"
+      //document: this.registerVisitForm.value.document
     });
 
 
