@@ -35,6 +35,7 @@
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
+                            "node_modules/datatables.net/js/jquery.dataTables.min.js",
                             "node_modules/datatables.net/js/jquery.dataTables.js",
                             "node_modules/jszip/dist/jszip.js",
                             "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
