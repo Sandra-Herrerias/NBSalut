@@ -21,7 +21,6 @@ import { DatePipe } from '@angular/common';
 import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
