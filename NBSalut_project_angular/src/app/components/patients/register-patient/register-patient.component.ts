@@ -46,7 +46,7 @@ export class RegisterPatientComponent implements OnInit {
       register_date: ['', [Validators.required]],
       center_code: ['', [Validators.required]],
       ss_CIP: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.regexNumbersCapLetters)]],
-      diabetic: [''],
+      diabetic: [false],
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       last_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern(this.regexEmail)]],
@@ -158,7 +158,7 @@ export class RegisterPatientComponent implements OnInit {
       updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
 
-
+    console.log(this.userDetails.value.diabetic);
     if (this.userDetails.valid) {
       this.communicator.addPatient(info).subscribe(
         (result: any) => {
@@ -178,7 +178,6 @@ export class RegisterPatientComponent implements OnInit {
           }
         }
       );
-      alert('Form Submitted succesfully!!!\n Check the values in browser console.');
       console.table(this.userDetails.value);
     } else {//error message
       alert("Los datos del paciente no pueden estar vacíos");

@@ -18,7 +18,7 @@ import { ListTreatmentsComponent } from './components/treatments/list-treatments
 import { DataTablesModule } from "angular-datatables";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DatePipe } from '@angular/common';
-
+import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
 
 
 @NgModule({
@@ -33,7 +33,8 @@ import { DatePipe } from '@angular/common';
     QuarterlyReportComponent,
     ListInvoicesComponent,
     RegisterTreatmentComponent,
-    ListTreatmentsComponent
+    ListTreatmentsComponent,
+    EditPatientComponent
   ],
   imports: [
     BrowserModule,

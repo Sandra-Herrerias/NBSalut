@@ -21,21 +21,26 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      language: { url: '//cdn.datatables.net/plug-ins/1.12.0/i18n/es-ES.json' },
-      columnDefs: [{
-        orderable: false,
-        className: 'select-checkbox',
-        targets: 0
-      }],
       select: {
-        style: 'os',
-        selector: 'td:first-child'
+        style: 'multi',
       },
-      dom: 'Bfrtip',
+      processing: true,
+      pagingType: 'full_numbers',
+      // pagingType: 'full_numbers',
+      // pageLength: 5,
+      language: { url: '//cdn.datatables.net/plug-ins/1.12.0/i18n/es-ES.json' },
+      // columnDefs: [{
+      //   orderable: false,
+      //   className: 'select-checkbox',
+      //   targets: 0
+      // }],
+      // select: {
+      //   style: 'os',
+      //   selector: 'td:first-child'
+      // },
+      dom: 'lBfrtip',
       buttons: [
-        'copy', 'excel', 'pdf'
+        'excel', 'selectAll', 'selectNone'
       ],
 
     };

@@ -1,1 +1,38 @@
-<p>list-patients works!</p>
+<div id="titulo" class="p-5">
+    <div class="text-white text-center">
+        <h1 class="text-dark display-1"></h1>
+    </div>
+</div>
+<br>
+<br>
+<div class="container">
+    <table class="table table-hover table-borderless table-striped">
+        <thead>
+            <tr>
+                <th id="colTitle">Número clínico</th>
+                <th id="colTitle">Paciente</th>
+                <th id="colTitle">NIF / NIE</th>
+                <th id="colTitle">Email</th>
+                <th id="colTitle">Teléfono</th>
+                <th id="colTitle">Diabética</th>
+                <th id="colTitle"><i class="bi bi-pencil-fill"></i></th>
+                <th id="colTitle"><i class="bi bi-trash-fill"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataPatients">
+                <td>{{item.num_clinical_log}}</td>
+                <td>{{item.first_name}} {{item.last_name}} </td>
+                <td>{{item.dni}}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.diabetic}}</td>
+                <td><button class="btn"><i
+                            class="bi bi-pencil-fill"></i></button></td>
+                <td><button class="btn" (click)="confirmDeactivate(item)"><i
+                            class="bi bi-trash-fill"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
