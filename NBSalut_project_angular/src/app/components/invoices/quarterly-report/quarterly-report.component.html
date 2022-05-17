@@ -1,13 +1,16 @@
 <div class="container">
-  <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover">
+  <div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+    class="table table-striped table-bordered row-border hover">
     <thead>
       <tr>
+        <th></th>
         <th>NUM FACTURA
         </th>
         <th>FECHA</th>
-        <th> NUM HISTORIAL CLINICO </th>
+        <!-- <th> NUM HISTORIAL CLINICO </th> -->
         <th> NOMBRE DEL PACIENTE
-        </th>
+        </th> -->
         <th> DIRECCION </th>
         <th> DNI </th>
         <th> TRATAMIENTO </th>
@@ -16,16 +19,20 @@
     </thead>
     <tbody>
       <tr *ngFor="let invoice of invoices">
+        <th></th>
         <td>{{invoice.invoice_id}}</td>
         <td>{{invoice.visit_date}}</td>
-        <td>{{invoice.num_clinical_log}}</td>
+        <!-- <td>{{invoice.num_clinical_log}}</td> -->
         <td>{{invoice.first_name}} {{invoice.last_name}}</td>
         <td>{{invoice.address}} {{invoice.postal_code}}</td>
         <td>{{invoice.dni}}</td>
         <td>{{invoice.name}}</td>
         <td>{{invoice.price}}</td>
       </tr>
+
     </tbody>
   </table>
+  </div>
+ 
 
 </div>

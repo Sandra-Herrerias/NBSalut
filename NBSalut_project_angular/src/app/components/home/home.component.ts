@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 
@@ -11,7 +12,10 @@ export class HomeComponent implements OnInit {
 
   user !: User | null;
 
-
+  dtOptions: any | DataTables.Settings = {};
+  invoices: any;
+  dtTrigger: Subject<any> = new Subject<any>();
+  isChecked: boolean = false;
 
   constructor(private communicator: CommunicatorService) { }
 
