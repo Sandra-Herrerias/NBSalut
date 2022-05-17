@@ -205,6 +205,7 @@ export class CommunicatorService {
    * @returns the visit inserted & a response with a success variable.
    */
   registerVisit(visit: any) {
+    console.log("service-> fecha: " + visit.date + ", desc: " + visit.description);
     return this.http.post("http://127.0.0.1:8000/api/insertVisit",
       {
         date: visit.date,
