@@ -21,6 +21,13 @@ class VisitController extends Controller
             ->join('uses', 'visits.id', '=', 'uses.visit_id')
             ->where('visits.user_id', $request->id)
         ->get();
+
+        // return Visit::query()
+        //     ->joinRelationship('users')
+        //     ->joinRelationship('users.uses')
+            
+        // ->get();
+
     }
 
     public function getVisits() {
@@ -32,6 +39,8 @@ class VisitController extends Controller
     }
 
     public function insertVisit(Request $request) {
+
+        //return $request;
 
         $validator = Validator::make($request->all(), [
             'description' => 'string',
@@ -49,15 +58,22 @@ class VisitController extends Controller
             $visit->ss_private = "No";
             $visit->user_id = $request->user_id;
 
-            $uses = new Uses;
-            $uses->visit_id = $visit->id;
-            $uses->user_id = $request->user_id;
-            $uses->treatment_id = 9;
+            if($visit->save()) {
+                $uses = new Uses;
+                $uses->visit_id = $visit->id;
+                $uses->user_id = $request->user_id;
+                $uses->treatment_id = $request->treat;
+
+            if ( $uses->save()) {
+                return response()->json(['success' => true, 'visit' => $visit]);
+            }   
+            }
+
+           
             
-                if ($visit->save() && $uses->save()) {
-                    return response()->json(['success' => true, 'visit' => $visit]);
-                }   
+                
         }
-        return response()->json(['success' => false]);
+        return response()->json(['success' => false],);
+        //return $request;
     }
 }
