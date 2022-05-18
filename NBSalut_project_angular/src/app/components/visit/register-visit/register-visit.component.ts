@@ -259,33 +259,39 @@ export class RegisterVisitComponent implements OnInit {
   addVisit() {
     //console.log("Visita del formulario: " + this.actualVisit.dni);
 
-    this.registerVisitForm.value.treat.forEach((t: any) => {
-      this.actualVisit = {
-        num: this.registerVisitForm.value.numHis,
-        dni: this.registerVisitForm.value.dni,
-        name: this.registerVisitForm.value.name,
-        surname: this.registerVisitForm.value.surnames,
-        date: this.registerVisitForm.value.date,
-        treat: t.id,
-        facturate: this.registerVisitForm.value.facturation,
-        description: "Paciente tratado por Jordi",
-        document: this.registerVisitForm.value.document,
-        user_id: this.visitPatientId
-      };
+    if (this.registerVisitForm.value.treat) {
+      this.registerVisitForm.value.treat.forEach((t: any) => {
+        this.actualVisit = {
+          num: this.registerVisitForm.value.numHis,
+          dni: this.registerVisitForm.value.dni,
+          name: this.registerVisitForm.value.name,
+          surname: this.registerVisitForm.value.surnames,
+          date: this.registerVisitForm.value.date,
+          treat: t.id,
+          facturate: this.registerVisitForm.value.facturation,
+          description: "Paciente tratado por Jordi",
+          document: this.registerVisitForm.value.document,
+          user_id: this.visitPatientId
+        };
 
-      this.communicator.registerVisit(this.actualVisit).subscribe(
-        (result: any) => {
-          if (result.success) { //success message
-            console.log("Visita insertado correctamente");
-            console.log(result)
-          } else { //error message
-            console.log("La visita no se ha podido añadir!");
-            console.log(result)
+        this.communicator.registerVisit(this.actualVisit).subscribe(
+          (result: any) => {
+            if (result.success) { //success message
+              console.log("Visita insertado correctamente");
+              console.log(result)
+            } else { //error message
+              console.log("La visita no se ha podido añadir!");
+              console.log(result)
+            }
           }
-        }
-      );
-    });
+        );
+      });
+    } else {
+      console.log("Tratameinto requerido!");
+    }
+
+
   }
   //#endregion
-  
+
 }
