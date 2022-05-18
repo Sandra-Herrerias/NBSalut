@@ -10,7 +10,6 @@
       </div>
       <table *ngIf="this.invoices" datatable id="datatable" [dtOptions]="dtOptions"
         class="table table-striped table-hover table-bordered ">
-
         <thead>
           <tr class="text-uppercase">
             <!-- <th><input type="checkbox" [(ngModel)]="isMasterSel" name="send-invoice" (change)="checkUncheckAll()"></th> -->
@@ -29,7 +28,7 @@
             <!-- <td><input type="checkbox" name="send-invoice" [value]="invoice.id" [(ngModel)]="invoice.Selected" (change)="isAllSelected()"></td> -->
                 <td></td>
             <!-- <td>{{ invoice.number_invoice }}</td> -->
-            <td>{{ invoice.id }}</td>
+            <td>{{ invoice.invoice_id }}</td>
             <td>{{ invoice.invoice_date | date:'dd/MM/yyyy' }}</td>
             <td>{{ invoice.first_name }} {{ invoice.last_name }}</td>
             <td>{{ invoice.address }}, {{ invoice.postal_code }}</td>

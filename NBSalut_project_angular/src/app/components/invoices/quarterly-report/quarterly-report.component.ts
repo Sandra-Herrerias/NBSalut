@@ -125,6 +125,7 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
 
   }
 
+
   checkUncheckAll() {
     // for (var i = 0; i < this.categoryList.length; i++) {
     //   this.categoryList[i].isSelected = this.isMasterSel;
