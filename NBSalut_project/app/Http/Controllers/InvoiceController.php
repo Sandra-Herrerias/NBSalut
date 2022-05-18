@@ -24,14 +24,14 @@ class InvoiceController extends Controller
         // ->get();
         // // ->join('partner_')
 
-        $invoices = Invoice::join('visits', 'invoices.id', '=', 'visits.id')
-        ->join('partner_invoices', 'invoices.id', '=', 'partner_invoices.id')
-        ->join('invoice_details', 'invoices.id', '=', 'invoice_details.invoice_id')
-        ->join('treatments', 'invoice_details.treatment_id', '=','treatments.id')
-        ->where('partner_invoices.role','patient')
-        ->get('invoices.id','invoices.invoice_date','partner_invoices.first_name',
-        'partner_invoices.last_name', 'partner_invoices.address', 'partner_invoices.postal_code',
-         'treatments.name','treatments.total');
+        // $invoices = Invoice::join('visits', 'invoices.id', '=', 'visits.id')
+        // ->join('partner_invoices', 'invoices.id', '=', 'partner_invoices.id')
+        // ->join('invoice_details', 'invoices.id', '=', 'invoice_details.invoice_id')
+        // ->join('treatments', 'invoice_details.treatment_id', '=','treatments.id')
+        // ->where('partner_invoices.role','patient')
+        // ->get('invoices.id','invoices.invoice_date','partner_invoices.first_name',
+        // 'partner_invoices.last_name', 'partner_invoices.address', 'partner_invoices.postal_code',
+        //  'treatments.name','treatments.total');
 
 
         return response()->json(['success' => true, 'data' => $invoices]);
