@@ -21,7 +21,6 @@ return new class extends Migration
             $table->float('total');
 
             $table->unsignedBigInteger('treatment_id');
-
             $table->unsignedBigInteger('invoice_id');
 
             //constraints FK (foreign key)
