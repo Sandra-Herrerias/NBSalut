@@ -2,23 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use Illuminate\Http\Request;
+use App\Models\Visit;
 use DB;
 
 class InvoiceController extends Controller
 {
     public function getInvoices()
     {
-        // $visits = DB::table('visits')
-        //     ->join('users', 'visits.id', '=', 'users.id')
-        //     ->join('uses', 'visits.id', '=', 'uses.visit_id')
-        //     ->join('offers', 'uses.treatment_id', '=', 'offers.treatment_id')
-        //     ->join('treatments', 'offers.treatment_id', '=', 'treatments.id')
-        //     ->join('invoices', 'visits.id', '=', 'invoices.visit_id')
-        //     ->select('visits.visit_date', 'invoices.id as invoice_id','users.dni', 'users.first_name', 'users.last_name', 'users.num_clinical_log', 'users.address', 'users.postal_code', 'treatments.name', 'treatments.price')
-        //     ->get();
-
-
         $invoices = DB::table('invoices')
         ->join('visits', 'invoices.id', '=', 'visits.id')
         ->join('partner_invoices', 'invoices.id', '=', 'partner_invoices.id')
@@ -31,6 +23,9 @@ class InvoiceController extends Controller
         //   'treatments.price')
         ->get();
         // ->join('partner_')
+
+        // $eloquent = Invoice::addSelect(['visits' => Visit::select('')
+        // ->whereColumn('invoices.visit_id','visits.id')])->get();
 
         return response()->json(['success' => true, 'data' => $invoices]);
     }
