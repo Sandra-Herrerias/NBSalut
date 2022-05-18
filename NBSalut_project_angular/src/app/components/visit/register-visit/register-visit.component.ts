@@ -99,7 +99,7 @@ export class RegisterVisitComponent implements OnInit {
     this.loadTreatments();
     this.loadTreatmentsSelect();
 
-    //console.log(this.listTreatments);
+    console.log(this.listTreatments);
     //console.log(this.listVisits);
   }
 
@@ -241,7 +241,8 @@ export class RegisterVisitComponent implements OnInit {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // Create visit functions
+  //#region Visits Functions
+
 
   /**
    * Submit the visit and adds to the DDBB
@@ -250,9 +251,9 @@ export class RegisterVisitComponent implements OnInit {
 
 
 
-    console.log("Visita del formulario: " + this.actualVisit.dni);
+    //console.log("Visita del formulario: " + this.actualVisit.dni);
 
-    this.registerVisitForm.value.treats.forEach((t: any) => {
+    this.registerVisitForm.value.treat.forEach((t: any) => {
       this.actualVisit = {
         num: this.registerVisitForm.value.numHis,
         dni: this.registerVisitForm.value.dni,
@@ -268,9 +269,9 @@ export class RegisterVisitComponent implements OnInit {
 
       this.communicator.registerVisit(this.actualVisit).subscribe(
         (result: any) => {
-          if (result.success) {//success message
+          if (result.success) { //success message
             console.log("Visita insertado correctamente");
-          } else {//error message
+          } else { //error message
             console.log("La visita no se ha podido añadir!");
           }
         }
@@ -279,7 +280,7 @@ export class RegisterVisitComponent implements OnInit {
     });
 
 
-
+    //#endregion
 
 
   }
