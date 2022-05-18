@@ -1,124 +1,118 @@
 {
-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "version": 1,
-    "newProjectRoot": "projects",
-    "projects": {
-        "NBSalut_project_angular": {
-            "projectType": "application",
-            "schematics": {
-                "@schematics/angular:application": {
-                    "strict": true
-                }
-            },
-            "root": "",
-            "sourceRoot": "src",
-            "prefix": "app",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
-                    "options": {
-                        "outputPath": "dist/nbsalut-project-angular",
-                        "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "tsconfig.app.json",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "src/styles.css",
-                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                            "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-                            "node_modules/datatables.net-dt/css/jquery.dataTables.min.css"
-                        ],
-                        "scripts": [
-                            "node_modules/jquery/dist/jquery.min.js",
-                            "node_modules/bootstrap/dist/js/bootstrap.min.js",
-                            "node_modules/datatables.net/js/jquery.dataTables.min.js",
-                            "node_modules/datatables.net/js/jquery.dataTables.js",
-                            "node_modules/datatables.net-select/js/dataTables.select.js",
-                            "node_modules/jszip/dist/jszip.js",
-                            "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
-                            "node_modules/datatables.net-buttons/js/buttons.colVis.js",
-                            "node_modules/datatables.net-buttons/js/buttons.flash.js",
-                            "node_modules/datatables.net-buttons/js/buttons.html5.js",
-                            "node_modules/datatables.net-buttons/js/buttons.print.js"
-                        ]
-                    },
-                    "configurations": {
-                        "production": {
-                            "budgets": [
-                                {
-                                    "type": "initial",
-                                    "maximumWarning": "500kb",
-                                    "maximumError": "1mb"
-                                },
-                                {
-                                    "type": "anyComponentStyle",
-                                    "maximumWarning": "2kb",
-                                    "maximumError": "4kb"
-                                }
-                            ],
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "outputHashing": "all"
-                        },
-                        "development": {
-                            "buildOptimizer": false,
-                            "optimization": false,
-                            "vendorChunk": true,
-                            "extractLicenses": false,
-                            "sourceMap": true,
-                            "namedChunks": true
-                        }
-                    },
-                    "defaultConfiguration": "production"
-                },
-                "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "NBSalut_project_angular:build:production"
-                        },
-                        "development": {
-                            "browserTarget": "NBSalut_project_angular:build:development"
-                        }
-                    },
-                    "defaultConfiguration": "development"
-                },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "NBSalut_project_angular:build"
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "src/test.ts",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "tsconfig.spec.json",
-                        "karmaConfig": "karma.conf.js",
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "src/styles.css"
-                        ],
-                        "scripts": [
-                            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-                            "node_modules/bootstrap/dist/js/bootstrap.min.js"
-                        ]
-                    }
-                }
-            }
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "NBSalut_project_angular": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
         }
-    },
-    "defaultProject": "NBSalut_project_angular"
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/nbsalut-project-angular",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.css",
+              "node_modules/datatables.net-select-dt/css/select.dataTables.css",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/datatables.net-select/js/dataTables.select.js",
+              "node_modules/datatables.net-bs5/js/dataTables.bootstrap5.js",
+              "node_modules/jszip/dist/jszip.js",
+              "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "NBSalut_project_angular:build:production"
+            },
+            "development": {
+              "browserTarget": "NBSalut_project_angular:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "NBSalut_project_angular:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "NBSalut_project_angular"
 }

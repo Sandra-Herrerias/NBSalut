@@ -30,9 +30,17 @@ class VisitController extends Controller
         // ])->get();
 
         return Visit::select('visits.id','visits.visit_date','visits.visit_description','users.first_name','users.last_name')
-        ->join('users', 'visits.user_id', '=', 'users.id')
-        ->join('uses', 'visits.id', '=', 'uses.visit_id')
-        ->where('visits.user_id', $request->id)
+            ->join('users', 'visits.user_id', '=', 'users.id')
+            ->join('uses', 'visits.id', '=', 'uses.visit_id')
+            ->where('visits.user_id', $request->id)
+        ->get();
+    }
+
+    public function getVisits() {
+        return Visit::select('visits.id','visits.visit_date','visits.visit_description','users.first_name','users.last_name','users.dni','invoices.total_price')
+            ->join('users', 'visits.user_id', '=', 'users.id')
+            ->join('uses', 'visits.id', '=', 'uses.visit_id')
+            ->join('invoices', 'visits.id', '=', 'invoices.visit_id')
         ->get();
     }
 
@@ -41,6 +49,7 @@ class VisitController extends Controller
         $validator = Validator::make($request->all(), [
             'description' => 'string',
             'date' => 'required|date',
+            'user_id' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['success' => false]);
@@ -50,7 +59,11 @@ class VisitController extends Controller
             $visit->visit_description = $request->description;
             $visit->visit_date = $request->date;
             $visit->ss_private = "No";
-            $visit->user_id = 7;
+            $visit->user_id = $request->user_id;
+
+            $uses = new Uses;
+            $user->visit_id = $visit->id;
+            $user->user_id = $request->user_id;
             
                 if ($visit->save()) {
                     return response()->json(['success' => true, 'visit' => $visit]);

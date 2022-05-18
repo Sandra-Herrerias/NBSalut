@@ -12,10 +12,10 @@ export class HomeComponent implements OnInit {
 
   user !: User | null;
 
-  dtOptions: any | DataTables.Settings = {};
-  invoices: any;
-  dtTrigger: Subject<any> = new Subject<any>();
-  isChecked: boolean = false;
+  // dtOptions: any | DataTables.Settings = {};
+  // invoices: any;
+  // dtTrigger: Subject<any> = new Subject<any>();
+  // isChecked: boolean = false;
 
   constructor(private communicator: CommunicatorService) { }
 
