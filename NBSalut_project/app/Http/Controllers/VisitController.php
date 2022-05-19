@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Visit;
 use App\Models\User;
 use App\Models\Uses;
+use App\Models\Attached;
+
 
 use Validator;
 use DB;
@@ -42,10 +44,9 @@ class VisitController extends Controller
 
     public function insertVisit(Request $request) {
 
-        //return $request;
+        return $request; 
 
         $validator = Validator::make($request->all(), [
-            'description' => 'string',
             'date' => 'required|date',
             'user_id' => 'required',
             'treat' => 'required'
@@ -66,16 +67,17 @@ class VisitController extends Controller
                 $uses->user_id = $request->user_id;
                 $uses->treatment_id = $request->treat;
 
-            if ( $uses->save()) {
+                $attached = new Attached;
+                $attached->id;
+                $attached->type = ".jpg";
+                $attached->document = $request->file;
+                $attached->visit_id = $visit->id;
+
+            if ( $uses->save() && $attached->save()) {
                 return response()->json(['success' => true, 'visit' => $visit]);
             }   
-            }
-
-           
-            
-                
+            }                
         }
         return response()->json(['success' => false],);
-        //return $request;
     }
 }
