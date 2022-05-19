@@ -19,6 +19,8 @@ import { DataTablesModule } from "angular-datatables";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DatePipe } from '@angular/common';
 import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { EditPatientComponent } from './components/patients/edit-patient/edit-pa
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    NgMultiSelectDropDownModule.forRoot()
+    MatDatepickerModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxDaterangepickerMd.forRoot()
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

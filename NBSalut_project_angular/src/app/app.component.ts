@@ -9,7 +9,7 @@ import { CommunicatorService } from './services/communicator.service';
 })
 export class AppComponent {
   title = 'NBSalut';
-  status: boolean = false;
+  status: boolean = true;
   clickEvent(){
       this.status = !this.status;
   }

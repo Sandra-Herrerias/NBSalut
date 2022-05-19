@@ -35,6 +35,7 @@ Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
+Route::post('getInvoicesBetweenDates', [InvoiceController::class, 'getInvoicesBetweenDates']);
 
 // Patients Routes
 Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);

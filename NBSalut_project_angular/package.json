@@ -36,6 +36,7 @@
     "jquery": "^3.6.0",
     "jszip": "^3.9.1",
     "ng-multiselect-dropdown": "^0.3.8",
+    "ngx-daterangepicker-material": "^5.0.2",
     "ngx-filesaver": "^13.0.0",
     "popper": "^1.0.1",
     "popper.js": "^1.16.1",

@@ -24,7 +24,7 @@ export class CommunicatorService {
   // Users Functions
 
   /**
-   * 
+   *
    * @param user the user to validate the login
    * @returns the user validated & a response with a success variable.
    */
@@ -83,7 +83,7 @@ export class CommunicatorService {
   // Treatment Functions
 
   /**
-   * 
+   *
    * @returns a list of treatments from the DDBB
    */
   getTreatments() {
@@ -101,13 +101,20 @@ export class CommunicatorService {
   // Invoice Functions
 
   /**
-    * 
+    *
     * @returns a list of invoices from the DDBB
     */
   getInvoices() {
     return this.http.get("http://127.0.0.1:8000/api/getInvoices",
       {
         responseType: "json"
+      });
+  }
+
+  getInvoicesBetweenDates(dates: any) {
+    return this.http.post("http://127.0.0.1:8000/api/getInvoicesBetweenDates",dates,
+      {
+        responseType: "json",
       });
   }
 
@@ -118,7 +125,7 @@ export class CommunicatorService {
   // Patients Functions
 
   /**
-   * 
+   *
    * @param user the user to check if exists in the DDBB with the DNI
    * @returns the patient validated & a response with a success variable.
    */
@@ -141,7 +148,7 @@ export class CommunicatorService {
   }
 
   /**
-   * 
+   *
    * @param user the user to check if exists in the DDBB with the full name
    * @returns the patient validated & a response with a success variable.
    */
@@ -207,7 +214,7 @@ export class CommunicatorService {
   // Visit Functions
 
   /**
-  * 
+  *
   * @returns a list of visits of the patient given from the DDBB
   */
   getVisitsPatient(patient: any) {
@@ -222,10 +229,10 @@ export class CommunicatorService {
   }
 
   /**
-  * 
+  *
   * @returns a list of visits from the DDBB
   */
-   getVisits() {
+  getVisits() {
 
     return this.http.get("http://127.0.0.1:8000/api/getVisits",
       {
