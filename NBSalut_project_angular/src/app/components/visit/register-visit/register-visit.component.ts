@@ -29,7 +29,7 @@ export class RegisterVisitComponent implements OnInit {
   visitPatient: any;
   visitPatientId: number;
 
-  file: File | null = null;
+  fileBlob: File | null = null;
 
   message: string | undefined;
 
@@ -187,19 +187,27 @@ export class RegisterVisitComponent implements OnInit {
 
   // Inputs functions
 
-  handleFileInput(files: FileList) {
-    this.file = files.item(0);
-  }
-
   onFileChange(event:any) {
    
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.registerVisitForm.patchValue({
-        fileSource: file
-      });
-    }
+  //   if (event.target.value) {
+  //     const file = event.target.files[0];
+  //     const type = file.type;
+  //     this.changeFile(file).then((base64: string): any => {
+  //         console.log(base64);
+  //         this.fileBlob = this.b64Blob([base64], type);
+  //         console.log(this.fileBlob)
+  //     });
+  // } else alert('Nothing')
   } 
+
+  changeFile(file: File) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
 
   //#endregion
 
