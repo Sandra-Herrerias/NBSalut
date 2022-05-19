@@ -24,7 +24,7 @@ return new class extends Migration
             //Constraints FK
             $table->foreign('visit_id')
                 ->references('id')
-                ->on('visits');
+                ->on('visits')->onDelete('cascade');
 
             $table->timestamps();
         });

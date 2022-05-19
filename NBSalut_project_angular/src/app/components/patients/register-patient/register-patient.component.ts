@@ -66,10 +66,12 @@ export class RegisterPatientComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Get form data
+   */
   get userDetailsFormControl() {
     return this.userDetails.controls;
   }
-
 
 
   /**

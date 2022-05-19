@@ -185,17 +185,32 @@ export class CommunicatorService {
       });
   }
 
+
   /**
- * This method modifies the selected patient with the new info.
+ * This method modifies the selected user with the new info.
  * @param info
  */
-  modifyDataPatient(info: Object) {
-    return this.http.post("http://127.0.0.1:8000/updatePatient",
+  modifyDataUser(info: Object) {
+    return this.http.post("http://127.0.0.1:8000/updateUser",
       info,
       { responseType: "json" });
   }
 
-  //#endregion
+    /**
+  * Service POST
+  * @param info 
+  * @returns 
+  */
+     delete(info: any) { 
+       console.log(info);
+      return this.http.delete("http://localhost:8000/deleteUser",
+        {
+          responseType: "json",
+          body: info
+         
+        });
+    }
+
 
 
   //#region Visit Functions

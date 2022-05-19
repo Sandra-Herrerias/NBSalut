@@ -1,78 +1,128 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NBSalut</title>
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" routerLink="/home">
-                <!-- <img src="assets/images/logo.png" alt="" height="45" class="d-inline-block align-text-top"> -->
-                NBSalut
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" routerLink="/home">Inicio</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Pacientes
-            </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Añadir paciente</a></li>
-                            <li><a class="dropdown-item" href="#">Listar pacientes</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Visitas
-            </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" routerLink="/regvisit">Nueva Visita</a></li>
-                            <li><a class="dropdown-item" routerLink="/listvisit">Listar Visitas</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Tratamientos
-            </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Añadir tratamiento</a></li>
-                            <li><a class="dropdown-item" href="#">Listar tratamientos</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Facturas
-            </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Listar facturas</a></li>
-                            <li><a class="dropdown-item" href="#">Envío trimestral</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-                <form class="d-flex">
-                    <button *ngIf="user" type="button" class="btn btn-info" (click)="logout()">Salir</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-    <div>
-        <router-outlet></router-outlet>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js"
+  integrity="sha512-5qbIAL4qJ/FSsWfIq5Pd0qbqoZpk5NcUVeAAREV2Li4EKzyJDEGlADHhHOSSCw0tHP7z3Q4hNHJXa81P92borQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<main class="d-flex min-vh-100 overflow-hidden">
+  <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark nb" style="width: 280px;"
+    [ngClass]="status ? 'hide' : 'show'">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <svg class="bi me-2" width="40" height="32">
+        <use xlink:href="#bootstrap"></use>
+      </svg>
+      <span class="fs-4">Sidebar</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" aria-current="page">
+          <i class="bi bi-house"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-solid fa-user-plus"></i>
+          Añadir Paciente
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-solid fa-users"></i>
+          Listar Pacientes
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-light fa-file-medical"></i>
+          Añadir Visita
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-solid fa-files-medical"></i>
+          Listar Visitas
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-light fa-file-medical"></i>
+          Añadir Tratamientos
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-light fa-file-medical"></i>
+          Listar Tratamientos
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-light fa-file-medical"></i>
+         Listar Facturas
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-light fa-file-medical"></i>
+         Factura Trimestral
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-light fa-file-medical"></i>
+         Plantilla
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <i class="fa-light fa-file-medical"></i>
+         Administradores
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+        <strong>mdo</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1" style="">
+        <li><a class="dropdown-item" href="#">New project...</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
+      </ul>
     </div>
-</body>
+  </div>
+  <div id="page-content-wrapper">
+    <div class="container-fluid nb mb-5">
+      <header class="d-flex align-items-center justify-space-between py-2">
+        <button class="btn btn-lg" (click)="clickEvent()"><i class="bi bi-list text-white"></i></button>
 
-</html>
+        <!-- <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle show" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="true">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small show" aria-labelledby="dropdownUser1" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 34px);" data-popper-placement="bottom-start">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div> -->
+      </header>
+    </div>
+
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</main>

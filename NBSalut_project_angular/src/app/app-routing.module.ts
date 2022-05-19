@@ -34,8 +34,8 @@ const routes: Routes = [
     component: RegisterPatientComponent
   },
   {
-    path: 'listpatient',
-    component: ListPatientsComponent
+    path: 'listpatient', component: ListPatientsComponent,
+    
   },
   {
     path: 'editpatient',

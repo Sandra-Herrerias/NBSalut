@@ -53,7 +53,6 @@ class UserController extends Controller
         $data = User::where('role', 'patient')->orderBy('num_clinical_log', 'DESC')->get();
         return $data;
     }
-
     
     /**
      * Method to add a new patient
@@ -95,28 +94,40 @@ class UserController extends Controller
     }
 
 
-    public function updatePatient(Request $request, User $patient)
+    public function updateUser(Request $request, User $user)
     {
-        $patient->id;
-        $patient->first_name = $request->first_name;
-        $patient->last_name = $request->last_name;
-        $patient->password = $request->password;
-        $patient->dni = $request->dni;
-        $patient->email = $request->email;
-        $patient->phone = $request->phone;
-        $patient->birthdate = date('Y-m-d', strtotime($request->birthdate));
-        $patient->city = $request->city;
-        $patient->address = $request->address;
-        $patient->postal_code = $request->postal_code;
-        $patient->active = $request->active;
-        $patient->previous_pathologies = $request->previous_pathologies;
-        $patient->diabetic = $request->diabetic;
-        $patient->ss_CIP = $request->ss_CIP;
-        $patient->center_code = $request->center_code;
-        $patient->num_clinical_log = $request->num_clinical_log;
-        $patient->collegiate_num = $request->collegiate_num;
-        $patient->role = $request->role;
-        $patient->update();
-        return response()->json(['success' => true, 'user' => $patient]);
+        $request->id;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->password = $request->password;
+        $user->dni = $request->dni;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->birthdate = date('Y-m-d', strtotime($request->birthdate));
+        $user->city = $request->city;
+        $user->address = $request->address;
+        $user->postal_code = $request->postal_code;
+        $user->active = $request->active;
+        $user->previous_pathologies = $request->previous_pathologies;
+        $user->diabetic = $request->diabetic;
+        $user->ss_CIP = $request->ss_CIP;
+        $user->center_code = $request->center_code;
+        $user->num_clinical_log = $request->num_clinical_log;
+        $user->collegiate_num = $request->collegiate_num;
+        $user->role = $request->role;
+        $user->update($request->id);
+        return response()->json(['success' => true, 'user' => $user]);
+    }
+
+    public function deleteUser(Request $request)
+    {
+        error_log($request->id);
+        //$userToDelete = null;
+        $result = User::destroy($request->id);
+
+        //$deletedUser = User::find($request->id);
+        //$deletedUser->delete();
+
+        return response()->json(['success' => true, 'result' => $result]);
     }
 }
