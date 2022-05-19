@@ -70,7 +70,6 @@ class VisitController extends Controller
                 $attached = new Attached;
                 $attached->id;
                 $attached->type = "image";
-                $attached->document = $request->file;
                 $attached->visit_id = $visit->id;
 
             if ( $uses->save() && $attached->save()) {

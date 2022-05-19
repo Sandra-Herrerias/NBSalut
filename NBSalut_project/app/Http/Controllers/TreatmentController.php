@@ -11,4 +11,8 @@ class TreatmentController extends Controller
         $data = Treatment::all();
         return $data;
     }
+
+    public function getTreatment(Request $request) {
+        return Treatment::find($request)->first();
+    }
 }

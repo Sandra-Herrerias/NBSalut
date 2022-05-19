@@ -90,6 +90,14 @@ export class CommunicatorService {
       });
   }
 
+  getTreatmentByID(id: number) {
+    return this.http.post("http://127.0.0.1:8000/api/getTreatment",
+      id,
+      {
+        responseType: "json"
+      });
+  }
+
   //#endregion
 
 
@@ -101,6 +109,14 @@ export class CommunicatorService {
     */
   getInvoices() {
     return this.http.get("http://127.0.0.1:8000/api/getInvoices",
+      {
+        responseType: "json"
+      });
+  }
+
+  generateInvoice(data: any) {
+    return this.http.post("http://127.0.0.1:8000/api/generateInvoice",
+      data,
       {
         responseType: "json"
       });
@@ -195,21 +211,22 @@ export class CommunicatorService {
       { responseType: "json" });
   }
 
-    /**
-  * Service POST
-  * @param info 
-  * @returns 
-  */
-     delete(info: any) { 
-       console.log(info);
-      return this.http.delete("http://localhost:8000/api/deleteUser",
-        {
-          responseType: "json",
-          body: info
-         
-        });
-    }
+  /**
+* Service POST
+* @param info 
+* @returns 
+*/
+  delete(info: any) {
+    console.log(info);
+    return this.http.delete("http://localhost:8000/api/deleteUser",
+      {
+        responseType: "json",
+        body: info
 
+      });
+  }
+
+  //#endregion
 
 
   //#region Visit Functions

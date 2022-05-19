@@ -21,9 +21,12 @@ export class RegisterVisitComponent implements OnInit {
   listTreatments: TreatmentClass[] = [];
   listSelectTreatments: TreatmentClass[] = [];
   selectTreatmentsOptions: IDropdownSettings = {};
+  tFound: any;
 
   listVisits: VisitClass[] = [];
   actualVisit: any;
+
+  genInvoice: any;
 
   patientExist: boolean;
   visitPatient: any;
@@ -110,7 +113,7 @@ export class RegisterVisitComponent implements OnInit {
     this.loadTreatments();
     this.loadTreatmentsSelect();
 
-    console.log(this.listTreatments);
+    //console.log(this.listTreatments);
     //console.log(this.listVisits);
   }
 
@@ -187,27 +190,27 @@ export class RegisterVisitComponent implements OnInit {
 
   // Inputs functions
 
-  onFileChange(event:any) {
-   
-  //   if (event.target.value) {
-  //     const file = event.target.files[0];
-  //     const type = file.type;
-  //     this.changeFile(file).then((base64: string): any => {
-  //         console.log(base64);
-  //         this.fileBlob = this.b64Blob([base64], type);
-  //         console.log(this.fileBlob)
-  //     });
-  // } else alert('Nothing')
-  } 
+  onFileChange(event: any) {
+
+    //   if (event.target.value) {
+    //     const file = event.target.files[0];
+    //     const type = file.type;
+    //     this.changeFile(file).then((base64: string): any => {
+    //         console.log(base64);
+    //         this.fileBlob = this.b64Blob([base64], type);
+    //         console.log(this.fileBlob)
+    //     });
+    // } else alert('Nothing')
+  }
 
   changeFile(file: File) {
     return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
     });
-}
+  }
 
   //#endregion
 
@@ -237,7 +240,7 @@ export class RegisterVisitComponent implements OnInit {
 
 
         this.loadVisits(res.user);
-        console.log(this.listVisits);
+        //console.log(this.listVisits);
 
 
       } else {
@@ -266,7 +269,7 @@ export class RegisterVisitComponent implements OnInit {
         this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
 
         this.loadVisits(res.user);
-        console.log(this.listVisits);
+        //console.log(this.listVisits);
 
       } else {
         this.route.navigate(['/regpatient']);
@@ -329,12 +332,15 @@ export class RegisterVisitComponent implements OnInit {
    * Submit the visit and adds to the DDBB
    */
   addVisit() {
-    
-    console.log(this.registerVisitForm.value.fileSource);
+
+    //console.log(this.registerVisitForm.value.fileSource);
 
     if (this.registerVisitForm.value.treat) {
+      // Visita y/o factura por tratamiento.
       this.registerVisitForm.value.treat.forEach((t: any) => {
 
+        // Registrar visita
+        console.log("Creando objeto visita...");
         this.actualVisit = {
           num: this.registerVisitForm.value.numHis,
           dni: this.registerVisitForm.value.dni,
@@ -342,14 +348,34 @@ export class RegisterVisitComponent implements OnInit {
           surname: this.registerVisitForm.value.surnames,
           date: this.registerVisitForm.value.date,
           treat: t.id,
-          facturate: this.registerVisitForm.value.facturation,
           description: this.registerVisitForm.value.desc || "No hay descripción",
           user_id: this.visitPatientId,
           file: this.registerVisitForm.value.file
         };
 
+        console.log("Buscando tratamiento por ID...");
+
+        this.communicator.getTreatmentByID(t.id).subscribe(
+          (result: any) => {
+            this.tFound = result;
+            console.log("TreatFound-> " + this.tFound) + " / " + result;
+          }
+        );
+
+        console.log("Creando objeto factura...");
+
+        this.genInvoice = {
+          payment: "Tarjeta",
+          date: this.registerVisitForm.value.date,
+          price: this.tFound.price
+        };
+
+        console.log("Enviando objeto visita...");
+
         this.communicator.registerVisit(this.actualVisit).subscribe(
           (result: any) => {
+            console.log("Recibiendo objeto visita...");
+
             if (result.success) { //success message
               console.log("Visita insertado correctamente");
               console.log(result)
@@ -359,10 +385,34 @@ export class RegisterVisitComponent implements OnInit {
             }
           }
         );
+
+        // Facturación
+        if (this.registerVisitForm.value.facturation) {
+
+          console.log("Enviando objeto factura...");
+
+          this.communicator.generateInvoice(this.genInvoice).subscribe(
+            (result: any) => {
+              console.log("Recibiendo objeto visita...");
+
+              if (result.success) { //success message
+                console.log("Factura generada correctamente");
+                console.log(result);
+              } else { //error message
+                console.log("La factura no se ha podido generar!");
+                console.log(result);
+              }
+            }
+          );
+
+        } else {
+          console.log("Facturación desactivada!");
+        }
+
       });
-    } else {
-      console.log("Tratameinto requerido!");
     }
+
+
 
 
   }

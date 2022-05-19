@@ -35,4 +35,12 @@ class InvoiceController extends Controller
         return response()->json(['success' => false, 'data' => []]);
 
     }
+
+    /**
+     * Create an invoice with the visit data given.
+     */
+    public function generateInvoice(Request $request) {
+
+        return $request;
+    }
 }

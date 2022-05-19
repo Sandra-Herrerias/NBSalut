@@ -19,7 +19,7 @@ export class AppComponent {
     this.communicator.user.subscribe(
       resultat =>{
         this.user = resultat;
-        console.log('cambio el objeto '+ this.user);
+        //console.log('cambio el objeto '+ this.user);
       }
     )
   }
