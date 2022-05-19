@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckboxControlValueAccessor, CheckboxRequiredValidator, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { TreatmentClass } from 'src/app/models/treatment-class.model';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 import { IDropdownSettings, } from 'ng-multiselect-dropdown';
@@ -62,7 +62,7 @@ export class RegisterVisitComponent implements OnInit {
       '', [Validators.required]
     ],
     dni: [
-      '', [Validators.required]
+      '', [Validators.required, this.createDniValidator()]
     ],
     facturation: [
       true
@@ -78,7 +78,7 @@ export class RegisterVisitComponent implements OnInit {
 
   public validatePatientFormDni = this.formBuilder.group({
     dni: [
-      '', [Validators.required]
+      '', [Validators.required, this.createDniValidator()]
     ]
   });
 
@@ -256,6 +256,51 @@ export class RegisterVisitComponent implements OnInit {
   //#endregion
 
 
+  //#region Validations
+
+  createDniValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+
+      const value = control.value;
+
+      if (!value) {
+        return null;
+      }
+
+      var numero;
+      var letr;
+      var letra;
+      var expresion_regular_dni;
+      var dniValid = false;
+      expresion_regular_dni = /^[XYZ]?\d{5,8}[A-Z]$/;
+
+      if (expresion_regular_dni.test(value) == true) {
+        numero = value.substr(0, value.length - 1);
+        numero = numero.replace('X', 0);
+        numero = numero.replace('Y', 1);
+        numero = numero.replace('Z', 2);
+        letr = value.substr(value.length - 1, 1);
+        numero = numero % 23;
+        letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+        letra = letra.substring(numero, numero + 1);
+        if (letra != letr.toUpperCase()) {
+          //alert('Dni erroneo, la letra del NIF no se corresponde');
+          dniValid = false;
+        } else {
+          //alert('Dni correcto');
+          dniValid = true;
+        }
+      } else {
+        //alert('Dni erroneo, formato no válido');
+        dniValid = false;
+      }
+      return !dniValid ? { correctDni: true } : null;
+    }
+  }
+
+  //#endregion
+
+
   //#region Visits Functions
 
 
@@ -263,6 +308,8 @@ export class RegisterVisitComponent implements OnInit {
    * Submit the visit and adds to the DDBB
    */
   addVisit() {
+    
+    console.log(this.registerVisitForm.value.file);
 
     if (this.registerVisitForm.value.treat) {
       this.registerVisitForm.value.treat.forEach((t: any) => {
@@ -276,7 +323,8 @@ export class RegisterVisitComponent implements OnInit {
           treat: t.id,
           facturate: this.registerVisitForm.value.facturation,
           description: this.registerVisitForm.value.desc || "No hay descripción",
-          user_id: this.visitPatientId
+          user_id: this.visitPatientId,
+          file: this.registerVisitForm.value.file
         };
 
         this.communicator.registerVisit(this.actualVisit).subscribe(

@@ -30,12 +30,15 @@
       <div class="row mb-3">
          <!-- Patient field -->
          <div class="mb-3 col-3">
-            <label class="form-label fw-bold">Introduce DNI del paciente *</label>
+            <label class="form-label fw-bold">Introduce NIF/NIE del paciente *</label>
             <input type="text" formControlName="dni" class="form-control" required>
-            <label class="text-danger mt-1"
-               *ngIf="registerVisitForm.get('dni')?.errors?.['required'] && registerVisitForm.get('dni')?.touched">DNI
-               requerido
-            </label>
+
+            <div *ngIf="registerVisitForm.get('dni')?.touched" class="text-danger mt-1">
+               <div *ngIf="registerVisitForm.get('dni')?.errors?.['required']">NIF/NIE es obligatorio.</div>
+               <div class="field-message" *ngIf="registerVisitForm.get('dni')?.errors?.['correctDni']">
+                   Formato de NIF/NIE incorrecto.
+               </div>
+           </div>
          </div>
       </div>
       <div class="row text-center mt-2">
@@ -95,12 +98,18 @@
                </div>
                <!-- DNI field -->
                <div class="mb-3 col-6">
-                  <label class="form-label fw-bold">DNI *</label>
+                  <label class="form-label fw-bold">NIF/NIE *</label>
                   <input type="text" formControlName="dni" class="form-control" required>
-                  <label class="text-danger mt-1"
+                  <!-- <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('dni')?.errors?.['required'] && registerVisitForm.get('dni')?.touched">DNI
                      requerido
-                  </label>
+                  </label> -->
+                  <div *ngIf="registerVisitForm.get('dni')?.touched" class="text-danger mt-1">
+                     <div *ngIf="registerVisitForm.get('dni')?.errors?.['required']">NIF/NIE es obligatorio.</div>
+                     <div class="field-message" *ngIf="registerVisitForm.get('dni')?.errors?.['correctDni']">
+                         Formato de NIF/NIE incorrecto.
+                     </div>
+                 </div>
                </div>
                <!-- Name field -->
                <div class="mb-3 col-6">
@@ -159,7 +168,7 @@
                <!-- Document field -->
                <div class="mb-3 col-8">
                   <label class="form-label fw-bold">Documento adjunto</label>
-                  <input class="form-control" type="file" id="file" formControlName="file">
+                  <input class="form-control" type="file" id="file" formControlName="file" accept="image/*">
                </div>
                <!-- Facturation check -->
                <div class="mb-3 col-4">
