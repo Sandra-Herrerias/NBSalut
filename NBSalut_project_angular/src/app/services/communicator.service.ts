@@ -190,7 +190,7 @@ export class CommunicatorService {
  * @param info
  */
   modifyDataUser(info: Object) {
-    return this.http.post("http://127.0.0.1:8000/updateUser",
+    return this.http.post("http://127.0.0.1:8000/api/updateUser",
       info,
       { responseType: "json" });
   }
@@ -202,7 +202,7 @@ export class CommunicatorService {
   */
      delete(info: any) { 
        console.log(info);
-      return this.http.delete("http://localhost:8000/deleteUser",
+      return this.http.delete("http://localhost:8000/api/deleteUser",
         {
           responseType: "json",
           body: info

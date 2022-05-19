@@ -43,5 +43,10 @@ Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
 Route::post('checkPatientName', [UserController::class, 'checkPatientName']);
 Route::post('addPatient', [UserController::class, 'addPatient']);
 Route::get('getPatients', [UserController::class, 'getPatients']);
-Route::delete('deleteUser', [UserController::class, 'deleteUser']);
-Route::put('updateUser', [UserController::class, 'updateUser']);
+
+
+Route::group(['middleware' => ['cors']], function () {
+    //Rutas a las que se permitirá acceso
+    Route::delete('deleteUser', [UserController::class, 'deleteUser']);
+    Route::post('updateUser', [UserController::class, 'updateUser']);
+});
