@@ -22,8 +22,8 @@ return new class extends Migration
 
             //Constraints FK
 
-            $table->foreign('visit_id')->references('id')->on('visits');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('visit_id')->references('id')->on('visits')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('treatment_id')->references('id')->on('treatments');
 
 

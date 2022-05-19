@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -40,4 +41,5 @@ Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
 Route::post('checkPatientName', [UserController::class, 'checkPatientName']);
 Route::post('addPatient', [UserController::class, 'addPatient']);
 Route::get('getPatients', [UserController::class, 'getPatients']);
-Route::put('updatePatient',[UserController::class, 'updatePatient']);
+Route::put('updateUser',[UserController::class, 'updateUser']);
+Route::delete('deleteUser',[UserController::class, 'deleteUser']);

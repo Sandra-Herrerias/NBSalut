@@ -20,11 +20,12 @@ return new class extends Migration
             $table->dateTime('invoice_date');
             $table->float('total_price');
             //camp foreign key de user id
-            $table->unsignedBigInteger('visit_id');
+            $table->unsignedBigInteger('visit_id')->nullable();
             //constraints FK (foreign key)
             $table->foreign('visit_id') //camp user id tindrà aquesta constraint
                 ->references('id') //camp
-                ->on('visits'); //taula
+                ->on('visits')
+                ->onDelete('SET NULL'); //taula
 
             $table->timestamps();
         });

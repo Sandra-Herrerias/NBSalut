@@ -22,7 +22,7 @@ return new class extends Migration
             //Constraints FK
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')->onDelete('set null');
 
             $table->foreign('treatment_id')
                 ->references('id')
