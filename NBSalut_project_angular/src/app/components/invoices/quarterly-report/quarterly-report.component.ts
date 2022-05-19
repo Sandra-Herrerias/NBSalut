@@ -26,12 +26,16 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
   dtTrigger: Subject<any> = new Subject();
   isChecked = false;
   isMasterSel: boolean;
-  invoicesToSend: any;
+  invoicesToSend: any | [] = [];
   message = '';
 
   constructor(private http: CommunicatorService, private filesaver: FileSaverService) {
-    this.isMasterSel = false;
+    this.isMasterSel = true;
     // this.getCheckedItemList();
+
+    // $('#datatable').on('click', function () {
+    //   console.log("ww")
+    // });
   }
   ngAfterViewInit(): void {
     $("#datatable").on("click", "tr.rows td", function (e) {
@@ -41,7 +45,36 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   someClickHandler(info: any): void {
-    this.message = info;
+    // this.message = info;
+    // console.log(this.invoicesToSend);
+    console.log(info[1]);
+    if (this.userExists(info)) {
+      console.log("ya existe")
+      // this.invoicesToSend = this.invoicesToSend.filter((item: { number_invoice: number; }) => item.number_invoice !== 1);
+      this.invoicesToSend = this.invoicesToSend.filter(function (item: { invoice_date: any; }) {
+        return item.invoice_date !== info.invoice_date;
+      });
+      // console.log(this.invoicesToSend)
+      // console.log("se elimina" + this.invoicesToSend.length)
+    } else {
+      // console.log("no existe")
+      this.invoicesToSend.push(info);
+      // console.log("se añade" + this.invoicesToSend)
+      // console.log(this.invoicesToSend)
+    }
+
+  }
+
+  userExists(data: any) {
+    return this.invoicesToSend.some(function (el: { number_invoice: any; }) {
+      return el.number_invoice === data.number_invoice;
+    });
+  }
+
+  all() {
+    this.invoicesToSend = [...this.invoices];
+    // console.log(this.invoicesToSend);
+    // console.log("se enviand todo!");
   }
 
   ngOnInit(): void {
@@ -63,16 +96,23 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
       buttons: [
         { text: '<i class="bi bi-file-earmark-excel"></i> Excel', extend: 'excel', className: 'btn btn-success' },
         {
-          text: '<i class="bi bi-check-square-fill"></i> Select all', extend: 'selectAll', className: 'btn btn-primary'
+          text: '<i class="bi bi-check-square-fill"></i> Select all', extend: 'selectAll', className: 'btn btn-primary selectAll',
+
         },
         { text: '<i class="bi bi-square"></i> Deselect all', extend: 'selectNone', className: 'btn btn-secondary' },
         {
           text: 'Confirmar para enviar',
+          className: 'btn',
           key: '1',
           action: function (e: any, dt: any, node: any, config: any) {
+            const self = this;
+            $('.select-checkbox').on('click', () => {
+              // self.someClickHandler({});
+
+            });
             // alert(dt.rows({ selected: true }).data());
-            console.log(dt.rows({ selected: true }).data())
-            console.log(dt.api())
+            // console.log(dt.rows({ selected: true }).data())
+            // console.log(dt.api())
           }
         }
       ],
@@ -86,17 +126,21 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
         $('.select-checkbox', row).on('click', () => {
           self.someClickHandler(data);
         });
-        return row;
+        $('.selectAll').on('click', () => {
+          self.all();
+        });
+        // return row;
       },
 
     };
     this.http.getInvoices().subscribe((response: any) => {
       if (response.success) {
         this.invoices = response.data;
+        // console.log(this.invoices)
         this.invoicesList = [...this.invoices];
-        this.invoicesList.forEach(function (element: { Selected: boolean; }) {
-          element.Selected = false;
-        });
+        // this.invoicesList.forEach(function (element: { Selected: boolean; }) {
+        //   element.Selected = false;
+        // });
         // console.log(this.invoicesList)
         this.dtTrigger.next(this.invoices);
         // console.log($("#datatable").DataTable().rows({select: true}).data());
@@ -104,6 +148,8 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
         // this.getCheckedItemList();
       }
     });
+    // $('#sandbox-container .input-daterange').DatePicker({
+    // });
   }
 
   export() {
