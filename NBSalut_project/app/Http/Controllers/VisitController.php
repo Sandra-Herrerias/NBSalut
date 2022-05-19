@@ -69,7 +69,7 @@ class VisitController extends Controller
 
                 $attached = new Attached;
                 $attached->id;
-                $attached->type = ".jpg";
+                $attached->type = "image";
                 $attached->document = $request->file;
                 $attached->visit_id = $visit->id;
 
