@@ -263,7 +263,6 @@ export class RegisterVisitComponent implements OnInit {
    * Submit the visit and adds to the DDBB
    */
   addVisit() {
-    //console.log("Visita del formulario: " + this.actualVisit.dni);
 
     if (this.registerVisitForm.value.treat) {
       this.registerVisitForm.value.treat.forEach((t: any) => {
@@ -276,9 +275,10 @@ export class RegisterVisitComponent implements OnInit {
           treat: t.id,
           facturate: this.registerVisitForm.value.facturation,
           description: this.registerVisitForm.value.desc,
-          document: this.registerVisitForm.value.document,
           user_id: this.visitPatientId
         };
+
+        console.log("Visita actual: " + this.actualVisit);
 
         this.communicator.registerVisit(this.actualVisit).subscribe(
           (result: any) => {
