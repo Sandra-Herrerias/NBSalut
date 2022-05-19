@@ -29,7 +29,7 @@ class InvoiceController extends Controller
         ->join('invoice_details', 'invoices.id', '=', 'invoice_details.invoice_id')
         ->join('treatments', 'invoice_details.treatment_id', '=','treatments.id')
         ->where('partner_invoices.role','patient')
-        ->select('invoices.id','invoices.invoice_date','partner_invoices.first_name',
+        ->select('invoices.id','invoices.number_invoice','invoices.invoice_date','partner_invoices.first_name',
         'partner_invoices.last_name','partner_invoices.dni','partner_invoices.address', 'partner_invoices.postal_code',
          'treatments.name','invoice_details.price')
         ->get();

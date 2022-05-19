@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->boolean('sent');
             $table->enum('payment_type', ['efectivo', 'tarjeta'])->nullable();
             $table->boolean('sent')->nullable();
+            $table->string('number_invoice')->nullable();
             $table->dateTime('invoice_date');
             $table->float('total_price');
             //camp foreign key de user id
