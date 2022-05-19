@@ -167,7 +167,7 @@
                <!-- Document field -->
                <div class="mb-3 col-8">
                   <label class="form-label fw-bold">Documento adjunto</label>
-                  <input class="form-control" type="file" id="file" formControlName="file" accept="image/*">
+                  <input class="form-control" type="file" id="file" formControlName="file" accept="image/*" (change)="onFileChange($event)">
                </div>
                <!-- Facturation check -->
                <div class="mb-3 col-4">

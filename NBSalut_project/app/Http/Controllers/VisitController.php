@@ -44,7 +44,7 @@ class VisitController extends Controller
 
     public function insertVisit(Request $request) {
 
-        return $request; 
+        //return $request; 
 
         $validator = Validator::make($request->all(), [
             'date' => 'required|date',

@@ -70,6 +70,9 @@ export class RegisterVisitComponent implements OnInit {
     file: [
       ''
     ],
+    fileSource: [
+      ''
+    ],
     desc: [
       ''
     ]
@@ -187,6 +190,16 @@ export class RegisterVisitComponent implements OnInit {
   handleFileInput(files: FileList) {
     this.file = files.item(0);
   }
+
+  onFileChange(event:any) {
+   
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.registerVisitForm.patchValue({
+        fileSource: file
+      });
+    }
+  } 
 
   //#endregion
 
@@ -309,7 +322,7 @@ export class RegisterVisitComponent implements OnInit {
    */
   addVisit() {
     
-    console.log(this.registerVisitForm.value.file);
+    console.log(this.registerVisitForm.value.fileSource);
 
     if (this.registerVisitForm.value.treat) {
       this.registerVisitForm.value.treat.forEach((t: any) => {
