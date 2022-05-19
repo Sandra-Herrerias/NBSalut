@@ -7,13 +7,14 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { VisitClass } from 'src/app/models/visit-class.model';
 
-
 @Component({
   selector: 'app-register-visit',
   templateUrl: './register-visit.component.html',
   styleUrls: ['./register-visit.component.css']
 })
 export class RegisterVisitComponent implements OnInit {
+
+  //#region Variables
 
   // Variables
 
@@ -26,14 +27,16 @@ export class RegisterVisitComponent implements OnInit {
 
   patientExist: boolean;
   visitPatient: any;
+  visitPatientId: number;
 
   file: File | null = null;
 
   message: string | undefined;
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //#endregion
+
+
+  //#region Formbuilder Forms
 
   // Form builder
 
@@ -82,28 +85,30 @@ export class RegisterVisitComponent implements OnInit {
     ]
   });
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //#endregion
 
+
+  //#region Initialize Section
 
   // Constructor & ngOnInit
 
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
     this.patientExist = false;
+    this.visitPatientId = -1;
   }
 
   ngOnInit(): void {
     this.loadTreatments();
     this.loadTreatmentsSelect();
 
-    //console.log(this.listTreatments);
+    console.log(this.listTreatments);
     //console.log(this.listVisits);
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //#endregion
+
+
+  //#region Loading Functions
 
   // Loading elements functions
 
@@ -139,9 +144,10 @@ export class RegisterVisitComponent implements OnInit {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //#endregion
+
+
+  //#region Testing
 
   // Testing functions
 
@@ -153,6 +159,11 @@ export class RegisterVisitComponent implements OnInit {
     console.log(this.registerVisitForm.value.treat);
   }
 
+  //#endregion
+
+
+  //#region Facturation Checkbox
+
   // Facturation checkbox
 
   checked() {
@@ -160,9 +171,10 @@ export class RegisterVisitComponent implements OnInit {
 
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //#endregion
+
+
+  //#region Files Functions
 
   // Inputs functions
 
@@ -170,10 +182,10 @@ export class RegisterVisitComponent implements OnInit {
     this.file = files.item(0);
   }
 
+  //#endregion
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //#region Checking Patient Functions
 
   // Checking if patient exists functions
 
@@ -189,6 +201,7 @@ export class RegisterVisitComponent implements OnInit {
           res.user.first_name, res.user.last_name,
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
+        this.visitPatientId = res.user.id;
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
@@ -219,6 +232,7 @@ export class RegisterVisitComponent implements OnInit {
           res.user.first_name, res.user.last_name,
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
+        this.visitPatientId = res.user.id;
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
@@ -233,42 +247,51 @@ export class RegisterVisitComponent implements OnInit {
     })
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //#endregion
 
-  // Create visit functions
+
+  //#region Visits Functions
+
 
   /**
    * Submit the visit and adds to the DDBB
    */
   addVisit() {
+    //console.log("Visita del formulario: " + this.actualVisit.dni);
 
-    this.actualVisit = {
-      num: this.registerVisitForm.value.numHis,
-      dni: this.registerVisitForm.value.dni,
-      name: this.registerVisitForm.value.name,
-      surname: this.registerVisitForm.value.surnames,
-      date: this.registerVisitForm.value.date,
-      treats: this.registerVisitForm.value.treat,
-      facturate: this.registerVisitForm.value.facturation,
-      description: "Paciente tratado por Jordi",
-      document: this.registerVisitForm.value.document
-    };
+    if (this.registerVisitForm.value.treat) {
+      this.registerVisitForm.value.treat.forEach((t: any) => {
+        this.actualVisit = {
+          num: this.registerVisitForm.value.numHis,
+          dni: this.registerVisitForm.value.dni,
+          name: this.registerVisitForm.value.name,
+          surname: this.registerVisitForm.value.surnames,
+          date: this.registerVisitForm.value.date,
+          treat: t.id,
+          facturate: this.registerVisitForm.value.facturation,
+          description: "Paciente tratado por Jordi",
+          document: this.registerVisitForm.value.document,
+          user_id: this.visitPatientId
+        };
 
-    console.log("Visita del formulario: " + this.actualVisit.dni);
-
-    this.communicator.registerVisit(this.actualVisit).subscribe(
-      (result: any) => {
-        if (result.success) {//success message
-          alert("Visita insertado correctamente");
-        } else {//error message
-          alert("La visita no se ha podido añadir!");
-        }
-      }
-    );
-
+        this.communicator.registerVisit(this.actualVisit).subscribe(
+          (result: any) => {
+            if (result.success) { //success message
+              console.log("Visita insertado correctamente");
+              console.log(result)
+            } else { //error message
+              console.log("La visita no se ha podido añadir!");
+              console.log(result)
+            }
+          }
+        );
+      });
+    } else {
+      console.log("Tratameinto requerido!");
+    }
 
 
   }
+  //#endregion
+
 }

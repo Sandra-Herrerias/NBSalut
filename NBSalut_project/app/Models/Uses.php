@@ -13,13 +13,6 @@ class Uses extends Model
 {
     use HasFactory;
 
-    /**
-     * Get the treatment that belongs to the use.
-     */
-    public function offer()
-    {
-        return $this->belongsTo(Offer::class);
-    }
 
      /**
      * Get the visit that belongs to the use.
@@ -27,6 +20,14 @@ class Uses extends Model
     public function visit()
     {
         return $this->belongsTo(Visit::class);
+    }
+
+     /**
+     * Get the treatment that belongs to the use.
+     */
+    public function treatment()
+    {
+        return $this->belongsTo(Treatment::class);
     }
 
 }
