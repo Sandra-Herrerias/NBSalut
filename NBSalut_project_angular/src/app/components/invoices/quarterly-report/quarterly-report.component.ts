@@ -3,7 +3,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs/internal/Subject';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 // import { DataTableDirective } from 'angular-datatables';
-import { FileSaverService } from 'ngx-filesaver';
+// import { FileSaverService } from 'ngx-filesaver';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -29,7 +29,7 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
   invoicesToSend: any;
   message = '';
 
-  constructor(private http: CommunicatorService, private filesaver: FileSaverService) {
+  constructor(private http: CommunicatorService/*, private filesaver: FileSaverService*/) {
     this.isMasterSel = false;
     // this.getCheckedItemList();
   }
@@ -121,7 +121,7 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
 
     const excelBuffer = XLSX.write(Workbook, { bookType: 'xlsx', type: 'array' });
     const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
-    this.filesaver.save(blobData, "demoFile");
+    //this.filesaver.save(blobData, "demoFile");
 
   }
 
