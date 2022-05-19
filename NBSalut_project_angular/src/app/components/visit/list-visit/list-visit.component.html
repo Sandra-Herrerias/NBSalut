@@ -15,7 +15,7 @@
                 <th id="colTitle">Fecha de la visita</th>
                 <th id="colTitle">Precio Total</th>
                 <th id="colTitle">Facturado</th>
-                <th id="colTitle"><i class="fa-solid fa-folder-open"></i></th>
+                <th id="colTitle" class="text-center">Adjuntos <i class="fa-solid fa-folder-open"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +26,7 @@
                 <td>{{item.visit_date}}</td>
                 <td>{{item.total_price}}</td>
                 <td>{{item.total_price}}</td>
+                <td class="text-center"><button class="btn btn-primary"><i class="fa-solid fa-folder-open"></i></button></td>
                 <!-- <td><button class="btn" (click)="confirmDeactivate(item)"><i
                             class="bi bi-trash-fill"></i></button>
                 </td> -->
