@@ -34,10 +34,14 @@ class InvoiceController extends Controller
          'treatments.name','invoice_details.price')
         ->get();
 
+            if ($invoices) {
+                return response()->json(['success' => true, 'data' => $invoices]);
+
+            }
 
         // $eloquent = Invoice::addSelect(['visits' => Visit::select('')
         // ->whereColumn('invoices.visit_id','visits.id')])->get();
+        return response()->json(['success' => false, 'data' => []]);
 
-        return response()->json(['success' => true, 'data' => $invoices]);
     }
 }
