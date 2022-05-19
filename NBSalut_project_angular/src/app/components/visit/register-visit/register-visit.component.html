@@ -86,7 +86,7 @@
                <!-- CH Number field -->
                <div class="mb-3 col-6">
                   <label class="form-label fw-bold">Nº del historial clínico *</label>
-                  <input type="text" formControlName="numHis" class="form-control" required>
+                  <input type="text" formControlName="numHis" class="form-control" readonly>
                   <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('numHis')?.errors?.['required'] && registerVisitForm.get('numHis')?.touched">Nº
                      del historial
@@ -137,19 +137,24 @@
                   </select>
                   <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
-                     requerida
+                     requerido
                   </label> -->
                   <div>
                      <ng-multiselect-dropdown [placeholder]="'Seleccionar tratamientos'"
                         [settings]="selectTreatmentsOptions" [data]="listTreatments" formControlName="treat"
                         (onSelect)="onItemSelect()" (onSelectAll)="onSelectAll()" (onDeSelect)="onItemSelect()">
                      </ng-multiselect-dropdown>
+                     <label class="text-danger mt-1"
+                        *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
+                        requerido
+                     </label>
                   </div>
                </div>
                <!-- Description field -->
                <div class="mb-3 col-12">
                   <label class="form-label fw-bold">Descripción de la visita</label>
-                  <textarea name="des" class="form-control" placeholder="Escribe aquí..." style="height: 100px"></textarea>
+                  <textarea name="des" class="form-control" placeholder="Escribe aquí..." formControlName="desc"
+                     style="height: 100px"></textarea>
                </div>
                <!-- Document field -->
                <div class="mb-3 col-8">
@@ -160,18 +165,19 @@
                <div class="mb-3 col-4">
                   <label class="form-label fw-bold">Facturación</label><br>
                   <div class="form-check">
-                     <input class="form-check-input" formControlName="facturation" type="checkbox" value="" (change)="checked()">
+                     <input class="form-check-input" formControlName="facturation" type="checkbox" value=""
+                        (change)="checked()">
                      <label class="form-check-label" for="flexCheckChecked">
-                       Realizar facturación
+                        Realizar facturación
                      </label>
                      <label class="text-danger mt-1"
-                     *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
-                     requerida
-                  </label>
-                   </div>
+                        *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
+                        requerida
+                     </label>
+                  </div>
                </div>
-            </div>  
-   
+            </div>
+
             <!-- Submit button -->
             <div class="row text-center mt-5">
                <div class="col-4"></div>
@@ -187,24 +193,24 @@
          <h2>Visitas anteriores de {{visitPatient.first_name}}</h2>
          <table class="table table-striped">
             <thead>
-                <tr>
-                    <!-- <th>ID</th> -->
-                    <!-- <th>Paciente</th> -->
-                    <th class="text-center">Fecha de visita</th>
-                    <!-- <th>Precio</th> -->
-                    <th>Descripción de la visita </th>
-                </tr>
+               <tr>
+                  <!-- <th>ID</th> -->
+                  <!-- <th>Paciente</th> -->
+                  <th class="text-center">Fecha de visita</th>
+                  <!-- <th>Precio</th> -->
+                  <th>Descripción de la visita </th>
+               </tr>
             </thead>
-            <tbody> 
-                <tr *ngFor="let visit of listVisits">
-                    <!-- <td>{{visit.id}}</td> -->
-                    <!-- <td>{{visit.patient}}</td> -->
-                    <td class="text-center">{{visit.date}}</td>
-                    <!-- <td>{{visit.price}}</td> -->
-                    <td>{{visit.description}}</td>
-                </tr>
+            <tbody>
+               <tr *ngFor="let visit of listVisits">
+                  <!-- <td>{{visit.id}}</td> -->
+                  <!-- <td>{{visit.patient}}</td> -->
+                  <td class="text-center">{{visit.date}}</td>
+                  <!-- <td>{{visit.price}}</td> -->
+                  <td>{{visit.description}}</td>
+               </tr>
             </tbody>
-        </table>
+         </table>
       </div>
    </div>
 </div>

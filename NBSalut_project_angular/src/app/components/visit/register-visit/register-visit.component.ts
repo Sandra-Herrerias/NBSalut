@@ -59,13 +59,19 @@ export class RegisterVisitComponent implements OnInit {
     date: new FormControl((new Date()).toISOString().substring(0, 10))
     ,
     treat: [
-      ''
+      '', [Validators.required]
     ],
     dni: [
       '', [Validators.required]
     ],
     facturation: [
       true
+    ],
+    file: [
+      ''
+    ],
+    desc: [
+      ''
     ]
 
   });
@@ -269,7 +275,7 @@ export class RegisterVisitComponent implements OnInit {
           date: this.registerVisitForm.value.date,
           treat: t.id,
           facturate: this.registerVisitForm.value.facturation,
-          description: "Paciente tratado por Jordi",
+          description: this.registerVisitForm.value.desc,
           document: this.registerVisitForm.value.document,
           user_id: this.visitPatientId
         };
