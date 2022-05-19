@@ -2,17 +2,18 @@
   <div class="card-header">
     Facturas
   </div>
+  <p class="text-danger">You clicked on: <strong>{{ message }}</strong></p>
   <div class="card-body">
     <div class="table-responsive">
       <div class="text-end">
         <button (click)="export()" class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Excel</button>
       </div>
-      <table *ngIf="this.invoices" datatable id="tableId" [dtOptions]="dtOptions"
+      <table *ngIf="this.invoices" datatable id="datatable" [dtOptions]="dtOptions"
         class="table table-striped table-hover table-bordered ">
-
         <thead>
           <tr class="text-uppercase">
-            <th><input type="checkbox" [(ngModel)]="isMasterSel" name="send-invoice" (change)="checkUncheckAll()"></th>
+            <!-- <th><input type="checkbox" [(ngModel)]="isMasterSel" name="send-invoice" (change)="checkUncheckAll()"></th> -->
+           <th></th>
             <th>Nº Factura</th>
             <th>Fecha</th>
             <th>Nombre del paciente</th>
@@ -24,8 +25,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let invoice of invoicesList; let i = index">
-            <td><input type="checkbox" name="send-invoice" [value]="invoice.id" [(ngModel)]="invoice.Selected"
-                (change)="isAllSelected()"></td>
+            <!-- <td><input type="checkbox" name="send-invoice" [value]="invoice.id" [(ngModel)]="invoice.Selected" (change)="isAllSelected()"></td> -->
+                <td></td>
             <!-- <td>{{ invoice.number_invoice }}</td> -->
             <td>{{ invoice.id }}</td>
             <td>{{ invoice.invoice_date | date:'dd/MM/yyyy' }}</td>

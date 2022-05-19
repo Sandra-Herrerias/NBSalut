@@ -9,7 +9,10 @@ import { CommunicatorService } from './services/communicator.service';
 })
 export class AppComponent {
   title = 'NBSalut';
-
+  status: boolean = false;
+  clickEvent(){
+      this.status = !this.status;
+  }
   user:any;
 
   constructor(private communicator : CommunicatorService, private route : Router){
