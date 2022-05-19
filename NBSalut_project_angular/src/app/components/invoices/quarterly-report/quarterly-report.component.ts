@@ -26,7 +26,7 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
   dtTrigger: Subject<any> = new Subject();
   isChecked = false;
   isMasterSel: boolean;
-  checkedCategoryList: any;
+  invoicesToSend: any;
   message = '';
 
   constructor(private http: CommunicatorService, private filesaver: FileSaverService) {
@@ -67,7 +67,7 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
         },
         { text: '<i class="bi bi-square"></i> Deselect all', extend: 'selectNone', className: 'btn btn-secondary' },
         {
-          text: 'Some button',
+          text: 'Confirmar para enviar',
           key: '1',
           action: function (e: any, dt: any, node: any, config: any) {
             // alert(dt.rows({ selected: true }).data());
