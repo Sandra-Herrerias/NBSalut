@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::post('login', [UserController::class, 'login']);
 Route::get('getUser', [UserController::class, 'getUser']);
 
@@ -42,5 +43,5 @@ Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
 Route::post('checkPatientName', [UserController::class, 'checkPatientName']);
 Route::post('addPatient', [UserController::class, 'addPatient']);
 Route::get('getPatients', [UserController::class, 'getPatients']);
-Route::put('updateUser',[UserController::class, 'updateUser']);
-Route::delete('deleteUser',[UserController::class, 'deleteUser']);
+Route::delete('deleteUser', [UserController::class, 'deleteUser']);
+Route::put('updateUser', [UserController::class, 'updateUser']);

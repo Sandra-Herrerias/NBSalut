@@ -31,7 +31,9 @@ class VisitController extends Controller
     }
 
     public function getVisits() {
-        return Visit::select('visits.id','visits.visit_date','visits.visit_description','users.first_name','users.last_name','users.dni','invoices.total_price')
+        return Visit::select('visits.id','visits.visit_date','visits.visit_description',
+        'visits.ss_private','users.first_name','users.last_name','users.dni',
+        'users.num_clinical_log','users.diabetic','uses.treatment_id')
             ->join('users', 'visits.user_id', '=', 'users.id')
             ->join('uses', 'visits.id', '=', 'uses.visit_id')
             ->join('invoices', 'visits.id', '=', 'invoices.visit_id')

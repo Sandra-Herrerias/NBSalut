@@ -5,9 +5,7 @@
         </div>
     </div>
 </nav>
-
-{{newUser.id}} {{newUserDetails.value}} {{newUserDetailsFormControl}}{{user}}
-<div class="container mt-5">
+<div class="mt-5">
     <div class="row">
         <form [formGroup]="newUserDetails" method="post" (ngSubmit)="emitInfoModifyUser()">
             <!-- Text inputs -->
@@ -66,7 +64,8 @@
                     <div *ngIf="newUserDetailsFormControl['last_name'].touched && newUserDetailsFormControl['last_name'].invalid" class="text-danger">
                         <div *ngIf="newUserDetailsFormControl['last_name'].errors?.['required']">El apellido es obligatorio.</div>
                         <div *ngIf="newUserDetailsFormControl['last_name'].errors?.['minlength']">Mínimo 2 carácteres.</div>
-                        <div *ngIf="newUserDetailsFormControl['last_name'].errors?.['pattern']">Sólo se aceptan letras y espacios</div>
+                        <div *ngIf="newUserDetailsFormControl['last_name'].errors?.['pattern']">Sólo se aceptan letras y espacios
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
@@ -85,7 +84,8 @@
                     <label for="birthdate" class="form-label">Fecha de nacimiento</label>
                     <input type="date" name="birthdate" class="form-control" formControlName="birthdate" [max]="today">
                     <div *ngIf="newUserDetailsFormControl['birthdate'].touched && newUserDetailsFormControl['birthdate'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['birthdate'].errors?.['required']">Fecha de nacimiento es obligatoria.</div>
+                        <div *ngIf="newUserDetailsFormControl['birthdate'].errors?.['required']">Fecha de nacimiento es obligatoria.
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
@@ -126,7 +126,8 @@
                     <label for="postal_code" class="form-label">Código Postal</label>
                     <input type="text" name="postal_code" class="form-control" formControlName="postal_code">
                     <div *ngIf="newUserDetailsFormControl['postal_code'].touched && newUserDetailsFormControl['postal_code'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['postal_code'].errors?.['required']">Código postal es obligatorio.</div>
+                        <div *ngIf="newUserDetailsFormControl['postal_code'].errors?.['required']">Código postal es obligatorio.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,7 +143,7 @@
             <!-- Submit button -->
             <div class="row text-center">
                 <div class="col-4"></div>
-                <button type="submit" [disabled]="newUserDetails.invalid" class="btn btn-primary btn-lg col-4" (click)="emitInfoModifyUser()">Modificar
+                <button type="submit" class="btn btn-primary btn-lg col-4" (click)="emitInfoModifyUser()">Modificar
           paciente</button>
                 <div class="col-4"></div>
             </div>

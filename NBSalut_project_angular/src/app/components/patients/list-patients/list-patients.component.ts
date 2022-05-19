@@ -2,6 +2,7 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
+import { ServicePatientService } from 'src/app/services/service-patient.service';
 @Component({
   selector: 'app-list-patients',
   templateUrl: './list-patients.component.html',
@@ -12,12 +13,19 @@ export class ListPatientsComponent implements OnInit {
   patientSelected !: User;
   constructor(
     private communicator: CommunicatorService,
-    private router: Router
+    private router: Router,
+    private servicePatient: ServicePatientService
   ) { }
 
   ngOnInit(): void {
     this.loadPatients();
   }
+
+  sendNewData(data: User) {
+    console.log("sendNewData");
+    this.servicePatient.sendData(data);
+  }
+  
 
   /**
    * Load data patient from the database
@@ -104,6 +112,7 @@ export class ListPatientsComponent implements OnInit {
     this.patientSelected = patient;
     //this.router.navigate(['/editpatient'],{state: {data:patient}});
     this.router.navigate(['/editpatient',{patient:this.patientSelected }]);
+    this.sendNewData(this.patientSelected);
   };
 
   /**
@@ -117,26 +126,4 @@ export class ListPatientsComponent implements OnInit {
     });
   }
 
-
-  /**
- * Executes info that gets from child component
- * @param $e
- */
-  getEventShow($e: Boolean) {
-    console.log($e);
-  }
-
-  /**
-* Executes info that gets from child component
-* @param $e
-*/
-  getUserModified($modifiedUser: User) {
-
-    var i: number;
-    for (i = 0; i < this.dataPatients.length; i++) {
-      if ($modifiedUser.id == this.dataPatients[i].id) {
-        this.dataPatients[i] = $modifiedUser;
-      }
-    }
-  }
 }

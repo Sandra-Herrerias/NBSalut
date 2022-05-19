@@ -17,7 +17,6 @@ export class CommunicatorService {
     this.user = this.userSubject.asObservable();////part public del Behabiour Subject que s'hi actualitza
   }
 
-
   //#region Users Functions
 
 

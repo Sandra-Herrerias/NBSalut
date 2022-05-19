@@ -5,7 +5,7 @@
 </div>
 <br>
 <br>
-<div class="container">
+<div class="">
     <table class="table table-hover table-borderless table-striped">
         <thead>
             <tr>
@@ -21,7 +21,6 @@
         </thead>
         <tbody>
             <tr *ngFor="let patient of dataPatients">
-                <a routerLink="/editpatient" [state]="{data:patient}"></a>
                 <td>{{patient.num_clinical_log}}</td>
                 <td>{{patient.first_name}} {{patient.last_name}} </td>
                 <td>{{patient.dni}}</td>
@@ -37,5 +36,3 @@
         </tbody>
     </table>
 </div>
-
-<app-edit-patient [user]="patientSelected" (eventShow)="getEventShow($event)" (modifiedUser)="getUserModified($event)"></app-edit-patient>

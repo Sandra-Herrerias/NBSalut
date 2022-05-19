@@ -5,6 +5,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { CommunicatorService } from 'src/app/services/communicator.service';
+import { ServicePatientService } from 'src/app/services/service-patient.service';
 @Component({
   selector: 'app-edit-patient',
   templateUrl: './edit-patient.component.html',
@@ -40,7 +41,8 @@ export class EditPatientComponent implements OnInit {
     private router: Router,
     private communicator: CommunicatorService,
     public datepipe: DatePipe,
-    private activeRoute: ActivatedRoute) {
+    private activeRoute: ActivatedRoute,
+    private servicePatient: ServicePatientService) {
 
 
     //Validations from reactive form
@@ -65,43 +67,34 @@ export class EditPatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
-    console.log(this.newUserDetails.value);
-    console.log(this.newUser);
-    console.log(this.newUser.first_name);
-    const selectedPatient = history.state.data // Here we got our selected patient object.
-    console.log(selectedPatient);
-    console.log(this.modifiedUser);
+
+    this.getData();
+
+    this.newUserDetails.controls['num_clinical_log'].setValue(this.newUser.num_clinical_log);
+    //this.newUserDetails.controls['register_date'].setValue(this.newUser.register_date);
+    this.newUserDetails.controls['center_code'].setValue(this.newUser.center_code);
+    this.newUserDetails.controls['ss_CIP'].setValue(this.newUser.ss_CIP);
+    this.newUserDetails.controls['diabetic'].setValue(this.newUser.diabetic);
+    this.newUserDetails.controls['active'].setValue(this.newUser.active);
+    this.newUserDetails.controls['first_name'].setValue(this.newUser.first_name);
+    this.newUserDetails.controls['last_name'].setValue(this.newUser.last_name);
+    this.newUserDetails.controls['email'].setValue(this.newUser.email);
+    this.newUserDetails.controls['birthdate'].setValue(this.newUser.birthdate);
+    this.newUserDetails.controls['dni'].setValue(this.newUser.dni);
+    this.newUserDetails.controls['phone'].setValue(this.newUser.phone);
+    this.newUserDetails.controls['address'].setValue(this.newUser.address);
+    this.newUserDetails.controls['city'].setValue(this.newUser.city);
+    this.newUserDetails.controls['postal_code'].setValue(this.newUser.postal_code);
+    this.newUserDetails.controls['previous_pathologies'].setValue(this.newUser.previous_pathologies);
   }
 
-
-  /**
- * This method sets the new values to modify the object.
- *//*
-   ngOnChanges(changes: SimpleChanges) {
-    //console.log(this.user.id);
-     this.newUser = new User(
-       this.user.id,
-       this.user.first_name,
-       this.user.last_name,
-       this.user.password,
-       this.user.dni,
-       this.user.email,
-       this.user.phone,
-       this.user.birthdate,
-       this.user.city,
-       this.user.address,
-       this.user.postal_code,
-       this.user.active,
-       this.user.previous_pathologies,
-       this.user.diabetic,
-       this.user.ss_CIP,
-       this.user.center_code,
-       this.user.num_clinical_log,
-       this.user.collegiate_num,
-       this.user.role);
-   }*/
-
+  getData() {
+    console.log("getData");
+    this.servicePatient.data.subscribe(response => {
+      console.log(response);  // you will receive the data from sender component here.
+    this.newUser = response;
+    });
+  }
 
   get newUserDetailsFormControl() {
     return this.newUserDetails.controls;
@@ -150,36 +143,6 @@ export class EditPatientComponent implements OnInit {
       return !dniValid ? { correctDni: true } : null;
     }
   }
-
-  /**
-* This method sends the patient with the new information to the method that modifies the patient in the service.
-*//*
-    modifyPatient() {
-      this.submitted = true;
-  
-      let info = {
-        first_name: this.newUserDetails.get('first_name')?.value,
-        last_name: this.newUserDetails.value.last_name,
-        dni: this.newUserDetails.value.dni,
-        email: this.newUserDetails.value.email,
-        phone: this.newUserDetails.value.phone,
-        birthdate: this.newUserDetails.value.birthdate,
-        city: this.newUserDetails.value.city,
-        address: this.newUserDetails.value.address,
-        postal_code: this.newUserDetails.value.postal_code,
-        active: this.newUserDetails.value.active,
-        previous_pathologies: this.newUserDetails.value.previous_pathologies,
-        diabetic: this.newUserDetails.value.diabetic,
-        ss_CIP: this.newUserDetails.value.ss_CIP,
-        center_code: this.newUserDetails.value.center_code,
-        num_clinical_log: this.newUserDetails.value.num_clinical_log,
-        role: this.newUserDetails.value.role,
-        created_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS'),
-        updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
-      }
-      console.log("DATA FORM GROUP");
-      console.log(info);
-    };*/
 
 
   /**

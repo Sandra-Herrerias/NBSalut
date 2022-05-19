@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommunicatorService } from 'src/app/services/communicator.service';
@@ -9,8 +10,9 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 })
 export class ListVisitComponent implements OnInit {
   listVisits: any[] = [];
-
-
+  visits: any;
+  dtTrigger: Subject<any> = new Subject();
+  message = '';
   constructor(private communicator: CommunicatorService, private router: Router) { }
 
   ngOnInit(): void {
@@ -27,5 +29,11 @@ export class ListVisitComponent implements OnInit {
         }
       );
     }
+
+    
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
 
 }
