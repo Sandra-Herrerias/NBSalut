@@ -48,17 +48,18 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
     // this.message = info;
     // console.log(this.invoicesToSend);
     console.log(info[1]);
-    if (this.userExists(info)) {
+    if (this.userExists(info[1])) {
       console.log("ya existe")
       // this.invoicesToSend = this.invoicesToSend.filter((item: { number_invoice: number; }) => item.number_invoice !== 1);
       this.invoicesToSend = this.invoicesToSend.filter(function (item: { invoice_date: any; }) {
-        return item.invoice_date !== info.invoice_date;
+        return item.invoice_date !== info[1];
       });
       // console.log(this.invoicesToSend)
       // console.log("se elimina" + this.invoicesToSend.length)
     } else {
       // console.log("no existe")
-      this.invoicesToSend.push(info);
+      let invoice = this.invoices.filter((x: { invoice_date: any; }) => x.invoice_date === info[1]);
+      this.invoicesToSend.push(invoice);
       // console.log("se añade" + this.invoicesToSend)
       // console.log(this.invoicesToSend)
     }
