@@ -20,18 +20,22 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of dataPatients">
-                <td>{{item.num_clinical_log}}</td>
-                <td>{{item.first_name}} {{item.last_name}} </td>
-                <td>{{item.dni}}</td>
-                <td>{{item.email}}</td>
-                <td>{{item.phone}}</td>
-                <td>{{item.diabetic}}</td>
-                <td><button class="btn" (click)="showFormModifyPatient();"><i
-                            class="bi bi-pencil-fill"></i></button></td>
-                <td><button class="btn" (click)="confirmDeactivate(item)"><i
-                            class="bi bi-trash-fill"></i></button>
+            <tr *ngFor="let patient of dataPatients">
+                <a routerLink="/editpatient" [state]="{data:patient}"></a>
+                <td>{{patient.num_clinical_log}}</td>
+                <td>{{patient.first_name}} {{patient.last_name}} </td>
+                <td>{{patient.dni}}</td>
+                <td>{{patient.email}}</td>
+                <td>{{patient.phone}}</td>
+                <td *ngIf="patient.diabetic == 0">no</td>
+                <td *ngIf="patient.diabetic == 1">sí</td>
+                <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i
+            class="bi bi-pencil-fill"></i></button></td>
+                <td><button class="btn" (click)="confirmDeactivate(patient)"><i class="bi bi-trash-fill"></i></button>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+
+<app-edit-patient [user]="patientSelected" (eventShow)="getEventShow($event)" (modifiedUser)="getUserModified($event)"></app-edit-patient>
