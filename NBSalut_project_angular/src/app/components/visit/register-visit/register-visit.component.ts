@@ -266,6 +266,7 @@ export class RegisterVisitComponent implements OnInit {
 
     if (this.registerVisitForm.value.treat) {
       this.registerVisitForm.value.treat.forEach((t: any) => {
+
         this.actualVisit = {
           num: this.registerVisitForm.value.numHis,
           dni: this.registerVisitForm.value.dni,
@@ -274,11 +275,9 @@ export class RegisterVisitComponent implements OnInit {
           date: this.registerVisitForm.value.date,
           treat: t.id,
           facturate: this.registerVisitForm.value.facturation,
-          description: this.registerVisitForm.value.desc,
+          description: this.registerVisitForm.value.desc || "No hay descripción",
           user_id: this.visitPatientId
         };
-
-        console.log("Visita actual: " + this.actualVisit);
 
         this.communicator.registerVisit(this.actualVisit).subscribe(
           (result: any) => {

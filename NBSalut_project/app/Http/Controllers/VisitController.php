@@ -40,10 +40,7 @@ class VisitController extends Controller
 
     public function insertVisit(Request $request) {
 
-        //return $request;
-
         $validator = Validator::make($request->all(), [
-            'description' => 'string',
             'date' => 'required|date',
             'user_id' => 'required',
             'treat' => 'required'
@@ -67,13 +64,8 @@ class VisitController extends Controller
             if ( $uses->save()) {
                 return response()->json(['success' => true, 'visit' => $visit]);
             }   
-            }
-
-           
-            
-                
+            }                
         }
         return response()->json(['success' => false],);
-        //return $request;
     }
 }
