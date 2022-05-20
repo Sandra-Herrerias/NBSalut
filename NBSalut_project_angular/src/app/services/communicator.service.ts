@@ -90,6 +90,14 @@ export class CommunicatorService {
       });
   }
 
+  getTreatmentByID(id: number) {
+    return this.http.post("http://127.0.0.1:8000/api/getTreatment",
+      id,
+      {
+        responseType: "json"
+      });
+  }
+
   //#endregion
 
 
@@ -101,6 +109,14 @@ export class CommunicatorService {
     */
   getInvoices() {
     return this.http.get("http://127.0.0.1:8000/api/getInvoices",
+      {
+        responseType: "json"
+      });
+  }
+
+  generateInvoice(data: any) {
+    return this.http.post("http://127.0.0.1:8000/api/generateInvoice",
+      data,
       {
         responseType: "json"
       });
@@ -190,26 +206,27 @@ export class CommunicatorService {
  * @param info
  */
   modifyDataUser(info: Object) {
-    return this.http.post("http://127.0.0.1:8000/updateUser",
+    return this.http.post("http://127.0.0.1:8000/api/updateUser",
       info,
       { responseType: "json" });
   }
 
-    /**
-  * Service POST
-  * @param info 
-  * @returns 
-  */
-     delete(info: any) { 
-       console.log(info);
-      return this.http.delete("http://localhost:8000/deleteUser",
-        {
-          responseType: "json",
-          body: info
-         
-        });
-    }
+  /**
+* Service POST
+* @param info 
+* @returns 
+*/
+  delete(info: any) {
+    console.log(info);
+    return this.http.delete("http://localhost:8000/api/deleteUser",
+      {
+        responseType: "json",
+        body: info
 
+      });
+  }
+
+  //#endregion
 
 
   //#region Visit Functions
@@ -247,7 +264,7 @@ export class CommunicatorService {
    * @returns the visit inserted & a response with a success variable.
    */
   registerVisit(visit: any) {
-    console.log("service-> fecha: " + visit.date + ", desc: " + visit.description + ", user_id: " + visit.user_id + ", treatment_id: " + visit.treat);
+    //console.log("service-> fecha: " + visit.date + ", desc: " + visit.description + ", user_id: " + visit.user_id + ", treatment_id: " + visit.treat + ", treat_price: " + visit.price);
     return this.http.post("http://127.0.0.1:8000/api/insertVisit",
       visit,
       {
