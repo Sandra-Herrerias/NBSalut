@@ -20,7 +20,7 @@ export class User {
      private _num_clinical_log!: String;
      private _collegiate_num!: String;
      private _role!: String;
-     private _register_date: Date;
+     private _register_date!: Date;
      /**
       * 
       * @param _id 
