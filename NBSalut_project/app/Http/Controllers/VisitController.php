@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Uses;
 use App\Models\Attached;
 use App\Models\Invoice;
+use App\Models\Treatment;
+
 
 
 use Validator;
@@ -52,7 +54,8 @@ class VisitController extends Controller
             'user_id' => 'required',
             'treat' => 'required'
         ]);
-        if ($validator->fails()) {
+
+        if($validator->fails()) {
             return response()->json(['success' => false]);
         } else {
             $visit = new Visit;
@@ -64,33 +67,85 @@ class VisitController extends Controller
             $visit->sent = 0;
 
             if($visit->save()) {
-                $uses = new Uses;
-                $uses->visit_id = $visit->id;
-                $uses->user_id = $request->user_id;
-                $uses->treatment_id = $request->treat;
+                //return count($request->treat);
+                for ($i=0; $i < count($request->treat); $i++) { 
+                    
+                
+                // foreach ($request->treat as $t) {
+                    $tFound = Treatment::find($request->treat[$i]['id'])->first();
 
-                $attached = new Attached;
-                $attached->id;
-                $attached->type = "image";
-                $attached->document = "file";
-                $attached->visit_id = $visit->id;
+                    $uses = new Uses;
+                    $uses->visit_id = $visit->id;
+                    $uses->user_id = $request->user_id;
+                    $uses->treatment_id = $request->treat[$i]['id'];
 
-                if($request->facturate == true) {
-                    $invoice = new Invoice;
-                    $invoice->id;
-                    $invoice->payment_type = "Tarjeta";
-                    $invoice->invoice_date = $request->date;
-                    $invoice->total_price = $request->price;
-                    $invoice->visit_id = $visit->id;
+                    $attached = new Attached;
+                    $attached->id;
+                    $attached->type = "image";
+                    $attached->document = "file";
+                    $attached->visit_id = $visit->id;
 
-                    $invoice->save();
+                    if($request->facturate == true) {
+                        $invoice = new Invoice;
+                        $invoice->id;
+                        $invoice->payment_type = "Tarjeta";
+                        $invoice->invoice_date = $request->date;
+                        $invoice->total_price = $tFound['price'];
+                        $invoice->visit_id = $visit->id;
+
+                        $invoice->save();
+                    }
+
+                    if ( $uses->save() && $attached->save()) {
+                        return response()->json(['success' => true, 'visit' => $visit]);
+                    }   
                 }
-
-            if ( $uses->save() && $attached->save()) {
-                return response()->json(['success' => true, 'visit' => $visit]);
-            }   
-            }                
+            }
+            
         }
+
+
+
+
+
+        // if ($validator->fails()) {
+        //     return response()->json(['success' => false]);
+        // } else {
+        //     $visit = new Visit;
+        //     $visit->id;
+        //     $visit->visit_description = $request->description;
+        //     $visit->visit_date = $request->date;
+        //     $visit->ss_private = "No";
+        //     $visit->user_id = $request->user_id;
+
+        //     if($visit->save()) {
+        //         $uses = new Uses;
+        //         $uses->visit_id = $visit->id;
+        //         $uses->user_id = $request->user_id;
+        //         $uses->treatment_id = $request->treat;
+
+        //         $attached = new Attached;
+        //         $attached->id;
+        //         $attached->type = "image";
+        //         $attached->document = "file";
+        //         $attached->visit_id = $visit->id;
+
+        //         if($request->facturate == true) {
+        //             $invoice = new Invoice;
+        //             $invoice->id;
+        //             $invoice->payment_type = "Tarjeta";
+        //             $invoice->invoice_date = $request->date;
+        //             $invoice->total_price = $request->price;
+        //             $invoice->visit_id = $visit->id;
+
+        //             $invoice->save();
+        //         }
+
+        //     if ( $uses->save() && $attached->save()) {
+        //         return response()->json(['success' => true, 'visit' => $visit]);
+        //     }   
+        //     }                
+        // }
         return response()->json(['success' => false],);
     }
 }
