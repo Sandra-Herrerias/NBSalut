@@ -47,6 +47,7 @@ export class EditPatientComponent implements OnInit {
 
     //Validations from reactive form
     this.newUserDetails = this.formBuilder.group({
+      id:[''],
       num_clinical_log: ['', [Validators.required]],
       register_date: ['', [Validators.required]],
       center_code: ['', [Validators.required]],
@@ -69,7 +70,7 @@ export class EditPatientComponent implements OnInit {
   ngOnInit(): void {
 
     this.getData();
-
+    this.newUserDetails.controls['id'].setValue(this.newUser.id);
     this.newUserDetails.controls['num_clinical_log'].setValue(this.newUser.num_clinical_log);
     this.newUserDetails.controls['register_date'].setValue(this.newUser.register_date);
     this.newUserDetails.controls['center_code'].setValue(this.newUser.center_code);
@@ -89,10 +90,8 @@ export class EditPatientComponent implements OnInit {
   }
 
   getData() {
-    console.log("getData");
     this.servicePatient.data.subscribe(response => {
-      console.log(response);  // you will receive the data from sender component here.
-    this.newUser = response;
+      this.newUser = response;
     });
   }
 
@@ -153,7 +152,8 @@ export class EditPatientComponent implements OnInit {
     this.modifiedUser.emit(this.newUser);
 
     let info = {
-      first_name: this.newUserDetails.get('first_name')?.value,
+      id: this.newUserDetails.value.id,
+      first_name: this.newUserDetails.value.first_name,
       last_name: this.newUserDetails.value.last_name,
       dni: this.newUserDetails.value.dni,
       email: this.newUserDetails.value.email,
@@ -169,13 +169,14 @@ export class EditPatientComponent implements OnInit {
       center_code: this.newUserDetails.value.center_code,
       num_clinical_log: this.newUserDetails.value.num_clinical_log,
       role: this.newUserDetails.value.role,
+      register_date: this.newUserDetails.value.register_date,
       created_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS'),
       updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
     console.log("DATA NEW PATIENT");
     console.log(info);
     console.log(this.newUser);
-    console.log(this.newUserDetails);
+
     // console.log(info);
     if (this.newUserDetails) {
       this.communicator.modifyDataUser(info).subscribe(

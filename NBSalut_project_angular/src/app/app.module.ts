@@ -19,7 +19,7 @@ import { DataTablesModule } from "angular-datatables";
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DatePipe } from '@angular/common';
 import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import { EditPatientComponent } from './components/patients/edit-patient/edit-pa
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

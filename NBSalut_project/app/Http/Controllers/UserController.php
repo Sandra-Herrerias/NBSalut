@@ -42,7 +42,7 @@ class UserController extends Controller
         return response()->json(['success' => true, 'user' => $patient]);
     }
 
-    public function getUser()
+    public function getUsers()
     {
         $data = User::orderBy('num_clinical_log', 'DESC')->get();
         return $data;
@@ -51,6 +51,12 @@ class UserController extends Controller
     public function getPatients()
     {
         $data = User::where('role', 'patient')->orderBy('num_clinical_log', 'DESC')->get();
+        return $data;
+    }
+
+    public function getMaxClinicalLog()
+    {
+        $data = User::where('role', 'patient')->max('num_clinical_log');
         return $data;
     }
     
@@ -83,20 +89,21 @@ class UserController extends Controller
         $patient->collegiate_num = $request->collegiate_num;
         $patient->role = $request->role;
 
-        $patient->save();
+        $success = $patient->save();
         /*
         if (Auth::user()->role == 'admin') {
             return redirect()->route('admin_comments', $comment);
         } else {
             return redirect()->route('comments', $comment);
         }*/
-        return response()->json(['success' => true, 'user' => $patient]);
+        return response()->json(['success' =>  $success, 'user' => $patient]);
     }
 
 
-    public function updateUser(Request $request, User $user)
+    public function updateUser(Request $request)
     {
-        $request->id;
+        $user = new User();
+        $user->id = $request->id;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->password = $request->password;
@@ -115,19 +122,20 @@ class UserController extends Controller
         $user->num_clinical_log = $request->num_clinical_log;
         $user->collegiate_num = $request->collegiate_num;
         $user->role = $request->role;
-        $user->update($request->id);
-        return response()->json(['success' => true, 'user' => $user]);
+        $user->register_date = $request->register_date;
+        $success = $user->update();
+        error_log($user);
+        return response()->json(['success' => $success, 'user' => $user]);
     }
 
     public function deleteUser(Request $request)
     {
         error_log($request->id);
-        //$userToDelete = null;
         $result = User::destroy($request->id);
 
         //$deletedUser = User::find($request->id);
         //$deletedUser->delete();
 
-        return response()->json(['success' => true, 'result' => $result]);
+        return response()->json(['success' => $result]);
     }
 }

@@ -1,6 +1,18 @@
-<div id="titulo" class="p-5">
-    <div class="text-white text-center">
-        <h1 class="text-dark display-1"></h1>
+<div class="container">
+    <h4>BUSCADOR</h4>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                Nombre: <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="nameFilter" (ngModelChange)="filter()">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                Apellido: <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="surnameFilter" (ngModelChange)="filter()">
+            </div>
+        </div>
     </div>
 </div>
 <br>
@@ -20,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let patient of dataPatients">
+            <tr *ngFor="let patient of this.filteredPatients  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
                 <td>{{patient.num_clinical_log}}</td>
                 <td>{{patient.first_name}} {{patient.last_name}} </td>
                 <td>{{patient.dni}}</td>
@@ -35,4 +47,7 @@
             </tr>
         </tbody>
     </table>
+    <div class="d-flex justify-content-center ">
+        <pagination-controls (pageChange)="cp=$event "></pagination-controls>
+    </div>
 </div>

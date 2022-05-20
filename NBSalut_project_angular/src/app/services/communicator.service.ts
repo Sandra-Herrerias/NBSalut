@@ -61,8 +61,8 @@ export class CommunicatorService {
    * Retrieve all users (patients and specialists) from the DDBB.
    * @returns a list of all the users.
    */
-  getUser() {
-    return this.http.get("http://127.0.0.1:8000/api/getUser",
+  getUsers() {
+    return this.http.get("http://127.0.0.1:8000/api/getUsers",
       {
         responseType: "json"
       });
@@ -200,13 +200,23 @@ export class CommunicatorService {
       });
   }
 
+/**
+ * Retrieves the maximum number from the clinical log numbers that are stored in the database.
+ * @returns max clinical number from the database
+ */
+  getMaxClinicalLog() {
+    return this.http.get("http://127.0.0.1:8000/api/getMaxClinicalLog",
+      {
+        responseType: "json"
+      });
+  }
 
   /**
  * This method modifies the selected user with the new info.
  * @param info
  */
   modifyDataUser(info: Object) {
-    return this.http.post("http://127.0.0.1:8000/api/updateUser",
+    return this.http.put("http://127.0.0.1:8000/api/updateUser",
       info,
       { responseType: "json" });
   }

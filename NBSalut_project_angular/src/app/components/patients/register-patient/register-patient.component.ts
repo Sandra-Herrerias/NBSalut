@@ -14,7 +14,6 @@ export class RegisterPatientComponent implements OnInit {
 
   //Attributes
   dataPatient: any;
-  clinicalNumLog!: String;
   public userDetails: FormGroup;
   submitted = false;
   currentDateTime: string | null;
@@ -79,14 +78,10 @@ export class RegisterPatientComponent implements OnInit {
    * that is going to be registered
    */
   getNumClinicalLog() {
-    this.communicator.getUser().subscribe((data: any) => {
-      data.forEach((t: any, index: any) => {
-        this.clinicalNumLog = t.num_clinical_log;
-        let maxClinicalNum = Math.max(Number(this.clinicalNumLog));
-        this.newClinicalNum = maxClinicalNum + 1;
-      })
+    this.communicator.getMaxClinicalLog().subscribe((data: any) => {
+      this.newClinicalNum = data+1;
     })
-    return this.newClinicalNum;
+    
   }
 
   /**
@@ -154,8 +149,9 @@ export class RegisterPatientComponent implements OnInit {
       diabetic: this.userDetails.value.diabetic,
       ss_CIP: this.userDetails.value.ss_CIP,
       center_code: this.userDetails.value.center_code,
-      num_clinical_log: this.getNumClinicalLog(),
+      num_clinical_log: this.newClinicalNum,
       role: 'patient',  
+      register_date:this.currentDateTime,
       created_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS'),
       updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
@@ -172,7 +168,7 @@ export class RegisterPatientComponent implements OnInit {
             this.userDetails.reset();
             //sets num_clinical_log value and register_date
             this.userDetails.patchValue({
-              num_clinical_log: this.getNumClinicalLog(),
+              num_clinical_log: this.newClinicalNum,
               register_date: this.todayFormatRegDate
             });
           } else {//error message
