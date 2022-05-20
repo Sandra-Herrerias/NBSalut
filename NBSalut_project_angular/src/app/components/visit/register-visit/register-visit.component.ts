@@ -339,7 +339,12 @@ export class RegisterVisitComponent implements OnInit {
       // Visita y/o factura por tratamiento.
       this.registerVisitForm.value.treat.forEach((t: any) => {
 
-        // Registrar visita
+        // Buscar tratamiento por ID
+        console.log("Buscando tratamiento por ID...");
+        this.tFound = this.listTreatments.find(e => e.id === t.id);
+        console.log(this.tFound + " <- treat");
+
+        // Creando objeto visita
         console.log("Creando objeto visita...");
         this.actualVisit = {
           num: this.registerVisitForm.value.numHis,
@@ -348,30 +353,17 @@ export class RegisterVisitComponent implements OnInit {
           surname: this.registerVisitForm.value.surnames,
           date: this.registerVisitForm.value.date,
           treat: t.id,
+          price: this.tFound.price,
           description: this.registerVisitForm.value.desc || "No hay descripción",
           user_id: this.visitPatientId,
-          file: this.registerVisitForm.value.file
+          file: this.registerVisitForm.value.file,
+          facturate: this.registerVisitForm.value.facturation,
+          pay_type: "Tajeta"
         };
 
-        console.log("Buscando tratamiento por ID...");
 
-        this.communicator.getTreatmentByID(t.id).subscribe(
-          (result: any) => {
-            this.tFound = result;
-            console.log("TreatFound-> " + this.tFound) + " / " + result;
-          }
-        );
-
-        console.log("Creando objeto factura...");
-
-        this.genInvoice = {
-          payment: "Tarjeta",
-          date: this.registerVisitForm.value.date,
-          price: this.tFound.price
-        };
-
+        // Enviar objeto visita a servidor
         console.log("Enviando objeto visita...");
-
         this.communicator.registerVisit(this.actualVisit).subscribe(
           (result: any) => {
             console.log("Recibiendo objeto visita...");
@@ -386,28 +378,28 @@ export class RegisterVisitComponent implements OnInit {
           }
         );
 
-        // Facturación
-        if (this.registerVisitForm.value.facturation) {
+        // Realizar facturación si el checkbox esta marcado
+        // if (this.registerVisitForm.value.facturation) {
 
-          console.log("Enviando objeto factura...");
+        //   // Enviar objeto factura al servidor
+        //   console.log("Enviando objeto factura...");
+        //   this.communicator.generateInvoice(this.genInvoice).subscribe(
+        //     (result: any) => {
+        //       console.log("Recibiendo objeto visita...");
 
-          this.communicator.generateInvoice(this.genInvoice).subscribe(
-            (result: any) => {
-              console.log("Recibiendo objeto visita...");
+        //       if (result.success) { //success message
+        //         console.log("Factura generada correctamente");
+        //         console.log(result);
+        //       } else { //error message
+        //         console.log("La factura no se ha podido generar!");
+        //         console.log(result);
+        //       }
+        //     }
+        //   );
 
-              if (result.success) { //success message
-                console.log("Factura generada correctamente");
-                console.log(result);
-              } else { //error message
-                console.log("La factura no se ha podido generar!");
-                console.log(result);
-              }
-            }
-          );
-
-        } else {
-          console.log("Facturación desactivada!");
-        }
+        // } else {
+        //   console.log("Facturación desactivada!");
+        // }
 
       });
     }

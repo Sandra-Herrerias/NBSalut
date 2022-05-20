@@ -7,6 +7,7 @@ use App\Models\Visit;
 use App\Models\User;
 use App\Models\Uses;
 use App\Models\Attached;
+use App\Models\Invoice;
 
 
 use Validator;
@@ -70,7 +71,19 @@ class VisitController extends Controller
                 $attached = new Attached;
                 $attached->id;
                 $attached->type = "image";
+                $attached->document = "file";
                 $attached->visit_id = $visit->id;
+
+                if($request->facturate == true) {
+                    $invoice = new Invoice;
+                    $invoice->id;
+                    $invoice->payment_type = "Tarjeta";
+                    $invoice->invoice_date = $request->date;
+                    $invoice->total_price = $request->price;
+                    $invoice->visit_id = $visit->id;
+
+                    $invoice->save();
+                }
 
             if ( $uses->save() && $attached->save()) {
                 return response()->json(['success' => true, 'visit' => $visit]);
