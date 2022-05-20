@@ -20,7 +20,7 @@ export class User {
      private _num_clinical_log!: String;
      private _collegiate_num!: String;
      private _role!: String;
-   
+     private _register_date: Date;
      /**
       * 
       * @param _id 
@@ -42,6 +42,7 @@ export class User {
       * @param _num_clinical_log 
       * @param _collegiate_num 
       * @param _role 
+      * @param _register_date
       */
     constructor(id?: number,
         first_name?: String,
@@ -61,7 +62,8 @@ export class User {
         center_code?: String,
         num_clinical_log?: String,
         collegiate_num?: String,
-        role?: String) {
+        role?: String,
+        register_date?: Date) {
              
             if (id != undefined) {
                 this._id = id;
@@ -120,7 +122,9 @@ export class User {
             if (role != undefined) {
                 this._role = role;
             }
-           
+            if (register_date != undefined) {
+                this._register_date = register_date;
+            }   
     }
 
  
@@ -259,4 +263,13 @@ export class User {
     public set role(value: String) {
         this._role = value;
     }
+
+
+    public get register_date(): Date {
+        return this._register_date;
+    }
+    public set register_date(value: Date) {
+        this._register_date = value;
+    }
+    
 }

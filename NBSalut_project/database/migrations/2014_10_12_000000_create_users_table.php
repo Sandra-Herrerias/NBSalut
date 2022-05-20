@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-           // $table->unsignedInteger('age');
             $table->string('password')->nullable();
             $table->string('dni');
             $table->string('email')->unique();
@@ -38,6 +37,7 @@ return new class extends Migration
             $table->string('collegiate_num')->nullable(); // Specialist
 
             $table->enum('role', ['admin', 'specialist', 'patient'])->default('patient');
+            $table->timestamp('register_date')->useCurrent();
             $table->timestamps();
         });
 

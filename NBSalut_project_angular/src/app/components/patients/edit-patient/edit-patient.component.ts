@@ -71,7 +71,7 @@ export class EditPatientComponent implements OnInit {
     this.getData();
 
     this.newUserDetails.controls['num_clinical_log'].setValue(this.newUser.num_clinical_log);
-    //this.newUserDetails.controls['register_date'].setValue(this.newUser.register_date);
+    this.newUserDetails.controls['register_date'].setValue(this.newUser.register_date);
     this.newUserDetails.controls['center_code'].setValue(this.newUser.center_code);
     this.newUserDetails.controls['ss_CIP'].setValue(this.newUser.ss_CIP);
     this.newUserDetails.controls['diabetic'].setValue(this.newUser.diabetic);

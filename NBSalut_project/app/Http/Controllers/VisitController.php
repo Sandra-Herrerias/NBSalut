@@ -61,6 +61,7 @@ class VisitController extends Controller
             $visit->visit_date = $request->date;
             $visit->ss_private = "No";
             $visit->user_id = $request->user_id;
+            $visit->sent = 0;
 
             if($visit->save()) {
                 $uses = new Uses;

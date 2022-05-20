@@ -38,7 +38,7 @@ class UserFactory extends Factory
             // 'num_clinical_log' => $this->faker->unique()->randomDigit(),
             'num_clinical_log' => $this->faker->unique(true)->numberBetween(1, 1000),
             'role' => $this->faker->randomElement(['patient']),
-
+            'register_date' => $this->faker->dateTime()
             // $table->string('center_code')->nullable(); // Patient
             // $table->string('num_clinical_log')->nullable(); // Patient
 
