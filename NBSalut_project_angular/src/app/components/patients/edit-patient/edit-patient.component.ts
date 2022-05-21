@@ -184,6 +184,7 @@ export class EditPatientComponent implements OnInit {
           console.log(result);
           if (result.success) { //success message
             alert("Usuario modificado correctamente");
+            
           } else {//error message
             alert("El usuario no se ha podido modificar");
           }

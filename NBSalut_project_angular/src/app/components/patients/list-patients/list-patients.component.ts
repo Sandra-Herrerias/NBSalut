@@ -117,17 +117,6 @@ export class ListPatientsComponent implements OnInit {
   };
 
   /**
-* This method sends the user with the new information to the method that modifies the user in the service.
-*/
-  sendInfoToModifyUser($e: any): void {
-    this.communicator.modifyDataUser($e).subscribe((result: any) => {
-      if (result.status) {
-        // this.showFormModify = false;
-      }
-    });
-  }
-
-  /**
        * filter(): void
        * This method filters the patients array by name and surname 
        */
