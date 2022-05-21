@@ -27,6 +27,7 @@
                 <th id="colTitle">Email</th>
                 <th id="colTitle">Teléfono</th>
                 <th id="colTitle">Diabética</th>
+                <th id="colTitle">Visitas</th>
                 <th id="colTitle"><i class="bi bi-pencil-fill"></i></th>
                 <th id="colTitle"><i class="bi bi-trash-fill"></i></th>
             </tr>
@@ -40,6 +41,7 @@
                 <td>{{patient.phone}}</td>
                 <td *ngIf="patient.diabetic == 0">no</td>
                 <td *ngIf="patient.diabetic == 1">sí</td>
+                <td><button class=" btn" (click)="showpatientVisits(patient)"><i class="bi bi-eye-fill"></i></button></td>
                 <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i
             class="bi bi-pencil-fill"></i></button></td>
                 <td><button class="btn" (click)="confirmDeactivate(patient)"><i class="bi bi-trash-fill"></i></button>

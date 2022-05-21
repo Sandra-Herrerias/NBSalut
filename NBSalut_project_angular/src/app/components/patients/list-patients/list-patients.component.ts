@@ -130,4 +130,10 @@ export class ListPatientsComponent implements OnInit {
       return false;
     });
   }
+
+
+  showpatientVisits(patient: User){
+    this.patientSelected = patient;
+    this.router.navigate(['/editpatient', { patient: this.patientSelected }]);
+  }
 }
