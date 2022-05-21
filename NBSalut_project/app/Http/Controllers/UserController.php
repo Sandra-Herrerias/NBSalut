@@ -102,11 +102,11 @@ class UserController extends Controller
 
     public function updateUser(Request $request)
     {
-        $user = new User();
-        $user->id = $request->id;
+        $user = User::find($request->id);
+        //$user->id = $request->id;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->password = $request->password;
+        //$user->password = $request->password;
         $user->dni = $request->dni;
         $user->email = $request->email;
         $user->phone = $request->phone;
@@ -122,7 +122,8 @@ class UserController extends Controller
         $user->num_clinical_log = $request->num_clinical_log;
         $user->collegiate_num = $request->collegiate_num;
         $user->role = $request->role;
-        $user->register_date = $request->register_date;
+        //??date('Y-m-d', strtotime($request->register_date));
+        $user->register_date = date('Y-m-d', strtotime($request->register_date));
         $success = $user->update();
         error_log($user);
         return response()->json(['success' => $success, 'user' => $user]);

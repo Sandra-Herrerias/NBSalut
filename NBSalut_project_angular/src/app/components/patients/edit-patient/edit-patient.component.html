@@ -7,7 +7,7 @@
 </nav>
 <div class="mt-5">
     <div class="row">
-        <form [formGroup]="newUserDetails" method="post" (ngSubmit)="emitInfoModifyUser()">
+        <form [formGroup]="userDetails" method="post" (ngSubmit)="emitInfoModifyUser()">
             <!-- Text inputs -->
             <div class="row mb-3">
                 <div class="mb-3 col-4 form-group">
@@ -23,18 +23,18 @@
                 <div class="mb-3 col-3 form-group">
                     <label for="center_code" class="form-label">Código del centro</label>
                     <input type="text" name="center_code" class="form-control" formControlName="center_code">
-                    <div *ngIf="newUserDetailsFormControl['center_code'].touched && newUserDetailsFormControl['center_code'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['center_code'].errors?.['required']">Código del centro es obligatorio.
+                    <div *ngIf="userDetailsFormControl['center_code'].touched && userDetailsFormControl['center_code'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['center_code'].errors?.['required']">Código del centro es obligatorio.
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 col-3 form-group">
                     <label for="ss_CIP" class="form-label">CIP</label>
                     <input type="text" name="ss_CIP" class="form-control" formControlName="ss_CIP">
-                    <div *ngIf="newUserDetailsFormControl['ss_CIP'].touched && newUserDetailsFormControl['ss_CIP'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['ss_CIP'].errors?.['required']">CIP es obligatorio.</div>
-                        <div *ngIf="newUserDetailsFormControl['ss_CIP'].errors?.['maxlength']">Máximo 14 carácteres.</div>
-                        <div *ngIf="newUserDetailsFormControl['ss_CIP'].errors?.['pattern']">Sólo se aceptan letras en mayúscula y números. Debe contener 14 carácteres.
+                    <div *ngIf="userDetailsFormControl['ss_CIP'].touched && userDetailsFormControl['ss_CIP'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['required']">CIP es obligatorio.</div>
+                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['maxlength']">Máximo 14 carácteres.</div>
+                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['pattern']">Sólo se aceptan letras en mayúscula y números. Debe contener 14 carácteres.
                         </div>
                     </div>
                 </div>
@@ -51,31 +51,31 @@
                 <div class="mb-3 col-4 form-group">
                     <label for="first_name" class="form-label">Nombre</label>
                     <input type="text" name="first_name" class="form-control" formControlName="first_name">
-                    <div *ngIf="newUserDetailsFormControl['first_name'].touched && newUserDetailsFormControl['first_name'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['first_name'].errors?.['required']">El nombre es obligatorio.</div>
-                        <div *ngIf="newUserDetailsFormControl['first_name'].errors?.['minlength']">Mínimo 2 carácteres.</div>
-                        <div *ngIf="newUserDetailsFormControl['first_name'].errors?.['pattern']">Sólo se aceptan letras y espacios
+                    <div *ngIf="userDetailsFormControl['first_name'].touched && userDetailsFormControl['first_name'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['first_name'].errors?.['required']">El nombre es obligatorio.</div>
+                        <div *ngIf="userDetailsFormControl['first_name'].errors?.['minlength']">Mínimo 2 carácteres.</div>
+                        <div *ngIf="userDetailsFormControl['first_name'].errors?.['pattern']">Sólo se aceptan letras y espacios
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
                     <label for="last_name" class="form-label">Apellidos</label>
                     <input type="text" name="last_name" class="form-control" formControlName="last_name">
-                    <div *ngIf="newUserDetailsFormControl['last_name'].touched && newUserDetailsFormControl['last_name'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['last_name'].errors?.['required']">El apellido es obligatorio.</div>
-                        <div *ngIf="newUserDetailsFormControl['last_name'].errors?.['minlength']">Mínimo 2 carácteres.</div>
-                        <div *ngIf="newUserDetailsFormControl['last_name'].errors?.['pattern']">Sólo se aceptan letras y espacios
+                    <div *ngIf="userDetailsFormControl['last_name'].touched && userDetailsFormControl['last_name'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['last_name'].errors?.['required']">El apellido es obligatorio.</div>
+                        <div *ngIf="userDetailsFormControl['last_name'].errors?.['minlength']">Mínimo 2 carácteres.</div>
+                        <div *ngIf="userDetailsFormControl['last_name'].errors?.['pattern']">Sólo se aceptan letras y espacios
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
                     <label for="email" class="form-label">Email</label>
                     <input type="text" name="email" class="form-control" formControlName="email">
-                    <div *ngIf="newUserDetailsFormControl['email'].touched && newUserDetailsFormControl['email'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['email'].errors?.['required']">Email es obligatorio.</div>
-                        <div *ngIf="newUserDetailsFormControl['email'].errors?.['email']">Introduzca una dirección de email válida.
+                    <div *ngIf="userDetailsFormControl['email'].touched && userDetailsFormControl['email'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['email'].errors?.['required']">Email es obligatorio.</div>
+                        <div *ngIf="userDetailsFormControl['email'].errors?.['email']">Introduzca una dirección de email válida.
                         </div>
-                        <div *ngIf="newUserDetailsFormControl['email'].errors?.['pattern']">Formato incorrecto.</div>
+                        <div *ngIf="userDetailsFormControl['email'].errors?.['pattern']">Formato incorrecto.</div>
                     </div>
                 </div>
             </div>
@@ -83,17 +83,17 @@
                 <div class="mb-3 col-4 form-group">
                     <label for="birthdate" class="form-label">Fecha de nacimiento</label>
                     <input type="date" name="birthdate" class="form-control" formControlName="birthdate" [max]="today">
-                    <div *ngIf="newUserDetailsFormControl['birthdate'].touched && newUserDetailsFormControl['birthdate'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['birthdate'].errors?.['required']">Fecha de nacimiento es obligatoria.
+                    <div *ngIf="userDetailsFormControl['birthdate'].touched && userDetailsFormControl['birthdate'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['birthdate'].errors?.['required']">Fecha de nacimiento es obligatoria.
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
                     <label for="dni" class="form-label">NIF/NIE</label>
                     <input type="text" name="dni" class="form-control" formControlName="dni">
-                    <div *ngIf="newUserDetailsFormControl['dni'].touched && newUserDetailsFormControl['dni'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['dni'].errors?.['required']">NIF/NIE es obligatorio.</div>
-                        <div class="field-message" *ngIf="newUserDetailsFormControl['dni'].errors?.['correctDni']">
+                    <div *ngIf="userDetailsFormControl['dni'].touched && userDetailsFormControl['dni'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['dni'].errors?.['required']">NIF/NIE es obligatorio.</div>
+                        <div class="field-message" *ngIf="userDetailsFormControl['dni'].errors?.['correctDni']">
                             Formato de NIF/NIE incorrecto.
                         </div>
                     </div>
@@ -101,8 +101,8 @@
                 <div class="mb-3 col-4 form-group">
                     <label for="phone" class="form-label">Teléfono</label>
                     <input type="text" name="phone" class="form-control" formControlName="phone">
-                    <div *ngIf="newUserDetailsFormControl['phone'].touched && newUserDetailsFormControl['phone'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['phone'].errors?.['required']">Teléfono es obligatorio.</div>
+                    <div *ngIf="userDetailsFormControl['phone'].touched && userDetailsFormControl['phone'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['phone'].errors?.['required']">Teléfono es obligatorio.</div>
                     </div>
                 </div>
             </div>
@@ -111,22 +111,22 @@
                 <div class="mb-3 col-4 form-group">
                     <label for="address" class="form-label">Dirección</label>
                     <input type="text" name="address" class="form-control" formControlName="address">
-                    <div *ngIf="newUserDetailsFormControl['address'].touched && newUserDetailsFormControl['address'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['address'].errors?.['required']">Dirección es obligatoria.</div>
+                    <div *ngIf="userDetailsFormControl['address'].touched && userDetailsFormControl['address'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['address'].errors?.['required']">Dirección es obligatoria.</div>
                     </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
                     <label for="city" class="form-label">Ciudad</label>
                     <input type="text" name="city" class="form-control" formControlName="city">
-                    <div *ngIf="newUserDetailsFormControl['city'].touched && newUserDetailsFormControl['city'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['city'].errors?.['required']">Ciudad es obligatoria.</div>
+                    <div *ngIf="userDetailsFormControl['city'].touched && userDetailsFormControl['city'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['city'].errors?.['required']">Ciudad es obligatoria.</div>
                     </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
                     <label for="postal_code" class="form-label">Código Postal</label>
                     <input type="text" name="postal_code" class="form-control" formControlName="postal_code">
-                    <div *ngIf="newUserDetailsFormControl['postal_code'].touched && newUserDetailsFormControl['postal_code'].invalid" class="text-danger">
-                        <div *ngIf="newUserDetailsFormControl['postal_code'].errors?.['required']">Código postal es obligatorio.
+                    <div *ngIf="userDetailsFormControl['postal_code'].touched && userDetailsFormControl['postal_code'].invalid" class="text-danger">
+                        <div *ngIf="userDetailsFormControl['postal_code'].errors?.['required']">Código postal es obligatorio.
                         </div>
                     </div>
                 </div>

@@ -19,14 +19,14 @@ export class EditPatientComponent implements OnInit {
  * input is used to indicate that this variable (user) comes from abroad
  * (from users Table in this case). 
  */
-  @Input() user!: User;
 
   @Output() modifiedUser = new EventEmitter<User>();
 
   @Output() eventShow = new EventEmitter<Boolean>();
 
-  newUser: User = new User();
-  public newUserDetails: FormGroup;
+  user: User = new User();
+
+  public userDetails: FormGroup;
   submitted = false;
   today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
   todayFormatRegDate =
@@ -46,8 +46,8 @@ export class EditPatientComponent implements OnInit {
 
 
     //Validations from reactive form
-    this.newUserDetails = this.formBuilder.group({
-      id:[''],
+    this.userDetails = this.formBuilder.group({
+      id: [''],
       num_clinical_log: ['', [Validators.required]],
       register_date: ['', [Validators.required]],
       center_code: ['', [Validators.required]],
@@ -70,33 +70,33 @@ export class EditPatientComponent implements OnInit {
   ngOnInit(): void {
 
     this.getData();
-    this.newUserDetails.controls['id'].setValue(this.newUser.id);
-    this.newUserDetails.controls['num_clinical_log'].setValue(this.newUser.num_clinical_log);
-    this.newUserDetails.controls['register_date'].setValue(this.newUser.register_date);
-    this.newUserDetails.controls['center_code'].setValue(this.newUser.center_code);
-    this.newUserDetails.controls['ss_CIP'].setValue(this.newUser.ss_CIP);
-    this.newUserDetails.controls['diabetic'].setValue(this.newUser.diabetic);
-    this.newUserDetails.controls['active'].setValue(this.newUser.active);
-    this.newUserDetails.controls['first_name'].setValue(this.newUser.first_name);
-    this.newUserDetails.controls['last_name'].setValue(this.newUser.last_name);
-    this.newUserDetails.controls['email'].setValue(this.newUser.email);
-    this.newUserDetails.controls['birthdate'].setValue(this.newUser.birthdate);
-    this.newUserDetails.controls['dni'].setValue(this.newUser.dni);
-    this.newUserDetails.controls['phone'].setValue(this.newUser.phone);
-    this.newUserDetails.controls['address'].setValue(this.newUser.address);
-    this.newUserDetails.controls['city'].setValue(this.newUser.city);
-    this.newUserDetails.controls['postal_code'].setValue(this.newUser.postal_code);
-    this.newUserDetails.controls['previous_pathologies'].setValue(this.newUser.previous_pathologies);
+    this.userDetails.controls['id'].setValue(this.user.id);
+    this.userDetails.controls['num_clinical_log'].setValue(this.user.num_clinical_log);
+    this.userDetails.controls['register_date'].setValue(this.user.register_date);
+    this.userDetails.controls['center_code'].setValue(this.user.center_code);
+    this.userDetails.controls['ss_CIP'].setValue(this.user.ss_CIP);
+    this.userDetails.controls['diabetic'].setValue(this.user.diabetic);
+    this.userDetails.controls['active'].setValue(this.user.active);
+    this.userDetails.controls['first_name'].setValue(this.user.first_name);
+    this.userDetails.controls['last_name'].setValue(this.user.last_name);
+    this.userDetails.controls['email'].setValue(this.user.email);
+    this.userDetails.controls['birthdate'].setValue(this.user.birthdate);
+    this.userDetails.controls['dni'].setValue(this.user.dni);
+    this.userDetails.controls['phone'].setValue(this.user.phone);
+    this.userDetails.controls['address'].setValue(this.user.address);
+    this.userDetails.controls['city'].setValue(this.user.city);
+    this.userDetails.controls['postal_code'].setValue(this.user.postal_code);
+    this.userDetails.controls['previous_pathologies'].setValue(this.user.previous_pathologies);
   }
 
   getData() {
     this.servicePatient.data.subscribe(response => {
-      this.newUser = response;
+      this.user = response;
     });
   }
 
-  get newUserDetailsFormControl() {
-    return this.newUserDetails.controls;
+  get userDetailsFormControl() {
+    return this.userDetails.controls;
   }
 
   /**
@@ -149,36 +149,35 @@ export class EditPatientComponent implements OnInit {
 * Also shows the form to collect the new info.
 */
   emitInfoModifyUser(): void {
-    this.modifiedUser.emit(this.newUser);
+    this.modifiedUser.emit(this.user);
 
     let info = {
-      id: this.newUserDetails.value.id,
-      first_name: this.newUserDetails.value.first_name,
-      last_name: this.newUserDetails.value.last_name,
-      dni: this.newUserDetails.value.dni,
-      email: this.newUserDetails.value.email,
-      phone: this.newUserDetails.value.phone,
-      birthdate: this.newUserDetails.value.birthdate,
-      city: this.newUserDetails.value.city,
-      address: this.newUserDetails.value.address,
-      postal_code: this.newUserDetails.value.postal_code,
-      active: this.newUserDetails.value.active,
-      previous_pathologies: this.newUserDetails.value.previous_pathologies,
-      diabetic: this.newUserDetails.value.diabetic,
-      ss_CIP: this.newUserDetails.value.ss_CIP,
-      center_code: this.newUserDetails.value.center_code,
-      num_clinical_log: this.newUserDetails.value.num_clinical_log,
-      role: this.newUserDetails.value.role,
-      register_date: this.newUserDetails.value.register_date,
-      created_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS'),
-      updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
+      "id": this.userDetails.value.id,
+      "first_name": this.userDetails.value.first_name,
+      "last_name": this.userDetails.value.last_name,
+      "password": null,
+      "dni": this.userDetails.value.dni,
+      "email": this.userDetails.value.email,
+      "phone": this.userDetails.value.phone,
+      "birthdate": this.userDetails.value.birthdate,
+      "city": this.userDetails.value.city,
+      "address": this.userDetails.value.address,
+      "postal_code": this.userDetails.value.postal_code,
+      "active": this.userDetails.value.active,
+      "previous_pathologies": this.userDetails.value.previous_pathologies,
+      "diabetic": this.userDetails.value.diabetic,
+      "ss_CIP": this.userDetails.value.ss_CIP,
+      "center_code": this.userDetails.value.center_code,
+      "num_clinical_log": this.userDetails.value.num_clinical_log,
+      "role": this.user.role,
+      "register_date": this.userDetails.value.register_date
     }
     console.log("DATA NEW PATIENT");
     console.log(info);
-    console.log(this.newUser);
+    console.log(this.user);
 
     // console.log(info);
-    if (this.newUserDetails) {
+    if (this.userDetails) {
       this.communicator.modifyDataUser(info).subscribe(
         (result: any) => {
           // let res = JSON.parse(JSON.stringify(result));
