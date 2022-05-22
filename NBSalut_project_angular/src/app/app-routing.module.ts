@@ -11,6 +11,9 @@ import { ListInvoicesComponent } from './components/invoices/list-invoices/list-
 import { ListTreatmentsComponent } from './components/treatments/list-treatments/list-treatments.component';
 import { RegisterTreatmentComponent } from './components/treatments/register-treatment/register-treatment.component';
 import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
+import { ListworkersComponent } from './components/admin/listworkers/listworkers.component';
+import { EditWorkersComponent } from './components/admin/edit-workers/edit-workers.component';
+import { RegisterWorkerComponent } from './components/admin/register-worker/register-worker.component';
 
 const routes: Routes = [
   {
@@ -56,6 +59,16 @@ const routes: Routes = [
   {
     path: 'listtreatments',
     component: ListTreatmentsComponent
+  },{
+    path: 'listworkers',
+    component: ListworkersComponent 
+  }, {
+    path: 'editworker',
+    component: EditWorkersComponent
+  },
+  {
+    path: 'regspecialist',
+    component: RegisterWorkerComponent
   },
   {//default
     path: '**',

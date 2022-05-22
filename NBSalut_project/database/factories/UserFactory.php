@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'address' => $this->faker->address(),
             'postal_code' => $this->faker->randomNumber(5, true),
             'active' => $this->faker->randomElement([true, false]),
-            'previous_pathologies'     => $this->faker->text(40),
+            'previous_pathologies' => $this->faker->text(40),
             'diabetic' => $this->faker->randomElement([true, false]),
             'ss_CIP' => $this->faker->regexify('[A-Z]{4}[0-9]{10}'),
             // 'num_clinical_log' => $this->faker->unique()->randomDigit(),

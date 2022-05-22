@@ -1,51 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light pt-5 pb-4">
     <div class="container-fluid">
         <div class="container">
-            <h2>MODIFICAR PACIENTE</h2>
+            <h2>REGISTRAR ESPECIALISTA</h2>
         </div>
     </div>
 </nav>
 <div class="mt-5">
     <div class="row">
-        <form #form1="ngForm" [formGroup]="userDetails" method="post" (ngSubmit)="emitInfoModifyUser()">
+        <form #form1="ngForm" [formGroup]="userDetails" method="post" (ngSubmit)="addNewWorker()">
             <!-- Text inputs -->
             <div class="row mb-3">
                 <div class="mb-3 col-4 form-group">
-                    <label for="num_clinical_log" class="form-label">Nº del historial clínico</label>
-                    <input type="text" class="form-control" formControlName="num_clinical_log" readonly>
+                    <label for="num_clinical_log" class="form-label">Nº de colegiado</label>
+                    <input type="text" class="form-control" formControlName="collegiate_num">
                 </div>
                 <div class="mb-3 col-4 form-group">
                     <label for="register_date" class="form-label">Fecha de registro</label>
-                    <input type="text" name="register_date" class="form-control" formControlName="register_date" readonly>
+                    <input type="text" name="register_date" class="form-control" formControlName="register_date" [(ngModel)]="currentDateTime" readonly>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="mb-3 col-3 form-group">
-                    <label for="center_code" class="form-label">Código del centro</label>
-                    <input type="text" name="center_code" class="form-control" formControlName="center_code">
-                    <div *ngIf="userDetailsFormControl['center_code'].touched && userDetailsFormControl['center_code'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['center_code'].errors?.['required']">Código del centro es obligatorio.
-                        </div>
+                <!-- Role field -->
+                <div class="mb-3 col-4">
+                    <label class="form-label fw-bold">Rol</label>
+                    <div>
+                        <select class="form-select" formControlName="role" aria-label="Default select example" required>
+              <option *ngFor="let role of listRoles" value={{role}}>{{role}}</option>
+            </select>
+                        <label class="text-danger mt-1" *ngIf="userDetailsFormControl['role']?.errors?.['required'] && userDetailsFormControl['role'].touched">Rol
+              requerido
+            </label>
                     </div>
                 </div>
-                <div class="mb-3 col-3 form-group">
-                    <label for="ss_CIP" class="form-label">CIP</label>
-                    <input type="text" name="ss_CIP" class="form-control" formControlName="ss_CIP">
-                    <div *ngIf="userDetailsFormControl['ss_CIP'].touched && userDetailsFormControl['ss_CIP'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['required']">CIP es obligatorio.</div>
-                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['maxlength']">Máximo 14 carácteres.</div>
-                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['pattern']">Sólo se aceptan letras en mayúscula y números. Debe contener 14 carácteres.
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3 col-3 form-group">
-                    <label for="diabetic" id="diabetic"> Diabética/o</label><br><br>
-                    <input type="checkbox" formControlName="diabetic" id="diabeticCheckbox" aria-labelledby="check1">
-                </div>
-                <div class="mb-3 col-3 form-group">
-                    <label for="active" id="active"> Activada/o </label><br><br>
-                    <input type="checkbox" formControlName="active" id="activeCheckbox" aria-labelledby="check2">
-                </div>
+
             </div>
             <div class="row mb-3">
                 <div class="mb-3 col-4 form-group">
@@ -83,7 +68,7 @@
                 <div class="mb-3 col-4 form-group">
                     <label for="birthdate" class="form-label">Fecha de nacimiento</label>
                     <input type="date" name="birthdate" class="form-control" formControlName="birthdate" [max]="today">
-                    <div *ngIf="userDetailsFormControl['birthdate'].touched && userDetailsFormControl['birthdate'].invalid" class="text-danger" required>
+                    <div *ngIf="userDetailsFormControl['birthdate'].touched && userDetailsFormControl['birthdate'].invalid" class="text-danger">
                         <div *ngIf="userDetailsFormControl['birthdate'].errors?.['required']">Fecha de nacimiento es obligatoria.
                         </div>
                     </div>
@@ -131,20 +116,11 @@
                     </div>
                 </div>
             </div>
-            <!-- Textarea inputs -->
-            <div class="row mb-3">
-
-                <div class="mb-3 col-12 form-group">
-                    <label for="previous_pathologies" class="form-label">Antecedentes personales</label>
-                    <textarea class="form-control" formControlName="previous_pathologies" name="previous_pathologies" placeholder="
-          Alergias a medicamentos, enfermedades destacadas, cirugias importantes, medicación actual"></textarea>
-                </div>
-            </div>
             <!-- Submit button -->
             <div class="row text-center">
                 <div class="col-4"></div>
                 <button type="submit" class="btn btn-primary btn-lg col-4" [disabled]="form1.invalid">Modificar
-          paciente</button>
+          especialista</button>
                 <div class="col-4"></div>
             </div>
         </form>
