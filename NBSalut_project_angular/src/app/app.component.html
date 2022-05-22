@@ -10,64 +10,57 @@
             <!-- <span class="fs-4">Sidebar</span> -->
             <img src="../assets/images/logo3.png">
         </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="home" class="nav-link active" aria-current="page">
-                    <i class="fa-solid fa-house-medical"></i> Home
-                </a>
-            </li>
-            <li>
-                <a routerLink="regpatient" class="nav-link text-white">
-                    <i class="fa-solid fa-user-plus"></i> Añadir Paciente
-                </a>
-            </li>
-            <li>
-                <a routerLink="listpatient" class="nav-link text-white">
-                    <i class="fa-solid fa-users"></i> Listar Pacientes
-                </a>
-            </li>
-            <li>
-                <a routerLink="regvisit" class="nav-link text-white">
-                    <i class="fas fa-light fa-file-medical"></i> Añadir Visita
-                </a>
-            </li>
-            <li>
-                <a routerLink="listvisits" class="nav-link text-white">
-                    <i class="fa-solid fa-file-medical"></i> Listar Visitas
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    <i class="fa-solid fa-heart-circle-plus"></i> Añadir Tratamientos
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    <i class="fa-solid fa-heart"></i> Listar Tratamientos
-                </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-white">
-                    <i class="fa-solid fa-file-invoice-dollar"></i> Listar Facturas
-                </a>
-            </li>
-            <li>
-                <a routerLink="quarterlyreport" class="nav-link text-white">
-                    <i class="fa-solid fa-file-invoice-dollar"></i> Factura Trimestral
-                </a>
-            </li>
-            <li>
-                <a href="listworkers" class="nav-link text-white">
-                    <i class="fa-solid fa-user-doctor"></i> Listar Plantilla
-                </a>
-            </li>
-            <li>
-                <a href="regspecialist" class="nav-link text-white">
-                    <i class="fa-solid fa-toolbox"></i> Añadir especialista
-                </a>
-            </li>
-        </ul>
+        <li>
+            <a routerLink="regpatient" class="nav-link text-white">
+                <i class="fa-solid fa-user-plus"></i> Añadir Paciente
+            </a>
+        </li>
+        <li>
+            <a routerLink="listpatient" class="nav-link text-white">
+                <i class="fa-solid fa-users"></i> Listar Pacientes
+            </a>
+        </li>
+        <li>
+            <a routerLink="regvisit" class="nav-link text-white">
+                <i class="fas fa-light fa-file-medical"></i> Añadir Visita
+            </a>
+        </li>
+        <li>
+            <a routerLink="listvisits" class="nav-link text-white">
+                <i class="fa-solid fa-file-medical"></i> Listar Visitas
+            </a>
+        </li>
+        <li>
+            <a routerLink="regtreatment" class="nav-link text-white">
+                <i class="fa-solid fa-heart-circle-plus"></i> Añadir Tratamientos
+            </a>
+        </li>
+        <li>
+            <a routerLink="listtreatments" class="nav-link text-white">
+                <i class="fa-solid fa-heart"></i> Listar Tratamientos
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link text-white">
+                <i class="fa-solid fa-file-invoice-dollar"></i> Listar Facturas
+            </a>
+        </li>
+        <li>
+            <a routerLink="quarterlyreport" class="nav-link text-white">
+                <i class="fa-solid fa-file-invoice-dollar"></i> Factura Trimestral
+            </a>
+        </li>
+        <li>
+            <a href="listworkers" class="nav-link text-white">
+                <i class="fa-solid fa-user-doctor"></i> Listar Plantilla
+            </a>
+        </li>
+        <li>
+            <a href="regspecialist" class="nav-link text-white">
+                <i class="fa-solid fa-toolbox"></i> Añadir especialista
+            </a>
+        </li>
+
         <hr>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,8 +84,14 @@
                 <button class="btn btn-lg" (click)="clickEvent()"><i class="bi bi-list text-white"></i></button>
             </header>
         </div>
-        <div class="container-fluid">
-            <router-outlet></router-outlet>
+        <div id="page-content-wrapper">
+            <div *ngIf="data != '/login'" class="container-fluid nb mb-5">
+                <header class="d-flex align-items-center justify-space-between py-2">
+                    <button class="btn btn-lg" (click)="clickEvent()"><i class="bi bi-list text-white"></i></button>
+                </header>
+            </div>
+            <div class="container-fluid">
+                <router-outlet></router-outlet>
+            </div>
         </div>
-    </div>
 </main>
