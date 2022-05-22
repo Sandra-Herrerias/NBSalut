@@ -29,10 +29,10 @@ return new class extends Migration
 
             $table->boolean('active')->default(true)->nullable(); // Patient
             $table->string('previous_pathologies')->nullable(); // Patient
-            $table->boolean('diabetic')->default(false); // Patient
+            $table->boolean('diabetic')->default(false)->nullable(); // Patient
             $table->string('ss_CIP')->nullable();; // Patient
             $table->string('center_code')->nullable(); // Patient
-            $table->integer('num_clinical_log')->unsigned(); // Patient
+            $table->integer('num_clinical_log')->unsigned()->nullable(); // Patient
 
             $table->string('collegiate_num')->nullable(); // Specialist
 

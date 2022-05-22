@@ -190,7 +190,7 @@ export class CommunicatorService {
   }
 
   /**
- * Retrieve all users (patients and specialists) from the DDBB.
+ * Retrieve all patients from the DDBB.
  * @returns a list of all the users.
  */
   getPatients() {
@@ -199,6 +199,17 @@ export class CommunicatorService {
         responseType: "json"
       });
   }
+
+    /**
+ * Retrieve all workers from the DDBB.
+ * @returns a list of all the users.
+ */
+     getWorkers() {
+      return this.http.get("http://127.0.0.1:8000/api/getWorkers",
+        {
+          responseType: "json"
+        });
+    }
 
 /**
  * Retrieves the maximum number from the clinical log numbers that are stored in the database.
@@ -220,6 +231,17 @@ export class CommunicatorService {
       info,
       { responseType: "json" });
   }
+
+  /**
+ * This method deactivates the selected user.
+ * @param info
+ */
+   deactivateUser(info: Object) {
+    return this.http.put("http://127.0.0.1:8000/api/deactivateUser",
+      info,
+      { responseType: "json" });
+  }
+  
 
   /**
 * Service POST

@@ -1,0 +1,35 @@
+<div class="">
+    <table class="table table-hover table-borderless table-striped">
+        <thead>
+            <tr>
+                <th id="colTitle">Rol</th>
+                <th id="colTitle">Trabajadora</th>
+                <th id="colTitle">Num. colegiado</th>
+                <th id="colTitle">Email</th>
+                <th id="colTitle">Teléfono</th>
+                <th id="colTitle">Fecha registro</th>
+                <th id="colTitle">Ver Ficha</th>
+                <th id="colTitle">Modificar</th>
+                <th id="colTitle">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let worker of this.dataWorkers  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
+                <td>{{worker.role}}</td>
+                <td>{{worker.first_name}} {{worker.last_name}} </td>
+                <td>{{worker.collegiate_num}}</td>
+                <td>{{worker.email}}</td>
+                <td>{{worker.phone}}</td>
+                <td>{{worker.register_date}}</td>
+                <td><button class=" btn"><i class="bi bi-eye-fill"></i></button></td>
+                <td><button class=" btn" (click)="showFormModifyWorker(worker)"><i
+                    class="bi bi-pencil-fill"></i></button></td>
+                <td><button class="btn" (click)="confirmDeactivate(worker)"><i class="bi bi-trash-fill"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center ">
+        <pagination-controls (pageChange)="cp=$event "></pagination-controls>
+    </div>
+</div>

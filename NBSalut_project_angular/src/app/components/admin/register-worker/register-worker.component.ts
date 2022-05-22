@@ -1,16 +1,14 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { CommunicatorService } from 'src/app/services/communicator.service';
 import { DatePipe } from '@angular/common';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { CommunicatorService } from 'src/app/services/communicator.service';
 
 @Component({
-  selector: 'app-register-patient',
-  templateUrl: './register-patient.component.html',
-  styleUrls: ['./register-patient.component.css']
+  selector: 'app-register-worker',
+  templateUrl: './register-worker.component.html',
+  styleUrls: ['./register-worker.component.css']
 })
-export class RegisterPatientComponent implements OnInit {
+export class RegisterWorkerComponent implements OnInit {
 
   //Attributes
   dataPatient: any;
@@ -18,44 +16,37 @@ export class RegisterPatientComponent implements OnInit {
   submitted = false;
   currentDateTime: string | null;
   textoDeInput!: string | null;
-  newClinicalNum!: Number;
-  today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2); 
-  todayFormatRegDate = 
-  ("0" + new Date().getDate()).slice(-2)
-  + "/" + ("0" + (new Date().getMonth() + 1)).slice(-2) 
-  + "/" + new Date().getFullYear(); 
+  today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
+  todayFormatRegDate =
+    ("0" + new Date().getDate()).slice(-2)
+    + "/" + ("0" + (new Date().getMonth() + 1)).slice(-2)
+    + "/" + new Date().getFullYear();
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
   regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
-  /**
-   * Constructor
-   * @param formBuilder 
-   * @param communicator 
-   * @param datepipe 
-   */
-  constructor(private formBuilder: FormBuilder,
+  listRoles: String[] = ['admin', 'specialist'];
+
+  constructor(
+    private formBuilder: FormBuilder,
     private communicator: CommunicatorService,
     public datepipe: DatePipe) {
 
-    this.getNumClinicalLog();
-
     //Validations from reactive form
     this.userDetails = this.formBuilder.group({
-      num_clinical_log: ['', [Validators.required]],
+      id: [''],
+      collegiate_num: ['', [Validators.required]],
       register_date: ['', [Validators.required]],
-      center_code: ['', [Validators.required]],
-      ss_CIP: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.regexNumbersCapLetters)]],
-      diabetic: [false],
+      active: [false],
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       last_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern(this.regexEmail)]],
-      birthdate: ['', [Validators.required]],
+      birthdate: [null, [Validators.required]],
       dni: ['', [Validators.required, this.createDniValidator()]],
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
-      previous_pathologies: ['', [Validators.required]]
+      role: ['', [Validators.required]]
     });
 
     //Get current date in order to insert it into the field ("Fecha de registro")
@@ -66,23 +57,12 @@ export class RegisterPatientComponent implements OnInit {
   }
 
   /**
-   * Get form data
-   */
+ * Get form data
+ */
   get userDetailsFormControl() {
     return this.userDetails.controls;
   }
 
-
-  /**
-   * Function that gets the new clinical number from the patient
-   * that is going to be registered
-   */
-  getNumClinicalLog() {
-    this.communicator.getMaxClinicalLog().subscribe((data: any) => {
-      this.newClinicalNum = data+1;
-    })
-    
-  }
 
   /**
    * Function that validates NIF/NIE
@@ -127,33 +107,30 @@ export class RegisterPatientComponent implements OnInit {
       return !dniValid ? { correctDni: true } : null;
     }
   }
-
   /**
-   * Function to add the new patient
-   */
-  addNewPatient() {
+     * Function to add the new patient
+     */
+  addNewWorker() {
     this.submitted = true;
-  
+
     let info = {
-      first_name: this.userDetails.value.first_name,
-      last_name: this.userDetails.value.last_name,
-      dni: this.userDetails.value.dni,
-      email: this.userDetails.value.email,
-      phone: this.userDetails.value.phone,
-      birthdate:  this.userDetails.value.birthdate,
-      city: this.userDetails.value.city,
-      address: this.userDetails.value.address,
-      postal_code: this.userDetails.value.postal_code,
-      active: 1,
-      previous_pathologies: this.userDetails.value.previous_pathologies,
-      diabetic: this.userDetails.value.diabetic,
-      ss_CIP: this.userDetails.value.ss_CIP,
-      center_code: this.userDetails.value.center_code,
-      num_clinical_log: this.newClinicalNum,
-      role: 'patient',  
-      register_date:this.currentDateTime,
-      created_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS'),
-      updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
+      "id": this.userDetails.value.id,
+      "first_name": this.userDetails.value.first_name,
+      "last_name": this.userDetails.value.last_name,
+      "password": null,
+      "dni": this.userDetails.value.dni,
+      "email": this.userDetails.value.email,
+      "phone": this.userDetails.value.phone,
+      "birthdate": this.userDetails.value.birthdate,
+      "city": this.userDetails.value.city,
+      "address": this.userDetails.value.address,
+      "postal_code": this.userDetails.value.postal_code,
+      "active": 1,
+      "collegiate_num": this.userDetails.value.collegiate_num,
+      "role": this.userDetails.value.role,
+      "register_date": this.userDetails.value.register_date,
+      "created_at": this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS'),
+      "updated_at": this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
 
     console.log(this.userDetails.value.diabetic);
@@ -161,14 +138,13 @@ export class RegisterPatientComponent implements OnInit {
       this.communicator.addPatient(info).subscribe(
         (result: any) => {
           if (result.success) {//success message
-            
+
             //this.dataPatient.push(info);
             alert("Paciente insertado correctamente");
             //clear form
             this.userDetails.reset();
-            //sets num_clinical_log value and register_date
+            //sets register_date
             this.userDetails.patchValue({
-              num_clinical_log: this.newClinicalNum,
               register_date: this.todayFormatRegDate
             });
           } else {//error message
@@ -181,4 +157,5 @@ export class RegisterPatientComponent implements OnInit {
       alert("Los datos del paciente no pueden estar vacíos");
     }
   }
+
 }

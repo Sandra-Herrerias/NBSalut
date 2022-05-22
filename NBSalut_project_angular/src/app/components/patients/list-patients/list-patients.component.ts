@@ -2,7 +2,7 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
-import { ServicePatientService } from 'src/app/services/service-patient.service';
+import { ServiceUserService } from 'src/app/services/service-user.service';
 @Component({
   selector: 'app-list-patients',
   templateUrl: './list-patients.component.html',
@@ -19,7 +19,7 @@ export class ListPatientsComponent implements OnInit {
   constructor(
     private communicator: CommunicatorService,
     private router: Router,
-    private servicePatient: ServicePatientService
+    private serviceUser: ServiceUserService
   ) {
     this.ipp = 10;
     this.cp = 1;
@@ -30,7 +30,7 @@ export class ListPatientsComponent implements OnInit {
   }
 
   sendNewData(data: User) {
-    this.servicePatient.sendData(data);
+    this.serviceUser.sendData(data);
   }
 
 
@@ -57,15 +57,15 @@ export class ListPatientsComponent implements OnInit {
       if (confirm("¿Está segura de desactivar este paciente?")) {
         let info = {
           id: patientSelected.id,
-          active: patientSelected.active
+          active: 0
         }
-        this.communicator.modifyDataUser(info).subscribe(
+        this.communicator.deactivateUser(info).subscribe(
           (result: any) => {
             // let res = JSON.parse(JSON.stringify(result));
             if (result.success) { //success message
-              alert("Usuario modificado correctamente");
+              alert("Usuario desactivado correctamente");
             } else {//error message
-              alert("El usuario no se ha podido modificar");
+              alert("El usuario no se ha podido desactivar");
             }
           }
         );
@@ -123,16 +123,16 @@ export class ListPatientsComponent implements OnInit {
   filter() {
     this.filteredPatients = this.dataPatients.filter(
       p => {
-      if (p.first_name.indexOf(this.nameFilter) != -1 &&
-        p.last_name.indexOf(this.surnameFilter) != -1) {
-        return true;
-      }
-      return false;
-    });
+        if (p.first_name.indexOf(this.nameFilter) != -1 &&
+          p.last_name.indexOf(this.surnameFilter) != -1) {
+          return true;
+        }
+        return false;
+      });
   }
 
 
-  showpatientVisits(patient: User){
+  showpatientVisits(patient: User) {
     this.patientSelected = patient;
     this.router.navigate(['/editpatient', { patient: this.patientSelected }]);
   }

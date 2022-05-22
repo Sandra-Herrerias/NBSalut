@@ -54,6 +54,10 @@ Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso
     Route::delete('deleteUser', [UserController::class, 'deleteUser']);
     Route::put('updateUser', [UserController::class, 'updateUser']);
-
+    Route::put('deactivateUser', [UserController::class, 'deactivateUser']);
     
 });
+
+
+//Workers Routes
+Route::get('getWorkers', [UserController::class, 'getWorkers']);

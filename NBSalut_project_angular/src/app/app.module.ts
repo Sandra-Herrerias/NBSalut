@@ -20,6 +20,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DatePipe } from '@angular/common';
 import { EditPatientComponent } from './components/patients/edit-patient/edit-patient.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ListworkersComponent } from './components/admin/listworkers/listworkers.component';
+import { EditWorkersComponent } from './components/admin/edit-workers/edit-workers.component';
+import { RegisterWorkerComponent } from './components/admin/register-worker/register-worker.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ListInvoicesComponent,
     RegisterTreatmentComponent,
     ListTreatmentsComponent,
-    EditPatientComponent
+    EditPatientComponent,
+    ListworkersComponent,
+    EditWorkersComponent,
+    RegisterWorkerComponent
   ],
   imports: [
     BrowserModule,

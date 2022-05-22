@@ -54,6 +54,13 @@ class UserController extends Controller
         return $data;
     }
 
+    public function getWorkers()
+    {
+        $data = User::where('role', 'admin')->orWhere('role','specialist')->orderBy('register_date', 'DESC')->get();
+        
+        return $data;
+    }
+
     public function getMaxClinicalLog()
     {
         $data = User::where('role', 'patient')->max('num_clinical_log');
@@ -103,6 +110,7 @@ class UserController extends Controller
     public function updateUser(Request $request)
     {
         $user = User::find($request->id);
+        error_log($user);
         //$user->id = $request->id;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -128,6 +136,19 @@ class UserController extends Controller
         error_log($user);
         return response()->json(['success' => $success, 'user' => $user]);
     }
+
+    
+
+    public function deactivateUser(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->active = $request->active;
+
+        $success = $user->update();
+        error_log($user);
+        return response()->json(['success' => $success, 'user' => $user]);
+    }
+
 
     public function deleteUser(Request $request)
     {
