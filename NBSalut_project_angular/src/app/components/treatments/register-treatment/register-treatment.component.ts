@@ -12,6 +12,9 @@ export class RegisterTreatmentComponent implements OnInit {
 
   actualTreat: any;
 
+  messageG: string = "";
+  messageB: string = "";
+
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) { }
 
   ngOnInit(): void {
@@ -42,11 +45,11 @@ export class RegisterTreatmentComponent implements OnInit {
         console.log("Recibiendo de vuelta objeto tratamiento...");
 
         if (result.success) { //success message
-          console.log("Tratamiento insertado correctamente");
-          console.log(result);
+          this.messageG = "Tratamiento añadido correctamente";
+          this.messageB = "";
         } else { //error message
-          console.log("El tratamiento no se ha podido añadir!");
-          console.log(result);
+          this.messageB = "El tratamiento no se ha podido añadir!";
+          this.messageG = "";
         }
       }
     );

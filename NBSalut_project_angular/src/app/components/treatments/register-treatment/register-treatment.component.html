@@ -7,6 +7,9 @@
  </nav>
  
 <div class="container mt-5">
+    <div *ngIf="messageG != ''" class="alert alert-success">{{messageG}}</div>
+    <div *ngIf="messageB != ''" class="alert alert-danger">{{messageB}}</div>
+    
     <form [formGroup]="registerTreatmentForm" enctype="multipart/form-data">
         <!-- Inputs -->
         <div class="row mb-3">
