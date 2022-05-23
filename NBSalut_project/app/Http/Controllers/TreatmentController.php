@@ -52,7 +52,7 @@ class TreatmentController extends Controller
     public function modTreatment(Request $request) {
 
         //return $request;
-
+        
         $treat = Treatment::find($request->id);
         $treat->name = $request->name;
         $treat->price = $request->price;

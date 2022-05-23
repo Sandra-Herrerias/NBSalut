@@ -11,6 +11,9 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 })
 export class EditTreatmentComponent implements OnInit {
 
+  messageG: string = "";
+  messageB: string = "";
+
   actualTreat: any;
   actualTreatSend: any;
 
@@ -22,7 +25,6 @@ export class EditTreatmentComponent implements OnInit {
   ngOnInit(): void {
     this.actualTreat = new TreatmentClass();
     this.actualId = Number(this.route.snapshot.paramMap.get("id"));
-    console.log(this.actualId);
     if (!isNaN(this.actualId)) {
       this.communicator.getTreatmentByID(this.actualId).subscribe((results: any) => {
         if (results.success) {
@@ -31,8 +33,6 @@ export class EditTreatmentComponent implements OnInit {
           this.updateTreatmentForm.get('name')?.setValue(this.actualTreat.name);
           this.updateTreatmentForm.get('desc')?.setValue(this.actualTreat.description);
           this.updateTreatmentForm.get('price')?.setValue(this.actualTreat.price);
-        } else {
-          console.log("No encontrado!");
         }
       })
     }
@@ -52,8 +52,6 @@ export class EditTreatmentComponent implements OnInit {
   });
 
   updateTreatment() {
-    console.log("Original: " + this.actualTreat.name);
-    console.log("Nuevo: " + this.updateTreatmentForm.value.name);
 
     this.actualTreatSend = {
       id: this.actualTreat.id,
@@ -64,14 +62,13 @@ export class EditTreatmentComponent implements OnInit {
 
     this.communicator.modifyTreatment(this.actualTreatSend).subscribe(
       (result: any) => {
-        console.log("Recibiendo objeto tratamiento...");
 
         if (result.success) { //success message
-          console.log("Tratamiento modificado correctamente");
-          console.log(result)
+          this.messageG = "Tratamiento modificado correctamente";
+          this.messageB = "";
         } else { //error message
-          console.log("El tratamiento no se ha podido modificar!");
-          console.log(result)
+          this.messageB = "El tratamiento no se ha podido modificar!";
+          this.messageG = "";
         }
       }
     );
