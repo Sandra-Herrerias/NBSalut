@@ -48,7 +48,7 @@ export class EditWorkersComponent implements OnInit {
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       last_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern(this.regexEmail)]],
-      birthdate: [null, [Validators.required]],
+      birthdate: ['', [Validators.required]],
       dni: ['', [Validators.required, this.createDniValidator()]],
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]],

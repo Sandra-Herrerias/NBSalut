@@ -24,6 +24,7 @@ export class RegisterWorkerComponent implements OnInit {
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
   regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
+
   listRoles: String[] = ['admin', 'specialist'];
 
   constructor(
@@ -40,7 +41,7 @@ export class RegisterWorkerComponent implements OnInit {
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       last_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern(this.regexEmail)]],
-      birthdate: [null, [Validators.required]],
+      birthdate: ['', [Validators.required]],
       dni: ['', [Validators.required, this.createDniValidator()]],
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]],
@@ -157,5 +158,4 @@ export class RegisterWorkerComponent implements OnInit {
       alert("Los datos del paciente no pueden estar vacíos");
     }
   }
-
 }
