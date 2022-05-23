@@ -35,11 +35,9 @@ class UserFactory extends Factory
             'diabetic' => $this->faker->randomElement([true, false]),
             'ss_CIP' => $this->faker->regexify('[A-Z]{4}[0-9]{10}'),
             'center_code' => $this->faker->regexify('[0-9]{10}'),
-            // 'num_clinical_log' => $this->faker->unique(true)->numberBetween(1, 1000),
             'collegiate_num' => $this->faker->regexify('[0-9]{5}'),
             'role' => $this->faker->randomElement(['patient', 'admin', 'specialist']),
             'register_date' => $this->faker->dateTime()
-            // $table->string('num_clinical_log')->nullable(); // Patient
         ];
     }
 

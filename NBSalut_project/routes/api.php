@@ -25,11 +25,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('login', [UserController::class, 'login']);
-Route::get('getUser', [UserController::class, 'getUser']);
+Route::get('getUsers', [UserController::class, 'getUsers']);
 
 // Treatment Routes
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 Route::post('getTreatment', [TreatmentController::class, 'getTreatment']);
+Route::post('addTreatment', [TreatmentController::class, 'addTreatment']);
+
 
 
 // Visits Routes
@@ -47,10 +49,17 @@ Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
 Route::post('checkPatientName', [UserController::class, 'checkPatientName']);
 Route::post('addPatient', [UserController::class, 'addPatient']);
 Route::get('getPatients', [UserController::class, 'getPatients']);
+Route::get('getMaxClinicalLog', [UserController::class, 'getMaxClinicalLog']);
 
 
 Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso
     Route::delete('deleteUser', [UserController::class, 'deleteUser']);
-    Route::post('updateUser', [UserController::class, 'updateUser']);
+    Route::put('updateUser', [UserController::class, 'updateUser']);
+    Route::put('deactivateUser', [UserController::class, 'deactivateUser']);
+    
 });
+
+
+//Workers Routes
+Route::get('getWorkers', [UserController::class, 'getWorkers']);

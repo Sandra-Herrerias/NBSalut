@@ -27,7 +27,7 @@ class Visit extends Model
      */
     public function uses()
     {
-        return $this->hasOne(Uses::class);
+        return $this->hasMany(Uses::class);
     }
 
     /**

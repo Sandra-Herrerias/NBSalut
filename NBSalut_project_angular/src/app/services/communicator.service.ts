@@ -61,8 +61,8 @@ export class CommunicatorService {
    * Retrieve all users (patients and specialists) from the DDBB.
    * @returns a list of all the users.
    */
-  getUser() {
-    return this.http.get("http://127.0.0.1:8000/api/getUser",
+  getUsers() {
+    return this.http.get("http://127.0.0.1:8000/api/getUsers",
       {
         responseType: "json"
       });
@@ -93,6 +93,14 @@ export class CommunicatorService {
   getTreatmentByID(id: number) {
     return this.http.post("http://127.0.0.1:8000/api/getTreatment",
       id,
+      {
+        responseType: "json"
+      });
+  }
+
+  addTreatment(treat: any) {
+    return this.http.post("http://127.0.0.1:8000/api/addTreatment",
+      treat,
       {
         responseType: "json"
       });
@@ -190,7 +198,7 @@ export class CommunicatorService {
   }
 
   /**
- * Retrieve all users (patients and specialists) from the DDBB.
+ * Retrieve all patients from the DDBB.
  * @returns a list of all the users.
  */
   getPatients() {
@@ -200,16 +208,48 @@ export class CommunicatorService {
       });
   }
 
+  /**
+* Retrieve all workers from the DDBB.
+* @returns a list of all the users.
+*/
+  getWorkers() {
+    return this.http.get("http://127.0.0.1:8000/api/getWorkers",
+      {
+        responseType: "json"
+      });
+  }
+
+  /**
+   * Retrieves the maximum number from the clinical log numbers that are stored in the database.
+   * @returns max clinical number from the database
+   */
+  getMaxClinicalLog() {
+    return this.http.get("http://127.0.0.1:8000/api/getMaxClinicalLog",
+      {
+        responseType: "json"
+      });
+  }
 
   /**
  * This method modifies the selected user with the new info.
  * @param info
  */
   modifyDataUser(info: Object) {
-    return this.http.post("http://127.0.0.1:8000/api/updateUser",
+    return this.http.put("http://127.0.0.1:8000/api/updateUser",
       info,
       { responseType: "json" });
   }
+
+  /**
+ * This method deactivates the selected user.
+ * @param info
+ */
+  deactivateUser(info: Object) {
+    return this.http.put("http://127.0.0.1:8000/api/deactivateUser",
+      info,
+      { responseType: "json" });
+  }
+
 
   /**
 * Service POST

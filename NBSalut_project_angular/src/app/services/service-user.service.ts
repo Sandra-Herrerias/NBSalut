@@ -5,7 +5,7 @@ import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class ServicePatientService {
+export class ServiceUserService {
   private dataSource: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   data: Observable<User> = this.dataSource.asObservable();
  

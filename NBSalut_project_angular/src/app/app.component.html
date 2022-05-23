@@ -1,104 +1,89 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js"
-  integrity="sha512-5qbIAL4qJ/FSsWfIq5Pd0qbqoZpk5NcUVeAAREV2Li4EKzyJDEGlADHhHOSSCw0tHP7z3Q4hNHJXa81P92borQ=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js" integrity="sha512-5qbIAL4qJ/FSsWfIq5Pd0qbqoZpk5NcUVeAAREV2Li4EKzyJDEGlADHhHOSSCw0tHP7z3Q4hNHJXa81P92borQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <main class="d-flex min-vh-100 overflow-hidden">
-  <div *ngIf="data != '/login'" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark nb" style="width: 280px;"
-    [ngClass]="status ? 'hide' : 'show'">
-    <a href="home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <svg class="bi me-2" width="40" height="32">
+    <div *ngIf="data != '/login'" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark nb" style="width: 280px;" [ngClass]="status ? 'show' : 'hide'">
+        <a href="home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32">
         <use xlink:href="#bootstrap"></use>
       </svg>
-      <!-- <span class="fs-4">Sidebar</span> -->
-      <img src="../assets/images/logo3.png">
-    </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="home" class="nav-link active" aria-current="page">
-          <i class="fa-solid fa-house-medical"></i>
-          Home
+            <!-- <span class="fs-4">Sidebar</span> -->
+            <img src="../assets/images/logo3.png">
         </a>
-      </li>
-      <li>
-        <a routerLink="regpatient" class="nav-link text-white">
-          <i class="fa-solid fa-user-plus"></i>
-          Añadir Paciente
-        </a>
-      </li>
-      <li>
-        <a routerLink="listpatient" class="nav-link text-white">
-          <i class="fa-solid fa-users"></i>
-          Listar Pacientes
-        </a>
-      </li>
-      <li>
-        <a routerLink="regvisit" class="nav-link text-white">
-          <i class="fas fa-light fa-file-medical"></i>
-          Añadir Visita
-        </a>
-      </li>
-      <li>
-        <a routerLink="listvisits" class="nav-link text-white">
-          <i class="fa-solid fa-file-medical"></i>
-          Listar Visitas
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <i class="fa-solid fa-heart-circle-plus"></i>
-          Añadir Tratamientos
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <i class="fa-solid fa-heart"></i>
-          Listar Tratamientos
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <i class="fa-solid fa-file-invoice-dollar"></i>
-          Listar Facturas
-        </a>
-      </li>
-      <li>
-        <a routerLink="quarterlyreport" class="nav-link text-white">
-          <i class="fa-solid fa-file-invoice-dollar"></i>
-          Factura Trimestral
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <i class="fa-solid fa-user-doctor"></i>
-          Plantilla
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <i class="fa-solid fa-toolbox"></i>
-          Administradores
-        </a>
-      </li>
-    </ul>
-    <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="home" class="nav-link active" aria-current="page">
+                    <i class="fa-solid fa-house-medical"></i> Home
+                </a>
+            </li>
+            <li>
+                <a routerLink="regpatient" class="nav-link text-white">
+                    <i class="fa-solid fa-user-plus"></i> Añadir Paciente
+                </a>
+            </li>
+            <li>
+                <a routerLink="listpatient" class="nav-link text-white">
+                    <i class="fa-solid fa-users"></i> Listar Pacientes
+                </a>
+            </li>
+            <li>
+                <a routerLink="regvisit" class="nav-link text-white">
+                    <i class="fas fa-light fa-file-medical"></i> Añadir Visita
+                </a>
+            </li>
+            <li>
+                <a routerLink="listvisits" class="nav-link text-white">
+                    <i class="fa-solid fa-file-medical"></i> Listar Visitas
+                </a>
+            </li>
+            <li>
+                <a routerLink="regtreatment" class="nav-link text-white">
+                    <i class="fa-solid fa-heart-circle-plus"></i> Añadir Tratamientos
+                </a>
+            </li>
+            <li>
+                <a routerLink="listtreatments" class="nav-link text-white">
+                    <i class="fa-solid fa-heart"></i> Listar Tratamientos
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Listar Facturas
+                </a>
+            </li>
+            <li>
+                <a routerLink="quarterlyreport" class="nav-link text-white">
+                    <i class="fa-solid fa-file-invoice-dollar"></i> Factura Trimestral
+                </a>
+            </li>
+            <li>
+                <a routerLink="specialits" class="nav-link text-white">
+                    <i class="fa-solid fa-user-doctor"></i> Especialistas
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white">
+                    <i class="fa-solid fa-toolbox"></i> Administradores
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>mdo</strong>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+        </div>
     </div>
   </div>
   <div id="page-content-wrapper">
@@ -107,8 +92,4 @@
         <button class="btn btn-lg" (click)="clickEvent()"><i class="bi bi-list text-white"></i></button>
       </header>
     </div>
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
 </main>

@@ -1,74 +1,68 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 import { ServiceUserService } from 'src/app/services/service-user.service';
+
 @Component({
-  selector: 'app-edit-patient',
-  templateUrl: './edit-patient.component.html',
-  styleUrls: ['./edit-patient.component.css']
+  selector: 'app-edit-workers',
+  templateUrl: './edit-workers.component.html',
+  styleUrls: ['./edit-workers.component.css']
 })
-export class EditPatientComponent implements OnInit {
+export class EditWorkersComponent implements OnInit {
 
   /**
- * Connection between components. 
- * users Table is her mother component.
- * input is used to indicate that this variable (user) comes from abroad
- * (from users Table in this case). 
- */
-
+* Connection between components. 
+* users Table is her mother component.
+* input is used to indicate that this variable (user) comes from abroad
+* (from users Table in this case). 
+*/
   @Output() modifiedUser = new EventEmitter<User>();
-
   @Output() eventShow = new EventEmitter<Boolean>();
-
-  user: User = new User();
-
+  
+  //Attributes
   public userDetails: FormGroup;
+  user: User = new User(); 
   submitted = false;
   today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
+  //date = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[0-9]{4}$";
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
   regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
+  listRoles: String[] = ['patient','admin','specialist'];
 
+  //Constructor
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
+    private ServiceUser: ServiceUserService,
     private communicator: CommunicatorService,
-    private serviceUser: ServiceUserService) {
-
+    private router: Router
+  ) {
     //Validations from reactive form
     this.userDetails = this.formBuilder.group({
       id: [''],
-      num_clinical_log: ['', [Validators.required]],
+      collegiate_num: ['', [Validators.required]],
       register_date: ['', [Validators.required]],
-      center_code: ['', [Validators.required]],
-      ss_CIP: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.regexNumbersCapLetters)]],
-      diabetic: [false],
       active: [false],
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       last_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(this.regexLettersAndSpaces)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern(this.regexEmail)]],
-      birthdate: ['', [Validators.required]],
+      birthdate: [null, [Validators.required]],
       dni: ['', [Validators.required, this.createDniValidator()]],
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
-      previous_pathologies: ['', [Validators.required]]
+      role: ['', [Validators.required]]
     });
   }
 
   ngOnInit(): void {
-
     this.getData();
     this.userDetails.controls['id'].setValue(this.user.id);
-    this.userDetails.controls['num_clinical_log'].setValue(this.user.num_clinical_log);
+    this.userDetails.controls['collegiate_num'].setValue(this.user.collegiate_num);
     this.userDetails.controls['register_date'].setValue(this.user.register_date);
-    this.userDetails.controls['center_code'].setValue(this.user.center_code);
-    this.userDetails.controls['ss_CIP'].setValue(this.user.ss_CIP);
-    this.userDetails.controls['diabetic'].setValue(this.user.diabetic);
     this.userDetails.controls['active'].setValue(this.user.active);
     this.userDetails.controls['first_name'].setValue(this.user.first_name);
     this.userDetails.controls['last_name'].setValue(this.user.last_name);
@@ -79,11 +73,11 @@ export class EditPatientComponent implements OnInit {
     this.userDetails.controls['address'].setValue(this.user.address);
     this.userDetails.controls['city'].setValue(this.user.city);
     this.userDetails.controls['postal_code'].setValue(this.user.postal_code);
-    this.userDetails.controls['previous_pathologies'].setValue(this.user.previous_pathologies);
+    this.userDetails.controls['role'].setValue(this.user.role);
   }
 
   getData() {
-    this.serviceUser.data.subscribe(response => {
+    this.ServiceUser.data.subscribe(response => {
       this.user = response;
     });
   }
@@ -157,15 +151,11 @@ export class EditPatientComponent implements OnInit {
       "address": this.userDetails.value.address,
       "postal_code": this.userDetails.value.postal_code,
       "active": this.userDetails.value.active,
-      "previous_pathologies": this.userDetails.value.previous_pathologies,
-      "diabetic": this.userDetails.value.diabetic,
-      "ss_CIP": this.userDetails.value.ss_CIP,
-      "center_code": this.userDetails.value.center_code,
-      "num_clinical_log": this.userDetails.value.num_clinical_log,
+      "collegiate_num": this.userDetails.value.collegiate_num,
       "role": this.user.role,
       "register_date": this.userDetails.value.register_date
     }
-    console.log("DATA NEW PATIENT");
+    console.log("DATA NEW WORKER");
     console.log(info);
     console.log(this.user);
 
@@ -190,6 +180,8 @@ export class EditPatientComponent implements OnInit {
 
     //Emits father that modify form will be hidden
     this.eventShow.emit(false);
-    this.router.navigateByUrl('/listpatient');
+    this.router.navigateByUrl('/listworkers');
   }
+
+
 }

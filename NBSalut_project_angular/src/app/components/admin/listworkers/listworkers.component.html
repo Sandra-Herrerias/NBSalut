@@ -1,0 +1,62 @@
+<div class="card">
+
+    <div class="card-header">Lista de especialistas</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-4"></div>
+            <div class="col-sm-12 col-md-4"></div>
+            <div class="col-sm-12 col-md-4">
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Buscar</label>
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="Nombre, apellido o DNI" class="form-control" [(ngModel)]="inputSearch" (ngModelChange)="search()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover align-middle text-center">
+                <thead>
+                    <tr class="nb text-white">
+                        <th scope="col">ID</th>
+                        <th scope="col">ROL</th>
+                        <th scope="col">ESPECIALISTA</th>
+                        <th scope="col">NUM. COLEGIADO</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">TELÉFONO</th>
+                        <th scope="col">FECHA REGISTRO</th>
+                        <th scope="col">ESTADO</th>
+                        <th scope="col">MODIFICAR</th>
+                        <th scope="col">ELIMINAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let worker of this.dataWorkers  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
+
+                        <td>{{ worker.id }}</td>
+                        <td>{{worker.role}}</td>
+                        <td>{{worker.first_name}} {{worker.last_name}} </td>
+                        <td>{{worker.collegiate_num}}</td>
+                        <td>{{ worker.dni }}</td>
+                        <td>{{worker.email}}</td>
+                        <td>{{worker.phone}}</td>
+                        <td>{{worker.register_date | date: 'dd/MM/yyyy'}}</td>
+                        <td>
+                            <span class="badge rounded-pill" [ngClass]="worker.active ? 'bg-success' : 'bg-danger'">
+                {{ worker.active ? "Activo" : "Inactivo" }}
+              </span>
+                        </td>
+                        <td><button class=" btn" (click)="showFormModifyWorker(worker)"><i class="bi bi-pencil-fill"></i></button>
+                        </td>
+                        <td><button class="btn" (click)="confirmDeactivate(worker)"><i class="bi bi-trash-fill"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-end ">
+            <pagination-controls (pageChange)="cp=$event "></pagination-controls>
+        </div>
+    </div>
+</div>

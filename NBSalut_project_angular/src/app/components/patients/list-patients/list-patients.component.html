@@ -1,6 +1,18 @@
-<div id="titulo" class="p-5">
-    <div class="text-white text-center">
-        <h1 class="text-dark display-1"></h1>
+<div class="container">
+    <h4>BUSCADOR</h4>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                Nombre: <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="nameFilter" (ngModelChange)="filter()">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                Apellido: <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="surnameFilter" (ngModelChange)="filter()">
+            </div>
+        </div>
     </div>
 </div>
 <br>
@@ -15,12 +27,13 @@
                 <th id="colTitle">Email</th>
                 <th id="colTitle">Teléfono</th>
                 <th id="colTitle">Diabética</th>
-                <th id="colTitle"><i class="bi bi-pencil-fill"></i></th>
-                <th id="colTitle"><i class="bi bi-trash-fill"></i></th>
+                <th id="colTitle">Visitas</th>
+                <th id="colTitle">Modificar</th>
+                <th id="colTitle">Eliminar</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let patient of dataPatients">
+            <tr *ngFor="let patient of this.filteredPatients  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
                 <td>{{patient.num_clinical_log}}</td>
                 <td>{{patient.first_name}} {{patient.last_name}} </td>
                 <td>{{patient.dni}}</td>
@@ -28,6 +41,7 @@
                 <td>{{patient.phone}}</td>
                 <td *ngIf="patient.diabetic == 0">no</td>
                 <td *ngIf="patient.diabetic == 1">sí</td>
+                <td><button class=" btn" (click)="showpatientVisits(patient)"><i class="bi bi-eye-fill"></i></button></td>
                 <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i
             class="bi bi-pencil-fill"></i></button></td>
                 <td><button class="btn" (click)="confirmDeactivate(patient)"><i class="bi bi-trash-fill"></i></button>
@@ -35,4 +49,7 @@
             </tr>
         </tbody>
     </table>
+    <div class="d-flex justify-content-center ">
+        <pagination-controls (pageChange)="cp=$event "></pagination-controls>
+    </div>
 </div>

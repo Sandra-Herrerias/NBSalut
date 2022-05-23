@@ -1,0 +1,11 @@
+thead,
+button {
+    background-color: rgb(36, 157, 171);
+    color: #f8f9fa;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 0.5em;
+    overflow: hidden;
+}

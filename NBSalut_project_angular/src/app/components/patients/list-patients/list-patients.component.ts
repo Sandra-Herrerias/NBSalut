@@ -2,7 +2,7 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
-import { ServicePatientService } from 'src/app/services/service-patient.service';
+import { ServiceUserService } from 'src/app/services/service-user.service';
 @Component({
   selector: 'app-list-patients',
   templateUrl: './list-patients.component.html',
@@ -11,21 +11,28 @@ import { ServicePatientService } from 'src/app/services/service-patient.service'
 export class ListPatientsComponent implements OnInit {
   dataPatients: any[] = [];
   patientSelected !: User;
+  filteredPatients: any[] = [];
+  nameFilter: String = "";
+  surnameFilter: String = "";
+  ipp: number;
+  cp: number;
   constructor(
     private communicator: CommunicatorService,
     private router: Router,
-    private servicePatient: ServicePatientService
-  ) { }
+    private serviceUser: ServiceUserService
+  ) {
+    this.ipp = 10;
+    this.cp = 1;
+  }
 
   ngOnInit(): void {
     this.loadPatients();
   }
 
   sendNewData(data: User) {
-    console.log("sendNewData");
-    this.servicePatient.sendData(data);
+    this.serviceUser.sendData(data);
   }
-  
+
 
   /**
    * Load data patient from the database
@@ -33,8 +40,8 @@ export class ListPatientsComponent implements OnInit {
   loadPatients() {
     this.communicator.getPatients().subscribe(
       (result: any) => {
-        console.log(result);
         this.dataPatients = result;
+        this.filteredPatients = this.dataPatients;
       }
     );
   }
@@ -46,23 +53,19 @@ export class ListPatientsComponent implements OnInit {
    * @param patientSelected
    */
   confirmDeactivate(patientSelected: any) {
-    console.log("PATIENT SELECTED");
-    console.log(patientSelected);
     if (patientSelected.active == 1) {
       if (confirm("¿Está segura de desactivar este paciente?")) {
         let info = {
           id: patientSelected.id,
-          active: patientSelected.active
+          active: 0
         }
-        console.log(patientSelected.active);
-        this.communicator.modifyDataUser(info).subscribe(
+        this.communicator.deactivateUser(info).subscribe(
           (result: any) => {
             // let res = JSON.parse(JSON.stringify(result));
-            console.log(result);
             if (result.success) { //success message
-              alert("Usuario modificado correctamente");
+              alert("Usuario desactivado correctamente");
             } else {//error message
-              alert("El usuario no se ha podido modificar");
+              alert("El usuario no se ha podido desactivar");
             }
           }
         );
@@ -72,7 +75,6 @@ export class ListPatientsComponent implements OnInit {
         let info = {
           id: patientSelected.id
         }
-        console.log(patientSelected.id);
         this.communicator.delete(info).subscribe(
           (result: any) => {
             if (result.success) {
@@ -108,22 +110,30 @@ export class ListPatientsComponent implements OnInit {
    * This method shows a form to modify the selected patient and loads the patient info.
    */
   showFormModifyPatient(patient: User) {
-    console.log(patient);
     this.patientSelected = patient;
     //this.router.navigate(['/editpatient'],{state: {data:patient}});
-    this.router.navigate(['/editpatient',{patient:this.patientSelected }]);
+    this.router.navigate(['/editpatient', { patient: this.patientSelected }]);
     this.sendNewData(this.patientSelected);
   };
 
   /**
-* This method sends the user with the new information to the method that modifies the user in the service.
-*/
-  sendInfoToModifyUser($e: any): void {
-    this.communicator.modifyDataUser($e).subscribe((result: any) => {
-      if (result.status) {
-        // this.showFormModify = false;
-      }
-    });
+       * filter(): void
+       * This method filters the patients array by name and surname 
+       */
+  filter() {
+    this.filteredPatients = this.dataPatients.filter(
+      p => {
+        if (p.first_name.indexOf(this.nameFilter) != -1 &&
+          p.last_name.indexOf(this.surnameFilter) != -1) {
+          return true;
+        }
+        return false;
+      });
   }
 
+
+  showpatientVisits(patient: User) {
+    this.patientSelected = patient;
+    this.router.navigate(['/editpatient', { patient: this.patientSelected }]);
+  }
 }
