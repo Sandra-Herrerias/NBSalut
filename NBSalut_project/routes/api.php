@@ -30,6 +30,8 @@ Route::get('getUsers', [UserController::class, 'getUsers']);
 // Treatment Routes
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 Route::post('getTreatment', [TreatmentController::class, 'getTreatment']);
+Route::post('addTreatment', [TreatmentController::class, 'addTreatment']);
+
 
 
 // Visits Routes

@@ -99,7 +99,7 @@
                <!-- DNI field -->
                <div class="mb-3 col-6">
                   <label class="form-label fw-bold">NIF/NIE *</label>
-                  <input type="text" formControlName="dni" class="form-control" required>
+                  <input type="text" formControlName="dni" class="form-control" readonly>
                   <!-- <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('dni')?.errors?.['required'] && registerVisitForm.get('dni')?.touched">DNI
                      requerido
@@ -114,7 +114,7 @@
                <!-- Name field -->
                <div class="mb-3 col-6">
                   <label class="form-label fw-bold">Nombre *</label>
-                  <input type="text" formControlName="name" class="form-control" required>
+                  <input type="text" formControlName="name" class="form-control" readonly>
                   <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                      requerido
@@ -123,7 +123,7 @@
                <!-- Surnames field -->
                <div class="mb-3 col-6">
                   <label class="form-label fw-bold">Apellidos *</label>
-                  <input type="text" formControlName="surnames" class="form-control" required>
+                  <input type="text" formControlName="surnames" class="form-control" readonly>
                   <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('surnames')?.errors?.['required'] && registerVisitForm.get('surnames')?.touched">Apellidos
                      requerido

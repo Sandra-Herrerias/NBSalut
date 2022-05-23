@@ -11,20 +11,11 @@
         <!-- Inputs -->
         <div class="row mb-3">
             <!-- Name field -->
-            <div class="mb-3 col-6">
+            <div class="mb-3 col-12">
                 <label class="form-label fw-bold">Nombre *</label>
                 <input type="text" formControlName="name" class="form-control" required>
                 <label class="text-danger mt-1"
                     *ngIf="registerTreatmentForm.get('name')?.errors?.['required'] && registerTreatmentForm.get('name')?.touched">Nombre
-                    requerido
-                </label>
-            </div>
-            <!-- Price field -->
-            <div class="mb-3 col-6">
-                <label class="form-label fw-bold">Precio *</label>
-                <input type="number" formControlName="price" class="form-control" required>
-                <label class="text-danger mt-1"
-                    *ngIf="registerTreatmentForm.get('price')?.errors?.['required'] && registerTreatmentForm.get('price')?.touched">Precio
                     requerido
                 </label>
             </div>
@@ -33,6 +24,15 @@
                 <label class="form-label fw-bold">Descripción del tratamiento</label>
                 <textarea name="des" class="form-control" placeholder="Escribe aquí..." formControlName="desc"
                     style="height: 100px"></textarea>
+            </div>
+            <!-- Price field -->
+            <div class="mb-3 col-2">
+                <label class="form-label fw-bold">Precio *</label>
+                <input type="number" step="0.01" formControlName="price" class="form-control" required>
+                <label class="text-danger mt-1"
+                    *ngIf="registerTreatmentForm.get('price')?.errors?.['required'] && registerTreatmentForm.get('price')?.touched">Precio
+                    requerido
+                </label>
             </div>
         </div>
 

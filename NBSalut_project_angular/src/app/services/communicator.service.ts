@@ -98,6 +98,14 @@ export class CommunicatorService {
       });
   }
 
+  addTreatment(treat: any) {
+    return this.http.post("http://127.0.0.1:8000/api/addTreatment",
+      treat,
+      {
+        responseType: "json"
+      });
+  }
+
   //#endregion
 
 
@@ -200,21 +208,21 @@ export class CommunicatorService {
       });
   }
 
-    /**
- * Retrieve all workers from the DDBB.
- * @returns a list of all the users.
- */
-     getWorkers() {
-      return this.http.get("http://127.0.0.1:8000/api/getWorkers",
-        {
-          responseType: "json"
-        });
-    }
+  /**
+* Retrieve all workers from the DDBB.
+* @returns a list of all the users.
+*/
+  getWorkers() {
+    return this.http.get("http://127.0.0.1:8000/api/getWorkers",
+      {
+        responseType: "json"
+      });
+  }
 
-/**
- * Retrieves the maximum number from the clinical log numbers that are stored in the database.
- * @returns max clinical number from the database
- */
+  /**
+   * Retrieves the maximum number from the clinical log numbers that are stored in the database.
+   * @returns max clinical number from the database
+   */
   getMaxClinicalLog() {
     return this.http.get("http://127.0.0.1:8000/api/getMaxClinicalLog",
       {
@@ -236,12 +244,12 @@ export class CommunicatorService {
  * This method deactivates the selected user.
  * @param info
  */
-   deactivateUser(info: Object) {
+  deactivateUser(info: Object) {
     return this.http.put("http://127.0.0.1:8000/api/deactivateUser",
       info,
       { responseType: "json" });
   }
-  
+
 
   /**
 * Service POST

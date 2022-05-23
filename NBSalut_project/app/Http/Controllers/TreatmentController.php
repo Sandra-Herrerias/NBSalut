@@ -15,4 +15,18 @@ class TreatmentController extends Controller
     public function getTreatment(Request $request) {
         return Treatment::find($request)->first();
     }
+
+    public function addTreatment(Request $request) {
+        $treat = new Treatment;
+            $treat->id;
+            $treat->name = $request->name;
+            $treat->description = $request->desc;
+            $treat->price = $request->price;
+
+        if ($treat->save()) {
+            return response()->json(['success' => true, 'visit' => $treat]);
+        }
+
+        return response()->json(['success' => false]);
+    }
 }
