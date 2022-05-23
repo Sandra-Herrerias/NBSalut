@@ -14,6 +14,7 @@ export class ListworkersComponent implements OnInit {
   workerSelected !: User;
   ipp: number;
   cp: number;
+  inputSearch: string = '';
   constructor(
     private communicator: CommunicatorService,
     private router: Router,
@@ -25,6 +26,7 @@ export class ListworkersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadWorkers();
+    console.log(this.loadWorkers());
   }
 
   sendNewData(data: User) {
@@ -62,6 +64,7 @@ export class ListworkersComponent implements OnInit {
             // let res = JSON.parse(JSON.stringify(result));
             if (result.success) { //success message
               alert("Usuario desactivado correctamente");
+              this.loadWorkers();
             } else {//error message
               alert("El usuario no se ha podido desactivar");
             }
@@ -113,4 +116,20 @@ export class ListworkersComponent implements OnInit {
     this.sendNewData(this.workerSelected);
   };
 
+
+    /**
+   *
+   */
+     search(): void {
+      if (!this.inputSearch) {
+        this.ngOnInit();
+      } else {
+        this.dataWorkers = this.dataWorkers.filter(res => {
+          return res.first_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+            || res.last_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+            || res.dni.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase());
+        })
+        this.cp=1;
+      }
+    }
 }
