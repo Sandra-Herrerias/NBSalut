@@ -29,4 +29,16 @@ class TreatmentController extends Controller
 
         return response()->json(['success' => false]);
     }
+
+    public function delTreatment(Request $request) {
+
+        //return $request->id;
+        //$tFound = Treatment::find($request->id)->delete();
+
+        if(Treatment::find($request->id)->delete()) {
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
+        
+    }
 }

@@ -171,21 +171,6 @@
                   <input class="form-control" type="file" id="file" formControlName="file" accept="image/*"
                      (change)="onFileChange($event)">
                </div>
-               <!-- Facturation check -->
-               <div class="mb-3 col-4">
-                  <label class="form-label fw-bold">Facturación</label><br>
-                  <div class="form-check">
-                     <input class="form-check-input" formControlName="facturation" type="checkbox" value=""
-                        (change)="checked()">
-                     <label class="form-check-label" for="flexCheckChecked">
-                        Realizar facturación
-                     </label>
-                     <label class="text-danger mt-1"
-                        *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
-                        requerida
-                     </label>
-                  </div>
-               </div>
             </div>
 
             <!-- Submit button -->
@@ -201,20 +186,61 @@
                   <div class="modal-dialog">
                      <div class="modal-content">
                         <div class="modal-header">
-                           <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                           <h5 class="modal-title" id="staticBackdropLabel">Confirmación de Facturación</h5>
                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                           ...
+                           <label class="form-label fw-bold">Facturación</label><br>
+                           <div class="form-check display-1">
+
+                              <input class="form-check-input" formControlName="facturation" type="checkbox" value=""
+                                 (change)="checked()" style="margin: 0 auto;">
+                              <label class="text-danger mt-1"
+                                 *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
+                                 requerida
+                              </label>
+                           </div>
                         </div>
                         <div class="modal-footer">
-                           <button type="button" class="btn btn-primary btn-lg col-4"
-                              [disabled]="registerVisitForm.invalid" (click)="addVisit()">Registrar visita</button>
-                           <div class="col-4"></div>
+                           <button type="button" class="btn btn-primary" [disabled]="registerVisitForm.invalid"
+                              (click)="addVisit()">Registrar Visita</button>
+                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                      </div>
                   </div>
                </div>
+               <!-- Modal -->
+               <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title" id="staticBackdropLabel">Confirmación de Facturación</h5>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                           <div class="mb-3">
+                              <label class="form-label fw-bold">Facturación</label><br>
+                              <div class="form-check">
+
+                                 <input class="form-check-input" formControlName="facturation" type="checkbox" value=""
+                                    (change)="checked()">
+                                 <label class="text-danger mt-1"
+                                    *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
+                                    requerida
+                                 </label>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                           <button type="button" class="btn btn-primary" [disabled]="registerVisitForm.invalid"
+                              (click)="addVisit()">Understood</button>
+                           <div class="col-4"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div> -->
             </div>
          </form>
       </div>
