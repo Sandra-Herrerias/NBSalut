@@ -28,7 +28,9 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
   isMasterSel: boolean;
   invoicesToSend: any;
   message = '';
-
+  itemsPerPage: number = 15;
+  currentPage: number = 1;
+  inputSearch: string = '';
   constructor(private http: CommunicatorService/*, private filesaver: FileSaverService*/) {
     this.isMasterSel = false;
     // this.getCheckedItemList();
@@ -45,60 +47,61 @@ export class QuarterlyReportComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnInit(): void {
-    this.dtOptions = {
-      processing: true,
-      pagingType: 'full_numbers',
-      // language: { url: '//cdn.1s.net/plug-ins/1.12.0/i18n/es-ES.json' },
-      columnDefs: [{
-        orderable: false,
-        className: 'select-checkbox',
-        targets: 0
-      }],
-      select: {
-        style: 'multi',
-        selector: 'td:first-child',
-        info: false
-      },
-      dom: 'lBfrtip',
-      buttons: [
-        { text: '<i class="bi bi-file-earmark-excel"></i> Excel', extend: 'excel', className: 'btn btn-success' },
-        {
-          text: '<i class="bi bi-check-square-fill"></i> Select all', extend: 'selectAll', className: 'btn btn-primary'
-        },
-        { text: '<i class="bi bi-square"></i> Deselect all', extend: 'selectNone', className: 'btn btn-secondary' },
-        {
-          text: 'Confirmar para enviar',
-          key: '1',
-          action: function (e: any, dt: any, node: any, config: any) {
-            // alert(dt.rows({ selected: true }).data());
-            console.log(dt.rows({ selected: true }).data())
-            console.log(dt.api())
-          }
-        }
-      ],
-      rowCallback: (row: Node, data: any[] | Object, index: number) => {
-        const self = this;
-        // Unbind first in order to avoid any duplicate handler
-        // (see https://github.com/l-lin/angular-datatables/issues/87)
-        // Note: In newer jQuery v3 versions, `unbind` and `bind` are
-        // deprecated in favor of `off` and `on`
-        // $('td', row).off('click');
-        $('.select-checkbox', row).on('click', () => {
-          self.someClickHandler(data);
-        });
-        return row;
-      },
+    // this.dtOptions = {
+    //   processing: true,
+    //   pagingType: 'full_numbers',
+    //   // language: { url: '//cdn.1s.net/plug-ins/1.12.0/i18n/es-ES.json' },
+    //   columnDefs: [{
+    //     orderable: false,
+    //     className: 'select-checkbox',
+    //     targets: 0
+    //   }],
+    //   select: {
+    //     style: 'multi',
+    //     selector: 'td:first-child',
+    //     info: false
+    //   },
+    //   dom: 'lBfrtip',
+    //   buttons: [
+    //     { text: '<i class="bi bi-file-earmark-excel"></i> Excel', extend: 'excel', className: 'btn btn-success' },
+    //     {
+    //       text: '<i class="bi bi-check-square-fill"></i> Select all', extend: 'selectAll', className: 'btn btn-primary'
+    //     },
+    //     { text: '<i class="bi bi-square"></i> Deselect all', extend: 'selectNone', className: 'btn btn-secondary' },
+    //     {
+    //       text: 'Confirmar para enviar',
+    //       key: '1',
+    //       action: function (e: any, dt: any, node: any, config: any) {
+    //         // alert(dt.rows({ selected: true }).data());
+    //         console.log(dt.rows({ selected: true }).data())
+    //         console.log(dt.api())
+    //       }
+    //     }
+    //   ],
+    //   rowCallback: (row: Node, data: any[] | Object, index: number) => {
+    //     const self = this;
+    //     // Unbind first in order to avoid any duplicate handler
+    //     // (see https://github.com/l-lin/angular-datatables/issues/87)
+    //     // Note: In newer jQuery v3 versions, `unbind` and `bind` are
+    //     // deprecated in favor of `off` and `on`
+    //     // $('td', row).off('click');
+    //     $('.select-checkbox', row).on('click', () => {
+    //       self.someClickHandler(data);
+    //     });
+    //     return row;
+    //   },
 
-    };
+    // };
     this.http.getInvoices().subscribe((response: any) => {
       if (response.success) {
         this.invoices = response.data;
-        this.invoicesList = [...this.invoices];
-        this.invoicesList.forEach(function (element: { Selected: boolean; }) {
-          element.Selected = false;
-        });
-        // console.log(this.invoicesList)
-        this.dtTrigger.next(this.invoices);
+        console.log(response);
+        // this.invoicesList = [...this.invoices];
+        // this.invoicesList.forEach(function (element: { Selected: boolean; }) {
+        //   element.Selected = false;
+        // });
+        // // console.log(this.invoicesList)
+        // this.dtTrigger.next(this.invoices);
         // console.log($("#datatable").DataTable().rows({select: true}).data());
         // console.log(typeof $("#datatable").DataTable().rows().data());
         // this.getCheckedItemList();

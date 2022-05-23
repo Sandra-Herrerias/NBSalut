@@ -1,18 +1,18 @@
-<div class="card">
+<!-- <div class="card">
   <div class="card-header">
     Facturas
   </div>
-  <!-- <p class="text-danger">You clicked on: <strong>{{ message }}</strong></p> -->
+  <p class="text-danger">You clicked on: <strong>{{ message }}</strong></p>
   <div class="card-body">
     <div class="table-responsive">
-      <!-- <div class="text-end">
+      <div class="text-end">
         <button (click)="export()" class="btn btn-success"><i class="bi bi-file-earmark-excel"></i> Excel</button>
-      </div> -->
+      </div>
       <table *ngIf="this.invoices" datatable id="datatable" [dtOptions]="dtOptions"
         class="table table-striped table-hover table-bordered ">
         <thead>
           <tr class="text-uppercase">
-            <!-- <th><input type="checkbox" [(ngModel)]="isMasterSel" name="send-invoice" (change)="checkUncheckAll()"></th> -->
+            <th><input type="checkbox" [(ngModel)]="isMasterSel" name="send-invoice" (change)="checkUncheckAll()"></th>
            <th></th>
             <th>Nº Factura</th>
             <th>Fecha</th>
@@ -25,9 +25,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let invoice of invoicesList; let i = index">
-            <!-- <td><input type="checkbox" name="send-invoice" [value]="invoice.id" [(ngModel)]="invoice.Selected" (change)="isAllSelected()"></td> -->
+            <td><input type="checkbox" name="send-invoice" [value]="invoice.id" [(ngModel)]="invoice.Selected" (change)="isAllSelected()"></td>
                 <td></td>
-            <!-- <td>{{ invoice.number_invoice }}</td> -->
+            <td>{{ invoice.number_invoice }}</td>
             <td>{{ invoice.id }}</td>
             <td>{{ invoice.invoice_date | date:'dd/MM/yyyy' }}</td>
             <td>{{ invoice.first_name }} {{ invoice.last_name }}</td>
@@ -50,6 +50,61 @@
           </tr>
         </tfoot>
       </table>
+    </div>
+  </div>
+</div>
+ -->
+
+<div class="card">
+  <div class="card-header">Lista de einvoiceas</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-12 col-md-4"></div>
+      <div class="col-sm-12 col-md-4"></div>
+      <div class="col-sm-12 col-md-4">
+        <div class="row mb-3">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Buscar</label>
+          <div class="col-sm-10">
+            <!-- <input type="text" placeholder="Nombre, apellido o DNI" class="form-control" [(ngModel)]="inputSearch"
+              (ngModelChange)="search()"> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive" style="border-radius:10px !important;">
+      <table class="table table-bordered table-striped table-hover align-middle text-center">
+        <thead>
+          <tr class="nb text-white text-uppercase">
+            <th>Nº Factura</th>
+            <th>Fecha</th>
+            <th>Nombre del paciente</th>
+            <th>Dirección</th>
+            <th>DNI</th>
+            <th>Tratamiento</th>
+            <th>Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let invoice of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+            <td>{{ invoice.id }}</td>
+            <!-- <td>
+              <span class="badge rounded-pill" [ngClass]="invoice.active ? 'bg-success' : 'bg-danger'">
+                {{ invoice.active ? "Activo" : "Inactivo" }}
+              </span>
+            </td>
+            <td>
+              <a [routerLink]="['/editinvoice', invoice.id  ]" class="settings" data-toggle="tooltip"><i
+                  class="fa-solid fa-pen me-3"></i></a>
+              <a href="#" class="delete" data-toggle="tooltip"><i class="fa-solid fa-trash text-danger"></i></a>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-end">
+        <!-- <pagination-controls (pageChange)="currentPage = $event"></pagination-controls> -->
+      </div>
     </div>
   </div>
 </div>
