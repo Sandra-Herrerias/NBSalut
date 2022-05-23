@@ -40,8 +40,8 @@ export class ListTreatmentsComponent implements OnInit {
     this.communicator.getTreatments().subscribe((data: any) => {
       data.forEach((t: any) => {
         this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
-        this.filteredListTreatments = this.listTreatments;
       })
+      this.filteredListTreatments = this.listTreatments;
     })
   }
 
@@ -57,5 +57,6 @@ export class ListTreatmentsComponent implements OnInit {
       }
       return false;
     });
+    this.cp = 1;
   }
 }

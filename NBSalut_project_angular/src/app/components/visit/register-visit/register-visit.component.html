@@ -99,7 +99,7 @@
                <!-- DNI field -->
                <div class="mb-3 col-6">
                   <label class="form-label fw-bold">NIF/NIE *</label>
-                  <input type="text" formControlName="dni" class="form-control" required>
+                  <input type="text" formControlName="dni" class="form-control" readonly>
                   <!-- <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('dni')?.errors?.['required'] && registerVisitForm.get('dni')?.touched">DNI
                      requerido
@@ -114,7 +114,7 @@
                <!-- Name field -->
                <div class="mb-3 col-6">
                   <label class="form-label fw-bold">Nombre *</label>
-                  <input type="text" formControlName="name" class="form-control" required>
+                  <input type="text" formControlName="name" class="form-control" readonly>
                   <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                      requerido
@@ -123,7 +123,7 @@
                <!-- Surnames field -->
                <div class="mb-3 col-6">
                   <label class="form-label fw-bold">Apellidos *</label>
-                  <input type="text" formControlName="surnames" class="form-control" required>
+                  <input type="text" formControlName="surnames" class="form-control" readonly>
                   <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('surnames')?.errors?.['required'] && registerVisitForm.get('surnames')?.touched">Apellidos
                      requerido
@@ -168,7 +168,8 @@
                <!-- Document field -->
                <div class="mb-3 col-8">
                   <label class="form-label fw-bold">Documento adjunto</label>
-                  <input class="form-control" type="file" id="file" formControlName="file" accept="image/*" (change)="onFileChange($event)">
+                  <input class="form-control" type="file" id="file" formControlName="file" accept="image/*"
+                     (change)="onFileChange($event)">
                </div>
                <!-- Facturation check -->
                <div class="mb-3 col-4">
@@ -190,9 +191,30 @@
             <!-- Submit button -->
             <div class="row text-center mt-5">
                <div class="col-4"></div>
-               <button type="button" class="btn btn-primary btn-lg col-4" [disabled]="registerVisitForm.invalid"
-                  (click)="addVisit()">Registrar visita</button>
-               <div class="col-4"></div>
+               <!-- Button trigger modal -->
+               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                  Registrar visita
+               </button>
+               <!-- Modal -->
+               <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                           ...
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-primary btn-lg col-4"
+                              [disabled]="registerVisitForm.invalid" (click)="addVisit()">Registrar visita</button>
+                           <div class="col-4"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
          </form>
       </div>
