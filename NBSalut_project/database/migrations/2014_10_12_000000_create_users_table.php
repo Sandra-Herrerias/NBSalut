@@ -16,9 +16,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            // $table->integer('num_clinical_log')->unsigned(); // Patient
             $table->string('first_name');
             $table->string('last_name');
-           // $table->unsignedInteger('age');
             $table->string('password')->nullable();
             $table->string('dni');
             $table->string('email')->unique();
@@ -27,17 +27,14 @@ return new class extends Migration
             $table->string('city');
             $table->string('address');
             $table->string('postal_code');
-
             $table->boolean('active')->default(true)->nullable(); // Patient
             $table->string('previous_pathologies')->nullable(); // Patient
             $table->boolean('diabetic')->default(false); // Patient
             $table->string('ss_CIP')->nullable();; // Patient
             $table->string('center_code')->nullable(); // Patient
-            $table->integer('num_clinical_log')->unsigned(); // Patient
-
             $table->string('collegiate_num')->nullable(); // Specialist
-
             $table->enum('role', ['admin', 'specialist', 'patient'])->default('patient');
+            $table->timestamp('register_date')->useCurrent();
             $table->timestamps();
         });
 
