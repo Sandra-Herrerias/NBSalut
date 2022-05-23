@@ -22,7 +22,7 @@
             <!-- Price field -->
             <div class="mb-3 col-6">
                 <label class="form-label fw-bold">Precio *</label>
-                <input type="text" formControlName="price" class="form-control" required>
+                <input type="number" formControlName="price" class="form-control" required>
                 <label class="text-danger mt-1"
                     *ngIf="registerTreatmentForm.get('price')?.errors?.['required'] && registerTreatmentForm.get('price')?.touched">Precio
                     requerido
