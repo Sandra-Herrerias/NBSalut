@@ -177,7 +177,9 @@ export class EditPatientComponent implements OnInit {
           console.log(result);
           if (result.success) { //success message
             alert("Usuario modificado correctamente");
-
+            //Emits father that modify form will be hidden
+            this.eventShow.emit(false);
+            this.router.navigateByUrl('/listpatient');
           } else {//error message
             alert("El usuario no se ha podido modificar");
           }
@@ -188,8 +190,7 @@ export class EditPatientComponent implements OnInit {
     }
 
 
-    //Emits father that modify form will be hidden
-    this.eventShow.emit(false);
-    this.router.navigateByUrl('/listpatient');
+
+
   }
 }

@@ -40,6 +40,7 @@ export class ListPatientsComponent implements OnInit {
   loadPatients() {
     this.communicator.getPatients().subscribe(
       (result: any) => {
+        console.log(result);
         this.dataPatients = result;
         this.filteredPatients = this.dataPatients;
       }
@@ -64,6 +65,7 @@ export class ListPatientsComponent implements OnInit {
             // let res = JSON.parse(JSON.stringify(result));
             if (result.success) { //success message
               alert("Usuario desactivado correctamente");
+              this.loadPatients();
             } else {//error message
               alert("El usuario no se ha podido desactivar");
             }
