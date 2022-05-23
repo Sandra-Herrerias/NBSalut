@@ -106,6 +106,16 @@ export class CommunicatorService {
       });
   }
 
+  deleteTreatment(id: number) {
+    return this.http.delete("http://127.0.0.1:8000/api/delTreatment",
+      {
+        params: {
+          id: id
+        },
+        responseType: "json"
+      });
+  }
+
   //#endregion
 
 

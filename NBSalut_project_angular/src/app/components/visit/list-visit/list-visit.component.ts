@@ -17,6 +17,7 @@ export class ListVisitComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadVisits();
+    console.log(this.listVisits);
   }
 
    /**
