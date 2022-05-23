@@ -23,6 +23,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ListworkersComponent } from './components/admin/listworkers/listworkers.component';
 import { EditWorkersComponent } from './components/admin/edit-workers/edit-workers.component';
 import { RegisterWorkerComponent } from './components/admin/register-worker/register-worker.component';
+import { EditTreatmentComponent } from './components/treatments/edit-treatment/edit-treatment.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { RegisterWorkerComponent } from './components/admin/register-worker/regi
     EditPatientComponent,
     ListworkersComponent,
     EditWorkersComponent,
-    RegisterWorkerComponent
+    RegisterWorkerComponent,
+    EditTreatmentComponent
   ],
   imports: [
     BrowserModule,

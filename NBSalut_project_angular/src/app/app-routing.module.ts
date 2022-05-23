@@ -14,6 +14,7 @@ import { EditPatientComponent } from './components/patients/edit-patient/edit-pa
 import { ListworkersComponent } from './components/admin/listworkers/listworkers.component';
 import { EditWorkersComponent } from './components/admin/edit-workers/edit-workers.component';
 import { RegisterWorkerComponent } from './components/admin/register-worker/register-worker.component';
+import { EditTreatmentComponent } from './components/treatments/edit-treatment/edit-treatment.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,9 @@ const routes: Routes = [
   },{
     path: 'listworkers',
     component: ListworkersComponent 
+  }, {
+    path: 'modifytreat/:id',
+    component: EditTreatmentComponent
   }, {
     path: 'editworker',
     component: EditWorkersComponent

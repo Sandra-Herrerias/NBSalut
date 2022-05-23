@@ -13,7 +13,14 @@ class TreatmentController extends Controller
     }
 
     public function getTreatment(Request $request) {
-        return Treatment::find($request)->first();
+        //return Treatment::find($request)->first();
+        $treat = Treatment::find($request)->first();
+        if ($treat != null) {
+            return response()->json(['success' => true, 'treat' => $treat]);
+        } else {
+            return response()->json(['success' => false]);
+
+        }
     }
 
     public function addTreatment(Request $request) {
@@ -39,6 +46,25 @@ class TreatmentController extends Controller
             return response()->json(['success' => true]);
         }
         return response()->json(['success' => false]);
+        
+    }
+
+    public function modTreatment(Request $request) {
+
+        //return $request;
+
+        $treat = Treatment::find($request->id);
+        $treat->name = $request->name;
+        $treat->price = $request->price;
+        $treat->description = $request->desc;
+
+        $success = $treat->update();
+
+        if($success) {
+            return response()->json(['success' => true, 'treatUP' => $treat]);
+        } else {
+            return response()->json(['success' => false]);
+        }
         
     }
 }

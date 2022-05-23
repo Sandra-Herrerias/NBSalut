@@ -32,6 +32,8 @@ Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 Route::post('getTreatment', [TreatmentController::class, 'getTreatment']);
 Route::post('addTreatment', [TreatmentController::class, 'addTreatment']);
 Route::delete('delTreatment', [TreatmentController::class, 'delTreatment']);
+Route::post('modTreatment', [TreatmentController::class, 'modTreatment']);
+
 
 
 
