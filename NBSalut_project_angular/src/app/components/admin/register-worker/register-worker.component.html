@@ -67,10 +67,13 @@
             <div class="row mb-3">
                 <div class="mb-3 col-4 form-group">
                     <label for="birthdate" class="form-label">Fecha de nacimiento</label>
-                    <input type="date" name="birthdate" class="form-control" formControlName="birthdate" [max]="today">
+                    <input type="date" name="birthdate" class="form-control" formControlName="birthdate" [min]="2017/12/31" [max]="today">
                     <div *ngIf="userDetailsFormControl['birthdate'].touched && userDetailsFormControl['birthdate'].invalid" class="text-danger">
                         <div *ngIf="userDetailsFormControl['birthdate'].errors?.['required']">Fecha de nacimiento es obligatoria.
                         </div>
+                        <div *ngIf="userDetailsFormControl['birthdate'].errors?.['pattern']">Formato incorrecto.</div>
+                        <div *ngIf="userDetailsFormControl['birthdate'].errors?.['date']">Not a valid date!</div>
+
                     </div>
                 </div>
                 <div class="mb-3 col-4 form-group">
