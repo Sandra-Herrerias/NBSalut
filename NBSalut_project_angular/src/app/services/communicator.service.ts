@@ -116,6 +116,14 @@ export class CommunicatorService {
       });
   }
 
+  modifyTreatment(treat: any) {
+    return this.http.post("http://127.0.0.1:8000/api/modTreatment",
+      treat,
+      {
+        responseType: "json"
+      });
+  }
+
   //#endregion
 
 

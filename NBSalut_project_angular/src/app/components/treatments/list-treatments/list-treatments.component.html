@@ -28,7 +28,7 @@
                 <td> {{t.name}} </td>
                 <td> {{t.price}} € </td>
                 <td> {{t.description}} </td>
-                <td><button class="btn"><i class="bi bi-pencil-fill"></i></button></td>
+                <td><a [routerLink]="['/modifytreat',t.id]"><button class="btn"><i class="bi bi-pencil-fill"></i></button></a></td>
                 <td><button class="btn" (click)="deleteTreatment(t)"><i class="bi bi-trash-fill"></i></button>
                 </td>
             </tr>
