@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
+            $table->string('specialist');
             $table->string('visit_description');
             $table->date('visit_date');
-            $table->string('ss_private');
+            // $table->string('ss_private');
             $table->boolean('sent');
             // //Foreign keys
             $table->unsignedBigInteger('user_id');
-
             // //Constraints FK
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

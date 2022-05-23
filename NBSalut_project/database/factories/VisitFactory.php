@@ -21,10 +21,11 @@ class VisitFactory extends Factory
     {
         return [
             'user_id' => User::pluck('id')->random(),
+            'specialist' => $this->faker->firstName(),
             'visit_description' => $this->faker->text(50),
             'visit_date' => $this->faker->date(),
             'sent' => $this->faker->randomElement([true, false]),
-            'ss_private' => $this->faker->randomElement(['Sí', 'No'])
+            // 'ss_private' => $this->faker->randomElement(['Sí', 'No'])
         ];
     }
 }

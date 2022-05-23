@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('attacheds', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->binary('document');
+            $table->string('type')->nullable();
+            $table->string('document')->nullable();
 
             //Foreign keys
             $table->unsignedBigInteger('visit_id')->unsigned()->nullable();

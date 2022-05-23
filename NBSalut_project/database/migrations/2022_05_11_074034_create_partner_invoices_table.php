@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('partner_invoices', function (Blueprint $table) {
             $table->id();
-
             $table->string('phone');
             $table->string('dni');
-            $table->string('collegiate_num');
+            $table->string('collegiate_num')->nullable();
             $table->string('first_name');
             $table->string('last_name');
             $table->enum('role',['admin','specialist','patient'])->nullable();
@@ -26,7 +25,6 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('address');
             $table->string('city');
-
             //camp foreign key de user id
             $table->unsignedBigInteger('invoice_id');
             //constraints FK (foreign key)
