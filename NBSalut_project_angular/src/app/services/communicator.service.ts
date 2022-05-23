@@ -21,7 +21,7 @@ export class CommunicatorService {
 
 
   /**
-   * 
+   *
    * @param user the user to validate the login
    * @returns the user validated & a response with a success variable.
    */
@@ -80,7 +80,7 @@ export class CommunicatorService {
 
 
   /**
-   * 
+   *
    * @returns a list of treatments from the DDBB
    */
   getTreatments() {
@@ -130,15 +130,25 @@ export class CommunicatorService {
   //#region Invoices Functions
 
   /**
-    * 
+    *
     * @returns a list of invoices from the DDBB
     */
-  getInvoices() {
+  getInvoices(data: any) {
     return this.http.get("http://127.0.0.1:8000/api/getInvoices",
       {
+        params: { startDate: data.startDate, endDate: data.endDate, sent: data.sent },
         responseType: "json"
       });
   }
+
+  // getInvoicesBetweenDates(startDate: any, endDate: any) {
+  //   return this.http.get("http://127.0.0.1:8000/api/getInvoicesBetweenDates",
+  //     {
+  //       params: { startDate: startDate, endDate: endDate },
+  //       responseType: "json"
+  //     });
+  // }
+
 
   generateInvoice(data: any) {
     return this.http.post("http://127.0.0.1:8000/api/generateInvoice",
@@ -155,7 +165,7 @@ export class CommunicatorService {
 
 
   /**
-   * 
+   *
    * @param user the user to check if exists in the DDBB with the DNI
    * @returns the patient validated & a response with a success variable.
    */
@@ -178,7 +188,7 @@ export class CommunicatorService {
   }
 
   /**
-   * 
+   *
    * @param user the user to check if exists in the DDBB with the full name
    * @returns the patient validated & a response with a success variable.
    */
@@ -271,8 +281,8 @@ export class CommunicatorService {
 
   /**
 * Service POST
-* @param info 
-* @returns 
+* @param info
+* @returns
 */
   delete(info: any) {
     console.log(info);
@@ -291,7 +301,7 @@ export class CommunicatorService {
 
 
   /**
-  * 
+  *
   * @returns a list of visits of the patient given from the DDBB
   */
   getVisitsPatient(patient: any) {
@@ -306,7 +316,7 @@ export class CommunicatorService {
   }
 
   /**
-  * 
+  *
   * @returns a list of visits from the DDBB
   */
   getVisits() {

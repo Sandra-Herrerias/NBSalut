@@ -24,6 +24,7 @@ import { ListworkersComponent } from './components/admin/listworkers/listworkers
 import { EditWorkersComponent } from './components/admin/edit-workers/edit-workers.component';
 import { RegisterWorkerComponent } from './components/admin/register-worker/register-worker.component';
 import { EditTreatmentComponent } from './components/treatments/edit-treatment/edit-treatment.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { EditTreatmentComponent } from './components/treatments/edit-treatment/e
     ReactiveFormsModule,
     DataTablesModule,
     NgMultiSelectDropDownModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxDaterangepickerMd.forRoot()
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
