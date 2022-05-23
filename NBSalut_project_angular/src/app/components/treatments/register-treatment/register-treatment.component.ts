@@ -43,10 +43,10 @@ export class RegisterTreatmentComponent implements OnInit {
 
         if (result.success) { //success message
           console.log("Tratamiento insertado correctamente");
-          console.log(result)
+          console.log(result);
         } else { //error message
           console.log("El tratamiento no se ha podido añadir!");
-          console.log(result)
+          console.log(result);
         }
       }
     );
