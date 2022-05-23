@@ -20,17 +20,17 @@ export class EditWorkersComponent implements OnInit {
 */
   @Output() modifiedUser = new EventEmitter<User>();
   @Output() eventShow = new EventEmitter<Boolean>();
-  
+
   //Attributes
   public userDetails: FormGroup;
-  user: User = new User(); 
+  user: User = new User();
   submitted = false;
   today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
   //date = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[0-9]{4}$";
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
   regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
-  listRoles: String[] = ['patient','admin','specialist'];
+  listRoles: String[] = ['patient', 'admin', 'specialist'];
 
   //Constructor
   constructor(
@@ -155,11 +155,7 @@ export class EditWorkersComponent implements OnInit {
       "role": this.user.role,
       "register_date": this.userDetails.value.register_date
     }
-    console.log("DATA NEW WORKER");
-    console.log(info);
-    console.log(this.user);
 
-    // console.log(info);
     if (this.userDetails) {
       this.communicator.modifyDataUser(info).subscribe(
         (result: any) => {
@@ -167,7 +163,9 @@ export class EditWorkersComponent implements OnInit {
           console.log(result);
           if (result.success) { //success message
             alert("Usuario modificado correctamente");
-
+            //Emits father that modify form will be hidden
+            this.eventShow.emit(false);
+            this.router.navigateByUrl('/listworkers');
           } else {//error message
             alert("El usuario no se ha podido modificar");
           }
@@ -176,12 +174,5 @@ export class EditWorkersComponent implements OnInit {
     } else {//error message
       alert("El comentario no puede estar vacío");
     }
-
-
-    //Emits father that modify form will be hidden
-    this.eventShow.emit(false);
-    this.router.navigateByUrl('/listworkers');
   }
-
-
 }

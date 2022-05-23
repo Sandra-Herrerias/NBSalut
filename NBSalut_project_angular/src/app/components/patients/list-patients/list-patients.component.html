@@ -21,15 +21,16 @@
     <table class="table table-hover table-borderless table-striped">
         <thead>
             <tr>
-                <th id="colTitle">Número clínico</th>
-                <th id="colTitle">Paciente</th>
-                <th id="colTitle">NIF / NIE</th>
-                <th id="colTitle">Email</th>
-                <th id="colTitle">Teléfono</th>
-                <th id="colTitle">Diabética</th>
-                <th id="colTitle">Visitas</th>
-                <th id="colTitle">Modificar</th>
-                <th id="colTitle">Eliminar</th>
+                <th scope="col">NÚMERO CLÍNICO</th>
+                <th scope="col">PACIENTE</th>
+                <th scope="col">NIF / NIE</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">TELÉFONO</th>
+                <th scope="col">DIABÉTICA</th>
+                <th scope="col">VISITAS</th>
+                <th scope="col">ESTADO</th>
+                <th scope="col">MODIFICAR</th>
+                <th scope="col">ELIMINAR</th>
             </tr>
         </thead>
         <tbody>
@@ -42,8 +43,13 @@
                 <td *ngIf="patient.diabetic == 0">no</td>
                 <td *ngIf="patient.diabetic == 1">sí</td>
                 <td><button class=" btn" (click)="showpatientVisits(patient)"><i class="bi bi-eye-fill"></i></button></td>
-                <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i
-            class="bi bi-pencil-fill"></i></button></td>
+                <td>
+                    <span class="badge rounded-pill" [ngClass]="patient.active ? 'bg-success' : 'bg-danger'">
+            {{ patient.active ? "Activo" : "Inactivo" }}
+          </span>
+                </td>
+                <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i class="bi bi-pencil-fill"></i></button>
+                </td>
                 <td><button class="btn" (click)="confirmDeactivate(patient)"><i class="bi bi-trash-fill"></i></button>
                 </td>
             </tr>
