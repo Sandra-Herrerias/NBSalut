@@ -20,8 +20,17 @@ class UserController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['success' => false]);
         }
-        // $user= Auth::loginUsingId($user->id);
-        return response()->json(['success' => true, 'user' => $user]);
+        $user= Auth::loginUsingId($user->id);
+        return $user;
+        // return response()->json(['success' => true, 'user' => $user]);
+    }
+
+
+    public function getAuthUser(){
+        if (Auth::user()) {
+            return Auth::user();
+        }
+        return "no user";
     }
 
     public function checkPatientDni(Request $request)

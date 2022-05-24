@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [UserController::class, 'login']);
 Route::get('getUsers', [UserController::class, 'getUsers']);
+Route::get('getAuthUser', [UserController::class, 'getAuthUser']);
 
 // Treatment Routes
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
@@ -33,10 +34,6 @@ Route::post('getTreatment', [TreatmentController::class, 'getTreatment']);
 Route::post('addTreatment', [TreatmentController::class, 'addTreatment']);
 Route::delete('delTreatment', [TreatmentController::class, 'delTreatment']);
 Route::post('modTreatment', [TreatmentController::class, 'modTreatment']);
-
-
-
-
 
 // Visits Routes
 Route::get('getVisits', [VisitController::class, 'getVisits']);
@@ -47,6 +44,7 @@ Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
 Route::get('generateInvoice', [InvoiceController::class, 'generateInvoice']);
 Route::get('getTotalInvoices', [InvoiceController::class, 'getTotalInvoices']);
+Route::put('sentInvoicesChecked', [InvoiceController::class, 'sentInvoicesChecked']);
 
 // Patients Routes
 Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
