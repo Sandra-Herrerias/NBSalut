@@ -9,6 +9,7 @@ import { User } from '../models/user';
 })
 export class CommunicatorService {
 
+  
   private userSubject!: BehaviorSubject<User>;
   public user!: Observable<User>;
 
@@ -19,6 +20,12 @@ export class CommunicatorService {
 
   //#region Users Functions
 
+  sentInvoicesChecked(invoices: any) {
+    return this.http.put("http://127.0.0.1:8000/api/sentInvoicesChecked", {invoices: invoices},
+      {
+        responseType: "json"
+      });
+  }
 
   /**
    *

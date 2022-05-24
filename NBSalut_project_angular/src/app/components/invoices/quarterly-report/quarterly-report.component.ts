@@ -119,10 +119,21 @@ export class QuarterlyReportComponent implements OnInit {
     this.filesaver.save(blobData, `Factura trimestral ${this.params.startDate} - ${this.params.endDate}`);
   }
 
+
   openFormModal() {
     this.formModal.show();
   }
   saveSomeThing() {
+    this.http.sentInvoicesChecked(this.invoices.map((a: { id: any; }) => a.id)).subscribe((response: any) => {
+      if (response.success) {
+        console.log("todas enviadas");
+        console.log(response.data)
+        this.export();
+        this.ngOnInit();
+      }else{
+        console.log("no enviadas")
+      }
+    })
     this.formModal.hide();
   }
 
