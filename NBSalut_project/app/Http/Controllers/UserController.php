@@ -50,14 +50,14 @@ class UserController extends Controller
 
     public function getPatients()
     {
-        $data = User::where('role', 'patient')->orderBy('num_clinical_log', 'DESC')->get();
+        $data = User::where('role', 'patient')->orderBy('id', 'ASC')->get();
         return $data;
     }
 
     public function getWorkers()
     {
         $data = User::where('role', 'admin')->orWhere('role','specialist')->orderBy('register_date', 'DESC')->get();
-        
+
         return $data;
     }
 
@@ -66,7 +66,7 @@ class UserController extends Controller
         $data = User::where('role', 'patient')->max('num_clinical_log');
         return $data;
     }
-    
+
     /**
      * Method to add a new patient
      *
@@ -137,7 +137,7 @@ class UserController extends Controller
         return response()->json(['success' => $success, 'user' => $user]);
     }
 
-    
+
 
     public function deactivateUser(Request $request)
     {

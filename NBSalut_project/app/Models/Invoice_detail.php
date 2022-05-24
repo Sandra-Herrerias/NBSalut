@@ -15,8 +15,8 @@ class Invoice_detail extends Model
         return $this->hasOne(Invoice::class);
     }
 
-    public function treatment()
-    {
-        return $this->hasOne(Treatment::class);
-    }
+    // public function treatment()
+    // {
+    //     return $this->hasOne(Treatment::class);
+    // }
 }

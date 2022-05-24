@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('invoice_details', function (Blueprint $table) {
-         // $table->unsignedBigInteger('treatment_id');
+            // $table->unsignedBigInteger('treatment_id');
             // $table->unsignedBigInteger('invoice_id');
             // $table->float('price');
             // $table->integer('quantity')->default(1);
@@ -35,7 +35,7 @@ return new class extends Migration
             $table->float('price');
             $table->integer('quantity')->default(1);
             $table->float('total');
-              $table->foreign('invoice_id')
+            $table->foreign('invoice_id')
                 ->references('id')
                 ->on('invoices');
             $table->timestamps();

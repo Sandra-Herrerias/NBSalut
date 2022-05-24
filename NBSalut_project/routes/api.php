@@ -46,7 +46,7 @@ Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
 Route::get('generateInvoice', [InvoiceController::class, 'generateInvoice']);
-
+Route::get('getTotalInvoices', [InvoiceController::class, 'getTotalInvoices']);
 
 // Patients Routes
 Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
@@ -61,7 +61,7 @@ Route::group(['middleware' => ['cors']], function () {
     Route::delete('deleteUser', [UserController::class, 'deleteUser']);
     Route::put('updateUser', [UserController::class, 'updateUser']);
     Route::put('deactivateUser', [UserController::class, 'deactivateUser']);
-    
+
 });
 
 

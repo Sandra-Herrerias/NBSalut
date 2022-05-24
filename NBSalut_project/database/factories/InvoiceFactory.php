@@ -19,7 +19,7 @@ class InvoiceFactory extends Factory
     {
         return [
             'payment_type' => $this->faker->randomElement(['efectivo', 'tarjeta']),
-            'invoice_date' => $this->faker->dateTime('now', null),
+            'invoice_date' => $this->faker->dateTimeBetween('-9 month', 'now'),
             'total_price' => $this->faker->randomFloat(2, 10, 100),
             'sent' => $this->faker->randomElement([true,false]),
             'visit_id' => Visit::pluck('id')->random()

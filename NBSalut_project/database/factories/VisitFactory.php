@@ -23,7 +23,7 @@ class VisitFactory extends Factory
             'user_id' => User::pluck('id')->random(),
             'specialist' => $this->faker->firstName(),
             'visit_description' => $this->faker->text(50),
-            'visit_date' => $this->faker->date(),
+            'visit_date' => $this->faker->dateTimeBetween('-9 month', 'now'),
             'sent' => $this->faker->randomElement([true, false]),
             // 'ss_private' => $this->faker->randomElement(['Sí', 'No'])
         ];

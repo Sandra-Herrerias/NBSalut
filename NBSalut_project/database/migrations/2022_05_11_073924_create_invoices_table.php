@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice_number')->nullable();
             $table->enum('payment_type', ['efectivo', 'tarjeta'])->nullable();
             $table->boolean('sent')->nullable();
             $table->dateTime('invoice_date');
