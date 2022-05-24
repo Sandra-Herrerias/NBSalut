@@ -252,6 +252,18 @@ export class CommunicatorService {
       });
   }
 
+      /**
+   * Method to add a new worker in the DDBB
+   * @param info data to add in the DDBB
+   * @returns worker data
+   */
+       addWorker(info: any) {
+        return this.http.post("http://127.0.0.1:8000/api/addWorker",
+          info,
+          { responseType: "json" });
+
+      }
+
   /**
    * Retrieves the maximum number from the clinical log numbers that are stored in the database.
    * @returns max clinical number from the database

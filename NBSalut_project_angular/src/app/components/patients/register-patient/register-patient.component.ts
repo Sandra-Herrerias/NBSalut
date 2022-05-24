@@ -21,9 +21,9 @@ export class RegisterPatientComponent implements OnInit {
   newClinicalNum!: Number;
   today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
   todayFormatRegDate =
-  ("0" + new Date().getDate()).slice(-2)
-  + "/" + ("0" + (new Date().getMonth() + 1)).slice(-2)
-  + "/" + new Date().getFullYear();
+    ("0" + new Date().getDate()).slice(-2)
+    + "/" + ("0" + (new Date().getMonth() + 1)).slice(-2)
+    + "/" + new Date().getFullYear();
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
   regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
@@ -41,7 +41,7 @@ export class RegisterPatientComponent implements OnInit {
 
     //Validations from reactive form
     this.userDetails = this.formBuilder.group({
-      num_clinical_log: ['', [Validators.required]],
+      num_clinical_log: ['', []],
       register_date: ['', [Validators.required]],
       center_code: ['', [Validators.required]],
       ss_CIP: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.regexNumbersCapLetters)]],
@@ -79,7 +79,7 @@ export class RegisterPatientComponent implements OnInit {
    */
   getNumClinicalLog() {
     this.communicator.getMaxClinicalLog().subscribe((data: any) => {
-      this.newClinicalNum = data+1;
+      this.newClinicalNum = data + 1;
     })
 
   }
@@ -140,7 +140,7 @@ export class RegisterPatientComponent implements OnInit {
       dni: this.userDetails.value.dni,
       email: this.userDetails.value.email,
       phone: this.userDetails.value.phone,
-      birthdate:  this.userDetails.value.birthdate,
+      birthdate: this.userDetails.value.birthdate,
       city: this.userDetails.value.city,
       address: this.userDetails.value.address,
       postal_code: this.userDetails.value.postal_code,
@@ -151,7 +151,7 @@ export class RegisterPatientComponent implements OnInit {
       center_code: this.userDetails.value.center_code,
       num_clinical_log: this.newClinicalNum,
       role: 'patient',
-      register_date:this.currentDateTime,
+      register_date: this.currentDateTime,
       created_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS'),
       updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
@@ -169,7 +169,7 @@ export class RegisterPatientComponent implements OnInit {
               register_date: this.todayFormatRegDate
             });
           } else {//error message
-            alert("El paciente no se ha podido añadir " +result.message);
+            alert("El paciente no se ha podido añadir " + result.message);
           }
         }
       );
