@@ -21,6 +21,7 @@ export class ListTreatmentsComponent implements OnInit {
 
   // Filters
   nameFilter: string = "";
+  inputSearch: string = '';
 
   // Management
   tFound: any;
@@ -32,7 +33,7 @@ export class ListTreatmentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTreatments();
-    console.log(this.listTreatments);
+    //console.log(this.listTreatments);
   }
 
 
@@ -47,18 +48,18 @@ export class ListTreatmentsComponent implements OnInit {
   }
 
   /**
-  * filter(): void
-  * This method filters the patients array by name and surname 
-  */
-  filter() {
-    this.filteredListTreatments = this.listTreatments.filter(
-      p => {
-        if (p.name.toLowerCase().indexOf(this.nameFilter.toLowerCase()) != -1) {
-          return true;
-        }
-        return false;
-      });
-    this.cp = 1;
+   * search(): void
+   * This method searches in the array by the fields below
+   */
+  search(): void {
+    if (!this.inputSearch) {
+      this.ngOnInit();
+    } else {
+      this.filteredListTreatments = this.listTreatments.filter(t => {
+        return t.name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+      })
+      this.cp = 1;
+    }
   }
 
   /**
