@@ -10,17 +10,16 @@ import { CommunicatorService } from './services/communicator.service';
 export class AppComponent {
   title = 'NBSalut';
   status: boolean = false;
-  clickEvent(){
-      this.status = !this.status;
+  clickEvent() {
+    this.status = !this.status;
   }
-  user:any;
+  user: any;
   public data?: string;
 
-  constructor(private communicator : CommunicatorService, private route : Router){
-    this.communicator.user.subscribe(
-      resultat =>{
+  constructor(private http: CommunicatorService, private route: Router) {
+    this.http.user.subscribe(
+      resultat => {
         this.user = resultat;
-        //console.log('cambio el objeto '+ this.user);
       }
     )
     this.route.events.subscribe(e => {
@@ -28,11 +27,13 @@ export class AppComponent {
         this.data = this.route.url;
       }
     });
+
   }
 
 
-  logout(){
-    this.communicator.logout();
+
+  logout() {
+    this.http.logout();
     this.route.navigate(['/login']);
   }
 

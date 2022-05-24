@@ -4,37 +4,33 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-} from '@angular/core';
-import { DataTableDirective } from 'angular-datatables';
-import { LocaleConfig } from 'ngx-daterangepicker-material';
-import { empty } from 'rxjs';
-import { Subject } from 'rxjs/internal/Subject';
-import { CommunicatorService } from 'src/app/services/communicator.service';
-// import { DataTableDirective } from 'angular-datatables';
-// import { FileSaverService } from 'ngx-filesaver';
-import * as XLSX from 'xlsx';
+} from "@angular/core";
+import { CommunicatorService } from "src/app/services/communicator.service";
+import { FileSaverService } from "ngx-filesaver";
+import * as XLSX from "xlsx";
+declare var window: any;
 
 @Component({
-  selector: 'app-quarterly-report',
-  templateUrl: './quarterly-report.component.html',
-  styleUrls: ['./quarterly-report.component.css'],
+  selector: "app-quarterly-report",
+  templateUrl: "./quarterly-report.component.html",
+  styleUrls: ["./quarterly-report.component.css"],
 })
-export class QuarterlyReportComponent
-  implements OnInit {
+export class QuarterlyReportComponent implements OnInit {
   invoices: any;
-  invoicesList: any | [] = [];
   selected: any;
-  params: { input: string; startDate: string; endDate: string; sent: string } = { input: "", startDate: "", endDate: "", sent: "" };
+  params: { input: string; startDate: string; endDate: string; sent: string } =
+    { input: "", startDate: "", endDate: "", sent: "" };
 
-  message = '';
+  message = "";
   itemsPerPage: number = 15;
   currentPage: number = 1;
-  inputSearch: string = '';
+  inputSearch: string = "";
+  formModal: any;
+
   constructor(
-    private http: CommunicatorService /*, private filesaver: FileSaverService*/
-  ) {
-    // this.getCheckedItemList();
-  }
+    private http: CommunicatorService,
+    private filesaver: FileSaverService
+  ) { }
 
   /**
    * Searchs quarterly report component
@@ -70,7 +66,6 @@ export class QuarterlyReportComponent
       this.http.getInvoices(this.params).subscribe((response: any) => {
         if (response.success) {
           this.invoices = [] = response.data;
-          console.log(response.data);
         }
       });
     } else {
@@ -86,18 +81,15 @@ export class QuarterlyReportComponent
     this.http.getInvoices(this.params).subscribe((response: any) => {
       if (response.success) {
         this.invoices = response.data;
-        console.log(response);
+        // console.log(response);
       }
     });
+    this.formModal = new window.bootstrap.Modal(
+      document.getElementById('myModal')
+    );
   }
 
-
-
   getSelected(): void {
-    console.log(this.params)
-    // if (isNaN(this.params.sent)) {
-    //   this.params.sent = Number.parseInt(this.params.sent);
-    // }
     this.ngOnInit();
   }
 
@@ -106,28 +98,32 @@ export class QuarterlyReportComponent
    */
   export() {
     const EXCEL_TYPE =
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const EXCEL_EXTENSION = '.csv';
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+    const EXCEL_EXTENSION = ".xlsx";
 
     const worksheet = XLSX.utils.json_to_sheet(
-      this.invoicesList.filter(
-        (e: { Selected: boolean }) => e.Selected === true
-      )
+      this.invoices
     );
     const Workbook = {
       Sheets: {
         testingSheet: worksheet,
       },
-      SheetNames: ['testingSheet'],
+      SheetNames: ["testingSheet"],
     };
 
     const excelBuffer = XLSX.write(Workbook, {
-      bookType: 'xlsx',
-      type: 'array',
+      bookType: "xlsx",
+      type: "array",
     });
     const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
-    //this.filesaver.save(blobData, "demoFile");
+    this.filesaver.save(blobData, `Factura trimestral ${this.params.startDate} - ${this.params.endDate}`);
   }
 
+  openFormModal() {
+    this.formModal.show();
+  }
+  saveSomeThing() {
+    this.formModal.hide();
+  }
 
 }

@@ -11,17 +11,22 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 export class HomeComponent implements OnInit {
 
   user !: User | null;
+  totalInvoices: number = 0;
 
   // dtOptions: any | DataTables.Settings = {};
   // invoices: any;
   // dtTrigger: Subject<any> = new Subject<any>();
   // isChecked: boolean = false;
 
-  constructor(private communicator: CommunicatorService) { }
+  constructor(private http: CommunicatorService) { }
 
   ngOnInit(): void {
-   this.user = this.communicator.usuariData();
-
+    this.user = this.http.usuariData();
+    this.http.getTotalInvoices().subscribe((response: any) => {
+      if (response.success) {
+        this.totalInvoices = response.data;
+      }
+    })
   }
 
 }

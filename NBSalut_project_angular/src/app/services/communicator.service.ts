@@ -141,18 +141,18 @@ export class CommunicatorService {
       });
   }
 
-  // getInvoicesBetweenDates(startDate: any, endDate: any) {
-  //   return this.http.get("http://127.0.0.1:8000/api/getInvoicesBetweenDates",
-  //     {
-  //       params: { startDate: startDate, endDate: endDate },
-  //       responseType: "json"
-  //     });
-  // }
 
 
   generateInvoice(data: any) {
     return this.http.post("http://127.0.0.1:8000/api/generateInvoice",
       data,
+      {
+        responseType: "json"
+      });
+  }
+
+  getTotalInvoices(): Observable<any> {
+    return this.http.get("http://127.0.0.1:8000/api/getTotalInvoices",
       {
         responseType: "json"
       });

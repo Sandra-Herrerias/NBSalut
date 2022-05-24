@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { ServiceUserService } from 'src/app/services/service-user.service';
+declare var window: any;
 @Component({
   selector: 'app-list-patients',
   templateUrl: './list-patients.component.html',
@@ -10,12 +11,14 @@ import { ServiceUserService } from 'src/app/services/service-user.service';
 })
 export class ListPatientsComponent implements OnInit {
   dataPatients: any[] = [];
-  patientSelected !: User;
+  patientSelected : User = new User();
   filteredPatients: any[] = [];
   nameFilter: String = "";
   surnameFilter: String = "";
   ipp: number;
   cp: number;
+  formModal: any;
+
   constructor(
     private communicator: CommunicatorService,
     private router: Router,
@@ -27,6 +30,9 @@ export class ListPatientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPatients();
+    this.formModal = new window.bootstrap.Modal(
+      document.getElementById('myModal')
+    );
   }
 
   sendNewData(data: User) {
@@ -120,13 +126,13 @@ export class ListPatientsComponent implements OnInit {
 
   /**
        * filter(): void
-       * This method filters the patients array by name and surname 
+       * This method filters the patients array by name and surname
        */
   filter() {
     this.filteredPatients = this.dataPatients.filter(
       p => {
-        if (p.first_name.indexOf(this.nameFilter) != -1 &&
-          p.last_name.indexOf(this.surnameFilter) != -1) {
+        if (p.first_name.toLocaleLowerCase().indexOf(this.nameFilter.toLocaleLowerCase()) != -1 &&
+          p.last_name.toLocaleLowerCase().indexOf(this.surnameFilter.toLocaleLowerCase()) != -1) {
           return true;
         }
         return false;
@@ -138,4 +144,13 @@ export class ListPatientsComponent implements OnInit {
     this.patientSelected = patient;
     this.router.navigate(['/editpatient', { patient: this.patientSelected }]);
   }
+
+  openFormModal(patient: any) {
+    this.patientSelected = patient;
+    this.formModal.show();
+  }
+  saveSomeThing() {
+    this.formModal.hide();
+  }
+
 }

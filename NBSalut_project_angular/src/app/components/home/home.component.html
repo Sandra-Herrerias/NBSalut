@@ -1,85 +1,328 @@
-<div class="row">
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Especialistas</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">2342</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Home</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard v2</li>
+        </ol>
+      </div>
     </div>
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Pacientes</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">3423</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Facturas
-                        </div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">123</div>
-                            </div>
-                            <div class="col">
-                                <div class="progress progress-sm mr-2">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pending Requests Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Tratamientos</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">123132</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
+
+<div class="row text-white">
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary  h-100 py-2 nb">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col-6">
+            <div class="illustration-text">
+              <h4 class="illustration-text">Bienvenido de nuevo, Chris!</h4>
+              <p class="mb-0">Intranet NBSalut</p>
+            </div>
+          </div>
+          <div class="col-6 align-self-center text-center">
+            <img src="assets/images/logo2.png" alt="Customer Support" class="img-fluid illustration-img">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success  h-100 py-2 nb">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <h3 class="mb-2">43</h3>
+              <p class="mb-2">Total Visitas</p>
+            </div>
+            <div class="d-inline-block ms-3">
+              <div class="stat fs-1">
+                <i class="fas fa-light fa-file-medical"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success  h-100 py-2 nb">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <h3 class="mb-2">{{ totalInvoices }}</h3>
+              <p class="mb-2">Total Facturas</p>
+            </div>
+            <div class="d-inline-block ms-3">
+              <div class="d-inline-block ms-3">
+                <div class="stat fs-1">
+                  <i class="fa-solid fa-file-invoice-dollar"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success  h-100 py-2 nb">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="d-flex align-items-start">
+            <div class="flex-grow-1">
+              <h3 class="mb-2">43</h3>
+              <p class="mb-2">Total Pacientes</p>
+            </div>
+            <div class="d-inline-block ms-3">
+              <div class="stat fs-1">
+                <i class="fa-solid fa-users"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Nuevos pacientes añadidos</h3>
+          </div>
+
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Task</th>
+                  <th>Progress</th>
+                  <th style="width: 40px">Label</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1.</td>
+                  <td>Update software</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-danger">55%</span></td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td>Clean database</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar bg-warning" style="width: 70%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-warning">70%</span></td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td>Cron job running</td>
+                  <td>
+                    <div class="progress progress-xs progress-striped active">
+                      <div class="progress-bar bg-primary" style="width: 30%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-primary">30%</span></td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td>Fix and squish bugs</td>
+                  <td>
+                    <div class="progress progress-xs progress-striped active">
+                      <div class="progress-bar bg-success" style="width: 90%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-success">90%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+              <li class="page-item"><a class="page-link" href="#">«</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">»</a></li>
+            </ul>
+          </div> -->
+        </div>
+
+
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Nuevas visitas</h3>
+          </div>
+
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Task</th>
+                  <th>Progress</th>
+                  <th style="width: 40px">Label</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1.</td>
+                  <td>Update software</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-danger">55%</span></td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td>Clean database</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar bg-warning" style="width: 70%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-warning">70%</span></td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td>Cron job running</td>
+                  <td>
+                    <div class="progress progress-xs progress-striped active">
+                      <div class="progress-bar bg-primary" style="width: 30%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-primary">30%</span></td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td>Fix and squish bugs</td>
+                  <td>
+                    <div class="progress progress-xs progress-striped active">
+                      <div class="progress-bar bg-success" style="width: 90%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-success">90%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+              <li class="page-item"><a class="page-link" href="#">«</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">»</a></li>
+            </ul>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Últimas facturas</h3>
+          </div>
+
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Task</th>
+                  <th>Progress</th>
+                  <th style="width: 40px">Label</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1.</td>
+                  <td>Update software</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-danger">55%</span></td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td>Clean database</td>
+                  <td>
+                    <div class="progress progress-xs">
+                      <div class="progress-bar bg-warning" style="width: 70%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-warning">70%</span></td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td>Cron job running</td>
+                  <td>
+                    <div class="progress progress-xs progress-striped active">
+                      <div class="progress-bar bg-primary" style="width: 30%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-primary">30%</span></td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td>Fix and squish bugs</td>
+                  <td>
+                    <div class="progress progress-xs progress-striped active">
+                      <div class="progress-bar bg-success" style="width: 90%"></div>
+                    </div>
+                  </td>
+                  <td><span class="badge bg-success">90%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+              <li class="page-item"><a class="page-link" href="#">«</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">»</a></li>
+            </ul>
+          </div> -->
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

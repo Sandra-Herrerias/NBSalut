@@ -38,7 +38,7 @@ const routes: Routes = [
     component: RegisterPatientComponent
   },
   {
-    path: 'listpatient', 
+    path: 'listpatient',
     component: ListPatientsComponent,
   },
   {
@@ -60,9 +60,9 @@ const routes: Routes = [
   {
     path: 'listtreatments',
     component: ListTreatmentsComponent
-  },{
+  }, {
     path: 'listworkers',
-    component: ListworkersComponent 
+    component: ListworkersComponent
   }, {
     path: 'modifytreat/:id',
     component: EditTreatmentComponent
