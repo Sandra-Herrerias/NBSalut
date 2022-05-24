@@ -4,11 +4,10 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="link-success nb-color-primary"
-                            [routerLink]="['/home']">Home</a></li>
+                            [routerLink]="['/home']">Inicio</a></li>
                     <li class="breadcrumb-item"><a class="link-success nb-color-primary"
-                            [routerLink]="['/listtreatments']">List
-                            Treatments</a></li>
-                    <li class="breadcrumb-item active">Register Treatment</li>
+                            [routerLink]="['/listtreatments']">Listar Tratamientos</a></li>
+                    <li class="breadcrumb-item active">Añadir Tratamiento</li>
                 </ol>
             </div>
         </div>
@@ -26,8 +25,8 @@
             </div>
         </div>
         <div class="container mt-5">
-            <div *ngIf="messageG != ''" class="alert alert-success">{{messageG}}</div>
-            <div *ngIf="messageB != ''" class="alert alert-danger">{{messageB}}</div>
+            <div *ngIf="messageG != ''" class="alert alert-success"><i class="fa-solid fa-heart-circle-check"></i> {{messageG}}</div>
+            <div *ngIf="messageB != ''" class="alert alert-danger"><i class="fa-solid fa-heart-circle-exclamation"></i> {{messageB}}</div>
 
             <form [formGroup]="registerTreatmentForm" enctype="multipart/form-data">
                 <!-- Inputs -->

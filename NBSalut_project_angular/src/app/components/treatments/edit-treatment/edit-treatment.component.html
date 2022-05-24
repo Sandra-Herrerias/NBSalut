@@ -3,10 +3,9 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/home']">Home</a></li>
-                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/listtreatments']">List
-                            Treatments</a></li>
-                    <li class="breadcrumb-item active">Edit Treatment</li>
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/home']">Inicio</a></li>
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/listtreatments']">Listar Tratamientos</a></li>
+                    <li class="breadcrumb-item active">Editar Tratamiento</li>
                 </ol>
             </div>
         </div>
@@ -22,8 +21,8 @@
             <div class="col-sm-12 col-md-4"></div>
         </div>
         <div class="container mt-5">
-            <div *ngIf="messageG != ''" class="alert alert-success">{{messageG}}</div>
-            <div *ngIf="messageB != ''" class="alert alert-danger">{{messageB}}</div>
+            <div *ngIf="messageG != ''" class="alert alert-success"><i class="fa-solid fa-heart-circle-bolt"></i> {{messageG}}</div>
+            <div *ngIf="messageB != ''" class="alert alert-danger"><i class="fa-solid fa-heart-circle-exclamation"></i> {{messageB}}</div>
 
             <form [formGroup]="updateTreatmentForm" enctype="multipart/form-data">
                 <!-- Inputs -->

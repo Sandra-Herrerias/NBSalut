@@ -40,6 +40,7 @@ export class ListTreatmentsComponent implements OnInit {
 
   loadTreatments() {
     this.communicator.getTreatments().subscribe((data: any) => {
+      this.listTreatments = [];
       data.forEach((t: any) => {
         this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
       })
