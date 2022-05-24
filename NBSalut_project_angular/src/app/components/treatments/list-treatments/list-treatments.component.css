@@ -22,11 +22,11 @@ table {
     color: rgb(32, 136, 148);
 }
 
-button .rotation i{
+.rotation i{
     transition:all 1s;
   }
   
-button .rotation:hover i{
+.rotation:hover i{
     transform:rotate(360deg);
   }
   
