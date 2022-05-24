@@ -7,7 +7,7 @@
 </nav>
 <div class="mt-5">
     <div class="row">
-        <form #form1="ngForm" [formGroup]="userDetails" method="post" (ngSubmit)="addNewWorker()">
+        <form [formGroup]="userDetails" method="post" (ngSubmit)="addNewWorker()">
             <!-- Text inputs -->
             <div class="row mb-3">
                 <div class="mb-3 col-4 form-group">
@@ -82,7 +82,7 @@
                     <div *ngIf="userDetailsFormControl['dni'].touched && userDetailsFormControl['dni'].invalid" class="text-danger">
                         <div *ngIf="userDetailsFormControl['dni'].errors?.['required']">NIF/NIE es obligatorio.</div>
                         <div class="field-message" *ngIf="userDetailsFormControl['dni'].errors?.['correctDni']">
-                            Formato de NIF/NIE incorrecto.
+                            Formato de NIF/NIE incorrecto. Recuerde introducir letras mayúsculas.
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
             <!-- Submit button -->
             <div class="row text-center">
                 <div class="col-4"></div>
-                <button type="submit" class="btn btn-primary btn-lg col-4" [disabled]="form1.invalid">Añadir
+                <button type="submit" class="btn btn-primary btn-lg col-4" [disabled]="userDetails.invalid">Añadir
           especialista</button>
                 <div class="col-4"></div>
             </div>

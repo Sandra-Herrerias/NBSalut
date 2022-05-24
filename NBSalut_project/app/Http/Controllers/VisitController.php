@@ -12,9 +12,8 @@ use App\Models\Treatment;
 
 
 
-use Validator;
-use DB;
-
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class VisitController extends Controller
 {
@@ -38,11 +37,16 @@ class VisitController extends Controller
     public function getVisits() {
         return Visit::select('visits.id','visits.visit_date','visits.visit_description',
         'visits.ss_private','users.first_name','users.last_name','users.dni',
-        'users.num_clinical_log','users.diabetic','uses.treatment_id')
+        'users.num_clinical_log','users.diabetic','uses.treatment_id','uses.user_id')
             ->join('users', 'visits.user_id', '=', 'users.id')
             ->join('uses', 'visits.id', '=', 'uses.visit_id')
             ->join('invoices', 'visits.id', '=', 'invoices.visit_id')
         ->get();
+    }
+
+    
+    public function getVisitsList() {
+        return DB::select(DB::raw("select `visits`.`id`, `visits`.`visit_date`, `visits`.`visit_description`, `visits`.`ss_private`, `users`.`first_name`, `users`.`last_name`, `users`.`dni`, `users`.`num_clinical_log`, `users`.`diabetic`, `uses`.`treatment_id`, `uses`.`user_id`, `treatments`.`name`,(select first_name AS specialist_name from users AS t where t.id=uses.user_id)AS specialist_name from `visits` inner join `users` on `visits`.`user_id` = `users`.`id` inner join `uses` on `visits`.`id` = `uses`.`visit_id` inner join `treatments` on `visits`.`id` = `treatments`.`id`"));
     }
 
     public function insertVisit(Request $request) {

@@ -56,8 +56,8 @@ class UserController extends Controller
 
     public function getWorkers()
     {
-        $data = User::where('role', 'admin')->orWhere('role','specialist')->orderBy('register_date', 'DESC')->get();
-        
+        $data = User::where('role', 'admin')->orWhere('role', 'specialist')->orderBy('register_date', 'DESC')->get();
+
         return $data;
     }
 
@@ -66,7 +66,7 @@ class UserController extends Controller
         $data = User::where('role', 'patient')->max('num_clinical_log');
         return $data;
     }
-    
+
     /**
      * Method to add a new patient
      *
@@ -96,13 +96,82 @@ class UserController extends Controller
         $patient->collegiate_num = $request->collegiate_num;
         $patient->role = $request->role;
 
+                //Validate unique email
+                $usersEmail = User::where('email', $request->email)->get();
+
+                error_log(count($usersEmail));
+                if (count($usersEmail) > 0) {
+                    return response()->json(['success' =>  false, 'message' => '(Email duplicado)']);
+                }
+        
+                //Validate unique dni
+                $usersDni = User::where('dni', $request->dni)->get();
+        
+                error_log(count($usersDni));
+                if (count($usersDni) > 0) {
+                    return response()->json(['success' =>  false, 'message' => '(NIF o NIE duplicado)']);
+                }
+
         $success = $patient->save();
-        /*
-        if (Auth::user()->role == 'admin') {
-            return redirect()->route('admin_comments', $comment);
-        } else {
-            return redirect()->route('comments', $comment);
-        }*/
+
+        return response()->json(['success' =>  $success, 'user' => $patient]);
+    }
+
+    /**
+     * Method to add a new worker
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function addWorker(Request $request)
+    {
+        $patient = new User;
+        $patient->id;
+        $patient->first_name = $request->first_name;
+        $patient->last_name = $request->last_name;
+        $patient->password = $request->password;
+        $patient->dni = $request->dni;
+        $patient->email = $request->email;
+        $patient->phone = $request->phone;
+        $patient->birthdate = date('Y-m-d', strtotime($request->birthdate));
+        $patient->city = $request->city;
+        $patient->address = $request->address;
+        $patient->postal_code = $request->postal_code;
+        $patient->active = $request->active;
+        $patient->previous_pathologies = $request->previous_pathologies;
+        $patient->diabetic = $request->diabetic;
+        $patient->ss_CIP = $request->ss_CIP;
+        $patient->center_code = $request->center_code;
+        $patient->num_clinical_log = $request->num_clinical_log;
+        $patient->collegiate_num = $request->collegiate_num;
+        $patient->role = $request->role;
+
+        //Validate unique email
+        $usersEmail = User::where('email', $request->email)->get();
+
+        error_log(count($usersEmail));
+        if (count($usersEmail) > 0) {
+            return response()->json(['success' =>  false, 'message' => '(Email duplicado)']);
+        }
+
+        //Validate unique dni
+        $usersDni = User::where('dni', $request->dni)->get();
+
+        error_log(count($usersDni));
+        if (count($usersDni) > 0) {
+            return response()->json(['success' =>  false, 'message' => '(NIF o NIE duplicado)']);
+        }
+        //Validate unique collegiate number
+        $usersColNum = User::where('collegiate_num', $request->collegiate_num)->get();
+
+        error_log(count($usersColNum));
+        if (count($usersColNum) > 0) {
+            return response()->json(['success' =>  false, 'message' => '(Número de colegiado duplicado)']);
+        }
+
+
+        $success = $patient->save();
+
         return response()->json(['success' =>  $success, 'user' => $patient]);
     }
 
@@ -137,7 +206,7 @@ class UserController extends Controller
         return response()->json(['success' => $success, 'user' => $user]);
     }
 
-    
+
 
     public function deactivateUser(Request $request)
     {

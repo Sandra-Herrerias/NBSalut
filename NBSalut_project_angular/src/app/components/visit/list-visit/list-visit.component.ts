@@ -10,31 +10,60 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 })
 export class ListVisitComponent implements OnInit {
   listVisits: any[] = [];
+
   visits: any;
-  dtTrigger: Subject<any> = new Subject();
   message = '';
-  constructor(private communicator: CommunicatorService, private router: Router) { }
+  inputSearch: string = '';
+  ipp: number;
+  cp: number;
+  treatment: any;
 
-  ngOnInit(): void {
+  constructor(
+    private communicator: CommunicatorService,
+    private router: Router
+  ) {
+    this.ipp = 10;
+    this.cp = 1;
+  }
+
+ async ngOnInit() {
     this.loadVisits();
-    console.log(this.listVisits);
+    console.log(this.treatment);
+    var response1 = await this.communicator.getVisitsList().toPromise();
+    console.log('Response1', response1);
   }
 
-   /**
-   * Load data patient from the database
-   */
-    loadVisits() {
-      this.communicator.getVisits().subscribe(
-        (result: any) => {
-          this.listVisits = result;
-        }
-      );
+  /**
+  * Load data patient from the database
+  */
+  loadVisits(){
+    this.communicator.getVisitsList().subscribe(
+      (result: any) => {
+        this.listVisits = result;
+        console.log(this.listVisits);
+        console.log(this.listVisits[0].name);
+        console.log(this.listVisits[0].first_name);
+      }
+    );
+    return this.communicator.getVisitsList().toPromise();
+  }
+
+
+
+  /**
+ *TODO NO VA!!!!!!!!!!!!!!!!!!!!!!
+ */
+  search(): void {
+    if (!this.inputSearch) {
+      this.ngOnInit();
+    } else {
+      this.listVisits = this.listVisits.filter(res => {
+        return res.first_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+          || res.last_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+          || res.date.includes(this.inputSearch);
+      })
+      this.cp = 1;
     }
-
-    
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
   }
-
 
 }

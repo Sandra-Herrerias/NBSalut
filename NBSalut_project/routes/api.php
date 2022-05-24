@@ -22,10 +22,9 @@ use App\Http\Controllers\InvoiceController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
 Route::post('login', [UserController::class, 'login']);
 Route::get('getUsers', [UserController::class, 'getUsers']);
+
 
 // Treatment Routes
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
@@ -35,11 +34,9 @@ Route::delete('delTreatment', [TreatmentController::class, 'delTreatment']);
 Route::post('modTreatment', [TreatmentController::class, 'modTreatment']);
 
 
-
-
-
 // Visits Routes
 Route::get('getVisits', [VisitController::class, 'getVisits']);
+Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
 Route::post('getVisitsPatient', [VisitController::class, 'getVisitsPatient']);
 Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 
@@ -67,3 +64,4 @@ Route::group(['middleware' => ['cors']], function () {
 
 //Workers Routes
 Route::get('getWorkers', [UserController::class, 'getWorkers']);
+Route::post('addWorker', [UserController::class, 'addWorker']);

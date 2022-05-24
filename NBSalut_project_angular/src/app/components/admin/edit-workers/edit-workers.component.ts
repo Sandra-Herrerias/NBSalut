@@ -167,7 +167,7 @@ export class EditWorkersComponent implements OnInit {
             this.eventShow.emit(false);
             this.router.navigateByUrl('/listworkers');
           } else {//error message
-            alert("El usuario no se ha podido modificar");
+            alert("El usuario no se ha podido modificar " + result.message);
           }
         }
       );

@@ -11,7 +11,7 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 export class RegisterWorkerComponent implements OnInit {
 
   //Attributes
-  dataPatient: any;
+  dataWorkers: any[] = [];
   public userDetails: FormGroup;
   submitted = false;
   currentDateTime: string | null;
@@ -65,6 +65,7 @@ export class RegisterWorkerComponent implements OnInit {
   }
 
 
+
   /**
    * Function that validates NIF/NIE
    * @returns 
@@ -109,7 +110,7 @@ export class RegisterWorkerComponent implements OnInit {
     }
   }
   /**
-     * Function to add the new patient
+     * Function to add the new worker
      */
   addNewWorker() {
     this.submitted = true;
@@ -134,14 +135,11 @@ export class RegisterWorkerComponent implements OnInit {
       "updated_at": this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
 
-    console.log(this.userDetails.value.diabetic);
-    if (this.userDetails.valid) {
-      this.communicator.addPatient(info).subscribe(
+    if (this.userDetails.valid ) {
+      this.communicator.addWorker(info).subscribe(
         (result: any) => {
-          if (result.success) {//success message
-
-            //this.dataPatient.push(info);
-            alert("Paciente insertado correctamente");
+          if (result.success){//success message
+            alert("Especialista insertado correctamente");
             //clear form
             this.userDetails.reset();
             //sets register_date
@@ -149,13 +147,12 @@ export class RegisterWorkerComponent implements OnInit {
               register_date: this.todayFormatRegDate
             });
           } else {//error message
-            alert("El paciente no se ha podido añadir");
+            alert("El especialista no se ha podido añadir " + result.message);
           }
         }
       );
-      console.table(this.userDetails.value);
     } else {//error message
-      alert("Los datos del paciente no pueden estar vacíos");
+      alert("Los datos del especialista no pueden estar vacíos");
     }
   }
 }

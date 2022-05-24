@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('password')->nullable();
-            $table->string('dni');
+            $table->string('dni')->unique();
             $table->string('email')->unique();
             $table->string('phone');
             $table->date('birthdate');
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->boolean('diabetic')->default(false)->nullable(); // Patient
             $table->string('ss_CIP')->nullable();// Patient
             $table->string('center_code')->nullable(); // Patient
-            $table->string('collegiate_num')->nullable(); // Specialist
+            $table->string('collegiate_num')->nullable()->unique(); // Specialist
             $table->enum('role', ['admin', 'specialist', 'patient'])->default('patient');
             $table->timestamp('register_date')->useCurrent();
             $table->timestamps();

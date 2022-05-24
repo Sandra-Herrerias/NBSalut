@@ -237,6 +237,18 @@ export class CommunicatorService {
       });
   }
 
+    /**
+   * Method to add a new worker in the DDBB
+   * @param info data to add in the DDBB
+   * @returns worker data
+   */
+     addWorker(info: any) {
+      return this.http.post("http://127.0.0.1:8000/api/addWorker",
+        info,
+        { responseType: "json" });
+  
+    }
+
   /**
    * Retrieves the maximum number from the clinical log numbers that are stored in the database.
    * @returns max clinical number from the database
@@ -247,6 +259,7 @@ export class CommunicatorService {
         responseType: "json"
       });
   }
+
 
   /**
  * This method modifies the selected user with the new info.
@@ -312,6 +325,19 @@ export class CommunicatorService {
   getVisits() {
 
     return this.http.get("http://127.0.0.1:8000/api/getVisits",
+      {
+        responseType: "json"
+      });
+  }
+
+  /**
+* Function that enables the retrievement of specialist name and treatment name associated
+* with the visit.
+* @returns a list of visits from the DDBB
+*/
+  getVisitsList() {
+
+    return this.http.get("http://127.0.0.1:8000/api/getVisitsList",
       {
         responseType: "json"
       });

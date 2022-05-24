@@ -156,13 +156,10 @@ export class RegisterPatientComponent implements OnInit {
       updated_at: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
 
-    console.log(this.userDetails.value.diabetic);
     if (this.userDetails.valid) {
       this.communicator.addPatient(info).subscribe(
         (result: any) => {
           if (result.success) {//success message
-            
-            //this.dataPatient.push(info);
             alert("Paciente insertado correctamente");
             //clear form
             this.userDetails.reset();
@@ -172,7 +169,7 @@ export class RegisterPatientComponent implements OnInit {
               register_date: this.todayFormatRegDate
             });
           } else {//error message
-            alert("El paciente no se ha podido añadir");
+            alert("El paciente no se ha podido añadir " +result.message);
           }
         }
       );

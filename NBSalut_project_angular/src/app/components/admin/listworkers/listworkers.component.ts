@@ -71,37 +71,10 @@ export class ListworkersComponent implements OnInit {
           }
         );
       }
-    } else {
-      if (confirm("¿Está segura de eliminar definitivamente este especialista?")) {
-        let info = {
-          id: workerSelected.id
-        }
-        this.communicator.delete(info).subscribe(
-          (result: any) => {
-            if (result.success) {
-              this.deleteWorker(workerSelected);
-              alert("Especialista eliminado correctamente");
-            } else {
-              alert("El especialista no se ha podido eliminar");
-            }
-          }
-        );
-      }
-    }
+    } 
   }
 
-  /**
- * This method removes the worker from the list, asking info to the method from the service that removes users.
- * @param workerSelected
- */
-  deleteWorker(workerSelected: any): void {
-    for (let i = 0; i < this.dataWorkers.length; i++) {
-      if (this.dataWorkers[i].id === workerSelected.id) {
-        this.dataWorkers.splice(i, 1);
-        break;
-      }
-    }
-  }
+
 
     //////////////////////////////////////////////////////////////UPDATE
 
