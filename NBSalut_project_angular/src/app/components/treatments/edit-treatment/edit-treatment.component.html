@@ -21,7 +21,7 @@
             <div class="col-sm-12 col-md-4"></div>
         </div>
         <div class="container mt-5">
-            <div *ngIf="messageG != ''" class="alert alert-success"><i class="fa-solid fa-heart-circle-bolt"></i> {{messageG}}</div>
+            <div *ngIf="messageG != ''" class="alert alert-success"><i class="fa-solid fa-heart-circle-check"></i> {{messageG}}</div>
             <div *ngIf="messageB != ''" class="alert alert-danger"><i class="fa-solid fa-heart-circle-exclamation"></i> {{messageB}}</div>
 
             <form [formGroup]="updateTreatmentForm" enctype="multipart/form-data">
@@ -56,7 +56,7 @@
                 <!-- Submit button -->
                 <div class="row text-center mt-5">
                     <div class="col-4"></div>
-                    <button type="button" class="btn btn-primary btn-lg col-4" [disabled]="updateTreatmentForm.invalid"
+                    <button type="button" class="btn btn-lg col-4" [disabled]="updateTreatmentForm.invalid"
                         (click)="updateTreatment()">Modificar tratamiento</button>
                     <div class="col-4"></div>
                 </div>
