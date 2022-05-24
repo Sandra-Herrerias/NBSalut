@@ -113,18 +113,16 @@ export class CommunicatorService {
       });
   }
 
-  deleteTreatment(id: number) {
-    return this.http.delete("http://127.0.0.1:8000/api/delTreatment",
+  statusTreatment(treat: any) {
+    return this.http.put("http://127.0.0.1:8000/api/statusTreatment",
+      treat,
       {
-        params: {
-          id: id
-        },
         responseType: "json"
       });
   }
 
   modifyTreatment(treat: any) {
-    return this.http.post("http://127.0.0.1:8000/api/modTreatment",
+    return this.http.put("http://127.0.0.1:8000/api/modTreatment",
       treat,
       {
         responseType: "json"

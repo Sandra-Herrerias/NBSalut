@@ -1,0 +1,12 @@
+.nb-color-primary {
+    color: rgb(36, 157, 171);
+}
+
+.nb-color-primary:hover {
+    color: rgb(32, 136, 148);
+}
+
+button {
+    background-color: rgb(36, 157, 171);
+    color: #f8f9fa;
+}
