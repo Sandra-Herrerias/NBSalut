@@ -21,7 +21,8 @@ class TreatmentFactory extends Factory
                 'QUIROPODOLOGIA', 'CURAS', 'TRATAMIENTO VERRUGAS', 'REEDUCACIÓN UNGUEAL', 'PROTESIS PEQUEÑAS', 'PROTESIS MEDIANA', 'PROTESIS GRANDE', 'SILMA', 'VENDAJE NEUROMUSCULAR', 'CIRUGÍA DE LA UÑA', 'ESTUDIO BIOMECANICO', 'ESTUDIO BIOMECÁNICO + SP ADULTO', 'ESTUDIO BIOMECÁNICO + SP INFANTIL', 'RETOQUES O CAMBIO FORROS SP', 'OTRAS PRUEBAS',
             ]),
             'price' => $this->faker->randomFloat(2, 10, 100),
-            'description' => $this->faker->text(50)
+            'description' => $this->faker->text(50),
+            'active' => $this->faker->randomElement([true, false])
         ];
     }
 }

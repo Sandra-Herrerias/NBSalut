@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 80);
             $table->float('price', 6, 2);
             $table->string('description', 200);
+            $table->boolean('active')->default(true)->nullable();
             $table->timestamps();
         });
     }
