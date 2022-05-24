@@ -11,6 +11,9 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 })
 export class ListTreatmentsComponent implements OnInit {
 
+  messageG: string = "";
+  messageB: string = "";
+
   listTreatments: TreatmentClass[] = [];
   filteredListTreatments: TreatmentClass[] = [];
   treatmentSelected !: TreatmentClass;
@@ -22,9 +25,19 @@ export class ListTreatmentsComponent implements OnInit {
   // Filters
   nameFilter: string = "";
   inputSearch: string = '';
+  status: string = "";
 
   // Management
   tFound: any;
+  stsTreat: any;
+
+  // Forms
+  public checkStatus = this.formBuilder.group({
+    status: [
+      ''
+    ]
+  })
+
 
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
     this.ipp = 10;
@@ -42,7 +55,7 @@ export class ListTreatmentsComponent implements OnInit {
     this.communicator.getTreatments().subscribe((data: any) => {
       this.listTreatments = [];
       data.forEach((t: any) => {
-        this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
+        this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description, t.active));
       })
       this.filteredListTreatments = this.listTreatments;
     })
@@ -63,36 +76,47 @@ export class ListTreatmentsComponent implements OnInit {
     }
   }
 
+  changeStatus() {
+    if (this.status == "all") {
+      this.filteredListTreatments = this.listTreatments.filter(t => {
+        return t.active == true || t.active == false
+      })
+    } else if (this.status == "active") {
+      this.filteredListTreatments = this.listTreatments.filter(t => {
+        return t.active == true
+      })
+    } else if (this.status == "inactive") {
+      this.filteredListTreatments = this.listTreatments.filter(t => {
+        return t.active == false
+      })
+    }
+  }
+
   /**
    * This method deletes a treatment from the DDBB
    * @param treat the treatment to delete
    */
-  deleteTreatment(treat: TreatmentClass) {
-    console.log("Eliminando tratamiento...")
-    //this.tFound = this.listTreatments.find(e => e.id === treat.id);
+  statusTreatment(treat: TreatmentClass) {
 
+    this.stsTreat = {
+      id: treat.id,
+      active: treat.active
+    }
 
-    this.communicator.deleteTreatment(treat.id).subscribe(
+    this.communicator.statusTreatment(this.stsTreat).subscribe(
       (result: any) => {
-        console.log("Recibiendo objeto tratamiento...");
-
-        if (result.success) { //success message
-          console.log("Tratamiento eliminado correctamente");
-          console.log(result)
-        } else { //error message
-          console.log("El tratamiento no se ha podido eliminar!");
-          console.log(result)
+        this.ngOnInit();
+        if (result.success) {
+          //console.log(result)
+          this.messageG = "Estado modificado correctamente";
+          this.messageB = "";
+        } else {
+          //console.log(result)
+          this.messageB = "El estado no se ha podido modificar!";
+          this.messageG = "";
         }
       }
     );
-
-    for (let i = 0; i < this.listTreatments.length; i++) {
-      if (this.listTreatments[i].id === treat.id) {
-        this.listTreatments.splice(i, 1);
-        console.log("Borrado del array!");
-        break;
-      }
-    }
 
   }
 }

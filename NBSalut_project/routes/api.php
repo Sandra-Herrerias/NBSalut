@@ -31,11 +31,8 @@ Route::get('getUsers', [UserController::class, 'getUsers']);
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 Route::post('getTreatment', [TreatmentController::class, 'getTreatment']);
 Route::post('addTreatment', [TreatmentController::class, 'addTreatment']);
-Route::delete('delTreatment', [TreatmentController::class, 'delTreatment']);
-Route::post('modTreatment', [TreatmentController::class, 'modTreatment']);
-
-
-
+Route::put('statusTreatment', [TreatmentController::class, 'statusTreatment']);
+Route::put('modTreatment', [TreatmentController::class, 'modTreatment']);
 
 
 // Visits Routes

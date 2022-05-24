@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Treatment;
 
+use Validator;
+
 class TreatmentController extends Controller
 {
     public function getTreatments(Request $request){ 
@@ -24,26 +26,58 @@ class TreatmentController extends Controller
     }
 
     public function addTreatment(Request $request) {
-        $treat = new Treatment;
-            $treat->id;
-            $treat->name = $request->name;
-            $treat->description = $request->desc;
-            $treat->price = $request->price;
 
-        if ($treat->save()) {
-            return response()->json(['success' => true, 'visit' => $treat]);
-        }
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'price' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json(['success' => false]);
+        } else {
+
+            $treat = new Treatment;
+                $treat->id;
+                $treat->name = $request->name;
+                $treat->description = $request->desc;
+                $treat->price = $request->price;
+                $treat->active = true;
+
+            if ($treat->save()) {
+                return response()->json(['success' => true, 'visit' => $treat]);
+            }
+        }   
 
         return response()->json(['success' => false]);
     }
 
-    public function delTreatment(Request $request) {
+    public function statusTreatment(Request $request) {
 
-        //return $request->id;
+        //return $request;
         //$tFound = Treatment::find($request->id)->delete();
 
-        if(Treatment::find($request->id)->delete()) {
-            return response()->json(['success' => true]);
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'active' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json(['success' => false]);
+        } else {
+
+            $treat = Treatment::find($request->id);
+
+            if($request['active'] == true) {
+                $treat->active = false;
+            } else {
+                $treat->active = true;
+            }
+
+            $success = $treat->update();
+
+            if($success) {
+                return response()->json(['success' => true, 'treatDEL' => $treat]);
+            }
         }
         return response()->json(['success' => false]);
         
