@@ -28,7 +28,7 @@
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="inputGroupSelect01">Options</label>
                             <select class="form-select" id="inputGroupSelect01" [(ngModel)]="status" (change)="changeStatus()">
-                                <option value="all" selected>Todos</option>
+                                <option value="" selected>Todos</option>
                                 <option value="active">Activo</option>
                                 <option value="inactive">Inactivo</option>
                             </select>
@@ -75,8 +75,8 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn" (click)="statusTreatment(t)"><i
-                                    class="fa-solid fa-rotate rotation"></i></button>
+                            <button class="btn rotation" (click)="statusTreatment(t)"><i
+                                    class="fa-solid fa-rotate"></i></button>
                         </td>
                         <td>
                             <a [routerLink]="['/modifytreat',t.id]">

@@ -77,7 +77,7 @@ export class ListTreatmentsComponent implements OnInit {
   }
 
   changeStatus() {
-    if (this.status == "all") {
+    if (this.status == "") {
       this.filteredListTreatments = this.listTreatments.filter(t => {
         return t.active == true || t.active == false
       })
