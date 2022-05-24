@@ -60,7 +60,7 @@ const routes: Routes = [
   {
     path: 'listtreatments',
     component: ListTreatmentsComponent
-  }, {
+  },{
     path: 'listworkers',
     component: ListworkersComponent
   }, {

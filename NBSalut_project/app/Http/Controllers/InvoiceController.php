@@ -45,18 +45,13 @@ class InvoiceController extends Controller
         return response()->json(['success' => false, 'data' => []]);
     }
 
-    public function sentInvoicesChecked(Request $request){
-        // return response()->json(['success' => true, 'data' =>$request->invoices]);
-        // $invoicesToSent = $request->invoices;
-        if ($request->invoices){
-            $total = 0;
-            foreach ($request->invoices as $invoice) {
-                $invoiceToSent = Invoice::find((num)$invoice->id);
-                $invoiceToSent->sent = 1;
-                $invoiceToSent->update();
-                $total += 1;
+    public function sentInvoicesChecked(Request $request)
+    {
+        if ($request->invoices) {
+            foreach ($request->invoices as $id) {
+                $invoiceToSent = Invoice::where('id', $id)->update(["sent" => true]);
             }
-            return response()->json(['success' => true, 'data' => $total]);
+            return response()->json(['success' => true]);
         }
 
         return response()->json(['success' => false]);
@@ -65,7 +60,7 @@ class InvoiceController extends Controller
     public function getTotalInvoices()
     {
         $total_invoices = Invoice::count();
-       
+
         if ($total_invoices) {
             return response()->json(['success' => true, 'data' => $total_invoices]);
         }

@@ -9,7 +9,7 @@ import { User } from '../models/user';
 })
 export class CommunicatorService {
 
-  
+
   private userSubject!: BehaviorSubject<User>;
   public user!: Observable<User>;
 
@@ -21,7 +21,7 @@ export class CommunicatorService {
   //#region Users Functions
 
   sentInvoicesChecked(invoices: any) {
-    return this.http.put("http://127.0.0.1:8000/api/sentInvoicesChecked", {invoices: invoices},
+    return this.http.put("http://127.0.0.1:8000/api/sentInvoicesChecked", { "invoices": invoices },
       {
         responseType: "json"
       });
@@ -344,6 +344,20 @@ export class CommunicatorService {
         responseType: "json"
       });
   }
+
+  /**
+* Function that enables the retrievement of specialist name and treatment name associated
+* with the visit.
+* @returns a list of visits from the DDBB
+*/
+  getVisitsList() {
+
+    return this.http.get("http://127.0.0.1:8000/api/getVisitsList",
+      {
+        responseType: "json"
+      });
+  }
+
   //#endregion
 
 }

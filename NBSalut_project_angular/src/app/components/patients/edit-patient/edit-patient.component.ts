@@ -13,10 +13,10 @@ import { ServiceUserService } from 'src/app/services/service-user.service';
 export class EditPatientComponent implements OnInit {
 
   /**
- * Connection between components. 
+ * Connection between components.
  * users Table is her mother component.
  * input is used to indicate that this variable (user) comes from abroad
- * (from users Table in this case). 
+ * (from users Table in this case).
  */
 
   @Output() modifiedUser = new EventEmitter<User>();
@@ -41,7 +41,7 @@ export class EditPatientComponent implements OnInit {
     //Validations from reactive form
     this.userDetails = this.formBuilder.group({
       id: [''],
-      num_clinical_log: ['', [Validators.required]],
+      // num_clinical_log: ['', [Validators.required]],
       register_date: ['', [Validators.required]],
       center_code: ['', [Validators.required]],
       ss_CIP: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.regexNumbersCapLetters)]],
@@ -64,7 +64,7 @@ export class EditPatientComponent implements OnInit {
 
     this.getData();
     this.userDetails.controls['id'].setValue(this.user.id);
-    this.userDetails.controls['num_clinical_log'].setValue(this.user.num_clinical_log);
+    // this.userDetails.controls['num_clinical_log'].setValue(this.user.num_clinical_log);
     this.userDetails.controls['register_date'].setValue(this.user.register_date);
     this.userDetails.controls['center_code'].setValue(this.user.center_code);
     this.userDetails.controls['ss_CIP'].setValue(this.user.ss_CIP);
@@ -94,7 +94,7 @@ export class EditPatientComponent implements OnInit {
 
   /**
  * Function that validates NIF/NIE
- * @returns 
+ * @returns
  */
   createDniValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -161,7 +161,7 @@ export class EditPatientComponent implements OnInit {
       "diabetic": this.userDetails.value.diabetic,
       "ss_CIP": this.userDetails.value.ss_CIP,
       "center_code": this.userDetails.value.center_code,
-      "num_clinical_log": this.userDetails.value.num_clinical_log,
+      // "num_clinical_log": this.userDetails.value.num_clinical_log,
       "role": this.user.role,
       "register_date": this.userDetails.value.register_date
     }

@@ -13,10 +13,10 @@ import { ServiceUserService } from 'src/app/services/service-user.service';
 export class EditWorkersComponent implements OnInit {
 
   /**
-* Connection between components. 
+* Connection between components.
 * users Table is her mother component.
 * input is used to indicate that this variable (user) comes from abroad
-* (from users Table in this case). 
+* (from users Table in this case).
 */
   @Output() modifiedUser = new EventEmitter<User>();
   @Output() eventShow = new EventEmitter<Boolean>();
@@ -88,7 +88,7 @@ export class EditWorkersComponent implements OnInit {
 
   /**
  * Function that validates NIF/NIE
- * @returns 
+ * @returns
  */
   createDniValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {

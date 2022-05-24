@@ -25,6 +25,8 @@ import { EditWorkersComponent } from './components/admin/edit-workers/edit-worke
 import { RegisterWorkerComponent } from './components/admin/register-worker/register-worker.component';
 import { EditTreatmentComponent } from './components/treatments/edit-treatment/edit-treatment.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     DataTablesModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgxPaginationModule,
-    NgxDaterangepickerMd.forRoot()
+    BrowserAnimationsModule,
+    NgxDaterangepickerMd.forRoot(),
+    ToastrModule.forRoot(),
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
