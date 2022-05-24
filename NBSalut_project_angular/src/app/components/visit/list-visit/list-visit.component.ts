@@ -57,6 +57,7 @@ export class ListVisitComponent implements OnInit {
     } else {
       this.listVisitsFilter = this.listVisits.filter(v => {
         return v.patient.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+        || v.dni.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
       })
       this.cp = 1;
     }
