@@ -1,4 +1,19 @@
-
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary"
+                            [routerLink]="['/home']">Home</a></li>
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary"
+                            [routerLink]="['/listtreatments']">List
+                            Treatments</a></li>
+                    <li class="breadcrumb-item active">Register Treatment</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card">
 
     <div class="card-header">Registro de tratamiento</div>
@@ -7,13 +22,13 @@
             <div class="col-sm-12 col-md-4"></div>
             <div class="col-sm-12 col-md-4"></div>
             <div class="col-sm-12 col-md-4">
-               
+
             </div>
         </div>
         <div class="container mt-5">
             <div *ngIf="messageG != ''" class="alert alert-success">{{messageG}}</div>
             <div *ngIf="messageB != ''" class="alert alert-danger">{{messageB}}</div>
-        
+
             <form [formGroup]="registerTreatmentForm" enctype="multipart/form-data">
                 <!-- Inputs -->
                 <div class="row mb-3">
@@ -42,16 +57,17 @@
                         </label>
                     </div>
                 </div>
-        
+
                 <!-- Submit button -->
                 <div class="row text-center mt-5">
                     <div class="col-4"></div>
-                    <button type="button" class="btn btn-primary btn-lg col-4" [disabled]="registerTreatmentForm.invalid"
-                        (click)="addTreatment()">Modificar tratamiento</button>
+                    <button type="button" class="btn btn-primary btn-lg col-4"
+                        [disabled]="registerTreatmentForm.invalid" (click)="addTreatment()">Modificar
+                        tratamiento</button>
                     <div class="col-4"></div>
                 </div>
             </form>
         </div>
-        
+
     </div>
 </div>
