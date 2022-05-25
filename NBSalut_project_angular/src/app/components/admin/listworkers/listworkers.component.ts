@@ -26,7 +26,7 @@ export class ListworkersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadWorkers();
-    console.log(this.loadWorkers());
+    // console.log(this.loadWorkers());
   }
 
   sendNewData(data: User) {

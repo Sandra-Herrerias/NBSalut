@@ -25,6 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
+    // canActivate: [GuardGuard],
     component: LoginComponent,
   },
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
     path: 'regpatient',
     canActivate: [GuardGuard],
     component: RegisterPatientComponent,
-   
+
   },
   {
     path: 'listpatient',
@@ -52,25 +53,25 @@ const routes: Routes = [
     path: 'editpatient',
     canActivate: [GuardGuard],
     component: EditPatientComponent,
-  
+
   },
   {
     path: 'quarterlyreport',
     canActivate: [GuardGuard],
     component: QuarterlyReportComponent,
-    
+
   },
   {
     path: 'listinvoices',
     canActivate: [GuardGuard],
     component: ListInvoicesComponent,
-    
+
   },
   {
     path: 'regtreatment',
     canActivate: [GuardGuard],
     component: RegisterTreatmentComponent,
-    
+
   },
   {
     path: 'listtreatments',
