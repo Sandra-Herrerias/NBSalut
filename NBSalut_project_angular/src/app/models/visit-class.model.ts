@@ -1,17 +1,19 @@
 export class VisitClass {
     id: number;
-    user_id: string;
+    patient: string;
     dni: string;
     visit_date: Date;
+    user_id: number;
     description: string;
-    specialist_id: string;
+    specialist_name: string;
 
-    constructor(id: number = 0, patient: string = "", dni:string = "", date: Date, price: number = 0, description: string = "", specialist: string = "") {
+    constructor(id: number = 0, patient: string = "", dni:string = "", date: Date, user_id: number = 0, description: string = "", specialist: string = "") {
         this.id = id;
-        this.user_id = patient;
+        this.patient = patient;
         this.dni = dni;
         this.visit_date = date;
+        this.user_id = user_id;
         this.description = description;
-        this.specialist_id = specialist;
+        this.specialist_name = specialist;
     }
 }

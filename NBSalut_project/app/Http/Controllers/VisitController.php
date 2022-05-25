@@ -28,7 +28,7 @@ class VisitController extends Controller
         //     ->get();
 
         return DB::select(DB::raw("select `visits`.`id`, `visits`.`visit_date`,
-            `visits`.`visit_description`, `visits`.`user_id`,
+            `visits`.`visit_description`, `visits`.`user_id`, `visits`.`specialist`,
             `users`.`first_name`, `users`.`last_name`, `users`.`dni`,
             `users`.`diabetic`, `uses`.`treatment_id`,
             `uses`.`user_id`, `treatments`.`name`,
@@ -37,7 +37,7 @@ class VisitController extends Controller
             inner join `users` on `visits`.`user_id` = `users`.`id` 
             inner join `uses` on `visits`.`id` = `uses`.`visit_id` 
             inner join `treatments` on `visits`.`id` = `treatments`.`id`
-            where `visits`.`user_id`= 7
+            where `visits`.`user_id`= $request->id
             "
         ));
 
@@ -167,23 +167,6 @@ class VisitController extends Controller
         return response()->json(['success' => false],);
     }
 
-<<<<<<< Updated upstream
-    /**
-     * Function that gets visits list and fields that will be used in this table.
-     * In this case DB is used instead of the model due to problems with the different joins
-     * and the data that was needed from each table. 
-     *
-     * @return void
-     */
-    public function getVisitsList()
-    {
-        return DB::select(DB::raw("select `visits`.`id`, `visits`.`visit_date`, `visits`.`visit_description`,
-         `users`.`first_name`, `users`.`last_name`, `users`.`dni`,`users`.`ss_CIP`, `users`.`diabetic`,
-          `uses`.`treatment_id`, `uses`.`user_id`, `treatments`.`name`, (select CONCAT(first_name,' ', last_name) 
-          AS specialist_name from users AS t where t.id=uses.user_id) AS specialist_name from 
-          `visits` inner join `users` on `visits`.`user_id` = `users`.`id` inner join `uses` on 
-          `visits`.`id` = `uses`.`visit_id` inner join `treatments` on `visits`.`id` = `treatments`.`id`"));
-=======
     public function getVisitsList() {
         return DB::select(DB::raw("select `visits`.`id`, `visits`.`visit_date`,
          `visits`.`visit_description`,
@@ -193,6 +176,5 @@ class VisitController extends Controller
            (select first_name AS specialist_name from users AS t where t.id=uses.user_id)AS specialist_name
             from `visits` inner join `users` on `visits`.`user_id` = `users`.`id` inner join `uses` on `visits`.`id` = `uses`.`visit_id` inner join `treatments` on `visits`.`id` = `treatments`.`id`"
     ));
->>>>>>> Stashed changes
     }
 }

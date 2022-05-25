@@ -128,7 +128,7 @@ export class RegisterVisitComponent implements OnInit {
     this.communicator.getVisitsPatient(patient).subscribe((data: any) => {
       data.forEach((t: any) => {
         // if(this.visitPatientId == t.user_id) {
-          this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.dni, t.visit_date, t.user_id, t.visit_description));
+          this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.dni, t.visit_date, t.user_id, t.visit_description, t.specialist));
         //}
       })
     })
