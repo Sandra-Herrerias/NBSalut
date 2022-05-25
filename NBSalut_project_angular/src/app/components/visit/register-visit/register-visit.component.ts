@@ -56,7 +56,7 @@ export class RegisterVisitComponent implements OnInit {
     surnames: [
       '', [Validators.required]
     ],
-    numHis: [
+    id: [
       '', [Validators.required]
     ],
     date: new FormControl((new Date()).toISOString().substring(0, 10))
@@ -110,7 +110,7 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadTreatments();
+    this.loadValidTreatments();
     this.loadTreatmentsSelect();
 
     //console.log(this.listTreatments);
@@ -127,12 +127,14 @@ export class RegisterVisitComponent implements OnInit {
   loadVisits(patient: any) {
     this.communicator.getVisitsPatient(patient).subscribe((data: any) => {
       data.forEach((t: any) => {
-        this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.visit_date, t.price, t.visit_description));
+        // if(this.visitPatientId == t.user_id) {
+          this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.dni, t.visit_date, t.user_id, t.visit_description));
+        //}
       })
     })
   }
 
-  loadTreatments() {
+  loadValidTreatments() {
     this.communicator.getTreatments().subscribe((data: any) => {
       data.forEach((t: any) => {
         this.listTreatments.push(new TreatmentClass(t.id, t.name, t.price, t.description));
@@ -235,12 +237,12 @@ export class RegisterVisitComponent implements OnInit {
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
-        this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
+        this.registerVisitForm.get('id')?.setValue(res.user.id);
         this.registerVisitForm.get('dni')?.setValue(res.user.dni);
 
 
         this.loadVisits(res.user);
-        //console.log(this.listVisits);
+        console.log(this.listVisits);
 
 
       } else {
