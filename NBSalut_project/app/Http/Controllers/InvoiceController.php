@@ -51,9 +51,9 @@ class InvoiceController extends Controller
         if ($request->invoices){
             $total = 0;
             foreach ($request->invoices as $invoice) {
-                $invoiceToSent = Invoice::find((num)$invoice->id);
-                $invoiceToSent->sent = 1;
-                $invoiceToSent->update();
+                // $invoiceToSent = Invoice::find((num)$invoice->id);
+                // $invoiceToSent->sent = 1;
+                // $invoiceToSent->update();
                 $total += 1;
             }
             return response()->json(['success' => true, 'data' => $total]);
