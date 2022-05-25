@@ -61,6 +61,7 @@ export class ListTreatmentsComponent implements OnInit {
     })
   }
 
+
   /**
    * search(): void
    * This method searches in the array by the fields below
@@ -106,6 +107,7 @@ export class ListTreatmentsComponent implements OnInit {
     this.communicator.statusTreatment(this.stsTreat).subscribe(
       (result: any) => {
         this.ngOnInit();
+        
         if (result.success) {
           //console.log(result)
           this.messageG = "Estado modificado correctamente";
