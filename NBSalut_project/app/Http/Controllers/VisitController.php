@@ -32,7 +32,7 @@ class VisitController extends Controller
             `users`.`first_name`, `users`.`last_name`, `users`.`dni`,
             `users`.`diabetic`, `uses`.`treatment_id`,
             `uses`.`user_id`, `treatments`.`name`,
-            (select first_name AS specialist_name from users AS t where t.id=uses.user_id)AS specialist_name
+            (select CONCAT(first_name,' ', last_name) AS specialist_name from users AS t where t.id=uses.user_id)AS specialist_name
             from `visits`
             inner join `users` on `visits`.`user_id` = `users`.`id` 
             inner join `uses` on `visits`.`id` = `uses`.`visit_id` 
