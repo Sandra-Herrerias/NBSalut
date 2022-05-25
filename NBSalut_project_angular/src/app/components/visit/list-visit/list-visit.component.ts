@@ -9,10 +9,7 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
   styleUrls: ['./list-visit.component.css']
 })
 export class ListVisitComponent implements OnInit {
-  listVisits: any|[] = [];
-  filteredPatients: any[] = [];
-  nameFilter: String = "";
-  surnameFilter: String = "";
+  listVisits: any | [] = [];
   visits: any;
   message = '';
   inputSearch: string = '';
@@ -48,18 +45,23 @@ export class ListVisitComponent implements OnInit {
 
 
   /**
-       * filter(): void
-       * This method filters the patients array by name and surname
-       */
-   filter() {
-    /*this.filteredPatients = this.listVisits.filter(
-      v => {
-        if (v.first_name.toLocaleLowerCase().indexOf(this.nameFilter.toLocaleLowerCase()) != -1 &&
-          v.last_name.toLocaleLowerCase().indexOf(this.surnameFilter.toLocaleLowerCase()) != -1) {
-          return true;
-        }
-        return false;
-      });*/
+   * Searchs quarterly report component
+   */
+   search(): void {
+    if (!this.inputSearch) {
+      this.ngOnInit();
+    } else {
+      this.listVisits = this.listVisits.filter((res: any) => {
+        return (
+          res.first_name
+            .toLocaleLowerCase()
+            .includes(this.inputSearch.toLocaleLowerCase()) ||
+          res.last_name
+            .toLocaleLowerCase()
+            .includes(this.inputSearch.toLocaleLowerCase()) 
+        );
+      });
+      this.cp = 1;
+    }
   }
-
 }
