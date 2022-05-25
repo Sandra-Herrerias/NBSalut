@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TreatmentClass } from 'src/app/models/treatment-class.model';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 
@@ -19,7 +20,7 @@ export class EditTreatmentComponent implements OnInit {
 
   actualId: number | undefined;;
 
-  constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: ActivatedRoute, private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -64,11 +65,17 @@ export class EditTreatmentComponent implements OnInit {
       (result: any) => {
 
         if (result.success) { //success message
-          this.messageG = "Tratamiento modificado correctamente";
-          this.messageB = "";
+          this.toastr.success('Tratamiento modificado correctamente','', {
+            enableHtml: true,
+          });
+          // this.messageG = "Tratamiento modificado correctamente";
+          // this.messageB = "";
         } else { //error message
-          this.messageB = "El tratamiento no se ha podido modificar!";
-          this.messageG = "";
+          this.toastr.error('El tratamiento no se ha podido modificar!','', {
+            enableHtml: true,   
+          });
+          // this.messageB = "El tratamiento no se ha podido modificar!";
+          // this.messageG = "";
         }
       }
     );

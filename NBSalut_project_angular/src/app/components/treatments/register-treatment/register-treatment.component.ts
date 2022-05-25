@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisterTreatmentComponent implements OnInit {
   messageG: string = "";
   messageB: string = "";
 
-  constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) { }
+  constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -45,11 +46,17 @@ export class RegisterTreatmentComponent implements OnInit {
         console.log("Recibiendo de vuelta objeto tratamiento...");
 
         if (result.success) { //success message
-          this.messageG = "Tratamiento añadido correctamente";
-          this.messageB = "";
+          this.toastr.success('Tratamiento añadido correctamente','', {
+            enableHtml: true,
+          });
+          // this.messageG = "Tratamiento añadido correctamente";
+          // this.messageB = "";
         } else { //error message
-          this.messageB = "El tratamiento no se ha podido añadir!";
-          this.messageG = "";
+          this.toastr.error('El tratamiento no se ha podido añadir!','', {
+            enableHtml: true,   
+          });
+          // this.messageB = "El tratamiento no se ha podido añadir!";
+          // this.messageG = "";
         }
       }
     );

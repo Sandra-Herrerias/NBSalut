@@ -9,7 +9,7 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
   styleUrls: ['./list-visit.component.css']
 })
 export class ListVisitComponent implements OnInit {
-  listVisits: any[] = [];
+  listVisits: any|[] = [];
 
   visits: any;
   message = '';
@@ -28,21 +28,16 @@ export class ListVisitComponent implements OnInit {
 
  async ngOnInit() {
     this.loadVisits();
-    console.log(this.treatment);
-    var response1 = await this.communicator.getVisitsList().toPromise();
-    console.log('Response1', response1);
   }
+  
 
   /**
-  * Load data patient from the database
+  * Load data visit from the database
   */
   loadVisits(){
     this.communicator.getVisitsList().subscribe(
       (result: any) => {
         this.listVisits = result;
-        console.log(this.listVisits);
-        console.log(this.listVisits[0].name);
-        console.log(this.listVisits[0].first_name);
       }
     );
     return this.communicator.getVisitsList().toPromise();
@@ -57,7 +52,7 @@ export class ListVisitComponent implements OnInit {
     if (!this.inputSearch) {
       this.ngOnInit();
     } else {
-      this.listVisits = this.listVisits.filter(res => {
+      this.listVisits = this.listVisits.filter((res :any)=> {
         return res.first_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
           || res.last_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
           || res.date.includes(this.inputSearch);

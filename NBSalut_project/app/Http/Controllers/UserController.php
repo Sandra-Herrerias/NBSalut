@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
-use Validator;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -34,6 +31,12 @@ class UserController extends Controller
         return "no user";
     }
 
+    /**
+     * Function that
+     *
+     * @param Request $request
+     * @return void
+     */
     public function checkPatientDni(Request $request)
     {
         $patient = User::where('dni', $request->dni)->first();
@@ -108,7 +111,6 @@ class UserController extends Controller
         //Validate unique email
         $usersEmail = User::where('email', $request->email)->get();
 
-        error_log(count($usersEmail));
         if (count($usersEmail) > 0) {
             return response()->json(['success' =>  false, 'message' => '(Email duplicado)']);
         }
@@ -116,7 +118,6 @@ class UserController extends Controller
         //Validate unique dni
         $usersDni = User::where('dni', $request->dni)->get();
 
-        error_log(count($usersDni));
         if (count($usersDni) > 0) {
             return response()->json(['success' =>  false, 'message' => '(NIF o NIE duplicado)']);
         }
@@ -158,7 +159,6 @@ class UserController extends Controller
         //Validate unique email
         $usersEmail = User::where('email', $request->email)->get();
 
-        error_log(count($usersEmail));
         if (count($usersEmail) > 0) {
             return response()->json(['success' =>  false, 'message' => '(Email duplicado)']);
         }
@@ -166,21 +166,17 @@ class UserController extends Controller
         //Validate unique dni
         $usersDni = User::where('dni', $request->dni)->get();
 
-        error_log(count($usersDni));
         if (count($usersDni) > 0) {
             return response()->json(['success' =>  false, 'message' => '(NIF o NIE duplicado)']);
         }
         //Validate unique collegiate number
         $usersColNum = User::where('collegiate_num', $request->collegiate_num)->get();
 
-        error_log(count($usersColNum));
         if (count($usersColNum) > 0) {
             return response()->json(['success' =>  false, 'message' => '(Número de colegiado duplicado)']);
         }
 
-
         $success = $patient->save();
-
         return response()->json(['success' =>  $success, 'user' => $patient]);
     }
 
@@ -211,7 +207,7 @@ class UserController extends Controller
         //??date('Y-m-d', strtotime($request->register_date));
         $user->register_date = date('Y-m-d', strtotime($request->register_date));
         $success = $user->update();
-        error_log($user);
+
         return response()->json(['success' => $success, 'user' => $user]);
     }
 
