@@ -50,16 +50,16 @@ export class ListVisitComponent implements OnInit {
   /**
        * filter(): void
        * This method filters the patients array by name and surname
-       *//*
+       */
    filter() {
-    this.filteredPatients = this.listVisits.filter(
+    /*this.filteredPatients = this.listVisits.filter(
       v => {
         if (v.first_name.toLocaleLowerCase().indexOf(this.nameFilter.toLocaleLowerCase()) != -1 &&
           v.last_name.toLocaleLowerCase().indexOf(this.surnameFilter.toLocaleLowerCase()) != -1) {
           return true;
         }
         return false;
-      });
+      });*/
   }
-*/
+
 }
