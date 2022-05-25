@@ -1,182 +1,111 @@
-<!-- <div class="container">
-  <h4>BUSCADOR</h4>
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        Nombre: <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="nameFilter"
-          (ngModelChange)="filter()">
-      </div>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/home']">Inicio</a></li>
+                    <li class="breadcrumb-item active">Listar Pacientes</li>
+                </ol>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        Apellido: <input type="text" class="form-control" placeholder="Buscar..." [(ngModel)]="surnameFilter"
-          (ngModelChange)="filter()">
-      </div>
-    </div>
-  </div>
 </div>
-<br>
-<br>
-<div class="">
-  <table class="table table-hover table-borderless table-striped">
-    <thead>
-      <tr>
-        <th scope="col">NÚMERO CLÍNICO</th>
-        <th scope="col">PACIENTE</th>
-        <th scope="col">NIF / NIE</th>
-        <th scope="col">EMAIL</th>
-        <th scope="col">TELÉFONO</th>
-        <th scope="col">DIABÉTICA</th>
-        <th scope="col">VISITAS</th>
-        <th scope="col">ESTADO</th>
-        <th scope="col">MODIFICAR</th>
-        <th scope="col">ELIMINAR</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let patient of this.filteredPatients  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
-        <td>{{ patient.num_clinical_log }}</td>
-        <td>{{ patient.first_name }} {{ patient.last_name }} </td>
-        <td>{{ patient.dni }}</td>
-        <td>{{ patient.email }}</td>
-        <td>{{ patient.phone }}</td>
-        <td>
-          <span class="badge rounded-pill" [ngClass]="patient.diabetic ? 'bg-success' : 'bg-danger'">
-            {{ patient.diabetic ? "Sí" : "No" }}
-          </span>
-        </td>
-        <td><button class=" btn" (click)="showpatientVisits(patient)"><i class="bi bi-eye-fill"></i></button></td>
-        <td>
-          <span class="badge rounded-pill" [ngClass]="patient.active ? 'bg-success' : 'bg-danger'">
-            {{ patient.active ? "Activo" : "Inactivo" }}
-          </span>
-        </td>
-        <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i class="bi bi-pencil-fill"></i></button>
-        </td>
-        <td><button class="btn" (click)="confirmDeactivate(patient)"><i class="bi bi-trash-fill"></i></button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-center ">
-    <pagination-controls (pageChange)="cp=$event "></pagination-controls>
-  </div>
-</div> -->
-
 
 <div class="card">
-  <div class="card-header">Listado de pacientes</div>
-  <div class="card-body">
-    <div class="d-flex justify-content-between">
-      <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-3">
-        <!-- <button class="btn btn-success me-md-2" (click)="export()" type="button"><i
-            class="bi bi-file-earmark-excel"></i> Exportar Excel</button> -->
-        <!-- <button class="btn nb text-white" (click)="openFormModal()" [disabled]="params.sent != 'pending'"><i
-            class="bi bi-check2-all"></i> Marcar
-          como facturadas</button> -->
-      </div>
-      <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-3">
-        <button class="btn btn-success me-md-2" (click)="export()" type="button"><i
-            class="bi bi-file-earmark-excel"></i> Exportar Excel</button>
-        <button class="btn nb text-white" [disabled]="params.sent != 'pending'"><i class="bi bi-check2-all"></i> Marcar
-          como enviadas</button>
-      </div> -->
-    </div>
-    <div class="row mb-3">
-      <div class="col-sm-12 col-md-4">
-        <!-- <select class="form-select" [(ngModel)]="params.sent" (change)="getSelected()"
-          aria-label="Default select example">
-          <option value="" selected>Todo</option>
-          <option value="sent">Enviados</option>
-          <option value="pending">Pendientes</option>
-        </select> -->
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <div class="input-group">
-          <div class="input-group-text" id="btnGroupAddon"><i class="bi bi-search"></i></div>
-          <input type="text" placeholder="Buscar nombre" class="form-control" [(ngModel)]="nameFilter"
-            (ngModelChange)="filter()">
+    <div class="card-header">Lista de pacientes</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <a class="link-success nb-color-primary" [routerLink]="['/regpatient']">
+                    <button class="btn"><i class="fa-solid fa-heart-circle-plus"></i> Añadir</button>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-2"></div>
+            <div class="col-sm-12 col-md-6">
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <div class="input-group">
+                            <div class="input-group-text" id="btnGroupAddon"><i class="bi bi-search"></i></div>
+                            <input type="text" placeholder="Buscar nombre" class="form-control" [(ngModel)]="nameFilter" (ngModelChange)="filter()">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group">
+                            <div class="input-group-text" id="btnGroupAddon"><i class="bi bi-search"></i></div>
+                            <input type="text" placeholder="Buscar apellido" class="form-control" [(ngModel)]="surnameFilter" (ngModelChange)="filter()">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <div class="input-group">
-          <div class="input-group-text" id="btnGroupAddon"><i class="bi bi-search"></i></div>
-          <input type="text" placeholder="Buscar apellido" class="form-control" [(ngModel)]="surnameFilter"
-            (ngModelChange)="filter()">
-        </div>
-      </div>
-    </div>
-    <div class="table-responsive" style="border-radius:10px !important;">
-      <table class="table table-bordered table-striped table-hover align-middle text-center">
-        <thead>
-          <tr class="nb text-white text-uppercase align-middle">
-            <th scope="col">NÚMERO CLÍNICO</th>
-            <th scope="col">PACIENTE</th>
-            <th scope="col">NIF / NIE</th>
-            <th scope="col">EMAIL</th>
-            <th scope="col">TELÉFONO</th>
-            <th scope="col">DIABÉTICA</th>
-            <th scope="col">VISITAS</th>
-            <th scope="col">ESTADO</th>
-            <th scope="col">MODIFICAR</th>
-            <th scope="col">ELIMINAR</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let patient of this.filteredPatients  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
-            <td>{{ patient.id }}</td>
-            <td>{{ patient.first_name }} {{ patient.last_name }} </td>
-            <td>{{ patient.dni }}</td>
-            <td>{{ patient.email }}</td>
-            <td>{{ patient.phone }}</td>
-            <td>
-              <span class="badge rounded-pill" [ngClass]="patient.diabetic ? 'bg-success' : 'bg-danger'">
+        <div class="table-responsive" style="border-radius:10px !important;">
+            <table class="table table-bordered table-striped table-hover align-middle text-center">
+                <thead>
+                    <tr class="nb text-white text-uppercase align-middle">
+                        <th scope="col">NÚMERO CLÍNICO</th>
+                        <th scope="col">PACIENTE</th>
+                        <th scope="col">NIF / NIE</th>
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">TELÉFONO</th>
+                        <th scope="col">DIABÉTICA</th>
+                        <th scope="col">VISITAS</th>
+                        <th scope="col">ESTADO</th>
+                        <th scope="col">MODIFICAR</th>
+                        <th scope="col">ELIMINAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let patient of this.filteredPatients  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
+                        <td>{{ patient.id }}</td>
+                        <td>{{ patient.first_name }} {{ patient.last_name }} </td>
+                        <td>{{ patient.dni }}</td>
+                        <td>{{ patient.email }}</td>
+                        <td>{{ patient.phone }}</td>
+                        <td>
+                            <span class="badge rounded-pill" [ngClass]="patient.diabetic ? 'bg-success' : 'bg-danger'">
                 {{ patient.diabetic ? "Sí" : "No" }}
               </span>
-            </td>
-            <td>
-              <span class="badge rounded-pill" [ngClass]="patient.active ? 'bg-success' : 'bg-danger'">
+                        </td>
+                        <td>
+                            <span class="badge rounded-pill" [ngClass]="patient.active ? 'bg-success' : 'bg-danger'">
                 {{ patient.active ? "Activo" : "Inactivo" }}
               </span>
-            </td>
-            <td><button class=" btn" (click)="showpatientVisits(patient)"><i class="bi bi-eye-fill"></i></button></td>
-            <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i class="bi bi-pencil-fill"></i></button>
-            </td>
-            <td><button class="btn" (click)="confirmDeactivate(patient)"><i class="bi bi-trash-fill"></i></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="d-flex justify-content-end">
-        <pagination-controls (pageChange)="cp = $event"></pagination-controls>
-      </div>
+                        </td>
+                        <td><button class=" btn" (click)="showpatientVisits(patient)"><i class="bi bi-eye-fill"></i></button></td>
+                        <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i class="bi bi-pencil-fill"></i></button>
+                        </td>
+                        <td><button class="btn" (click)="confirmDeactivate(patient)"><i class="bi bi-trash-fill"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Desactivar paciente</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Se procederá a marcar <strong> facturas</strong> como facturas. ¿Confirmar operación? -->
-        ¿Está segura de desactivar a <strong>{{ patientSelected.first_name }} {{ patientSelected.last_name }}</strong>?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Desactivar paciente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Se procederá a marcar <strong> facturas</strong> como facturas. ¿Confirmar operación? -->
+                ¿Está segura de desactivar a <strong>{{ patientSelected.first_name }}
+          {{ patientSelected.last_name }}</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary" (click)="saveSomeThing()">
+                <button type="button" class="btn btn-primary" (click)="saveSomeThing()">
           Confirmar
         </button>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

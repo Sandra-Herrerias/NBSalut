@@ -49,7 +49,7 @@ export class ListworkersComponent implements OnInit {
   //////////////////////////////////////////////////////////////DEACTIVE OR DELETE
 
   /**
-   * Function that asks for confirmation before deleting the comment
+   * Function that asks for confirmation activating or deactivating the specialist
    * @param workerSelected
    */
   confirmDeactivate(workerSelected: any) {
