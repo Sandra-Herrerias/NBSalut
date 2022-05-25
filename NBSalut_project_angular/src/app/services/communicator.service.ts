@@ -44,9 +44,13 @@ export class CommunicatorService {
           // return res;
           if (res.success) {
             // console.log(res);
-            const user: User = new User(res.user.id,
-              res.user.first_name, res.user.last_name,
-              res.user.email, res.user.password, res.user.role);
+
+            // const user: User = new User(res.user.id,
+            //   res.user.first_name, res.user.last_name,
+            //   res.user.password, "", res.user.email,"","","","","", "","","","","",);
+
+            const user: User = Object.assign(new User(), res.user);
+            console.log(user);
             localStorage.setItem('user', JSON.stringify(user));
             this.userSubject.next(user);
           }

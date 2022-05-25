@@ -20,6 +20,7 @@ export class AppComponent {
     this.http.user.subscribe(
       resultat => {
         this.user = resultat;
+        console.log(this.user);
       }
     )
     this.route.events.subscribe(e => {
@@ -29,8 +30,6 @@ export class AppComponent {
     });
 
   }
-
-
 
   logout() {
     this.http.logout();

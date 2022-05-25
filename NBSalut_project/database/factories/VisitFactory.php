@@ -21,7 +21,6 @@ class VisitFactory extends Factory
     {
         return [
             'user_id' => User::pluck('id')->random(),
-            'specialist' => $this->faker->firstName(),
             'visit_description' => $this->faker->text(50),
             'visit_date' => $this->faker->dateTimeBetween('-9 month', 'now'),
             'sent' => $this->faker->randomElement([true, false]),

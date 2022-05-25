@@ -89,9 +89,9 @@
                <!-- CH Number field -->
                <div class="mb-3 col-6">
                   <label class="form-label fw-bold">Nº del historial clínico *</label>
-                  <input type="text" formControlName="numHis" class="form-control" readonly>
+                  <input type="text" formControlName="id" class="form-control" readonly>
                   <label class="text-danger mt-1"
-                     *ngIf="registerVisitForm.get('numHis')?.errors?.['required'] && registerVisitForm.get('numHis')?.touched">Nº
+                     *ngIf="registerVisitForm.get('id')?.errors?.['required'] && registerVisitForm.get('id')?.touched">Nº
                      del historial
                      requerido
                   </label>
@@ -256,15 +256,17 @@
                   <th class="text-center">Fecha de visita</th>
                   <!-- <th>Precio</th> -->
                   <th>Descripción de la visita </th>
+                  <th>Especialista</th>
                </tr>
             </thead>
             <tbody>
                <tr *ngFor="let visit of listVisits">
                   <!-- <td>{{visit.id}}</td> -->
                   <!-- <td>{{visit.patient}}</td> -->
-                  <td class="text-center">{{visit.date}}</td>
+                  <td class="text-center">{{visit.visit_date}}</td>
                   <!-- <td>{{visit.price}}</td> -->
                   <td>{{visit.description}}</td>
+                  <td>{{visit.specialist_name}}</td>
                </tr>
             </tbody>
          </table>
