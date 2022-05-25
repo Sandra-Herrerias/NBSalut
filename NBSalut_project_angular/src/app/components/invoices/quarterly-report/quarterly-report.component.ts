@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { CommunicatorService } from "src/app/services/communicator.service";
 import { FileSaverService } from "ngx-filesaver";
+import { ToastrService } from 'ngx-toastr';
 import * as XLSX from "xlsx";
 declare var window: any;
 
@@ -16,7 +17,7 @@ declare var window: any;
   styleUrls: ["./quarterly-report.component.css"],
 })
 export class QuarterlyReportComponent implements OnInit {
-  invoices: any;
+  invoices: any | [] = [];
   selected: any;
   params: { input: string; startDate: string; endDate: string; sent: string } =
     { input: "", startDate: "", endDate: "", sent: "" };
@@ -29,7 +30,8 @@ export class QuarterlyReportComponent implements OnInit {
 
   constructor(
     private http: CommunicatorService,
-    private filesaver: FileSaverService
+    private filesaver: FileSaverService,
+    private toastr: ToastrService
   ) { }
 
   /**
@@ -81,7 +83,6 @@ export class QuarterlyReportComponent implements OnInit {
     this.http.getInvoices(this.params).subscribe((response: any) => {
       if (response.success) {
         this.invoices = response.data;
-        // console.log(response);
       }
     });
     this.formModal = new window.bootstrap.Modal(
@@ -124,14 +125,13 @@ export class QuarterlyReportComponent implements OnInit {
     this.formModal.show();
   }
   saveSomeThing() {
-    this.http.sentInvoicesChecked(this.invoices.map((a: { id: any; }) => a.id)).subscribe((response: any) => {
+    this.http.sentInvoicesChecked(this.invoices.map((item: { id: any; }) => item.id)).subscribe((response: any) => {
       if (response.success) {
-        console.log("todas enviadas");
-        console.log(response.data)
         this.export();
         this.ngOnInit();
-      }else{
-        console.log("no enviadas")
+        this.toastr.success('Éxito al marcar facturadas.');
+      } else {
+        this.toastr.error('Fallo al marcar como facturadas.');
       }
     })
     this.formModal.hide();

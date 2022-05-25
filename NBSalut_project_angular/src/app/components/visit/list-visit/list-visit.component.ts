@@ -2,8 +2,6 @@ import { Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommunicatorService } from 'src/app/services/communicator.service';
-import { VisitClass } from 'src/app/models/visit-class.model';
-
 
 @Component({
   selector: 'app-list-visit',
@@ -11,62 +9,61 @@ import { VisitClass } from 'src/app/models/visit-class.model';
   styleUrls: ['./list-visit.component.css']
 })
 export class ListVisitComponent implements OnInit {
-  listVisits: VisitClass[] = []
-  listVisitsFilter: VisitClass[] = [];
+  listVisits: any[] = [];
 
   visits: any;
-  dtTrigger: Subject<any> = new Subject();
   message = '';
-
-  // Pagination
+  inputSearch: string = '';
   ipp: number;
   cp: number;
+  treatment: any;
 
-  // Filter
-  inputSearch: string = '';
-
-  constructor(private communicator: CommunicatorService, private router: Router) {
+  constructor(
+    private communicator: CommunicatorService,
+    private router: Router
+  ) {
     this.ipp = 10;
     this.cp = 1;
-   }
+  }
 
-  ngOnInit(): void {
+ async ngOnInit() {
     this.loadVisits();
-    console.log(this.listVisits);
+    console.log(this.treatment);
+    var response1 = await this.communicator.getVisitsList().toPromise();
+    console.log('Response1', response1);
   }
 
   /**
   * Load data patient from the database
   */
-  loadVisits() {
-    this.communicator.getVisits().subscribe((data: any) => {
-      data.forEach((v: any) => {
-        this.listVisits.push(new VisitClass(v.id, v.name + v.last_name, v.visit_date, v.total_price, v.description));
-      })
-      this.listVisitsFilter = this.listVisits;
-    })
+  loadVisits(){
+    this.communicator.getVisitsList().subscribe(
+      (result: any) => {
+        this.listVisits = result;
+        console.log(this.listVisits);
+        console.log(this.listVisits[0].name);
+        console.log(this.listVisits[0].first_name);
+      }
+    );
+    return this.communicator.getVisitsList().toPromise();
   }
 
+
+
   /**
-   * search(): void
-   * This method searches in the array by the fields below
-   */
-   search(): void {
+ *TODO NO VA!!!!!!!!!!!!!!!!!!!!!!
+ */
+  search(): void {
     if (!this.inputSearch) {
       this.ngOnInit();
     } else {
-      this.listVisitsFilter = this.listVisits.filter(v => {
-        return v.patient.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
-        || v.dni.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+      this.listVisits = this.listVisits.filter(res => {
+        return res.first_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+          || res.last_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+          || res.date.includes(this.inputSearch);
       })
       this.cp = 1;
     }
   }
-
-
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
-
 
 }

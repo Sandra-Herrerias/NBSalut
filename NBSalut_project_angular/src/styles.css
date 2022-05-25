@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import '~ngx-toastr/toastr';
+/* @import '~ngx-toastr/toastr-bs4-alert'; */
 
 body {
   font-family: 'Roboto', sans-serif;

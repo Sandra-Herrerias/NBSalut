@@ -45,6 +45,7 @@ Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
+Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
 Route::get('generateInvoice', [InvoiceController::class, 'generateInvoice']);
 Route::get('getTotalInvoices', [InvoiceController::class, 'getTotalInvoices']);
 Route::put('sentInvoicesChecked', [InvoiceController::class, 'sentInvoicesChecked']);
