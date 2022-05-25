@@ -15,64 +15,84 @@ import { ListworkersComponent } from './components/admin/listworkers/listworkers
 import { EditWorkersComponent } from './components/admin/edit-workers/edit-workers.component';
 import { RegisterWorkerComponent } from './components/admin/register-worker/register-worker.component';
 import { EditTreatmentComponent } from './components/treatments/edit-treatment/edit-treatment.component';
+import { GuardGuard } from './auth/guard.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    canActivate: [GuardGuard],
+    component: HomeComponent,
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'regvisit',
-    component: RegisterVisitComponent
+    canActivate: [GuardGuard],
+    component: RegisterVisitComponent,
   },
   {
     path: 'listvisits',
-    component: ListVisitComponent
+    canActivate: [GuardGuard],
+    component: ListVisitComponent,
   },
   {
     path: 'regpatient',
-    component: RegisterPatientComponent
+    canActivate: [GuardGuard],
+    component: RegisterPatientComponent,
+   
   },
   {
     path: 'listpatient',
+    canActivate: [GuardGuard],
     component: ListPatientsComponent,
   },
   {
     path: 'editpatient',
-    component: EditPatientComponent
+    canActivate: [GuardGuard],
+    component: EditPatientComponent,
+  
   },
   {
     path: 'quarterlyreport',
-    component: QuarterlyReportComponent
+    canActivate: [GuardGuard],
+    component: QuarterlyReportComponent,
+    
   },
   {
     path: 'listinvoices',
-    component: ListInvoicesComponent
+    canActivate: [GuardGuard],
+    component: ListInvoicesComponent,
+    
   },
   {
     path: 'regtreatment',
-    component: RegisterTreatmentComponent
+    canActivate: [GuardGuard],
+    component: RegisterTreatmentComponent,
+    
   },
   {
     path: 'listtreatments',
-    component: ListTreatmentsComponent
-  },{
+    component: ListTreatmentsComponent,
+    canActivate: [GuardGuard]
+  }, {
     path: 'listworkers',
-    component: ListworkersComponent
+    component: ListworkersComponent,
+    canActivate: [GuardGuard]
   }, {
     path: 'modifytreat/:id',
-    component: EditTreatmentComponent
+    component: EditTreatmentComponent,
+    canActivate: [GuardGuard]
   }, {
     path: 'editworker',
-    component: EditWorkersComponent
+    component: EditWorkersComponent,
+    canActivate: [GuardGuard]
   },
   {
     path: 'regspecialist',
-    component: RegisterWorkerComponent
+    component: RegisterWorkerComponent,
+    canActivate: [GuardGuard]
   },
   {//default
     path: '**',
