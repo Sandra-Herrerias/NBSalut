@@ -53,7 +53,7 @@ export class ListworkersComponent implements OnInit {
    * @param workerSelected
    */
   confirmDeactivate(workerSelected: any) {
-    if (workerSelected.active == 1) {
+    if (workerSelected.active == 1) {//deactivate specialist
       if (confirm("¿Está segura de desactivar este especialista?")) {
         let info = {
           id: workerSelected.id,
@@ -71,18 +71,20 @@ export class ListworkersComponent implements OnInit {
           }
         );
       }
-    } else {
-      if (confirm("¿Está segura de eliminar definitivamente este especialista?")) {
+    } else {//activate specialist
+      if (confirm("¿Está segura de activar este especialista?")) {
         let info = {
-          id: workerSelected.id
+          id: workerSelected.id,
+          active: 1
         }
-        this.communicator.delete(info).subscribe(
+        this.communicator.deactivateUser(info).subscribe(
           (result: any) => {
-            if (result.success) {
-              this.deleteWorker(workerSelected);
-              alert("Especialista eliminado correctamente");
-            } else {
-              alert("El especialista no se ha podido eliminar");
+            // let res = JSON.parse(JSON.stringify(result));
+            if (result.success) { //success message
+              alert("Usuario activado correctamente");
+              this.loadWorkers();
+            } else {//error message
+              alert("El usuario no se ha podido activar");
             }
           }
         );
