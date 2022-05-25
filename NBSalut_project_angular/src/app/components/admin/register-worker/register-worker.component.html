@@ -10,16 +10,16 @@
         <form #form1="ngForm" [formGroup]="userDetails" method="post" (ngSubmit)="addNewWorker()">
             <!-- Text inputs -->
             <div class="row mb-3">
-                <div class="mb-3 col-4 form-group">
+                <div class="mb-3 col-3 form-group">
                     <label for="collegiate_num" class="form-label">Nº de colegiado</label>
                     <input type="text" class="form-control" formControlName="collegiate_num">
                 </div>
-                <div class="mb-3 col-4 form-group">
+                <div class="mb-3 col-3 form-group">
                     <label for="register_date" class="form-label">Fecha de registro</label>
                     <input type="text" name="register_date" class="form-control" formControlName="register_date" [(ngModel)]="currentDateTime" readonly>
                 </div>
                 <!-- Role field -->
-                <div class="mb-3 col-4">
+                <div class="mb-3 col-3">
                     <label class="form-label fw-bold">Rol</label>
                     <div>
                         <select class="form-select" formControlName="role" aria-label="Default select example" required>
@@ -30,7 +30,10 @@
             </label>
                     </div>
                 </div>
-
+                <div class="mb-3 col-3 form-group">
+                    <label for="collegiate_num" class="form-label">Password</label>
+                    <input type="text" class="form-control" formControlName="password">
+                </div>
             </div>
             <div class="row mb-3">
                 <div class="mb-3 col-4 form-group">

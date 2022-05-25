@@ -56,7 +56,8 @@ export class EditWorkersComponent implements OnInit {
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
-      role: ['', [Validators.required]]
+      role: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -76,6 +77,7 @@ export class EditWorkersComponent implements OnInit {
     this.userDetails.controls['city'].setValue(this.user.city);
     this.userDetails.controls['postal_code'].setValue(this.user.postal_code);
     this.userDetails.controls['role'].setValue(this.user.role);
+    this.userDetails.controls['password'].setValue(this.user.password);
   }
 
   getData() {
@@ -144,7 +146,7 @@ export class EditWorkersComponent implements OnInit {
       "id": this.userDetails.value.id,
       "first_name": this.userDetails.value.first_name,
       "last_name": this.userDetails.value.last_name,
-      "password": null,
+      "password": this.user.password,
       "dni": this.userDetails.value.dni,
       "email": this.userDetails.value.email,
       "phone": this.userDetails.value.phone,

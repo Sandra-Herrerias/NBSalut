@@ -47,7 +47,8 @@ export class RegisterWorkerComponent implements OnInit {
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
-      role: ['', [Validators.required]]
+      role: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
 
     //Get current date in order to insert it into the field ("Fecha de registro")
@@ -118,7 +119,7 @@ export class RegisterWorkerComponent implements OnInit {
       "id": this.userDetails.value.id,
       "first_name": this.userDetails.value.first_name,
       "last_name": this.userDetails.value.last_name,
-      "password": null,
+      "password": this.userDetails.value.password,
       "dni": this.userDetails.value.dni,
       "email": this.userDetails.value.email,
       "phone": this.userDetails.value.phone,

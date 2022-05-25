@@ -85,27 +85,3 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Desactivar paciente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Se procederá a marcar <strong> facturas</strong> como facturas. ¿Confirmar operación? -->
-                ¿Está segura de desactivar a <strong>{{ patientSelected.first_name }}
-          {{ patientSelected.last_name }}</strong>?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancelar
-        </button>
-                <button type="button" class="btn btn-primary" (click)="saveSomeThing()">
-          Confirmar
-        </button>
-            </div>
-        </div>
-    </div>
-</div>

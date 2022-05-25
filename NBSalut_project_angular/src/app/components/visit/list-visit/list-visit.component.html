@@ -19,47 +19,56 @@
             <div class="col-sm-12 col-md-2"></div>
             <div class="col-sm-12 col-md-6">
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Buscar</label>
-                    <div class="col-sm-10">
-                        <input type="text" placeholder="Nombre, apellido" class="form-control" [(ngModel)]="inputSearch" (ngModelChange)="search()">
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <label for="inputDate" class="input-group-text">Filtrar por fecha</label>
+
+                            <input type="date" placeholder="Fecha de visita" class="form-control" [(ngModel)]="inputSearchDate" (ngModelChange)="search()">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <label for="inputnameSurname" class="input-group-text">Buscar</label>
+
+                            <input type="text" placeholder="Nombre, apellido" class="form-control" [(ngModel)]="inputSearch" (ngModelChange)="search()">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover align-middle text-center">
-                <thead>
-                    <tr class="nb text-white text-uppercase align-middle">
-                        <th scope="col">FECHA</th>
-                        <th scope="col">PROFESIONAL</th>
-                        <th scope="col">PACIENTE</th>
-                        <th scope="col">DIABÉTICA</th>
-                        <th scope="col">HOJA SEGURIDAD SOCIAL</th>
-                        <th scope="col">TRATAMIENTO</th>
-                        <th scope="col">OBSERVACIONES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let visit of listVisits  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
-                        <td>{{visit.visit_date | date:'dd/MM/yyyy'}}</td>
-                        <td>{{visit.specialist_name}} {{visit.specialist_lastname}}</td>
-                        <td>{{visit.first_name}} {{visit.last_name}} </td>
-                        <td>
-                            <span class="badge rounded-pill" [ngClass]="visit.diabetic ? 'bg-success' : 'bg-danger'">
-                {{ visit.diabetic ? "Sí" : "No" }}
-              </span>
-                        </td>
-                        <td><span class="badge rounded-pill" [ngClass]="visit.ss_CIP ? 'bg-success' : 'bg-danger'">
-                {{ visit.ss_CIP? "Sí" : "No" }}
-              </span></td>
-                        <td>{{visit.name}}</td>
-                        <td>{{visit.visit_description}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="d-flex justify-content-end">
-                <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover align-middle text-center">
+                    <thead>
+                        <tr class="nb text-white text-uppercase align-middle">
+                            <th scope="col">FECHA</th>
+                            <th scope="col">PROFESIONAL</th>
+                            <th scope="col">PACIENTE</th>
+                            <th scope="col">DIABÉTICA</th>
+                            <th scope="col">HOJA SEGURIDAD SOCIAL</th>
+                            <th scope="col">TRATAMIENTO</th>
+                            <th scope="col">OBSERVACIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let visit of filteredListVisits  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
+                            <td>{{visit.visit_date | date:'dd/MM/yyyy'}}</td>
+                            <td>{{visit.specialist_name}} {{visit.specialist_lastname}}</td>
+                            <td>{{visit.first_name}} {{visit.last_name}} </td>
+                            <td>
+                                <span class="badge rounded-pill" [ngClass]="visit.diabetic ? 'bg-success' : 'bg-danger'">
+                  {{ visit.diabetic ? "Sí" : "No" }}
+                </span>
+                            </td>
+                            <td><span class="badge rounded-pill" [ngClass]="visit.ss_CIP != '' ? 'bg-success' : 'bg-danger'">
+                  {{ visit.ss_CIP != "" ? "Sí" : "No" }}
+                </span></td>
+                            <td>{{visit.name}}</td>
+                            <td>{{visit.visit_description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end">
+                    <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+                </div>
             </div>
         </div>
     </div>
-</div>

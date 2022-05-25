@@ -10,10 +10,9 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 })
 export class ListVisitComponent implements OnInit {
   listVisits: any | [] = [];
-  params: { input: string; startDate: string; endDate: string; sent: string } =
-  { input: "", startDate: "", endDate: "", sent: "" };
-  message = '';
+  filteredListVisits: any | [] = [];
   inputSearch: string = '';
+  inputSearchDate: string = '';
   ipp: number;
   cp: number;
   treatment: any;
@@ -26,18 +25,19 @@ export class ListVisitComponent implements OnInit {
     this.cp = 1;
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     this.loadVisits();
   }
-  
+
 
   /**
   * Load data visit from the database
   */
-  loadVisits(){
+  loadVisits() {
     this.communicator.getVisitsList().subscribe(
       (result: any) => {
         this.listVisits = result;
+        this.filteredListVisits = this.listVisits;
       }
     );
     return this.communicator.getVisitsList().toPromise();
@@ -48,21 +48,48 @@ export class ListVisitComponent implements OnInit {
   /**
    * Searchs quarterly report component
    */
-   search(): void {
-    if (!this.inputSearch) {
-      this.ngOnInit();
-    } else {
-      this.listVisits = this.listVisits.filter((res: any) => {
+  search(): void {
+    if (!this.inputSearch && !this.inputSearchDate) {
+      this.filteredListVisits = this.listVisits;
+    } else if(this.inputSearch && !this.inputSearchDate){
+      this.filteredListVisits = this.listVisits.filter((res: any) => {
         return (
           res.first_name
             .toLocaleLowerCase()
             .includes(this.inputSearch.toLocaleLowerCase()) ||
           res.last_name
             .toLocaleLowerCase()
-            .includes(this.inputSearch.toLocaleLowerCase()) 
+            .includes(this.inputSearch.toLocaleLowerCase())
+        );
+      });
+      this.cp = 1;
+    } else if(!this.inputSearch && this.inputSearchDate){
+      this.filteredListVisits = this.listVisits.filter((res: any) => {
+        console.log(this.inputSearchDate);
+        return (
+          res.visit_date
+            .includes(this.inputSearchDate)
+            
+        );
+      });
+      this.cp = 1;
+    }else if(this.inputSearch && this.inputSearchDate){
+      this.filteredListVisits = this.listVisits.filter((res: any) => {
+        return (
+          (res.first_name
+            .toLocaleLowerCase()
+            .includes(this.inputSearch.toLocaleLowerCase()) ||
+          res.last_name
+            .toLocaleLowerCase()
+            .includes(this.inputSearch.toLocaleLowerCase())) &&
+          res.visit_date
+            .includes(this.inputSearchDate)
         );
       });
       this.cp = 1;
     }
   }
 }
+
+
+
