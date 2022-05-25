@@ -20,20 +20,23 @@ export class GuardGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const user = this.http.usuariData();
 
+
+    console.log( route.url[0].path )
+
     if (user) {
-      // if (user.role == 'specialist'
-      //   && route.component == '/listworkers'
-      //   || route.component == '/editworker'
-      //   || route.component == '/regspecialist') {
-      //   return false;
-      // } else {
-      //   return true;
-      // }
-      console.log("con sesion")
-      return true;
+      if (user._role == 'specialist'
+        && route.url[0].path == 'listworkers'
+        || route.url[0].path == 'editworker'
+        || route.url[0].path == 'regspecialist') {
+        return this.route.navigate(['/login']).then(() => false);
+      } else {
+        return true;
+      }
+      // console.log("con sesion")
+      // return true;
     }
     console.log("sin sesion")
-    return false;
+    return this.route.navigate(['/login']).then(() => false);
   }
 
 }
