@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let visit of listVisits  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
-                        <td>{{visit.visit_date}}</td>
+                        <td>{{visit.visit_date | date:'dd/MM/yyyy'}}</td>
                         <td>{{visit.specialist_name}} {{visit.specialist_lastname}}</td>
                         <td>{{visit.first_name}} {{visit.last_name}} </td>
                         <td>
