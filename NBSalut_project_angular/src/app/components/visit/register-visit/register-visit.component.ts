@@ -29,7 +29,7 @@ export class RegisterVisitComponent implements OnInit {
 
   genInvoice: any;
 
-  fileName: string = '';
+  selectedFiles: FileList[] = [];
 
   patientExist: boolean;
   visitPatient: any;
@@ -135,8 +135,6 @@ export class RegisterVisitComponent implements OnInit {
   //#endregion
 
 
-
-
   //#region Loading Functions
 
 
@@ -219,27 +217,12 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Files Functions
 
-  onFileChange(event: any) {
-
-    //   if (event.target.value) {
-    //     const file = event.target.files[0];
-    //     const type = file.type;
-    //     this.changeFile(file).then((base64: string): any => {
-    //         console.log(base64);
-    //         this.fileBlob = this.b64Blob([base64], type);
-    //         console.log(this.fileBlob)
-    //     });
-    // } else alert('Nothing')
+  selectFiles(e: any) {
+    console.log(e.target.files);
+    this.selectFiles = e.target.files;
   }
 
-  changeFile(file: File) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    });
-  }
+  
 
 
   //#endregion
@@ -366,10 +349,11 @@ export class RegisterVisitComponent implements OnInit {
    * Submit the visit and adds to the DDBB
    */
   addVisit() {
+    console.log("Ficheros...");
+    console.log(this.selectFiles);
 
     if (this.registerVisitForm.value.treat) {
       this.actualVisit = {
-        num: this.registerVisitForm.value.numHis,
         dni: this.registerVisitForm.value.dni,
         name: this.registerVisitForm.value.name,
         surname: this.registerVisitForm.value.surnames,
@@ -377,12 +361,12 @@ export class RegisterVisitComponent implements OnInit {
         treat: this.registerVisitForm.value.treat,
         description: this.registerVisitForm.value.desc || "No hay descripción",
         user_id: this.visitPatientId,
-        file: this.registerVisitForm.value.file,
         facturate: this.registerVisitForm.value.facturation,
-        pay_type: "tarjeta"
+        pay_type: "tarjeta",
+        file: this.selectFiles
       };
 
-      this.communicator.registerVisit(this.actualVisit).subscribe(
+      this.communicator.registerVisit(this.actualVisit, this.selectFiles).subscribe(
         (result: any) => {
           console.log("Recibiendo objeto visita...");
 

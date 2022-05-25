@@ -336,7 +336,7 @@ export class CommunicatorService {
    * Register visit in the DDBB
    * @returns the visit inserted & a response with a success variable.
    */
-  registerVisit(visit: any) {
+  registerVisit(visit: any, files: any) {
     return this.http.post("http://127.0.0.1:8000/api/insertVisit",
       visit,
       {

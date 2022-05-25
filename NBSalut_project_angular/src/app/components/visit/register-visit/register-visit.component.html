@@ -170,7 +170,7 @@
                <div class="mb-3 col-8">
                   <label class="form-label fw-bold">Documento adjunto</label>
                   <input class="form-control" type="file" id="file" formControlName="file" accept="image/*"
-                  onchange="console.log(event.target.files)" multiple>
+                  (change)="selectFiles($event)" multiple>
                   
                </div>
             </div>
