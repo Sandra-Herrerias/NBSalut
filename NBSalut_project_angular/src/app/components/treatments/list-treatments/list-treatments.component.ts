@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TreatmentClass } from 'src/app/models/treatment-class.model';
 import { CommunicatorService } from 'src/app/services/communicator.service';
 
@@ -39,7 +40,7 @@ export class ListTreatmentsComponent implements OnInit {
   })
 
 
-  constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
+  constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router, private toastr: ToastrService) {
     this.ipp = 10;
     this.cp = 1;
   }
@@ -110,12 +111,18 @@ export class ListTreatmentsComponent implements OnInit {
         
         if (result.success) {
           //console.log(result)
-          this.messageG = "Estado modificado correctamente";
-          this.messageB = "";
+          this.toastr.success('Estado modificado correctamente','', {
+            enableHtml: true,
+          });
+          // this.messageG = "Estado modificado correctamente";
+          // this.messageB = "";
         } else {
           //console.log(result)
-          this.messageB = "El estado no se ha podido modificar!";
-          this.messageG = "";
+          this.toastr.error('El estado no se ha podido modificar!','', {
+            enableHtml: true,   
+          });
+          // this.messageB = "El estado no se ha podido modificar!";
+          // this.messageG = "";
         }
       }
     );
