@@ -6,6 +6,7 @@ import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { VisitClass } from 'src/app/models/visit-class.model';
+import { ServiceUserService } from 'src/app/services/service-user.service';
 
 @Component({
   selector: 'app-register-visit',
@@ -35,6 +36,8 @@ export class RegisterVisitComponent implements OnInit {
   fileBlob: File | null = null;
 
   message: string | undefined;
+
+  //user: User = new User();
 
   //#endregion
 
@@ -104,20 +107,34 @@ export class RegisterVisitComponent implements OnInit {
 
   // Constructor & ngOnInit
 
-  constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
+  constructor(private formBuilder: FormBuilder,
+    private communicator: CommunicatorService,
+    private route: Router,
+    private serviceUser: ServiceUserService) {
     this.patientExist = false;
     this.visitPatientId = -1;
   }
 
   ngOnInit(): void {
+    this.getData();
+
+    //if (this.visitPatient != null) {
+      /*this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
+      this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
+      this.registerVisitForm.get('id')?.setValue(this.visitPatient.id);
+      this.registerVisitForm.get('dni')?.setValue(this.visitPatient.dni);
+      */
+      //this.checkPatientDni();
+    //}
     this.loadValidTreatments();
     this.loadTreatmentsSelect();
-
     //console.log(this.listTreatments);
     //console.log(this.listVisits);
   }
 
   //#endregion
+
+
 
 
   //#region Loading Functions
@@ -162,6 +179,20 @@ export class RegisterVisitComponent implements OnInit {
       unSelectAllText: "Deseleccionar todos",
       noDataAvailablePlaceholderText: "No hay tratamientos"
     }
+  }
+
+  getData() {
+    this.serviceUser.data.subscribe(response => {
+      var visitPatient = response;
+      console.log(visitPatient);
+      console.log(response);
+      if (visitPatient.id != null) {
+        this.checkTypeForm.value.value = "dni";
+        this.validatePatientFormDni.value.dni = visitPatient.dni;
+        this.checkPatientDni();
+        //this.patientExist = true;
+      }
+    });
   }
 
   //#endregion

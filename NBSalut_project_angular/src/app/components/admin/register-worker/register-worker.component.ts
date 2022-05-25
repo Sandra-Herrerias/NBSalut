@@ -136,12 +136,11 @@ export class RegisterWorkerComponent implements OnInit {
 
     console.log(this.userDetails.value.diabetic);
     if (this.userDetails.valid) {
-      this.communicator.addPatient(info).subscribe(
+      this.communicator.addWorker(info).subscribe(
         (result: any) => {
           if (result.success) {//success message
 
-            //this.dataPatient.push(info);
-            alert("Paciente insertado correctamente");
+            alert("Especialista insertado correctamente");
             //clear form
             this.userDetails.reset();
             //sets register_date
@@ -149,7 +148,7 @@ export class RegisterWorkerComponent implements OnInit {
               register_date: this.todayFormatRegDate
             });
           } else {//error message
-            alert("El paciente no se ha podido añadir");
+            alert("El especialista no se ha podido añadir");
           }
         }
       );
