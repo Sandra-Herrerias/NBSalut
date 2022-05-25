@@ -142,7 +142,8 @@ export class ListPatientsComponent implements OnInit {
 
   showpatientVisits(patient: User) {
     this.patientSelected = patient;
-    this.router.navigate(['/editpatient', { patient: this.patientSelected }]);
+    this.router.navigate(['/regvisit', { patient: this.patientSelected.id }]);
+    this.sendNewData(this.patientSelected);
   }
 
   openFormModal(patient: any) {

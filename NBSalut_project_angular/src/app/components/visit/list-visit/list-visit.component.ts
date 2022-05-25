@@ -10,7 +10,8 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 })
 export class ListVisitComponent implements OnInit {
   listVisits: any | [] = [];
-  visits: any;
+  params: { input: string; startDate: string; endDate: string; sent: string } =
+  { input: "", startDate: "", endDate: "", sent: "" };
   message = '';
   inputSearch: string = '';
   ipp: number;
