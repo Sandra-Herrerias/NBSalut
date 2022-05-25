@@ -35,10 +35,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log({
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
-    })
+    // console.log({
+    //   email: this.loginForm.value.email,
+    //   password: this.loginForm.value.password
+    // })
     this.communicatorService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password

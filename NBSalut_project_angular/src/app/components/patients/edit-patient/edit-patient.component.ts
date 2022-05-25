@@ -165,9 +165,9 @@ export class EditPatientComponent implements OnInit {
       "role": this.user.role,
       "register_date": this.userDetails.value.register_date
     }
-    console.log("DATA NEW PATIENT");
-    console.log(info);
-    console.log(this.user);
+    // console.log("DATA NEW PATIENT");
+    // console.log(info);
+    // console.log(this.user);
 
     // console.log(info);
     if (this.userDetails) {

@@ -160,7 +160,7 @@ export class EditWorkersComponent implements OnInit {
       this.communicator.modifyDataUser(info).subscribe(
         (result: any) => {
           // let res = JSON.parse(JSON.stringify(result));
-          console.log(result);
+          // console.log(result);
           if (result.success) { //success message
             alert("Usuario modificado correctamente");
             //Emits father that modify form will be hidden

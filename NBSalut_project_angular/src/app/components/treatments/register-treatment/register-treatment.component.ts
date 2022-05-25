@@ -43,7 +43,7 @@ export class RegisterTreatmentComponent implements OnInit {
 
     this.communicator.addTreatment(this.actualTreat).subscribe(
       (result: any) => {
-        console.log("Recibiendo de vuelta objeto tratamiento...");
+        // console.log("Recibiendo de vuelta objeto tratamiento...");
 
         if (result.success) { //success message
           this.toastr.success('Tratamiento añadido correctamente','', {
@@ -53,7 +53,7 @@ export class RegisterTreatmentComponent implements OnInit {
           // this.messageB = "";
         } else { //error message
           this.toastr.error('El tratamiento no se ha podido añadir!','', {
-            enableHtml: true,   
+            enableHtml: true,
           });
           // this.messageB = "El tratamiento no se ha podido añadir!";
           // this.messageG = "";
