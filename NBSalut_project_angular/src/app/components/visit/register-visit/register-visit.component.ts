@@ -23,7 +23,7 @@ export class RegisterVisitComponent implements OnInit {
   selectTreatmentsOptions: IDropdownSettings = {};
   tFound: any;
 
-  listVisits: VisitClass[] = [];
+  listVisits: any[] = [];
   actualVisit: any;
 
   genInvoice: any;
@@ -125,13 +125,19 @@ export class RegisterVisitComponent implements OnInit {
   // Loading elements functions
 
   loadVisits(patient: any) {
-    this.communicator.getVisitsPatient(patient).subscribe((data: any) => {
-      data.forEach((t: any) => {
-        // if(this.visitPatientId == t.user_id) {
-          this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.dni, t.visit_date, t.user_id, t.visit_description, t.specialist));
-        //}
-      })
-    })
+    // this.communicator.getVisitsPatient(patient).subscribe((data: any) => {
+    //   data.forEach((t: any) => {
+    //     // if(this.visitPatientId == t.user_id) {
+    //       this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.dni, t.visit_date, t.user_id, t.visit_description, t.specialist));
+    //     //}
+    //   })
+    // })
+    this.communicator.getVisitsPatient(patient).subscribe(
+      (result: any) => {
+        this.listVisits = result;
+      }
+    );
+    return this.communicator.getVisitsList().toPromise();
   }
 
   loadValidTreatments() {

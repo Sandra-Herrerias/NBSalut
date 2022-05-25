@@ -251,22 +251,16 @@
          <table class="table table-striped">
             <thead>
                <tr>
-                  <!-- <th>ID</th> -->
-                  <!-- <th>Paciente</th> -->
                   <th class="text-center">Fecha de visita</th>
-                  <!-- <th>Precio</th> -->
                   <th>Descripción de la visita </th>
                   <th>Especialista</th>
                </tr>
             </thead>
             <tbody>
                <tr *ngFor="let visit of listVisits">
-                  <!-- <td>{{visit.id}}</td> -->
-                  <!-- <td>{{visit.patient}}</td> -->
                   <td class="text-center">{{visit.visit_date}}</td>
-                  <!-- <td>{{visit.price}}</td> -->
-                  <td>{{visit.description}}</td>
-                  <td>{{visit.specialist_name}}</td>
+                  <td>{{visit.visit_description}}</td>
+                  <td>{{visit.specialist_name}} {{visit.specialist_lastname}}</td>
                </tr>
             </tbody>
          </table>

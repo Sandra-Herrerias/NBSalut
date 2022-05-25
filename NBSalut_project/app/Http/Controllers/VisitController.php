@@ -28,7 +28,7 @@ class VisitController extends Controller
         //     ->get();
 
         return DB::select(DB::raw("select `visits`.`id`, `visits`.`visit_date`,
-            `visits`.`visit_description`, `visits`.`user_id`, `visits`.`specialist`,
+            `visits`.`visit_description`, `visits`.`user_id`,
             `users`.`first_name`, `users`.`last_name`, `users`.`dni`,
             `users`.`diabetic`, `uses`.`treatment_id`,
             `uses`.`user_id`, `treatments`.`name`,
