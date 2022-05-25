@@ -1,15 +1,35 @@
-<div class="card">
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/home']">Inicio</a></li>
+                    <li class="breadcrumb-item active">Listar Especialistas</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="card">
     <div class="card-header">Lista de especialistas</div>
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-12 col-md-4"></div>
-            <div class="col-sm-12 col-md-4"></div>
             <div class="col-sm-12 col-md-4">
+                <a class="link-success nb-color-primary" [routerLink]="['/regspecialist']">
+                    <button class="btn"><i class="fa-solid fa-heart-circle-plus"></i> Añadir</button>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-2"></div>
+            <div class="col-sm-12 col-md-6">
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Buscar</label>
-                    <div class="col-sm-10">
-                        <input type="text" placeholder="Nombre, apellido o DNI" class="form-control" [(ngModel)]="inputSearch" (ngModelChange)="search()">
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Buscar</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="Nombre, apellido o DNI" class="form-control" [(ngModel)]="inputSearch" (ngModelChange)="search()">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,7 +48,7 @@
                         <th scope="col">FECHA REGISTRO</th>
                         <th scope="col">ESTADO</th>
                         <th scope="col">MODIFICAR</th>
-                        <th scope="col">ELIMINAR</th>
+                        <th scope="col">CAMBIAR ESTADO</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,13 +64,16 @@
                         <td>{{worker.register_date | date: 'dd/MM/yyyy'}}</td>
                         <td>
                             <span class="badge rounded-pill" [ngClass]="worker.active ? 'bg-success' : 'bg-danger'">
-                {{ worker.active ? "Activo" : "Inactivo" }}
-              </span>
+            {{ worker.active ? "Activo" : "Inactivo" }}
+          </span>
                         </td>
                         <td><button class=" btn" (click)="showFormModifyWorker(worker)"><i class="bi bi-pencil-fill"></i></button>
                         </td>
-                        <td><button class="btn" (click)="confirmDeactivate(worker)"><i class="bi bi-trash-fill"></i></button>
+                        <td> <button class="btn rotation" (click)="confirmDeactivate(worker)"><i
+              class="fa-solid fa-rotate"></i></button>
                         </td>
+
+
                     </tr>
                 </tbody>
             </table>
