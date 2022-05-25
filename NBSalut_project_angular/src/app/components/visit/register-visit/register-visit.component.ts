@@ -28,6 +28,8 @@ export class RegisterVisitComponent implements OnInit {
 
   genInvoice: any;
 
+  fileName: string = '';
+
   patientExist: boolean;
   visitPatient: any;
   visitPatientId: number;
@@ -102,8 +104,6 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Initialize Section
 
-  // Constructor & ngOnInit
-
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
     this.patientExist = false;
     this.visitPatientId = -1;
@@ -122,16 +122,13 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Loading Functions
 
-  // Loading elements functions
 
+  /**
+   * Get the patients given visit list
+   * @param patient The patient to get his visits
+   * @returns a list of visits
+   */
   loadVisits(patient: any) {
-    // this.communicator.getVisitsPatient(patient).subscribe((data: any) => {
-    //   data.forEach((t: any) => {
-    //     // if(this.visitPatientId == t.user_id) {
-    //       this.listVisits.push(new VisitClass(t.id, t.first_name + " " + t.last_name, t.dni, t.visit_date, t.user_id, t.visit_description, t.specialist));
-    //     //}
-    //   })
-    // })
     this.communicator.getVisitsPatient(patient).subscribe(
       (result: any) => {
         this.listVisits = result;
@@ -140,6 +137,9 @@ export class RegisterVisitComponent implements OnInit {
     return this.communicator.getVisitsList().toPromise();
   }
 
+  /**
+   * Load treatments from the DDBB & filter the activated ones.
+   */
   loadValidTreatments() {
     this.communicator.getTreatments().subscribe((data: any) => {
       data.forEach((t: any) => {
@@ -169,34 +169,24 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Testing
 
-  // Testing functions
 
-  // Multi select testing
+  // Functions to test the multiselect treatment
   onItemSelect() {
-    console.log(this.registerVisitForm.value.treat);
+    //console.log(this.registerVisitForm.value.treat);
   }
   onSelectAll() {
-    console.log(this.registerVisitForm.value.treat);
+    //console.log(this.registerVisitForm.value.treat);
   }
 
-  //#endregion
-
-
-  //#region Facturation Checkbox
-
-  // Facturation checkbox
-
+  // Function to test the checkbox
   checked() {
-    console.log(this.registerVisitForm.value.facturation);
-
+    //console.log(this.registerVisitForm.value.facturation);
   }
 
   //#endregion
 
 
   //#region Files Functions
-
-  // Inputs functions
 
   onFileChange(event: any) {
 
@@ -220,12 +210,12 @@ export class RegisterVisitComponent implements OnInit {
     });
   }
 
+
   //#endregion
 
 
   //#region Checking Patient Functions
 
-  // Checking if patient exists functions
 
   /**
    * Check if the user with the DNI given exists in the DDBB
@@ -248,7 +238,7 @@ export class RegisterVisitComponent implements OnInit {
 
 
         this.loadVisits(res.user);
-        console.log(this.listVisits);
+        //console.log(this.listVisits);
 
 
       } else {
@@ -274,7 +264,8 @@ export class RegisterVisitComponent implements OnInit {
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
-        this.registerVisitForm.get('numHis')?.setValue(res.user.num_clinical_log);
+        this.registerVisitForm.get('id')?.setValue(res.user.id);
+        this.registerVisitForm.get('dni')?.setValue(res.user.dni);
 
         this.loadVisits(res.user);
         //console.log(this.listVisits);
@@ -290,6 +281,10 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Validations
 
+  /**
+   * Validates the DNI format of a DNi given
+   * @returns true if the DNi its valid, false otherwise
+   */
   createDniValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
 
@@ -353,7 +348,7 @@ export class RegisterVisitComponent implements OnInit {
         user_id: this.visitPatientId,
         file: this.registerVisitForm.value.file,
         facturate: this.registerVisitForm.value.facturation,
-        pay_type: "Tajeta"
+        pay_type: "tarjeta"
       };
 
       this.communicator.registerVisit(this.actualVisit).subscribe(
@@ -370,56 +365,7 @@ export class RegisterVisitComponent implements OnInit {
         }
       );
     }
-
-    // console.log(this.registerVisitForm.value.fileSource);
-
-    // if (this.registerVisitForm.value.treat) {
-    //   // Visita y/o factura por tratamiento.
-    //   this.registerVisitForm.value.treat.forEach((t: any) => {
-
-    //     // Buscar tratamiento por ID
-    //     console.log("Buscando tratamiento por ID...");
-    //     this.tFound = this.listTreatments.find(e => e.id === t.id);
-    //     console.log(this.tFound + " <- treat");
-
-    //     // Creando objeto visita
-    //     console.log("Creando objeto visita...");
-    //     this.actualVisit = {
-    //       num: this.registerVisitForm.value.numHis,
-    //       dni: this.registerVisitForm.value.dni,
-    //       name: this.registerVisitForm.value.name,
-    //       surname: this.registerVisitForm.value.surnames,
-    //       date: this.registerVisitForm.value.date,
-    //       treat: t.id,
-    //       price: this.tFound.price,
-    //       description: this.registerVisitForm.value.desc || "No hay descripción",
-    //       user_id: this.visitPatientId,
-    //       file: this.registerVisitForm.value.file,
-    //       facturate: this.registerVisitForm.value.facturation,
-    //       pay_type: "Tajeta"
-    //     };
-
-
-    //     // Enviar objeto visita a servidor
-    //     console.log("Enviando objeto visita...");
-    //     this.communicator.registerVisit(this.actualVisit).subscribe(
-    //       (result: any) => {
-    //         console.log("Recibiendo objeto visita...");
-
-    //         if (result.success) { //success message
-    //           console.log("Visita insertado correctamente");
-    //           console.log(result)
-    //         } else { //error message
-    //           console.log("La visita no se ha podido añadir!");
-    //           console.log(result)
-    //         }
-    //       }
-    //     );
-    // });
   }
-
-
-
 
 
   //#endregion
