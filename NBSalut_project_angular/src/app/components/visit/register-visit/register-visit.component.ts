@@ -46,7 +46,6 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Formbuilder Forms
 
-  // Form builder
 
   public checkTypeForm = this.formBuilder.group({
     checkType: [
@@ -107,7 +106,6 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Initialize Section
 
-  // Constructor & ngOnInit
 
   constructor(private formBuilder: FormBuilder,
     private communicator: CommunicatorService,
