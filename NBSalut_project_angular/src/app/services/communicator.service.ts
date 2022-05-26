@@ -247,7 +247,7 @@ export class CommunicatorService {
   }
 
   /**
-* Method to add a new worker in the DDBB
+* Method to adds a new worker in the DDBB
 * @param info data to add in the DDBB
 * @returns worker data
 */
@@ -291,9 +291,9 @@ export class CommunicatorService {
 
 
   /**
-* Service POST
+* Service DELETE. Function that deletes a user from the database. 
 * @param info
-* @returns
+* @returns response
 */
   delete(info: any) {
     console.log(info);
@@ -312,7 +312,7 @@ export class CommunicatorService {
 
 
   /**
-  *
+  *Function that gets a patient's visit
   * @returns a list of visits of the patient given from the DDBB
   */
   getVisitsPatient(patient: any) {
@@ -327,7 +327,7 @@ export class CommunicatorService {
   }
 
   /**
-  *
+  *Function that gets all visits from the database
   * @returns a list of visits from the DDBB
   */
   getVisits() {
@@ -364,6 +364,36 @@ export class CommunicatorService {
         responseType: "json"
       });
   }
+
+  /**
+* Service DELETE. Function that deletes a visit from de database
+* @param info
+* @returns response
+*/
+  delVisit(info: any) {
+    return this.http.delete("http://localhost:8000/api/delVisit",
+      {
+        responseType: "json",
+        body: info
+      });
+  }
+
+  uploadFile(file: File, visit_id: number) {
+    const formData: FormData = new FormData();
+
+    formData.append('image', file);
+
+    return this.http.post("http://localhost:8000/api/upload", formData,
+    // return this.http.post("http://localhost:8000/api/upload", 
+    // {
+    //   image: formData
+    // },
+      {
+        responseType: "json"
+      });
+  }
+
+
 
   //#endregion
 

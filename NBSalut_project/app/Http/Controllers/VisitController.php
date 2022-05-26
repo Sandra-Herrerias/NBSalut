@@ -67,14 +67,6 @@ class VisitController extends Controller
 
     public function insertVisit(Request $request)
     {
-        // $url = Storage::url('/home/david/Imágenes/Wallpapers/Anime/yor.jpg');
-        //$file = Storage::disk('public')->get($request->image);
-
-        // if($request->hasFile('image'))
-        // $completeFileName = $request->file('image');
-        // $destinationPath = 'public/';
-
-
         //return $request;
 
         $validator = Validator::make($request->all(), [
@@ -168,7 +160,7 @@ class VisitController extends Controller
                     }
                 }
 
-                return response()->json(['success' => true, 'visit' => $tFound]);
+                return response()->json(['success' => true, 'visit_id' => $visit->id]);
             }
         }
     }
@@ -206,6 +198,29 @@ class VisitController extends Controller
     }
 
     public function upload(Request $request) {
-        return $request;
+        //return $request;
+        $request->validate([
+            'image' => 'image|max:4096'
+        ]);
+
+        $input = $request->all();
+
+        if($image = $request->file('image')) {
+            $destinationPath = 'public/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+            $input['visit_id'] = 99;
+        }
+
+        Attached::create($input);
+
+        return response()->json(['success' => $input]);
+    }
+
+    public function delVisit(Request $request) {
+        $result = Visit::destroy($request->id);
+
+        return response()->json(['success' => $result]);
     }
 }

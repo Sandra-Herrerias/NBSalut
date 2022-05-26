@@ -12,6 +12,8 @@ class Attached extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['image'];
+
      /**
      * Get the visit that belongs to the attached.
      */

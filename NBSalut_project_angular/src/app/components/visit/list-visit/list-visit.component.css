@@ -9,3 +9,7 @@ table {
     border-radius: 0.5em;
     overflow: hidden;
 }
+
+.custom-pagination ::ng-deep .ngx-pagination .current {
+    background: rgb(36, 157, 171);
+}

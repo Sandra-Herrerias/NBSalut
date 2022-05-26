@@ -115,14 +115,11 @@ export class RegisterPatientComponent implements OnInit {
         letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
         letra = letra.substring(numero, numero + 1);
         if (letra != letr.toUpperCase()) {
-          //alert('Dni erroneo, la letra del NIF no se corresponde');
           dniValid = false;
         } else {
-          //alert('Dni correcto');
           dniValid = true;
         }
       } else {
-        //alert('Dni erroneo, formato no válido');
         dniValid = false;
       }
       return !dniValid ? { correctDni: true } : null;
@@ -166,9 +163,9 @@ export class RegisterPatientComponent implements OnInit {
             this.userDetails.reset();
             //sets num_clinical_log value and register_date
             this.userDetails.patchValue({
-              num_clinical_log: this.newClinicalNum,
               register_date: this.todayFormatRegDate
             });
+            this.getNumClinicalLog();
           } else {//error message
             alert("El paciente no se ha podido añadir " + result.message);
           }

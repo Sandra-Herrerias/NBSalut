@@ -6,7 +6,6 @@ import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { ServiceUserService } from 'src/app/services/service-user.service';
-import { FileUploadService } from 'src/app/services/file-upload.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -31,7 +30,7 @@ export class RegisterVisitComponent implements OnInit {
 
   genInvoice: any;
 
-  selectedFiles?: FileList;
+  selectedFiles!: FileList;
   currentFile?: File;
   progress = 0;
   fileInfos?: Observable<any>;
@@ -40,7 +39,9 @@ export class RegisterVisitComponent implements OnInit {
   visitPatient: any;
   visitPatientId: number;
 
-  fileBlob: File | null = null;
+  // Pagination
+  ipp: number;
+  cp: number;
 
   message: string | undefined;
 
@@ -115,8 +116,9 @@ export class RegisterVisitComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private communicator: CommunicatorService,
     private route: Router,
-    private serviceUser: ServiceUserService,
-    private serviceUpload: FileUploadService) {
+    private serviceUser: ServiceUserService) {
+    this.ipp = 10;
+    this.cp = 1;
     this.patientExist = false;
     this.visitPatientId = -1;
     this.communicator.user.subscribe(
@@ -128,7 +130,6 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fileInfos = this.serviceUpload.getFiles();
 
     //this.getData();
 
@@ -221,40 +222,15 @@ export class RegisterVisitComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
-  upload(): void {
-    this.progress = 0;
+  uploadFile(visit_id: number, file: File | null) {
 
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-
-      if (file) {
-        this.currentFile = file;
-
-        this.serviceUpload.upload(this.currentFile).subscribe({
-          next: (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.progress = Math.round(100 * event.loaded / event.total);
-            } else if (event instanceof HttpResponse) {
-              this.message = event.body.message;
-              this.fileInfos = this.serviceUpload.getFiles();
-            }
-          },
-          error: (err: any) => {
-            console.log(err);
-            this.progress = 0;
-
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Could not upload the file!';
-            }
-
-            this.currentFile = undefined;
-          }
-        });
-      }
-
-      this.selectedFiles = undefined;
+    if (file) {
+      this.currentFile = file;
+      this.communicator.uploadFile(this.currentFile, visit_id).subscribe(
+        (result: any) => {
+          console.log(result)
+        }
+      )
     }
   }
 
@@ -281,7 +257,7 @@ export class RegisterVisitComponent implements OnInit {
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
-        this.registerVisitForm.get('id')?.setValue(this.visitPatientId );
+        this.registerVisitForm.get('id')?.setValue(this.visitPatientId);
         this.registerVisitForm.get('dni')?.setValue(res.user.dni);
 
 
@@ -359,14 +335,11 @@ export class RegisterVisitComponent implements OnInit {
         letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
         letra = letra.substring(numero, numero + 1);
         if (letra != letr.toUpperCase()) {
-          //alert('Dni erroneo, la letra del NIF no se corresponde');
           dniValid = false;
         } else {
-          //alert('Dni correcto');
           dniValid = true;
         }
       } else {
-        //alert('Dni erroneo, formato no válido');
         dniValid = false;
       }
       return !dniValid ? { correctDni: true } : null;
@@ -384,9 +357,10 @@ export class RegisterVisitComponent implements OnInit {
    */
   addVisit() {
 
-    
+
 
     if (this.registerVisitForm.value.treat) {
+
       this.actualVisit = {
         dni: this.registerVisitForm.value.dni,
         name: this.registerVisitForm.value.name,
@@ -399,17 +373,28 @@ export class RegisterVisitComponent implements OnInit {
         pay_type: "tarjeta",
         specialist_id: this.user.id
       };
-    
-
-    //console.log(formData);
 
       this.communicator.registerVisit(this.actualVisit).subscribe(
         (result: any) => {
-          //console.log("Recibiendo objeto visita...");
+          console.log("Recibiendo objeto visita...");
 
           if (result.success) { //success message
             console.log("Visita insertado correctamente");
-            this.upload();
+
+            // Subir ficheros adjuntos
+            if (this.selectedFiles) {
+              var files = this.selectedFiles.length;
+              for (let i = 0; i < files; i++) {
+                console.log("fichero " + i + ":");
+                console.log(this.selectedFiles.item(i))
+
+                let file: File | null = this.selectedFiles.item(i);
+                this.uploadFile(result.visit_id, file);
+
+              }
+            }
+
+
             console.log(result)
           } else { //error message
             console.log("La visita no se ha podido añadir!");

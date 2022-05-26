@@ -10,6 +10,8 @@ import { ServiceUserService } from 'src/app/services/service-user.service';
   styleUrls: ['./listworkers.component.css']
 })
 export class ListworkersComponent implements OnInit {
+
+  //Attributes
   dataWorkers: any[] = [];
   workerSelected !: User;
   ipp: number;
@@ -26,15 +28,18 @@ export class ListworkersComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadWorkers();
-    // console.log(this.loadWorkers());
   }
 
+  /**
+   * Function that sends data between components
+   * @param data 
+   */
   sendNewData(data: User) {
     this.serviceUser.sendData(data);
   }
 
   /**
- * Load data patient from the database
+ * Load data worker from the database
  */
   loadWorkers() {
     this.communicator.getWorkers().subscribe(
@@ -61,7 +66,6 @@ export class ListworkersComponent implements OnInit {
         }
         this.communicator.deactivateUser(info).subscribe(
           (result: any) => {
-            // let res = JSON.parse(JSON.stringify(result));
             if (result.success) { //success message
               alert("Usuario desactivado correctamente");
               this.loadWorkers();
@@ -79,7 +83,6 @@ export class ListworkersComponent implements OnInit {
         }
         this.communicator.deactivateUser(info).subscribe(
           (result: any) => {
-            // let res = JSON.parse(JSON.stringify(result));
             if (result.success) { //success message
               alert("Usuario activado correctamente");
               this.loadWorkers();
@@ -93,7 +96,7 @@ export class ListworkersComponent implements OnInit {
   }
 
   /**
- * This method removes the worker from the list, asking info to the method from the service that removes users.
+ * This method removes the worker from the list in list workers view.
  * @param workerSelected
  */
   deleteWorker(workerSelected: any): void {
@@ -105,33 +108,33 @@ export class ListworkersComponent implements OnInit {
     }
   }
 
-    //////////////////////////////////////////////////////////////UPDATE
+  //////////////////////////////////////////////////////////////UPDATE
 
 
 
   /**
    * This method shows a form to modify the selected worker and loads the worker info.
    */
-   showFormModifyWorker(worker: User) {
+  showFormModifyWorker(worker: User) {
     this.workerSelected = worker;
     this.router.navigate(['/editworker', { worker: this.workerSelected }]);
     this.sendNewData(this.workerSelected);
   };
 
 
-    /**
-   *
-   */
-     search(): void {
-      if (!this.inputSearch) {
-        this.ngOnInit();
-      } else {
-        this.dataWorkers = this.dataWorkers.filter(res => {
-          return res.first_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
-            || res.last_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
-            || res.dni.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase());
-        })
-        this.cp=1;
-      }
+  /**
+ *Method that filters by firstname, lastname and dni
+ */
+  search(): void {
+    if (!this.inputSearch) {
+      this.ngOnInit();
+    } else {
+      this.dataWorkers = this.dataWorkers.filter(res => {
+        return res.first_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+          || res.last_name.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase())
+          || res.dni.toLocaleLowerCase().includes(this.inputSearch.toLocaleLowerCase());
+      })
+      this.cp = 1;
     }
+  }
 }

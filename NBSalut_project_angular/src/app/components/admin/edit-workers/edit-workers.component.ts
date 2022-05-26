@@ -62,6 +62,7 @@ export class EditWorkersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    //Set form values
     this.userDetails.controls['id'].setValue(this.user.id);
     this.userDetails.controls['collegiate_num'].setValue(this.user.collegiate_num);
     this.userDetails.controls['register_date'].setValue(this.datepipe.transform(this.user.register_date, 'yyyy-MM-dd'));
@@ -79,12 +80,18 @@ export class EditWorkersComponent implements OnInit {
     this.userDetails.controls['password'].setValue(this.user.password);
   }
 
+  /**
+   * Function that gets user data
+   */
   getData() {
     this.ServiceUser.data.subscribe(response => {
       this.user = response;
     });
   }
 
+  /**
+   * Function that gets data from form
+   */
   get userDetailsFormControl() {
     return this.userDetails.controls;
   }
@@ -119,14 +126,11 @@ export class EditWorkersComponent implements OnInit {
         letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
         letra = letra.substring(numero, numero + 1);
         if (letra != letr.toUpperCase()) {
-          //alert('Dni erroneo, la letra del NIF no se corresponde');
           dniValid = false;
         } else {
-          //alert('Dni correcto');
           dniValid = true;
         }
       } else {
-        //alert('Dni erroneo, formato no válido');
         dniValid = false;
       }
       return !dniValid ? { correctDni: true } : null;
@@ -135,7 +139,7 @@ export class EditWorkersComponent implements OnInit {
 
 
   /**
-* This method saves the new info to modify the comments and sends it to the method that actually modifies the comments in the service.
+* This method saves the new info to modify the users and sends it to the method that actually modifies the users in the service.
 * Also shows the form to collect the new info.
 */
   emitInfoModifyUser(): void {
@@ -162,8 +166,6 @@ export class EditWorkersComponent implements OnInit {
     if (this.userDetails) {
       this.communicator.modifyDataUser(info).subscribe(
         (result: any) => {
-          // let res = JSON.parse(JSON.stringify(result));
-          // console.log(result);
           if (result.success) { //success message
             alert("Usuario modificado correctamente");
             //Emits father that modify form will be hidden
