@@ -156,7 +156,7 @@ export class RegisterVisitComponent implements OnInit {
         this.listVisits = result;
       }
     );
-    return this.communicator.getVisitsList().toPromise();
+    //return this.communicator.getVisitsList().toPromise();
   }
 
   /**
