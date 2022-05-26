@@ -204,7 +204,7 @@ class VisitController extends Controller
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage); 
             $input['image'] = "$profileImage";
-            $input['visit_id'] = $request['visit_id'];
+            $input['visit_id'] = 99;
         }
 
         Attached::create($input);

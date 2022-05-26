@@ -375,11 +375,11 @@ export class CommunicatorService {
 
     formData.append('image', file);
 
-    // return this.http.post(`http://localhost:8000/api/upload?visit_id=${visit_id}`, formData,
-    return this.http.post("http://localhost:8000/api/upload", {
-      image: formData,
-      visit_id: visit_id
-    },
+    return this.http.post("http://localhost:8000/api/upload", formData,
+    // return this.http.post("http://localhost:8000/api/upload", 
+    // {
+    //   image: formData
+    // },
       {
         responseType: "json"
       });

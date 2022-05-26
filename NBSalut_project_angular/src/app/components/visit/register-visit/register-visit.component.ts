@@ -30,7 +30,7 @@ export class RegisterVisitComponent implements OnInit {
 
   genInvoice: any;
 
-  selectedFiles?: FileList;
+  selectedFiles!: FileList;
   currentFile?: File;
   progress = 0;
   fileInfos?: Observable<any>;
@@ -222,20 +222,17 @@ export class RegisterVisitComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
-  uploadFile(visit_id: number) {
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
+  uploadFile(visit_id: number, file: File | null) {
 
-      if (file) {
-        this.currentFile = file;
-        this.communicator.uploadFile(this.currentFile, visit_id).subscribe(
-          (result: any) => {
-            console.log(result)
-          }
-        )
-  }
-      }
+    if (file) {
+      this.currentFile = file;
+      this.communicator.uploadFile(this.currentFile, visit_id).subscribe(
+        (result: any) => {
+          console.log(result)
+        }
+      )
     }
+  }
 
 
   //#endregion
@@ -383,8 +380,21 @@ export class RegisterVisitComponent implements OnInit {
 
           if (result.success) { //success message
             console.log("Visita insertado correctamente");
-            this.uploadFile(result.visit_id);
-            //this.upload();
+
+            // Subir ficheros adjuntos
+            if (this.selectedFiles) {
+              var files = this.selectedFiles.length;
+              for (let i = 0; i < files; i++) {
+                console.log("fichero " + i + ":");
+                console.log(this.selectedFiles.item(i))
+
+                let file: File | null = this.selectedFiles.item(i);
+                this.uploadFile(result.visit_id, file);
+
+              }
+            }
+
+
             console.log(result)
           } else { //error message
             console.log("La visita no se ha podido añadir!");
