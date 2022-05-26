@@ -24,7 +24,6 @@ export class RegisterWorkerComponent implements OnInit {
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
   regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
-
   listRoles: String[] = ['admin', 'specialist'];
 
   constructor(
@@ -96,21 +95,18 @@ export class RegisterWorkerComponent implements OnInit {
         letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
         letra = letra.substring(numero, numero + 1);
         if (letra != letr.toUpperCase()) {
-          //alert('Dni erroneo, la letra del NIF no se corresponde');
           dniValid = false;
         } else {
-          //alert('Dni correcto');
           dniValid = true;
         }
       } else {
-        //alert('Dni erroneo, formato no válido');
         dniValid = false;
       }
       return !dniValid ? { correctDni: true } : null;
     }
   }
   /**
-     * Function to add the new patient
+     * Function to add the new worker
      */
   addNewWorker() {
     this.submitted = true;
@@ -135,7 +131,6 @@ export class RegisterWorkerComponent implements OnInit {
       "updated_at": this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
 
-    // console.log(this.userDetails.value.diabetic);
     if (this.userDetails.valid) {
       this.communicator.addWorker(info).subscribe(
         (result: any) => {
@@ -149,7 +144,7 @@ export class RegisterWorkerComponent implements OnInit {
               register_date: this.todayFormatRegDate
             });
           } else {//error message
-            alert("El especialista no se ha podido añadir");
+            alert("El especialista no se ha podido añadir "  + result.message);
           }
         }
       );

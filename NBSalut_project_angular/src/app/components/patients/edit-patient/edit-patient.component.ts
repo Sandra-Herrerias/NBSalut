@@ -47,7 +47,6 @@ export class EditPatientComponent implements OnInit {
     //Validations from reactive form
     this.userDetails = this.formBuilder.group({
       id: [''],
-      // num_clinical_log: ['', [Validators.required]],
       register_date: ['', [Validators.required]],
       center_code: ['', [Validators.required]],
       ss_CIP: ['', [Validators.required, Validators.maxLength(14), Validators.pattern(this.regexNumbersCapLetters)]],
@@ -63,14 +62,13 @@ export class EditPatientComponent implements OnInit {
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
       previous_pathologies: ['', [Validators.required]]
-    });    
+    });
   }
 
   ngOnInit(): void {
 
     this.getData();
     this.userDetails.controls['id'].setValue(this.user.id);
-    // this.userDetails.controls['num_clinical_log'].setValue(this.user.num_clinical_log);
     this.userDetails.controls['register_date'].setValue(this.datepipe.transform(this.user.register_date, 'yyyy-MM-dd'));
     this.userDetails.controls['center_code'].setValue(this.user.center_code);
     this.userDetails.controls['ss_CIP'].setValue(this.user.ss_CIP);
@@ -88,12 +86,18 @@ export class EditPatientComponent implements OnInit {
     this.userDetails.controls['previous_pathologies'].setValue(this.user.previous_pathologies);
   }
 
+  /**
+   * Function that gets user data from the service
+   */
   getData() {
     this.serviceUser.data.subscribe(response => {
       this.user = response;
     });
   }
 
+  /**
+   * Gets form data
+   */
   get userDetailsFormControl() {
     return this.userDetails.controls;
   }
@@ -128,14 +132,11 @@ export class EditPatientComponent implements OnInit {
         letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
         letra = letra.substring(numero, numero + 1);
         if (letra != letr.toUpperCase()) {
-          //alert('Dni erroneo, la letra del NIF no se corresponde');
           dniValid = false;
         } else {
-          //alert('Dni correcto');
           dniValid = true;
         }
       } else {
-        //alert('Dni erroneo, formato no válido');
         dniValid = false;
       }
       return !dniValid ? { correctDni: true } : null;
@@ -144,7 +145,7 @@ export class EditPatientComponent implements OnInit {
 
 
   /**
-* This method saves the new info to modify the comments and sends it to the method that actually modifies the comments in the service.
+* This method saves the new info to modify the users and sends it to the method that actually modifies the users in the service.
 * Also shows the form to collect the new info.
 */
   emitInfoModifyUser(): void {
@@ -167,19 +168,13 @@ export class EditPatientComponent implements OnInit {
       "diabetic": this.userDetails.value.diabetic,
       "ss_CIP": this.userDetails.value.ss_CIP,
       "center_code": this.userDetails.value.center_code,
-      // "num_clinical_log": this.userDetails.value.num_clinical_log,
       "role": this.user.role,
       "register_date": this.userDetails.value.register_date
     }
-    // console.log("DATA NEW PATIENT");
-    // console.log(info);
-    // console.log(this.user);
 
-    // console.log(info);
     if (this.userDetails) {
       this.communicator.modifyDataUser(info).subscribe(
         (result: any) => {
-          // let res = JSON.parse(JSON.stringify(result));
           console.log(result);
           if (result.success) { //success message
             alert("Usuario modificado correctamente");

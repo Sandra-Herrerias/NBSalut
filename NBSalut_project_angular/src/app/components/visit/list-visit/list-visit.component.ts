@@ -9,6 +9,8 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
   styleUrls: ['./list-visit.component.css']
 })
 export class ListVisitComponent implements OnInit {
+
+  //Properties
   listVisits: any | [] = [];
   filteredListVisits: any | [] = [];
   visitSelected !: VisitClass;
@@ -47,12 +49,12 @@ export class ListVisitComponent implements OnInit {
 
 
   /**
-   * Searchs quarterly report component
+   * Searchs by firstname, lastname and visit
    */
   search(): void {
     if (!this.inputSearch && !this.inputSearchDate) {
       this.filteredListVisits = this.listVisits;
-    } else if(this.inputSearch && !this.inputSearchDate){
+    } else if (this.inputSearch && !this.inputSearchDate) {
       this.filteredListVisits = this.listVisits.filter((res: any) => {
         return (
           res.first_name
@@ -64,25 +66,25 @@ export class ListVisitComponent implements OnInit {
         );
       });
       this.cp = 1;
-    } else if(!this.inputSearch && this.inputSearchDate){
+    } else if (!this.inputSearch && this.inputSearchDate) {
       this.filteredListVisits = this.listVisits.filter((res: any) => {
         console.log(this.inputSearchDate);
         return (
           res.visit_date
             .includes(this.inputSearchDate)
-            
+
         );
       });
       this.cp = 1;
-    }else if(this.inputSearch && this.inputSearchDate){
+    } else if (this.inputSearch && this.inputSearchDate) {
       this.filteredListVisits = this.listVisits.filter((res: any) => {
         return (
           (res.first_name
             .toLocaleLowerCase()
             .includes(this.inputSearch.toLocaleLowerCase()) ||
-          res.last_name
-            .toLocaleLowerCase()
-            .includes(this.inputSearch.toLocaleLowerCase())) &&
+            res.last_name
+              .toLocaleLowerCase()
+              .includes(this.inputSearch.toLocaleLowerCase())) &&
           res.visit_date
             .includes(this.inputSearchDate)
         );
@@ -91,8 +93,11 @@ export class ListVisitComponent implements OnInit {
     }
   }
 
-
-  confirmDelete(visitSelected: any): void{
+  /**
+   * Function that asks confirmation to delete the visit and deletes in case confirmation were successful
+   * @param visitSelected 
+   */
+  confirmDelete(visitSelected: any): void {
     if (confirm("¿Está segura de eliminar definitivamente esta visita?")) {
       let info = {
         id: visitSelected.id
@@ -111,19 +116,19 @@ export class ListVisitComponent implements OnInit {
     }
   }
 
-    /**
- * This method removes the visit from the list, asking info to the method from the service that removes visits.
- * @param visitSelected
- */
-     deleteVisit(visitSelected: any): void {
-      for (let i = 0; i < this.listVisits.length; i++) {
-        if (this.listVisits[i].id === visitSelected.id) {
-          this.listVisits.splice(i, 1);
-          break;
-        }
+  /**
+* This method removes the visit from the list in list visit view. 
+* @param visitSelected
+*/
+  deleteVisit(visitSelected: any): void {
+    for (let i = 0; i < this.listVisits.length; i++) {
+      if (this.listVisits[i].id === visitSelected.id) {
+        this.listVisits.splice(i, 1);
+        break;
       }
     }
-  
+  }
+
 }
 
 
