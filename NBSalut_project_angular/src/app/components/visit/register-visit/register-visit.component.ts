@@ -250,11 +250,11 @@ export class RegisterVisitComponent implements OnInit {
           res.user.first_name, res.user.last_name,
           res.user.email, res.user.password, res.user.role)
         this.patientExist = true;
-        this.visitPatientId = res.user.id;
+        this.visitPatientId = this.visitPatient.id;
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
-        this.registerVisitForm.get('id')?.setValue(res.user.id);
+        this.registerVisitForm.get('id')?.setValue(this.visitPatientId );
         this.registerVisitForm.get('dni')?.setValue(res.user.dni);
 
 

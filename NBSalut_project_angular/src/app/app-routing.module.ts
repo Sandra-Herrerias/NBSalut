@@ -16,6 +16,7 @@ import { EditWorkersComponent } from './components/admin/edit-workers/edit-worke
 import { RegisterWorkerComponent } from './components/admin/register-worker/register-worker.component';
 import { EditTreatmentComponent } from './components/treatments/edit-treatment/edit-treatment.component';
 import { GuardGuard } from './auth/guard.guard';
+import { TemplateInvoiceComponent } from './components/invoices/template-invoice/template-invoice.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,11 @@ const routes: Routes = [
     canActivate: [GuardGuard],
     component: QuarterlyReportComponent,
 
+  },
+  {
+    path: 'invoice/:id',
+    // canActivate: [GuardGuard],
+    component: TemplateInvoiceComponent,
   },
   {
     path: 'listinvoices',
