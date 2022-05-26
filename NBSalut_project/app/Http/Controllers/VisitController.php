@@ -7,8 +7,10 @@ use App\Models\Visit;
 use App\Models\Uses;
 use App\Models\Attached;
 use App\Models\Invoice;
+use App\Models\Invoice_detail;
+use App\Models\Partner_invoice;
 use App\Models\Treatment;
-
+use App\Models\User;
 
 
 use Illuminate\Support\Facades\Validator;
@@ -23,24 +25,14 @@ class VisitController extends Controller
         // return Visit::select('visits.id', 'visits.visit_date', 'visits.visit_description', 'users.first_name', 'users.last_name', 'users.dni',)
         //     ->join('users', 'visits.user_id', '=', 'users.id')
         //     ->join('uses', 'visits.id', '=', 'uses.visit_id')
-            
+
         //     ->where('visits.user_id', $request->id)
         //     ->get();
 
-        return DB::select(DB::raw("select `visits`.`id`, `visits`.`visit_date`,
-            `visits`.`visit_description`, `visits`.`user_id`,
-            `users`.`first_name`, `users`.`last_name`, `users`.`dni`,
-            `users`.`diabetic`, `uses`.`treatment_id`,
-            `uses`.`user_id`, `treatments`.`name`,
-            (select CONCAT(first_name,' ', last_name) AS specialist_name from users AS t where t.id=uses.user_id)AS specialist_name
-            from `visits`
-            inner join `users` on `visits`.`user_id` = `users`.`id` 
-            inner join `uses` on `visits`.`id` = `uses`.`visit_id` 
-            inner join `treatments` on `visits`.`id` = `treatments`.`id`
-            where `visits`.`user_id`= $request->id
+        return DB::select(DB::raw(
+            "SELECT `visits`.`id`, `visits`.`visit_date`, `visits`.`visit_description`, `visits`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`dni`, `users`.`diabetic`, `uses`.`treatment_id`, `uses`.`user_id` AS especialist_id, `treatments`.`name`, ( SELECT CONCAT(first_name, ' ', last_name) AS specialist_name FROM users AS t WHERE t.id = uses.user_id ) AS specialist_name FROM `visits` INNER JOIN `users` ON `visits`.`user_id` = `users`.`id` INNER JOIN `uses` ON `visits`.`id` = `uses`.`visit_id` INNER JOIN `treatments` ON `uses`.`treatment_id` = `treatments`.`id` WHERE `visits`.`user_id` = $request->id
             "
         ));
-
     }
 
     public function getVisits()
@@ -81,50 +73,116 @@ class VisitController extends Controller
             $visit->id;
             $visit->visit_description = $request->description;
             $visit->visit_date = $request->date;
-            $visit->ss_private = "No";
-            $visit->user_id = $request->user_id;
             $visit->sent = 0;
+            $visit->user_id = $request->user_id;
 
             if ($visit->save()) {
-                //return count($request->treat);
-                for ($i = 0; $i < count($request->treat); $i++) {
+                $tFound = [];
+                $total_price = 0;
 
+                $specialist = User::find($request->specialist_id);
+                $patient = User::find($request->user_id);
 
-                    // foreach ($request->treat as $t) {
-                    $tFound = Treatment::find($request->treat[$i]['id'])->first();
-
+                foreach ($request->treat as $t) {
+                    $tFound = $t['id'];
+                    $treatment = Treatment::find($t['id']);
+                    $total_price += $treatment->price;
                     $uses = new Uses;
                     $uses->visit_id = $visit->id;
-                    $uses->user_id = $request->user_id;
-                    $uses->treatment_id = $request->treat[$i]['id'];
+                    $uses->user_id = $request->specialist_id;
+                    $uses->treatment_id = $t['id'];
+                    $uses->save();
+                }
 
-                    $attached = new Attached;
-                    $attached->id;
-                    $attached->type = "image";
-                    $attached->document = "file";
-                    $attached->visit_id = $visit->id;
-
-                    if ($request->facturate == true) {
+                if ($request->facturate == true) {
+                    foreach ($request->treat as $t) {
                         $invoice = new Invoice;
                         $invoice->id;
-                        $invoice->payment_type = "Tarjeta";
+                        $invoice->invoice_number = $this->assignLastNumber($request->specialist_id);
+                        $invoice->payment_type = "tarjeta";
+                        $invoice->sent = 0;
                         $invoice->invoice_date = $request->date;
-                        $invoice->total_price = $tFound['price'];
+                        $invoice->total_price = $total_price;
+                        $invoice->specialist_id = $request->specialist_id;
                         $invoice->visit_id = $visit->id;
-
                         $invoice->save();
-                    }
 
-                    if ($uses->save() && $attached->save()) {
-                        return response()->json(['success' => true, 'visit' => $visit]);
+                        $partnerInvoice = new Partner_invoice;
+                        $partnerInvoice->phone = $specialist->phone;
+                        $partnerInvoice->dni = $specialist->dni;
+                        $partnerInvoice->collegiate_num = $specialist->collegiate_num;
+                        $partnerInvoice->first_name = $specialist->first_name;
+                        $partnerInvoice->last_name = $specialist->last_name;
+                        $partnerInvoice->role = $specialist->role;
+                        // $partnerInvoice->nif = $specialist->dni;
+                        $partnerInvoice->postal_code = $specialist->postal_code;
+                        $partnerInvoice->address = $specialist->address;
+                        $partnerInvoice->city = $specialist->city;
+                        $partnerInvoice->invoice_id = $invoice->id;
+                        $partnerInvoice->save();
+
+                        $partnerInvoicePatient = new Partner_invoice;
+                        $partnerInvoicePatient->phone = $patient->phone;
+                        $partnerInvoicePatient->dni = $patient->dni;
+                        $partnerInvoicePatient->first_name = $patient->first_name;
+                        $partnerInvoicePatient->last_name = $patient->last_name;
+                        $partnerInvoicePatient->role = $patient->role;
+                        // $partnerInvoice->nif = $patient->dni;
+                        $partnerInvoicePatient->postal_code = $patient->postal_code;
+                        $partnerInvoicePatient->address = $patient->address;
+                        $partnerInvoicePatient->city = $patient->city;
+                        $partnerInvoicePatient->invoice_id = $invoice->id;
+                        $partnerInvoicePatient->save();
+
+                        $treatment = Treatment::find($t['id']);
+                        $invoice_detail = new Invoice_detail;
+                        $invoice_detail->id;
+                        $invoice_detail->invoice_id = $invoice->id;
+                        $invoice_detail->name =  $treatment->name;
+                        $invoice_detail->price =  $treatment->price;
+                        $invoice_detail->quantity =  1;
+                        $invoice_detail->total =  ($invoice_detail->quantity * $invoice_detail->price);
+                        $invoice_detail->save();
                     }
                 }
+
+                return response()->json(['success' => true, 'visit' => $tFound]);
             }
+            //return count($request->treat);
+            // for ($i = 0; $i < count($request->treat); $i++) {
+
+
+            //     // foreach ($request->treat as $t) {
+            //     $tFound = Treatment::find($request->treat[$i]['id'])->first();
+
+            //     $uses = new Uses;
+            //     $uses->visit_id = $visit->id;
+            //     $uses->user_id = $request->user_id;
+            //     $uses->treatment_id = $request->treat[$i]['id'];
+
+            //     $attached = new Attached;
+            //     $attached->id;
+            //     $attached->type = "image";
+            //     $attached->document = "file";
+            //     $attached->visit_id = $visit->id;
+
+            //     // if ($request->facturate == true) {
+            //     //     $invoice = new Invoice;
+            //     //     $invoice->id;
+            //     //     $invoice->payment_type = "Tarjeta";
+            //     //     $invoice->invoice_date = $request->date;
+            //     //     $invoice->total_price = $tFound['price'];
+            //     //     $invoice->visit_id = $visit->id;
+
+            //     //     $invoice->save();
+            //     // }
+
+            //     if ($uses->save() && $attached->save()) {
+            //         return response()->json(['success' => true, 'visit' => $visit]);
+            //     }
+            // }
+            // }
         }
-
-
-
-
 
         // if ($validator->fails()) {
         //     return response()->json(['success' => false]);
@@ -164,18 +222,41 @@ class VisitController extends Controller
         //     }
         //     }
         // }
-        return response()->json(['success' => false],);
+        // return response()->json(['success' => false]);
     }
 
-    public function getVisitsList() {
-        return DB::select(DB::raw("select `visits`.`id`, `visits`.`visit_date`,
+    public function assignLastNumber($specialist_id)
+    {
+        $lastInvoice = Invoice::where('specialist_id', $specialist_id)->orderBy('id', 'desc')->first();
+        // $countAllInvoices = Invoice::where('specialist_id', $specialist_id)->count();
+        $curYear = date('Y');
+        if ($lastInvoice) {
+            $lastInvoiceNumber = explode("/", $lastInvoice->invoice_number);
+            if ($curYear != $lastInvoiceNumber[1]) {
+                return "1/$curYear";
+            }
+            $lastInvoiceNumber[0] += 1;
+            return "$lastInvoiceNumber[0]/$curYear";
+        }
+        return "1/$curYear";
+    }
+
+    public function getVisitsList()
+    {
+        return DB::select(DB::raw(
+            "select `visits`.`id`, `visits`.`visit_date`,
          `visits`.`visit_description`,
          `users`.`first_name`, `users`.`last_name`, `users`.`dni`,
            `users`.`diabetic`, `uses`.`treatment_id`,
            `uses`.`user_id`, `treatments`.`name`,
            (select CONCAT(first_name,' ', last_name) AS specialist_name from users AS t where t.id=uses.user_id)AS specialist_name
+<<<<<<< HEAD
             from `visits` inner join `users` on `visits`.`user_id` = `users`.`id` inner join `uses` on `visits`.`id` = `uses`.`visit_id` inner join `treatments` on `visits`.`id` = `treatments`.`id`
             ORDER BY visit_date DESC"
     ));
+=======
+            from `visits` inner join `users` on `visits`.`user_id` = `users`.`id` inner join `uses` on `visits`.`id` = `uses`.`visit_id` inner join `treatments` on `uses`.`treatment_id` = `treatments`.`id`"
+        ));
+>>>>>>> origin/visit
     }
 }

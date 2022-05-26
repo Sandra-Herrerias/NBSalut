@@ -100,6 +100,7 @@ export class RegisterVisitComponent implements OnInit {
       '', [Validators.required]
     ]
   });
+  user: any;
 
   //#endregion
 
@@ -113,18 +114,24 @@ export class RegisterVisitComponent implements OnInit {
     private serviceUser: ServiceUserService) {
     this.patientExist = false;
     this.visitPatientId = -1;
+    this.communicator.user.subscribe(
+      resultat => {
+        this.user = Object.assign(new User(), resultat);
+        // console.log(this.user.id);
+      }
+    )
   }
 
   ngOnInit(): void {
     this.getData();
 
     //if (this.visitPatient != null) {
-      /*this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
-      this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
-      this.registerVisitForm.get('id')?.setValue(this.visitPatient.id);
-      this.registerVisitForm.get('dni')?.setValue(this.visitPatient.dni);
-      */
-      //this.checkPatientDni();
+    /*this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
+    this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
+    this.registerVisitForm.get('id')?.setValue(this.visitPatient.id);
+    this.registerVisitForm.get('dni')?.setValue(this.visitPatient.dni);
+    */
+    //this.checkPatientDni();
     //}
     this.loadValidTreatments();
     this.loadTreatmentsSelect();
@@ -222,7 +229,7 @@ export class RegisterVisitComponent implements OnInit {
     this.selectFiles = e.target.files;
   }
 
-  
+
 
 
   //#endregion
@@ -363,7 +370,8 @@ export class RegisterVisitComponent implements OnInit {
         user_id: this.visitPatientId,
         facturate: this.registerVisitForm.value.facturation,
         pay_type: "tarjeta",
-        file: this.selectFiles
+        file: this.selectFiles,
+        specialist_id: this.user.id
       };
 
       this.communicator.registerVisit(this.actualVisit, this.selectFiles).subscribe(

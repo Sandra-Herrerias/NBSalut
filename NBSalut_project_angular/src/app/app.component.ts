@@ -20,7 +20,7 @@ export class AppComponent {
     this.http.user.subscribe(
       resultat => {
         this.user = resultat;
-        console.log(this.user);
+        // console.log(this.user);
       }
     )
     this.route.events.subscribe(e => {

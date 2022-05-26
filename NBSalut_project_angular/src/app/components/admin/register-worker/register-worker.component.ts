@@ -68,7 +68,7 @@ export class RegisterWorkerComponent implements OnInit {
 
   /**
    * Function that validates NIF/NIE
-   * @returns 
+   * @returns
    */
   createDniValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -135,7 +135,7 @@ export class RegisterWorkerComponent implements OnInit {
       "updated_at": this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
 
-    console.log(this.userDetails.value.diabetic);
+    // console.log(this.userDetails.value.diabetic);
     if (this.userDetails.valid) {
       this.communicator.addWorker(info).subscribe(
         (result: any) => {

@@ -42,7 +42,7 @@ export class ListPatientsComponent implements OnInit {
   loadPatients() {
     this.communicator.getPatients().subscribe(
       (result: any) => {
-        console.log(result);
+        // console.log(result);
         this.dataPatients = result;
         this.filteredPatients = this.dataPatients;
       }

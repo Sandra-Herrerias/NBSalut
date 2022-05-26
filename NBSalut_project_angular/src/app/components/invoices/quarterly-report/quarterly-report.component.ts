@@ -9,6 +9,7 @@ import { CommunicatorService } from "src/app/services/communicator.service";
 import { FileSaverService } from "ngx-filesaver";
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from "xlsx";
+import { User } from "src/app/models/user";
 declare var window: any;
 
 @Component({
@@ -19,20 +20,27 @@ declare var window: any;
 export class QuarterlyReportComponent implements OnInit {
   invoices: any | [] = [];
   selected: any;
-  params: { input: string; startDate: string; endDate: string; sent: string } =
-    { input: "", startDate: "", endDate: "", sent: "" };
+  params: { input: string; startDate: string; endDate: string; sent: string, specialist_id: number } =
+    { input: "", startDate: "", endDate: "", sent: "", specialist_id: 0 };
 
   message = "";
   itemsPerPage: number = 15;
   currentPage: number = 1;
   inputSearch: string = "";
   formModal: any;
-
+  user: any;
   constructor(
     private http: CommunicatorService,
     private filesaver: FileSaverService,
     private toastr: ToastrService
-  ) { }
+  ) {
+    this.http.user.subscribe(
+      resultat => {
+        this.user = Object.assign(new User(), resultat);
+        this.params.specialist_id = this.user.id;
+      }
+    )
+  }
 
   /**
    * Searchs quarterly report component
@@ -83,6 +91,7 @@ export class QuarterlyReportComponent implements OnInit {
     this.http.getInvoices(this.params).subscribe((response: any) => {
       if (response.success) {
         this.invoices = response.data;
+        console.log(response);
       }
     });
     this.formModal = new window.bootstrap.Modal(

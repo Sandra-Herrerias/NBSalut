@@ -30,7 +30,7 @@ export class EditTreatmentComponent implements OnInit {
       this.communicator.getTreatmentByID(this.actualId).subscribe((results: any) => {
         if (results.success) {
           this.actualTreat = Object.assign(new TreatmentClass(), results.treat);
-          console.log(this.actualTreat);
+          // console.log(this.actualTreat);
           this.updateTreatmentForm.get('name')?.setValue(this.actualTreat.name);
           this.updateTreatmentForm.get('desc')?.setValue(this.actualTreat.description);
           this.updateTreatmentForm.get('price')?.setValue(this.actualTreat.price);
@@ -72,7 +72,7 @@ export class EditTreatmentComponent implements OnInit {
           // this.messageB = "";
         } else { //error message
           this.toastr.error('El tratamiento no se ha podido modificar!','', {
-            enableHtml: true,   
+            enableHtml: true,
           });
           // this.messageB = "El tratamiento no se ha podido modificar!";
           // this.messageG = "";

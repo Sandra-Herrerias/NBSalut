@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->enum('role',['admin','specialist','patient'])->nullable();
-            $table->string('nif');
+            $table->string('nif')->nullable();
             $table->string('postal_code');
             $table->string('address');
             $table->string('city');
