@@ -166,9 +166,9 @@ export class RegisterPatientComponent implements OnInit {
             this.userDetails.reset();
             //sets num_clinical_log value and register_date
             this.userDetails.patchValue({
-              num_clinical_log: this.newClinicalNum,
               register_date: this.todayFormatRegDate
             });
+            this.getNumClinicalLog();
           } else {//error message
             alert("El paciente no se ha podido añadir " + result.message);
           }
