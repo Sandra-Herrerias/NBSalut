@@ -63,7 +63,7 @@ class UserController extends Controller
 
     public function getPatients()
     {
-        $data = User::where('role', 'patient')->orderBy('id', 'ASC')->get();
+        $data = User::where('role', 'patient')->orderBy('id', 'DESC')->get();
         return $data;
     }
 
@@ -76,7 +76,7 @@ class UserController extends Controller
 
     public function getMaxClinicalLog()
     {
-        $data = User::where('role', 'patient')->max('id');
+        $data = User::max('id');
         return $data;
     }
     /**

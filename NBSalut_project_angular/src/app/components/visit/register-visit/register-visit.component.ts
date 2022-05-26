@@ -112,7 +112,6 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Initialize Section
 
-
   constructor(private formBuilder: FormBuilder,
     private communicator: CommunicatorService,
     private route: Router,
@@ -131,7 +130,7 @@ export class RegisterVisitComponent implements OnInit {
   ngOnInit(): void {
     this.fileInfos = this.serviceUpload.getFiles();
 
-    this.getData();
+    //this.getData();
 
     //if (this.visitPatient != null) {
     /*this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
@@ -193,19 +192,6 @@ export class RegisterVisitComponent implements OnInit {
     }
   }
 
-  getData() {
-    this.serviceUser.data.subscribe(response => {
-      var visitPatient = response;
-      console.log(visitPatient);
-      console.log(response);
-      if (visitPatient.id != null) {
-        this.checkTypeForm.value.value = "dni";
-        this.validatePatientFormDni.value.dni = visitPatient.dni;
-        this.checkPatientDni();
-        //this.patientExist = true;
-      }
-    });
-  }
 
   //#endregion
 

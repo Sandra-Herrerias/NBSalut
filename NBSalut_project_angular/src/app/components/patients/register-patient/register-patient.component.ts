@@ -80,6 +80,7 @@ export class RegisterPatientComponent implements OnInit {
   getNumClinicalLog() {
     this.communicator.getMaxClinicalLog().subscribe((data: any) => {
       this.newClinicalNum = data + 1;
+      console.log(data);
     })
 
   }

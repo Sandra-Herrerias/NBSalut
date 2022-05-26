@@ -49,7 +49,6 @@
                         <th scope="col">TELÉFONO</th>
                         <th scope="col">DIABÉTICA</th>
                         <th scope="col">ESTADO</th>
-                        <th scope="col">VISITAS</th>
                         <th scope="col">MODIFICAR</th>
                         <th scope="col">ELIMINAR</th>
                     </tr>
@@ -71,7 +70,6 @@
                 {{ patient.active ? "Activo" : "Inactivo" }}
               </span>
                         </td>
-                        <td><button class=" btn" (click)="showpatientVisits(patient)"><i class="bi bi-eye-fill"></i></button></td>
                         <td><button class=" btn" (click)="showFormModifyPatient(patient)"><i class="bi bi-pencil-fill"></i></button>
                         </td>
                         <td><button class="btn" (click)="confirmDeactivate(patient)"><i class="bi bi-trash-fill"></i></button>
