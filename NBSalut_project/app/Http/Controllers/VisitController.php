@@ -252,7 +252,7 @@ class VisitController extends Controller
             from `visits` 
             inner join `users` on `visits`.`user_id` = `users`.`id` 
             inner join `uses` on `visits`.`id` = `uses`.`visit_id` 
-            inner join `treatments` on `uses`.`treatment_id` = `treatments`.`id`"
+            inner join `treatments` on `uses`.`treatment_id` = `treatments`.`id` ORDER BY visit_date DESC"
         ));
     }
 }
