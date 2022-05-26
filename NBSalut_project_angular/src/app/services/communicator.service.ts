@@ -140,7 +140,7 @@ export class CommunicatorService {
   getInvoices(data: any) {
     return this.http.get("http://127.0.0.1:8000/api/getInvoices",
       {
-        params: { startDate: data.startDate, endDate: data.endDate, sent: data.sent },
+        params: { startDate: data.startDate, endDate: data.endDate, sent: data.sent, specialist_id: data.specialist_id },
         responseType: "json"
       });
   }
@@ -185,17 +185,7 @@ export class CommunicatorService {
       { dni: user.dni },
       {
         responseType: "json"
-      }).pipe(
-        map((res: any) => {
-          if (res.success) {
-            const user: User = new User(res.user.id,
-              res.user.first_name, res.user.last_name,
-              res.user.email, res.user.password, res.user.role);
-            this.userSubject.next(user);
-          }
-          return res;
-        }));
-
+      });
   }
 
   /**
@@ -211,17 +201,7 @@ export class CommunicatorService {
       },
       {
         responseType: "json"
-      }).pipe(
-        map((res: any) => {
-          if (res.success) {
-            const user: User = new User(res.user.id,
-              res.user.first_name, res.user.last_name,
-              res.user.email, res.user.password, res.user.role);
-            this.userSubject.next(user);
-          }
-          return res;
-        }));
-
+      });
   }
 
   /**

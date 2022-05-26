@@ -96,6 +96,7 @@ export class RegisterVisitComponent implements OnInit {
       '', [Validators.required]
     ]
   });
+  user: any;
 
   //#endregion
 
@@ -107,6 +108,12 @@ export class RegisterVisitComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private communicator: CommunicatorService, private route: Router) {
     this.patientExist = false;
     this.visitPatientId = -1;
+    this.communicator.user.subscribe(
+      resultat => {
+        this.user = Object.assign(new User(), resultat);
+        // console.log(this.user.id);
+      }
+    )
   }
 
   ngOnInit(): void {
@@ -353,7 +360,8 @@ export class RegisterVisitComponent implements OnInit {
         user_id: this.visitPatientId,
         file: this.registerVisitForm.value.file,
         facturate: this.registerVisitForm.value.facturation,
-        pay_type: "Tajeta"
+        pay_type: "Tajeta",
+        specialist_id: this.user.id
       };
 
       this.communicator.registerVisit(this.actualVisit).subscribe(

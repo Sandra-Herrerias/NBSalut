@@ -20,6 +20,7 @@ return new class extends Migration
             $table->boolean('sent')->nullable();
             $table->dateTime('invoice_date');
             $table->float('total_price');
+            $table->unsignedBigInteger('specialist_id')->nullable();
             //camp foreign key de user id
             $table->unsignedBigInteger('visit_id')->nullable();
             //constraints FK (foreign key)
