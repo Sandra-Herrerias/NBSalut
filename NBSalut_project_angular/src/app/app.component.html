@@ -47,7 +47,7 @@
                     <i class="fa-solid fa-file-invoice-dollar"></i> Listar Facturas & Envío
                 </a>
             </li>
-            <li *ngIf="user.role == 'admin'">
+            <li *ngIf="user && user._role == 'admin'">
                 <a routerLink="listworkers" class="nav-link text-white" routerLinkActive="active">
                     <i class="fa-solid fa-user-doctor"></i> Staff
                 </a>
@@ -57,9 +57,9 @@
         <div class="dropdown">
             <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle ps-3" id="dropdownUser1"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                <strong>{{ user._first_name }} {{ user._last_name }}</strong>
+                <strong *ngIf="user">{{ user._first_name }} {{ user._last_name }}</strong>
             </a>
-            <small class="ps-3 text-capitalize">{{ user._role }}</small>
+            <small *ngIf="user" class="ps-3 text-capitalize">{{ user._role }}</small>
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                 <li><a class="dropdown-item" (click)="logout();">Cerrar Sesión</a></li>
             </ul>

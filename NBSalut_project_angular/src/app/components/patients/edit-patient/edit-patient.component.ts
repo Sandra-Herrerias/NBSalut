@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
@@ -31,12 +32,17 @@ export class EditPatientComponent implements OnInit {
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
   regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
+  todayFormatRegDate =
+    ("0" + new Date().getDate()).slice(-2)
+    + "/" + ("0" + (new Date().getMonth() + 1)).slice(-2)
+    + "/" + new Date().getFullYear();
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private communicator: CommunicatorService,
-    private serviceUser: ServiceUserService) {
+    private serviceUser: ServiceUserService,
+    public datepipe: DatePipe) {
 
     //Validations from reactive form
     this.userDetails = this.formBuilder.group({
@@ -57,7 +63,7 @@ export class EditPatientComponent implements OnInit {
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
       previous_pathologies: ['', [Validators.required]]
-    });
+    });    
   }
 
   ngOnInit(): void {
@@ -65,7 +71,7 @@ export class EditPatientComponent implements OnInit {
     this.getData();
     this.userDetails.controls['id'].setValue(this.user.id);
     // this.userDetails.controls['num_clinical_log'].setValue(this.user.num_clinical_log);
-    this.userDetails.controls['register_date'].setValue(this.user.register_date);
+    this.userDetails.controls['register_date'].setValue(this.datepipe.transform(this.user.register_date, 'dd/MM/yyyy'));
     this.userDetails.controls['center_code'].setValue(this.user.center_code);
     this.userDetails.controls['ss_CIP'].setValue(this.user.ss_CIP);
     this.userDetails.controls['diabetic'].setValue(this.user.diabetic);
@@ -188,9 +194,5 @@ export class EditPatientComponent implements OnInit {
     } else {//error message
       alert("El comentario no puede estar vacío");
     }
-
-
-
-
   }
 }

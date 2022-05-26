@@ -69,3 +69,4 @@ Route::group(['middleware' => ['cors']], function () {
 
 //Workers Routes
 Route::get('getWorkers', [UserController::class, 'getWorkers']);
+Route::post('addWorker', [UserController::class, 'addWorker']);

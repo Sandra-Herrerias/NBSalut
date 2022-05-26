@@ -47,7 +47,8 @@ export class RegisterWorkerComponent implements OnInit {
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
-      role: ['', [Validators.required]]
+      role: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
 
     //Get current date in order to insert it into the field ("Fecha de registro")
@@ -118,7 +119,7 @@ export class RegisterWorkerComponent implements OnInit {
       "id": this.userDetails.value.id,
       "first_name": this.userDetails.value.first_name,
       "last_name": this.userDetails.value.last_name,
-      "password": null,
+      "password": this.userDetails.value.password,
       "dni": this.userDetails.value.dni,
       "email": this.userDetails.value.email,
       "phone": this.userDetails.value.phone,
@@ -136,12 +137,11 @@ export class RegisterWorkerComponent implements OnInit {
 
     console.log(this.userDetails.value.diabetic);
     if (this.userDetails.valid) {
-      this.communicator.addPatient(info).subscribe(
+      this.communicator.addWorker(info).subscribe(
         (result: any) => {
           if (result.success) {//success message
 
-            //this.dataPatient.push(info);
-            alert("Paciente insertado correctamente");
+            alert("Especialista insertado correctamente");
             //clear form
             this.userDetails.reset();
             //sets register_date
@@ -149,7 +149,7 @@ export class RegisterWorkerComponent implements OnInit {
               register_date: this.todayFormatRegDate
             });
           } else {//error message
-            alert("El paciente no se ha podido añadir");
+            alert("El especialista no se ha podido añadir");
           }
         }
       );

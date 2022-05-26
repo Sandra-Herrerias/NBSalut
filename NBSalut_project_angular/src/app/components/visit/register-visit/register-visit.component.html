@@ -57,15 +57,16 @@
             <label class="form-label fw-bold">Introduce Nombre del paciente *</label>
             <input type="text" formControlName="name" class="form-control" required>
             <label class="text-danger mt-1"
-               *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">DNI
+               *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                requerido
             </label>
+            
          </div>
          <div class="mb-3 col-3">
             <label class="form-label fw-bold">Introduce los Apellidos del paciente *</label>
             <input type="text" formControlName="surname" class="form-control" required>
             <label class="text-danger mt-1"
-               *ngIf="registerVisitForm.get('surname')?.errors?.['required'] && registerVisitForm.get('surname')?.touched">DNI
+               *ngIf="registerVisitForm.get('surname')?.errors?.['required'] && registerVisitForm.get('surname')?.touched">Apellido
                requerido
             </label>
          </div>
@@ -169,7 +170,8 @@
                <div class="mb-3 col-8">
                   <label class="form-label fw-bold">Documento adjunto</label>
                   <input class="form-control" type="file" id="file" formControlName="file" accept="image/*"
-                     (change)="onFileChange($event)">
+                  (change)="selectFiles($event)" multiple>
+                  
                </div>
             </div>
 

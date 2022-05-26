@@ -17,7 +17,6 @@ export class ListPatientsComponent implements OnInit {
   surnameFilter: String = "";
   ipp: number;
   cp: number;
-  formModal: any;
 
   constructor(
     private communicator: CommunicatorService,
@@ -30,9 +29,6 @@ export class ListPatientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPatients();
-    this.formModal = new window.bootstrap.Modal(
-      document.getElementById('myModal')
-    );
   }
 
   sendNewData(data: User) {
@@ -139,18 +135,10 @@ export class ListPatientsComponent implements OnInit {
       });
   }
 
-
   showpatientVisits(patient: User) {
     this.patientSelected = patient;
-    this.router.navigate(['/editpatient', { patient: this.patientSelected }]);
-  }
-
-  openFormModal(patient: any) {
-    this.patientSelected = patient;
-    this.formModal.show();
-  }
-  saveSomeThing() {
-    this.formModal.hide();
+    this.router.navigate(['/regvisit', { patient: this.patientSelected.id }]);
+    this.sendNewData(this.patientSelected);
   }
 
 }

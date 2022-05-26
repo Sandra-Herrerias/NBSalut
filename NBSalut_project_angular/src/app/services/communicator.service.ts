@@ -40,17 +40,12 @@ export class CommunicatorService {
         responseType: "json",
       }).pipe(
         map((res: any) => {
-          // console.log(res);
-          // return res;
           if (res.success) {
             // console.log(res);
-
             // const user: User = new User(res.user.id,
             //   res.user.first_name, res.user.last_name,
             //   res.user.password, "", res.user.email,"","","","","", "","","","","",);
-
             const user: User = Object.assign(new User(), res.user);
-            console.log(user);
             localStorage.setItem('user', JSON.stringify(user));
             this.userSubject.next(user);
           }
@@ -151,7 +146,11 @@ export class CommunicatorService {
   }
 
 
-
+  /**
+   * Generates invoice
+   * @param data
+   * @returns
+   */
   generateInvoice(data: any) {
     return this.http.post("http://127.0.0.1:8000/api/generateInvoice",
       data,
@@ -159,7 +158,10 @@ export class CommunicatorService {
         responseType: "json"
       });
   }
-
+  /**
+   * Gets total invoices
+   * @returns total invoices
+   */
   getTotalInvoices(): Observable<any> {
     return this.http.get("http://127.0.0.1:8000/api/getTotalInvoices",
       {
@@ -183,16 +185,7 @@ export class CommunicatorService {
       { dni: user.dni },
       {
         responseType: "json"
-      }).pipe(
-        map((res: any) => {
-          if (res.success) {
-            const user: User = new User(res.user.id,
-              res.user.first_name, res.user.last_name,
-              res.user.email, res.user.password, res.user.role);
-            this.userSubject.next(user);
-          }
-          return res;
-        }));
+      });
 
   }
 
@@ -209,16 +202,7 @@ export class CommunicatorService {
       },
       {
         responseType: "json"
-      }).pipe(
-        map((res: any) => {
-          if (res.success) {
-            const user: User = new User(res.user.id,
-              res.user.first_name, res.user.last_name,
-              res.user.email, res.user.password, res.user.role);
-            this.userSubject.next(user);
-          }
-          return res;
-        }));
+      });
 
   }
 
@@ -256,17 +240,17 @@ export class CommunicatorService {
       });
   }
 
-      /**
-   * Method to add a new worker in the DDBB
-   * @param info data to add in the DDBB
-   * @returns worker data
-   */
-       addWorker(info: any) {
-        return this.http.post("http://127.0.0.1:8000/api/addWorker",
-          info,
-          { responseType: "json" });
+  /**
+* Method to add a new worker in the DDBB
+* @param info data to add in the DDBB
+* @returns worker data
+*/
+  addWorker(info: any) {
+    return this.http.post("http://127.0.0.1:8000/api/addWorker",
+      info,
+      { responseType: "json" });
 
-      }
+  }
 
   /**
    * Retrieves the maximum number from the clinical log numbers that are stored in the database.
@@ -352,14 +336,15 @@ export class CommunicatorService {
    * Register visit in the DDBB
    * @returns the visit inserted & a response with a success variable.
    */
-  registerVisit(visit: any) {
-    //console.log("service-> fecha: " + visit.date + ", desc: " + visit.description + ", user_id: " + visit.user_id + ", treatment_id: " + visit.treat + ", treat_price: " + visit.price);
+  registerVisit(visit: any, files: any) {
     return this.http.post("http://127.0.0.1:8000/api/insertVisit",
       visit,
       {
         responseType: "json"
       });
   }
+
+  
 
   /**
 * Function that enables the retrievement of specialist name and treatment name associated

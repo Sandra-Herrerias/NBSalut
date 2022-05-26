@@ -184,7 +184,6 @@ class UserController extends Controller
     public function updateUser(Request $request)
     {
         $user = User::find($request->id);
-        error_log($user);
         //$user->id = $request->id;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -206,6 +205,31 @@ class UserController extends Controller
         $user->role = $request->role;
         //??date('Y-m-d', strtotime($request->register_date));
         $user->register_date = date('Y-m-d', strtotime($request->register_date));
+
+        //Validate unique email  
+        $usersEmail = User::where('id', '!=', $user->id)->where('email', $request->email)->get();
+
+        if (count($usersEmail) > 0) {
+            return response()->json(['success' =>  false, 'message' => '(Email duplicado)']);
+        }
+
+        //Validate unique dni
+        $usersDni = User::where('id', '!=', $user->id)->where('dni', $request->dni)->get();
+
+        if (count($usersDni) > 0) {
+            return response()->json(['success' =>  false, 'message' => '(NIF o NIE duplicado)']);
+        }
+
+        if ($user->role != 'patient') {
+
+            //Validate unique collegiate number
+            $usersColNum = User::where('id', '!=', $user->id)->where('collegiate_num', $request->collegiate_num)->get();
+
+            if (count($usersColNum) > 0) {
+                return response()->json(['success' =>  false, 'message' => '(Número de colegiado duplicado)']);
+            }
+        }
+
         $success = $user->update();
 
         return response()->json(['success' => $success, 'user' => $user]);
@@ -219,14 +243,12 @@ class UserController extends Controller
         $user->active = $request->active;
 
         $success = $user->update();
-        error_log($user);
         return response()->json(['success' => $success, 'user' => $user]);
     }
 
 
     public function deleteUser(Request $request)
     {
-        error_log($request->id);
         $result = User::destroy($request->id);
 
         //$deletedUser = User::find($request->id);
@@ -234,7 +256,4 @@ class UserController extends Controller
 
         return response()->json(['success' => $result]);
     }
-
-
-
 }

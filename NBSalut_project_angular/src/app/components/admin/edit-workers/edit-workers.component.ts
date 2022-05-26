@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -37,7 +38,8 @@ export class EditWorkersComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ServiceUser: ServiceUserService,
     private communicator: CommunicatorService,
-    private router: Router
+    private router: Router, 
+    public datepipe: DatePipe
   ) {
     //Validations from reactive form
     this.userDetails = this.formBuilder.group({
@@ -54,7 +56,8 @@ export class EditWorkersComponent implements OnInit {
       address: ['', [Validators.required]],
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
-      role: ['', [Validators.required]]
+      role: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -62,7 +65,7 @@ export class EditWorkersComponent implements OnInit {
     this.getData();
     this.userDetails.controls['id'].setValue(this.user.id);
     this.userDetails.controls['collegiate_num'].setValue(this.user.collegiate_num);
-    this.userDetails.controls['register_date'].setValue(this.user.register_date);
+    this.userDetails.controls['register_date'].setValue(this.datepipe.transform(this.user.register_date, 'dd/MM/yyyy'));
     this.userDetails.controls['active'].setValue(this.user.active);
     this.userDetails.controls['first_name'].setValue(this.user.first_name);
     this.userDetails.controls['last_name'].setValue(this.user.last_name);
@@ -74,6 +77,7 @@ export class EditWorkersComponent implements OnInit {
     this.userDetails.controls['city'].setValue(this.user.city);
     this.userDetails.controls['postal_code'].setValue(this.user.postal_code);
     this.userDetails.controls['role'].setValue(this.user.role);
+    this.userDetails.controls['password'].setValue(this.user.password);
   }
 
   getData() {
@@ -142,7 +146,7 @@ export class EditWorkersComponent implements OnInit {
       "id": this.userDetails.value.id,
       "first_name": this.userDetails.value.first_name,
       "last_name": this.userDetails.value.last_name,
-      "password": null,
+      "password": this.user.password,
       "dni": this.userDetails.value.dni,
       "email": this.userDetails.value.email,
       "phone": this.userDetails.value.phone,
