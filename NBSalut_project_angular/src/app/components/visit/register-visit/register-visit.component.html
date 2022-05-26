@@ -1,218 +1,201 @@
 <!-- Component Title -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light pt-5 pb-4">
-   <div class="container-fluid">
-      <div class="container">
-         <h2>REGISTRO DE VISITA</h2>
-      </div>
-   </div>
+    <div class="container-fluid">
+        <div class="container">
+            <h2>REGISTRO DE VISITA</h2>
+        </div>
+    </div>
 </nav>
 
 <!-- Select check type -->
 <div *ngIf="!patientExist" class="container">
-   <div class="row">
-      <div class="col-3">
-         <form [formGroup]="checkTypeForm">
-            <label class="form-label fw-bold">Método de validación *</label>
-            <select class="form-select" formControlName="checkType">
+    <div class="row">
+        <div class="col-3">
+            <form [formGroup]="checkTypeForm">
+                <label class="form-label fw-bold">Método de validación *</label>
+                <select class="form-select" formControlName="checkType">
                <option value="">Selecciona un método</option>
                <option value="dni">DNI</option>
                <option value="name">Nombre completo</option>
             </select>
-         </form>
-      </div>
-   </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <!-- CHECK FORMS -->
 
 <!-- Dni Form -->
 <div *ngIf="!patientExist && checkTypeForm.value.checkType == 'dni'" class="container mt-5">
-   <form [formGroup]="validatePatientFormDni">
-      <div class="row mb-3">
-         <!-- Patient field -->
-         <div class="mb-3 col-3">
-            <label class="form-label fw-bold">Introduce NIF/NIE del paciente *</label>
-            <input type="text" formControlName="dni" class="form-control" required>
-            <div *ngIf="validatePatientFormDni.get('dni')?.touched" class="text-danger mt-1">
-               <div *ngIf="validatePatientFormDni.get('dni')?.errors?.['required']">NIF/NIE es obligatorio.</div>
-               <div class="field-message" *ngIf="validatePatientFormDni.get('dni')?.errors?.['correctDni']">
-                  Formato de NIF/NIE incorrecto.
-               </div>
+    <form [formGroup]="validatePatientFormDni">
+        <div class="row mb-3">
+            <!-- Patient field -->
+            <div class="mb-3 col-3">
+                <label class="form-label fw-bold">Introduce NIF/NIE del paciente *</label>
+                <input type="text" formControlName="dni" class="form-control" required>
+                <div *ngIf="validatePatientFormDni.get('dni')?.touched" class="text-danger mt-1">
+                    <div *ngIf="validatePatientFormDni.get('dni')?.errors?.['required']">NIF/NIE es obligatorio.</div>
+                    <div class="field-message" *ngIf="validatePatientFormDni.get('dni')?.errors?.['correctDni']">
+                        Formato de NIF/NIE incorrecto.
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <div class="row text-center mt-2">
-         <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientFormDni.invalid"
-            (click)="checkPatientDni()">Buscar Paciente</button>
-      </div>
-   </form>
+        </div>
+        <div class="row text-center mt-2">
+            <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientFormDni.invalid" (click)="checkPatientDni()">Buscar Paciente</button>
+        </div>
+    </form>
 </div>
 
 <!-- Name Form -->
 <div *ngIf="!patientExist && checkTypeForm.value.checkType == 'name'" class="container mt-5">
-   <form [formGroup]="validatePatientFormName">
-      <div class="row mb-3">
-         <!-- Patient field -->
-         <div class="mb-3 col-3">
-            <label class="form-label fw-bold">Introduce Nombre del paciente *</label>
-            <input type="text" formControlName="name" class="form-control" required>
-            <label class="text-danger mt-1"
-               *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
+    <form [formGroup]="validatePatientFormName">
+        <div class="row mb-3">
+            <!-- Patient field -->
+            <div class="mb-3 col-3">
+                <label class="form-label fw-bold">Introduce Nombre del paciente *</label>
+                <input type="text" formControlName="name" class="form-control" required>
+                <label class="text-danger mt-1" *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                requerido
             </label>
-            
-         </div>
-         <div class="mb-3 col-3">
-            <label class="form-label fw-bold">Introduce los Apellidos del paciente *</label>
-            <input type="text" formControlName="surname" class="form-control" required>
-            <label class="text-danger mt-1"
-               *ngIf="registerVisitForm.get('surname')?.errors?.['required'] && registerVisitForm.get('surname')?.touched">Apellido
+
+            </div>
+            <div class="mb-3 col-3">
+                <label class="form-label fw-bold">Introduce los Apellidos del paciente *</label>
+                <input type="text" formControlName="surname" class="form-control" required>
+                <label class="text-danger mt-1" *ngIf="registerVisitForm.get('surname')?.errors?.['required'] && registerVisitForm.get('surname')?.touched">Apellido
                requerido
             </label>
-         </div>
-      </div>
-      <div class="row text-center mt-2">
-         <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientFormName.invalid"
-            (click)="checkPatientName()">Buscar Paciente</button>
-      </div>
-   </form>
+            </div>
+        </div>
+        <div class="row text-center mt-2">
+            <button type="button" class="btn btn-primary col-3" [disabled]="validatePatientFormName.invalid" (click)="checkPatientName()">Buscar Paciente</button>
+        </div>
+    </form>
 </div>
 
 <!-- REGISTER FORM -->
 
 <div *ngIf="patientExist" class="container mt-5">
-   <div class="row">
-      <!-- Form -->
-      <div class="col-6">
-         <form [formGroup]="registerVisitForm" enctype="multipart/form-data">
-            <!-- Inputs -->
-            <div class="row mb-3">
-               <!-- CH Number field -->
-               <div class="mb-3 col-6">
-                  <label class="form-label fw-bold">Nº del historial clínico *</label>
-                  <input type="text" formControlName="id" class="form-control" readonly>
-                  <label class="text-danger mt-1"
-                     *ngIf="registerVisitForm.get('id')?.errors?.['required'] && registerVisitForm.get('id')?.touched">Nº
+    <div class="row">
+        <!-- Form -->
+        <div class="col-6">
+            <form [formGroup]="registerVisitForm" enctype="multipart/form-data">
+                <!-- Inputs -->
+                <div class="row mb-3">
+                    <!-- CH Number field -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label fw-bold">Nº del historial clínico *</label>
+                        <input type="text" formControlName="id" class="form-control" readonly>
+                        <label class="text-danger mt-1" *ngIf="registerVisitForm.get('id')?.errors?.['required'] && registerVisitForm.get('id')?.touched">Nº
                      del historial
                      requerido
                   </label>
-               </div>
-               <!-- DNI field -->
-               <div class="mb-3 col-6">
-                  <label class="form-label fw-bold">NIF/NIE *</label>
-                  <input type="text" formControlName="dni" class="form-control" readonly>
-                  <!-- <label class="text-danger mt-1"
+                    </div>
+                    <!-- DNI field -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label fw-bold">NIF/NIE *</label>
+                        <input type="text" formControlName="dni" class="form-control" readonly>
+                        <!-- <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('dni')?.errors?.['required'] && registerVisitForm.get('dni')?.touched">DNI
                      requerido
                   </label> -->
-                  <div *ngIf="registerVisitForm.get('dni')?.touched" class="text-danger mt-1">
-                     <div *ngIf="registerVisitForm.get('dni')?.errors?.['required']">NIF/NIE es obligatorio.</div>
-                     <div class="field-message" *ngIf="registerVisitForm.get('dni')?.errors?.['correctDni']">
-                        Formato de NIF/NIE incorrecto.
-                     </div>
-                  </div>
-               </div>
-               <!-- Name field -->
-               <div class="mb-3 col-6">
-                  <label class="form-label fw-bold">Nombre *</label>
-                  <input type="text" formControlName="name" class="form-control" readonly>
-                  <label class="text-danger mt-1"
-                     *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
+                        <div *ngIf="registerVisitForm.get('dni')?.touched" class="text-danger mt-1">
+                            <div *ngIf="registerVisitForm.get('dni')?.errors?.['required']">NIF/NIE es obligatorio.</div>
+                            <div class="field-message" *ngIf="registerVisitForm.get('dni')?.errors?.['correctDni']">
+                                Formato de NIF/NIE incorrecto.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Name field -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label fw-bold">Nombre *</label>
+                        <input type="text" formControlName="name" class="form-control" readonly>
+                        <label class="text-danger mt-1" *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                      requerido
                   </label>
-               </div>
-               <!-- Surnames field -->
-               <div class="mb-3 col-6">
-                  <label class="form-label fw-bold">Apellidos *</label>
-                  <input type="text" formControlName="surnames" class="form-control" readonly>
-                  <label class="text-danger mt-1"
-                     *ngIf="registerVisitForm.get('surnames')?.errors?.['required'] && registerVisitForm.get('surnames')?.touched">Apellidos
+                    </div>
+                    <!-- Surnames field -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label fw-bold">Apellidos *</label>
+                        <input type="text" formControlName="surnames" class="form-control" readonly>
+                        <label class="text-danger mt-1" *ngIf="registerVisitForm.get('surnames')?.errors?.['required'] && registerVisitForm.get('surnames')?.touched">Apellidos
                      requerido
                   </label>
-               </div>
-               <!-- Visit date field -->
-               <div class="mb-3 col-6">
-                  <label class="form-label fw-bold">Fecha de la visita *</label>
-                  <input type="date" formControlName="date" class="form-control" readonly>
-                  <label class="text-danger mt-1"
-                     *ngIf="registerVisitForm.get('date')?.errors?.['required'] && registerVisitForm.get('date')?.touched">Fecha
+                    </div>
+                    <!-- Visit date field -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label fw-bold">Fecha de la visita *</label>
+                        <input type="date" formControlName="date" class="form-control" readonly>
+                        <label class="text-danger mt-1" *ngIf="registerVisitForm.get('date')?.errors?.['required'] && registerVisitForm.get('date')?.touched">Fecha
                      requerida
                   </label>
-               </div>
-               <!-- Treatment field -->
-               <div class="mb-3 col-6">
-                  <label class="form-label fw-bold">Tratamiento *</label>
-                  <!-- <select class="form-select" formControlName="treat" aria-label="Default select example" required>
+                    </div>
+                    <!-- Treatment field -->
+                    <div class="mb-3 col-6">
+                        <label class="form-label fw-bold">Tratamiento *</label>
+                        <!-- <select class="form-select" formControlName="treat" aria-label="Default select example" required>
                      <option *ngFor="let t of listTreatments" value={{t.name}}>{{t.name}}</option>
                   </select>
                   <label class="text-danger mt-1"
                      *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
                      requerido
                   </label> -->
-                  <div>
-                     <ng-multiselect-dropdown [placeholder]="'Seleccionar tratamientos'"
-                        [settings]="selectTreatmentsOptions" [data]="listTreatments" formControlName="treat"
-                        (onSelect)="onItemSelect()" (onSelectAll)="onSelectAll()" (onDeSelect)="onItemSelect()">
-                     </ng-multiselect-dropdown>
-                     <label class="text-danger mt-1"
-                        *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
+                        <div>
+                            <ng-multiselect-dropdown [placeholder]="'Seleccionar tratamientos'" [settings]="selectTreatmentsOptions" [data]="listTreatments" formControlName="treat" (onSelect)="onItemSelect()" (onSelectAll)="onSelectAll()" (onDeSelect)="onItemSelect()">
+                            </ng-multiselect-dropdown>
+                            <label class="text-danger mt-1" *ngIf="registerVisitForm.get('treat')?.errors?.['required'] && registerVisitForm.get('treat')?.touched">Tratamiento
                         requerido
                      </label>
-                  </div>
-               </div>
-               <!-- Description field -->
-               <div class="mb-3 col-12">
-                  <label class="form-label fw-bold">Descripción de la visita</label>
-                  <textarea name="des" class="form-control" placeholder="Escribe aquí..." formControlName="desc"
-                     style="height: 100px"></textarea>
-               </div>
-               <!-- Document field -->
-               <div class="mb-3 col-8">
-                  <label class="form-label fw-bold">Documento adjunto</label>
-                  <input class="form-control" type="file" id="file" formControlName="file" accept="image/*"
-                  (change)="selectFiles($event)" multiple>
-                  
-               </div>
-            </div>
+                        </div>
+                    </div>
+                    <!-- Description field -->
+                    <div class="mb-3 col-12">
+                        <label class="form-label fw-bold">Descripción de la visita</label>
+                        <textarea name="des" class="form-control" placeholder="Escribe aquí..." formControlName="desc" style="height: 100px"></textarea>
+                    </div>
+                    <!-- Document field -->
+                    <div class="mb-3 col-8">
+                        <label class="form-label fw-bold">Documento adjunto</label>
+                        <input class="form-control" type="file" id="file" formControlName="file" accept="image/*" (change)="selectFiles($event)" multiple>
 
-            <!-- Submit button -->
-            <div class="row text-center mt-5">
-               <div class="col-4"></div>
-               <!-- Button trigger modal -->
-               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div class="row text-center mt-5">
+                    <div class="col-4"></div>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                   Registrar visita
                </button>
-               <!-- Modal -->
-               <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                  tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                     <div class="modal-content">
-                        <div class="modal-header">
-                           <h5 class="modal-title" id="staticBackdropLabel">Confirmación de Facturación</h5>
-                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                           <label class="form-label fw-bold">Facturación</label><br>
-                           <div class="form-check display-1">
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Confirmación de Facturación</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <label class="form-label fw-bold">Facturación</label><br>
+                                    <div class="form-check display-1">
 
-                              <input class="form-check-input" formControlName="facturation" type="checkbox" value=""
-                                 (change)="checked()" style="margin: 0 auto;">
-                              <label class="text-danger mt-1"
-                                 *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
+                                        <input class="form-check-input" formControlName="facturation" type="checkbox" value="" (change)="checked()" style="margin: 0 auto;">
+                                        <label class="text-danger mt-1" *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
                                  requerida
                               </label>
-                           </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" [disabled]="registerVisitForm.invalid" (click)="addVisit()">Registrar Visita</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                           <button type="button" class="btn btn-primary" [disabled]="registerVisitForm.invalid"
-                              (click)="addVisit()">Registrar Visita</button>
-                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- Modal -->
-               <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    </div>
+                    <!-- Modal -->
+                    <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                   tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
@@ -243,29 +226,29 @@
                      </div>
                   </div>
                </div> -->
-            </div>
-         </form>
-      </div>
-      <div class="col-1"></div>
-      <!-- Previous Visits Table -->
-      <div class="col-5">
-         <h2>Visitas anteriores de {{visitPatient.first_name}}</h2>
-         <table class="table table-striped">
-            <thead>
-               <tr>
-                  <th class="text-center">Fecha de visita</th>
-                  <th>Descripción de la visita </th>
-                  <th>Especialista</th>
-               </tr>
-            </thead>
-            <tbody>
-               <tr *ngFor="let visit of listVisits">
-                  <td class="text-center">{{visit.visit_date}}</td>
-                  <td>{{visit.visit_description}}</td>
-                  <td>{{visit.specialist_name}} {{visit.specialist_lastname}}</td>
-               </tr>
-            </tbody>
-         </table>
-      </div>
-   </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-1"></div>
+        <!-- Previous Visits Table -->
+        <div class="col-5">
+            <h2>Visitas anteriores de {{visitPatient.first_name}}</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Fecha de visita</th>
+                        <th>Descripción de la visita </th>
+                        <th>Especialista</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let visit of listVisits">
+                        <td class="text-center">{{visit.visit_date}}</td>
+                        <td>{{visit.visit_description}}</td>
+                        <td>{{visit.specialist_name}} {{visit.specialist_lastname}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

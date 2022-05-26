@@ -29,6 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TemplateInvoiceComponent } from './components/invoices/template-invoice/template-invoice.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

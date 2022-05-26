@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommunicatorService } from 'src/app/services/communicator.service';
 
 @Component({
   selector: 'app-template-invoice',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplateInvoiceComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: CommunicatorService) { }
 
   ngOnInit(): void {
+    
   }
 
 }

@@ -41,11 +41,9 @@ class VisitController extends Controller
             'visits.id',
             'visits.visit_date',
             'visits.visit_description',
-            // 'visits.ss_private',
             'users.first_name',
             'users.last_name',
             'users.dni',
-            // 'users.num_clinical_log',
             'users.diabetic',
             'uses.treatment_id'
         )
@@ -87,6 +85,7 @@ class VisitController extends Controller
                     $tFound = $t['id'];
                     $treatment = Treatment::find($t['id']);
                     $total_price += $treatment->price;
+
                     $uses = new Uses;
                     $uses->visit_id = $visit->id;
                     $uses->user_id = $request->specialist_id;
@@ -250,7 +249,10 @@ class VisitController extends Controller
            `users`.`diabetic`, `uses`.`treatment_id`,
            `uses`.`user_id`, `treatments`.`name`,
            (select CONCAT(first_name,' ', last_name) AS specialist_name from users AS t where t.id=uses.user_id)AS specialist_name
-            from `visits` inner join `users` on `visits`.`user_id` = `users`.`id` inner join `uses` on `visits`.`id` = `uses`.`visit_id` inner join `treatments` on `uses`.`treatment_id` = `treatments`.`id`"
+            from `visits` 
+            inner join `users` on `visits`.`user_id` = `users`.`id` 
+            inner join `uses` on `visits`.`id` = `uses`.`visit_id` 
+            inner join `treatments` on `uses`.`treatment_id` = `treatments`.`id` ORDER BY visit_date DESC"
         ));
     }
 }
