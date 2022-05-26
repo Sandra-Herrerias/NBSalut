@@ -370,6 +370,21 @@ export class CommunicatorService {
       });
   }
 
+  uploadFile(file: File, visit_id: number) {
+    const formData: FormData = new FormData();
+
+    formData.append('image', file);
+
+    // return this.http.post(`http://localhost:8000/api/upload?visit_id=${visit_id}`, formData,
+    return this.http.post("http://localhost:8000/api/upload", {
+      image: formData,
+      visit_id: visit_id
+    },
+      {
+        responseType: "json"
+      });
+  }
+
 
 
   //#endregion

@@ -54,7 +54,8 @@
                                     required><br>
                             </div>
                             <div *ngIf="validatePatientFormDni.get('dni')?.touched" class="text-danger mt-1 ms-1">
-                                <div *ngIf="validatePatientFormDni.get('dni')?.errors?.['required']">NIF/NIE es obligatorio.
+                                <div *ngIf="validatePatientFormDni.get('dni')?.errors?.['required']">NIF/NIE es
+                                    obligatorio.
                                 </div>
                                 <div class="field-message"
                                     *ngIf="validatePatientFormDni.get('dni')?.errors?.['correctDni']">
@@ -102,8 +103,9 @@
                         (click)="checkPatientDni()">Buscar Paciente</button>
                 </div>
                 <div *ngIf="!patientExist && checkTypeForm.value.checkType == 'name'" class="row text-center mt-2">
-                    <button type="button" class="btn btn-primary col-3 ms-2" [disabled]="validatePatientFormName.invalid"
-                        (click)="checkPatientName()">Buscar Paciente</button>
+                    <button type="button" class="btn btn-primary col-3 ms-2"
+                        [disabled]="validatePatientFormName.invalid" (click)="checkPatientName()">Buscar
+                        Paciente</button>
                 </div>
             </div>
 
@@ -192,7 +194,10 @@
                                     <label class="form-label fw-bold">Documento adjunto</label>
                                     <input class="form-control" type="file" id="file" formControlName="file"
                                         accept="image/*" (change)="selectFile($event)" multiple>
-
+                                    <!-- <button class="btn btn-success btn-sm" [disabled]="!selectedFiles"
+                                        (click)="uploadFile()">
+                                        Upload
+                                    </button> -->
                                 </div>
                             </div>
 
@@ -256,7 +261,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let visit of listVisits | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
+                                <tr
+                                    *ngFor="let visit of listVisits | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
                                     <td>{{visit.visit_date}}</td>
                                     <td>{{visit.visit_description}}</td>
                                     <td>{{visit.specialist_name}} {{visit.specialist_lastname}}</td>
