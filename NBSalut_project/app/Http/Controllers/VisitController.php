@@ -32,7 +32,15 @@ class VisitController extends Controller
         //     ->get();
 
         return DB::select(DB::raw(
-            "SELECT `visits`.`id`, `visits`.`visit_date`, `visits`.`visit_description`, `visits`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`dni`, `users`.`diabetic`, `uses`.`treatment_id`, `uses`.`user_id` AS especialist_id, `treatments`.`name`, ( SELECT CONCAT(first_name, ' ', last_name) AS specialist_name FROM users AS t WHERE t.id = uses.user_id ) AS specialist_name FROM `visits` INNER JOIN `users` ON `visits`.`user_id` = `users`.`id` INNER JOIN `uses` ON `visits`.`id` = `uses`.`visit_id` INNER JOIN `treatments` ON `uses`.`treatment_id` = `treatments`.`id` WHERE `visits`.`user_id` = $request->id
+            "SELECT `visits`.`id`, `visits`.`visit_date`, `visits`.`visit_description`,
+            `visits`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`dni`,
+            `users`.`diabetic`, `uses`.`treatment_id`, `uses`.`user_id` AS especialist_id,
+             `treatments`.`name`, ( SELECT CONCAT(first_name, ' ', last_name)
+             AS specialist_name FROM users AS t WHERE t.id = uses.user_id )
+             AS specialist_name FROM `visits` INNER JOIN `users` ON `visits`.`user_id`
+             = `users`.`id` INNER JOIN `uses` ON `visits`.`id` = `uses`.`visit_id`
+             INNER JOIN `treatments` ON `uses`.`treatment_id` = `treatments`.`id`
+             WHERE `visits`.`user_id` = $request->id
             "
         ));
     }
@@ -54,7 +62,7 @@ class VisitController extends Controller
             ->join('invoices', 'visits.id', '=', 'invoices.visit_id')
             ->get();
     }
-    
+
 
 
     public function insertVisit(Request $request)
@@ -65,7 +73,7 @@ class VisitController extends Controller
         // if($request->hasFile('image'))
         // $completeFileName = $request->file('image');
         // $destinationPath = 'public/';
-        
+
 
         //return $request;
 
@@ -112,13 +120,14 @@ class VisitController extends Controller
 
                 if ($request->facturate == true) {
                     foreach ($request->treat as $t) {
+                        $treatment = Treatment::find($t['id']);
                         $invoice = new Invoice;
                         $invoice->id;
                         $invoice->invoice_number = $this->assignLastNumber($request->specialist_id);
                         $invoice->payment_type = "tarjeta";
                         $invoice->sent = 0;
                         $invoice->invoice_date = $request->date;
-                        $invoice->total_price = $total_price;
+                        $invoice->total_price = $treatment->price;
                         $invoice->specialist_id = $request->specialist_id;
                         $invoice->visit_id = $visit->id;
                         $invoice->save();
@@ -130,7 +139,6 @@ class VisitController extends Controller
                         $partnerInvoice->first_name = $specialist->first_name;
                         $partnerInvoice->last_name = $specialist->last_name;
                         $partnerInvoice->role = $specialist->role;
-                        // $partnerInvoice->nif = $specialist->dni;
                         $partnerInvoice->postal_code = $specialist->postal_code;
                         $partnerInvoice->address = $specialist->address;
                         $partnerInvoice->city = $specialist->city;
@@ -143,14 +151,12 @@ class VisitController extends Controller
                         $partnerInvoicePatient->first_name = $patient->first_name;
                         $partnerInvoicePatient->last_name = $patient->last_name;
                         $partnerInvoicePatient->role = $patient->role;
-                        // $partnerInvoice->nif = $patient->dni;
                         $partnerInvoicePatient->postal_code = $patient->postal_code;
                         $partnerInvoicePatient->address = $patient->address;
                         $partnerInvoicePatient->city = $patient->city;
                         $partnerInvoicePatient->invoice_id = $invoice->id;
                         $partnerInvoicePatient->save();
 
-                        $treatment = Treatment::find($t['id']);
                         $invoice_detail = new Invoice_detail;
                         $invoice_detail->id;
                         $invoice_detail->invoice_id = $invoice->id;
@@ -192,9 +198,9 @@ class VisitController extends Controller
            `users`.`diabetic`, `uses`.`treatment_id`,
            `uses`.`user_id`, `treatments`.`name`,
            (select CONCAT(first_name,' ', last_name) AS specialist_name from users AS t where t.id=uses.user_id)AS specialist_name
-            from `visits` 
-            inner join `users` on `visits`.`user_id` = `users`.`id` 
-            inner join `uses` on `visits`.`id` = `uses`.`visit_id` 
+            from `visits`
+            inner join `users` on `visits`.`user_id` = `users`.`id`
+            inner join `uses` on `visits`.`id` = `uses`.`visit_id`
             inner join `treatments` on `uses`.`treatment_id` = `treatments`.`id` ORDER BY visit_date DESC"
         ));
     }

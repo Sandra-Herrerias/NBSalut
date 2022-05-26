@@ -65,32 +65,32 @@ class InvoiceController extends Controller
             ->get();
 
         if ($invoices) {
-            return response()->json(['success' => true, 'data' => $invoices, 'id'=>$request->specialist_id]);
+            return response()->json(['success' => true, 'data' => $invoices, 'id' => $request->specialist_id]);
         }
 
         return response()->json(['success' => false, 'data' => []]);
     }
 
-    public function getInvoice(Request $request){
-        $invoices = DB::table('invoices')
-        ->leftjoin('partner_invoices', 'invoices.id', '=', 'partner_invoices.invoice_id')
-        ->leftjoin('invoice_details', 'invoices.id', '=', 'invoice_details.invoice_id')
-        // ->where('invoices.specialist_id', '=', $request->specialist_id)
+    public function getInvoice(Request $request)
+    {
+        $invoice = DB::table('invoices')
+            ->join('partner_invoices', 'invoices.id', '=', 'partner_invoices.invoice_id')
+            ->join('invoice_details', 'invoices.id', '=', 'invoice_details.invoice_id')
+            ->where('invoices.id', '=', $request->invoice_id)
+            ->select(
+                'invoices.*',
+                'partner_invoices.*',
+                // 'partner_invoices.dni',
+                // 'partner_invoices.address',
+                // 'partner_invoices.postal_code',
+                'invoice_details.name',
+                'invoice_details.quantity',
+                'invoice_details.price'
+            )
+            ->get();
 
-        ->select(
-            'invoices.*',
-            'partner_invoices.first_name',
-            'partner_invoices.last_name',
-            'partner_invoices.dni',
-            'partner_invoices.address',
-            'partner_invoices.postal_code',
-            'invoice_details.name',
-            'invoice_details.price'
-        )
-        ->get();
-
-        if ($invoices) {
-            return response()->json(['success' => true, 'data' => $invoices]);
+        if ($invoice) {
+            return response()->json(['success' => true, 'data' => $invoice]);
         }
 
         return response()->json(['success' => false, 'data' => []]);

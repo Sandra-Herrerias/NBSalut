@@ -64,7 +64,7 @@ const routes: Routes = [
   },
   {
     path: 'invoice/:id',
-    // canActivate: [GuardGuard],
+    canActivate: [GuardGuard],
     component: TemplateInvoiceComponent,
   },
   {

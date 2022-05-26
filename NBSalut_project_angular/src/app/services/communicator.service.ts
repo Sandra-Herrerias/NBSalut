@@ -9,6 +9,14 @@ import { User } from '../models/user';
 })
 export class CommunicatorService {
 
+  getInvoice(data: any) {
+    return this.http.get("http://127.0.0.1:8000/api/getInvoice",
+    {
+      params: { invoice_id: data.invoice_id },
+      responseType: "json"
+    });
+  }
+
 
   private userSubject!: BehaviorSubject<User>;
   public user!: Observable<User>;
@@ -342,7 +350,7 @@ export class CommunicatorService {
       });
   }
 
-  
+
 
   /**
 * Function that enables the retrievement of specialist name and treatment name associated

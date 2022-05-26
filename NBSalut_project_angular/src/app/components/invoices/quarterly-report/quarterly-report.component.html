@@ -55,15 +55,14 @@
         </thead>
         <tbody>
           <tr *ngFor="let invoice of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-            <!-- <td>{{ invoice.number_invoice }}</td> -->
-            <td>{{ invoice.invoice_number }} </td>
+            <td>{{ invoice.invoice_number }}</td>
             <td>{{ invoice.invoice_date | date:'dd/MM/yyyy' }}</td>
             <td>{{ invoice.first_name }} {{ invoice.last_name }}</td>
             <td>{{ invoice.address }}, {{ invoice.postal_code }}</td>
             <td>{{ invoice.dni }}</td>
             <td>{{ invoice.name }}</td>
             <td>{{ invoice.price }} €</td>
-            <td [routerLink]="['/invoice',invoice.id]">Ver Factura</td>
+            <td><a [routerLink]="['/invoice', invoice.id]" target="_blank">Ver Factura</a></td>
             <td>
               <span class="badge rounded-pill" [ngClass]="invoice.sent ? 'bg-success' : 'bg-warning'">
                 {{ invoice.sent ? "Enviada" : "Pendiente" }}

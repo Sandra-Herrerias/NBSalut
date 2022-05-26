@@ -24,6 +24,7 @@ export class GuardGuard implements CanActivate {
     //     console.log("tienes sesion volviendo a home")
     //    return this.route.navigate(['/home']).then(() => true);
     //   }
+    console.log(route.url[0].path)
     if (user) {
       if (route.url[0].path == 'listworkers'
         || route.url[0].path == 'editworker'

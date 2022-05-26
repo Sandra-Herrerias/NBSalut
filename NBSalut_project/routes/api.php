@@ -50,6 +50,7 @@ Route::post('filed', [VisitController::class, 'fileDownload']);
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
+Route::get('getInvoice', [InvoiceController::class, 'getInvoice']);
 Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
 Route::get('generateInvoice', [InvoiceController::class, 'generateInvoice']);
 Route::get('getTotalInvoices', [InvoiceController::class, 'getTotalInvoices']);

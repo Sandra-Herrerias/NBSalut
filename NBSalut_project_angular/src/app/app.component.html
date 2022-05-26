@@ -5,7 +5,7 @@
     integrity="sha512-5qbIAL4qJ/FSsWfIq5Pd0qbqoZpk5NcUVeAAREV2Li4EKzyJDEGlADHhHOSSCw0tHP7z3Q4hNHJXa81P92borQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <main class="d-flex min-vh-100 overflow-hidden">
-    <div *ngIf="data != '/login'" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark nb"
+    <div *ngIf="data != '/login' && data != '/invoice/'" class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark nb"
         style="width: 280px;" [ngClass]="status ? 'show' : 'hide'">
         <a href="home" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <svg class="bi me-2" width="40" height="32">
@@ -67,7 +67,7 @@
     </div>
 
     <div id="page-content-wrapper">
-        <div *ngIf="data != '/login'" class="container-fluid nb mb-3">
+        <div *ngIf="data != '/login' && data != '/invoice'" class="container-fluid nb mb-3">
             <header class="d-flex align-items-center justify-space-between py-2">
                 <button class="btn btn-lg" (click)="clickEvent()"><i class="bi bi-list text-white"></i></button>
             </header>
