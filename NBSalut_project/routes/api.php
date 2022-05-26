@@ -45,12 +45,11 @@ Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 Route::post('upload', [VisitController::class, 'upload']);
 Route::post('files', [VisitController::class, 'files']);
 Route::post('filed', [VisitController::class, 'fileDownload']);
-
-
+Route::delete('delVisit', [VisitController::class, 'delVisit']);
+Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
-Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
 Route::get('generateInvoice', [InvoiceController::class, 'generateInvoice']);
 Route::get('getTotalInvoices', [InvoiceController::class, 'getTotalInvoices']);
 Route::put('sentInvoicesChecked', [InvoiceController::class, 'sentInvoicesChecked']);

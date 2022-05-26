@@ -283,7 +283,7 @@ export class CommunicatorService {
 
 
   /**
-* Service POST
+* Service DELETE
 * @param info
 * @returns
 */
@@ -342,7 +342,7 @@ export class CommunicatorService {
       });
   }
 
-  
+
 
   /**
 * Function that enables the retrievement of specialist name and treatment name associated
@@ -356,6 +356,21 @@ export class CommunicatorService {
         responseType: "json"
       });
   }
+
+  /**
+* Service DELETE
+* @param info
+* @returns
+*/
+  delVisit(info: any) {
+    return this.http.delete("http://localhost:8000/api/delVisit",
+      {
+        responseType: "json",
+        body: info
+      });
+  }
+
+
 
   //#endregion
 

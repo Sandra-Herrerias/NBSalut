@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { VisitClass } from './../../../models/visit-class.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommunicatorService } from 'src/app/services/communicator.service';
@@ -11,6 +11,7 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 export class ListVisitComponent implements OnInit {
   listVisits: any | [] = [];
   filteredListVisits: any | [] = [];
+  visitSelected !: VisitClass;
   inputSearch: string = '';
   inputSearchDate: string = '';
   ipp: number;
@@ -89,6 +90,40 @@ export class ListVisitComponent implements OnInit {
       this.cp = 1;
     }
   }
+
+
+  confirmDelete(visitSelected: any): void{
+    if (confirm("¿Está segura de eliminar definitivamente esta visita?")) {
+      let info = {
+        id: visitSelected.id
+      }
+      this.communicator.delVisit(info).subscribe(
+        (result: any) => {
+          if (result.success) {
+            this.deleteVisit(visitSelected);
+            this.search();
+            alert("Visita eliminada correctamente");
+          } else {
+            alert("La visita no se ha podido eliminar");
+          }
+        }
+      );
+    }
+  }
+
+    /**
+ * This method removes the visit from the list, asking info to the method from the service that removes visits.
+ * @param visitSelected
+ */
+     deleteVisit(visitSelected: any): void {
+      for (let i = 0; i < this.listVisits.length; i++) {
+        if (this.listVisits[i].id === visitSelected.id) {
+          this.listVisits.splice(i, 1);
+          break;
+        }
+      }
+    }
+  
 }
 
 

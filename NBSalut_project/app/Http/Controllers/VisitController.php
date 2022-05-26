@@ -202,4 +202,10 @@ class VisitController extends Controller
     public function upload(Request $request) {
         return $request;
     }
+
+    public function delVisit(Request $request) {
+        $result = Visit::destroy($request->id);
+
+        return response()->json(['success' => $result]);
+    }
 }

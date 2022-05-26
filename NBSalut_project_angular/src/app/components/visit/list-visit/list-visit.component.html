@@ -3,8 +3,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="link-success nb-color-primary"
-                            [routerLink]="['/home']">Inicio</a></li>
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/home']">Inicio</a></li>
                     <li class="breadcrumb-item active">Listar Visitas</li>
                 </ol>
             </div>
@@ -47,6 +46,7 @@
                             <th scope="col">HOJA SEGURIDAD SOCIAL</th>
                             <th scope="col">TRATAMIENTO</th>
                             <th scope="col">OBSERVACIONES</th>
+                            <th scope="col">ELIMINAR</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +64,7 @@
                 </span></td>
                             <td>{{visit.name}}</td>
                             <td>{{visit.visit_description}}</td>
+                            <td><button class="btn" (click)="confirmDelete(visit)"><i class="bi bi-trash-fill"></i></button></td>
                         </tr>
                     </tbody>
                 </table>
