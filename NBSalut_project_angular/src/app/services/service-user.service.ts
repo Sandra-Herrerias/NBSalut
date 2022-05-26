@@ -10,7 +10,10 @@ export class ServiceUserService {
   data: Observable<User> = this.dataSource.asObservable();
  
   constructor() { }
-
+/**
+ * sendData function to share data between components
+ * @param data 
+ */
   sendData(data: User) {
     this.dataSource.next(data);
   }

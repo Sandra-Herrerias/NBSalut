@@ -135,7 +135,6 @@ export class RegisterWorkerComponent implements OnInit {
       "updated_at": this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:SS')
     }
 
-    // console.log(this.userDetails.value.diabetic);
     if (this.userDetails.valid) {
       this.communicator.addWorker(info).subscribe(
         (result: any) => {
