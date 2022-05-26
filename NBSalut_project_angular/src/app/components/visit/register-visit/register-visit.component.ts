@@ -40,7 +40,9 @@ export class RegisterVisitComponent implements OnInit {
   visitPatient: any;
   visitPatientId: number;
 
-  fileBlob: File | null = null;
+  // Pagination
+  ipp: number;
+  cp: number;
 
   message: string | undefined;
 
@@ -117,6 +119,8 @@ export class RegisterVisitComponent implements OnInit {
     private route: Router,
     private serviceUser: ServiceUserService,
     private serviceUpload: FileUploadService) {
+    this.ipp = 10;
+    this.cp = 1;
     this.patientExist = false;
     this.visitPatientId = -1;
     this.communicator.user.subscribe(
@@ -281,7 +285,7 @@ export class RegisterVisitComponent implements OnInit {
 
         this.registerVisitForm.get('name')?.setValue(this.visitPatient.first_name);
         this.registerVisitForm.get('surnames')?.setValue(this.visitPatient.last_name);
-        this.registerVisitForm.get('id')?.setValue(this.visitPatientId );
+        this.registerVisitForm.get('id')?.setValue(this.visitPatientId);
         this.registerVisitForm.get('dni')?.setValue(res.user.dni);
 
 
@@ -384,9 +388,10 @@ export class RegisterVisitComponent implements OnInit {
    */
   addVisit() {
 
-    
+
 
     if (this.registerVisitForm.value.treat) {
+
       this.actualVisit = {
         dni: this.registerVisitForm.value.dni,
         name: this.registerVisitForm.value.name,
@@ -399,9 +404,9 @@ export class RegisterVisitComponent implements OnInit {
         pay_type: "tarjeta",
         specialist_id: this.user.id
       };
-    
 
-    //console.log(formData);
+
+      //console.log(formData);
 
       this.communicator.registerVisit(this.actualVisit).subscribe(
         (result: any) => {
