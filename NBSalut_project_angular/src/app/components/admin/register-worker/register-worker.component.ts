@@ -149,7 +149,7 @@ export class RegisterWorkerComponent implements OnInit {
               register_date: this.todayFormatRegDate
             });
           } else {//error message
-            alert("El especialista no se ha podido añadir");
+            alert("El especialista no se ha podido añadir "  + result.message);
           }
         }
       );
