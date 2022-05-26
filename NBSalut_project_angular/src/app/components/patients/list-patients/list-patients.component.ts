@@ -10,6 +10,8 @@ declare var window: any;
   styleUrls: ['./list-patients.component.css']
 })
 export class ListPatientsComponent implements OnInit {
+
+  //Attributes
   dataPatients: any[] = [];
   patientSelected : User = new User();
   filteredPatients: any[] = [];
@@ -31,6 +33,10 @@ export class ListPatientsComponent implements OnInit {
     this.loadPatients();
   }
 
+  /**
+   * Function that sends data to another component via service
+   * @param data 
+   */
   sendNewData(data: User) {
     this.serviceUser.sendData(data);
   }
@@ -52,7 +58,7 @@ export class ListPatientsComponent implements OnInit {
   //////////////////////////////////////////////////////////////DEACTIVE OR DELETE
 
   /**
-   * Function that asks for confirmation before deleting the comment
+   * Function that asks for confirmation before deleting or deactivating the comment
    * @param patientSelected
    */
   confirmDeactivate(patientSelected: any) {
@@ -94,7 +100,7 @@ export class ListPatientsComponent implements OnInit {
   }
 
   /**
- * This method removes the patient from the list, asking info to the method from the service that removes users.
+ * This method removes the patient from the list in list patients view.
  * @param patientSelected
  */
   deletePatient(patientSelected: any): void {

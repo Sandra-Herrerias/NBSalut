@@ -115,14 +115,11 @@ export class RegisterPatientComponent implements OnInit {
         letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
         letra = letra.substring(numero, numero + 1);
         if (letra != letr.toUpperCase()) {
-          //alert('Dni erroneo, la letra del NIF no se corresponde');
           dniValid = false;
         } else {
-          //alert('Dni correcto');
           dniValid = true;
         }
       } else {
-        //alert('Dni erroneo, formato no válido');
         dniValid = false;
       }
       return !dniValid ? { correctDni: true } : null;
