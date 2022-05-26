@@ -70,7 +70,6 @@ class UserController extends Controller
     public function getWorkers()
     {
         $data = User::where('role', 'admin')->orWhere('role', 'specialist')->orderBy('register_date', 'DESC')->get();
-
         return $data;
     }
 
@@ -139,7 +138,7 @@ class UserController extends Controller
         $patient->id;
         $patient->first_name = $request->first_name;
         $patient->last_name = $request->last_name;
-        $patient->password = $request->password;
+        $patient->password =  Hash::make($request->password);
         $patient->dni = $request->dni;
         $patient->email = $request->email;
         $patient->phone = $request->phone;
@@ -184,10 +183,11 @@ class UserController extends Controller
     public function updateUser(Request $request)
     {
         $user = User::find($request->id);
-        //$user->id = $request->id;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        //$user->password = $request->password;
+        if($request->password != ''){
+            $user->password = Hash::make($request->password);
+        }
         $user->dni = $request->dni;
         $user->email = $request->email;
         $user->phone = $request->phone;
@@ -203,7 +203,6 @@ class UserController extends Controller
         $user->id = $request->id;
         $user->collegiate_num = $request->collegiate_num;
         $user->role = $request->role;
-        //??date('Y-m-d', strtotime($request->register_date));
         $user->register_date = date('Y-m-d', strtotime($request->register_date));
 
         //Validate unique email  

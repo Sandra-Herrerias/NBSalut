@@ -27,11 +27,10 @@ export class EditWorkersComponent implements OnInit {
   user: User = new User();
   submitted = false;
   today = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
-  //date = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[0-9]{4}$";
   regexEmail = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
   regexLettersAndSpaces = "^[a-zA-ZÀ-ÿ\u00f1\u00d1 ]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1 ]*$";
   regexNumbersCapLetters = "^[a-zA-Z0-9]{14,}$";
-  listRoles: String[] = ['patient', 'admin', 'specialist'];
+  listRoles: String[] = ['admin', 'specialist'];
 
   //Constructor
   constructor(
@@ -57,7 +56,7 @@ export class EditWorkersComponent implements OnInit {
       city: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
       role: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      password: ['']
     });
   }
 
@@ -65,7 +64,7 @@ export class EditWorkersComponent implements OnInit {
     this.getData();
     this.userDetails.controls['id'].setValue(this.user.id);
     this.userDetails.controls['collegiate_num'].setValue(this.user.collegiate_num);
-    this.userDetails.controls['register_date'].setValue(this.datepipe.transform(this.user.register_date, 'dd/MM/yyyy'));
+    this.userDetails.controls['register_date'].setValue(this.datepipe.transform(this.user.register_date, 'yyyy-MM-dd'));
     this.userDetails.controls['active'].setValue(this.user.active);
     this.userDetails.controls['first_name'].setValue(this.user.first_name);
     this.userDetails.controls['last_name'].setValue(this.user.last_name);
@@ -146,7 +145,7 @@ export class EditWorkersComponent implements OnInit {
       "id": this.userDetails.value.id,
       "first_name": this.userDetails.value.first_name,
       "last_name": this.userDetails.value.last_name,
-      "password": this.user.password,
+      "password": this.userDetails.value.password,
       "dni": this.userDetails.value.dni,
       "email": this.userDetails.value.email,
       "phone": this.userDetails.value.phone,
@@ -156,7 +155,7 @@ export class EditWorkersComponent implements OnInit {
       "postal_code": this.userDetails.value.postal_code,
       "active": this.userDetails.value.active,
       "collegiate_num": this.userDetails.value.collegiate_num,
-      "role": this.user.role,
+      "role": this.userDetails.value.role,
       "register_date": this.userDetails.value.register_date
     }
 
