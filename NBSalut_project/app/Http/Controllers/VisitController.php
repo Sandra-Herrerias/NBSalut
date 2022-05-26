@@ -201,7 +201,8 @@ class VisitController extends Controller
 
         if($image = $request->file('image')) {
             $destinationPath = 'public/visits/images';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            // $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $profileImage = $image->getClientOriginalName() . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage); 
             $input['image'] = "$profileImage";
             $input['visit_id'] = 99;

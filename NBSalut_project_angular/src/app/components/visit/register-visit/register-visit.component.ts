@@ -384,6 +384,7 @@ export class RegisterVisitComponent implements OnInit {
             // Subir ficheros adjuntos
             if (this.selectedFiles) {
               var files = this.selectedFiles.length;
+              
               for (let i = 0; i < files; i++) {
                 console.log("fichero " + i + ":");
                 console.log(this.selectedFiles.item(i))
