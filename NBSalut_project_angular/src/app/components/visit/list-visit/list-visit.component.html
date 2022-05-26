@@ -3,7 +3,8 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/home']">Inicio</a></li>
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary"
+                            [routerLink]="['/home']">Inicio</a></li>
                     <li class="breadcrumb-item active">Listar Visitas</li>
                 </ol>
             </div>
@@ -21,7 +22,8 @@
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Buscar</label>
                     <div class="col-sm-10">
-                        <input type="text" placeholder="Nombre, apellido o fecha de visita" class="form-control" [(ngModel)]="inputSearch" (ngModelChange)="filter()">
+                        <input type="text" placeholder="Nombre, apellido o fecha de visita" class="form-control"
+                            [(ngModel)]="inputSearch" (ngModelChange)="filter()">
                     </div>
                 </div>
             </div>
@@ -40,18 +42,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let visit of listVisits  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
+                    <tr
+                        *ngFor="let visit of listVisits  | paginate: {itemsPerPage: ipp, currentPage: cp}; let i = index">
                         <td>{{visit.visit_date}}</td>
                         <td>{{visit.specialist_name}} {{visit.specialist_lastname}}</td>
                         <td>{{visit.first_name}} {{visit.last_name}} </td>
                         <td>
                             <span class="badge rounded-pill" [ngClass]="visit.diabetic ? 'bg-success' : 'bg-danger'">
-                {{ visit.diabetic ? "Sí" : "No" }}
-              </span>
+                                {{ visit.diabetic ? "Sí" : "No" }}
+                            </span>
                         </td>
                         <td><span class="badge rounded-pill" [ngClass]="visit.ss_CIP ? 'bg-success' : 'bg-danger'">
-                {{ visit.ss_CIP? "Sí" : "No" }}
-              </span></td>
+                                {{ visit.ss_CIP? "Sí" : "No" }}
+                            </span></td>
                         <td>{{visit.name}}</td>
                         <td>{{visit.visit_description}}</td>
                     </tr>
