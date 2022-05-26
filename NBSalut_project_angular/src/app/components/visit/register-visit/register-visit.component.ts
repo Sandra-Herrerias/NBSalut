@@ -5,8 +5,10 @@ import { CommunicatorService } from 'src/app/services/communicator.service';
 import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { VisitClass } from 'src/app/models/visit-class.model';
 import { ServiceUserService } from 'src/app/services/service-user.service';
+import { FileUploadService } from 'src/app/services/file-upload.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register-visit',
@@ -29,7 +31,10 @@ export class RegisterVisitComponent implements OnInit {
 
   genInvoice: any;
 
-  selectedFiles: FileList[] = [];
+  selectedFiles?: FileList;
+  currentFile?: File;
+  progress = 0;
+  fileInfos?: Observable<any>;
 
   patientExist: boolean;
   visitPatient: any;
@@ -111,7 +116,8 @@ export class RegisterVisitComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private communicator: CommunicatorService,
     private route: Router,
-    private serviceUser: ServiceUserService) {
+    private serviceUser: ServiceUserService,
+    private serviceUpload: FileUploadService) {
     this.patientExist = false;
     this.visitPatientId = -1;
     this.communicator.user.subscribe(
@@ -123,6 +129,8 @@ export class RegisterVisitComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fileInfos = this.serviceUpload.getFiles();
+
     this.getData();
 
     //if (this.visitPatient != null) {
@@ -156,7 +164,6 @@ export class RegisterVisitComponent implements OnInit {
         this.listVisits = result;
       }
     );
-    //return this.communicator.getVisitsList().toPromise();
   }
 
   /**
@@ -224,12 +231,46 @@ export class RegisterVisitComponent implements OnInit {
 
   //#region Files Functions
 
-  selectFiles(e: any) {
-    console.log(e.target.files);
-    this.selectFiles = e.target.files;
+  selectFile(event: any): void {
+    this.selectedFiles = event.target.files;
   }
 
+  upload(): void {
+    this.progress = 0;
 
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+
+        this.serviceUpload.upload(this.currentFile).subscribe({
+          next: (event: any) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              this.message = event.body.message;
+              this.fileInfos = this.serviceUpload.getFiles();
+            }
+          },
+          error: (err: any) => {
+            console.log(err);
+            this.progress = 0;
+
+            if (err.error && err.error.message) {
+              this.message = err.error.message;
+            } else {
+              this.message = 'Could not upload the file!';
+            }
+
+            this.currentFile = undefined;
+          }
+        });
+      }
+
+      this.selectedFiles = undefined;
+    }
+  }
 
 
   //#endregion
@@ -356,8 +397,8 @@ export class RegisterVisitComponent implements OnInit {
    * Submit the visit and adds to the DDBB
    */
   addVisit() {
-    console.log("Ficheros...");
-    console.log(this.selectFiles);
+
+    
 
     if (this.registerVisitForm.value.treat) {
       this.actualVisit = {
@@ -370,16 +411,19 @@ export class RegisterVisitComponent implements OnInit {
         user_id: this.visitPatientId,
         facturate: this.registerVisitForm.value.facturation,
         pay_type: "tarjeta",
-        file: this.selectFiles,
         specialist_id: this.user.id
       };
+    
 
-      this.communicator.registerVisit(this.actualVisit, this.selectFiles).subscribe(
+    //console.log(formData);
+
+      this.communicator.registerVisit(this.actualVisit).subscribe(
         (result: any) => {
-          console.log("Recibiendo objeto visita...");
+          //console.log("Recibiendo objeto visita...");
 
           if (result.success) { //success message
             console.log("Visita insertado correctamente");
+            this.upload();
             console.log(result)
           } else { //error message
             console.log("La visita no se ha podido añadir!");
@@ -389,6 +433,7 @@ export class RegisterVisitComponent implements OnInit {
       );
     }
   }
+
 
 
   //#endregion

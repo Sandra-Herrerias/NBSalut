@@ -3,6 +3,17 @@
    <div class="container-fluid">
       <div class="container">
          <h2>REGISTRO DE VISITA</h2>
+         <div class="card mt-3">
+            <div class="card-header">List of Files</div>
+            <ul
+              class="list-group list-group-flush"
+              *ngFor="let file of fileInfos | async"
+            >
+              <li class="list-group-item">
+                <a href="{{ file.url }}">{{ file.name }}</a>
+              </li>
+            </ul>
+          </div>
       </div>
    </div>
 </nav>
@@ -60,7 +71,7 @@
                *ngIf="registerVisitForm.get('name')?.errors?.['required'] && registerVisitForm.get('name')?.touched">Nombre
                requerido
             </label>
-            
+
          </div>
          <div class="mb-3 col-3">
             <label class="form-label fw-bold">Introduce los Apellidos del paciente *</label>
@@ -170,8 +181,8 @@
                <div class="mb-3 col-8">
                   <label class="form-label fw-bold">Documento adjunto</label>
                   <input class="form-control" type="file" id="file" formControlName="file" accept="image/*"
-                  (change)="selectFiles($event)" multiple>
-                  
+                  (change)="selectFile($event)" multiple>
+                     
                </div>
             </div>
 
@@ -269,3 +280,5 @@
       </div>
    </div>
 </div>
+
+

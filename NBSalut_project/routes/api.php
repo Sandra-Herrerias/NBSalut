@@ -42,6 +42,11 @@ Route::put('modTreatment', [TreatmentController::class, 'modTreatment']);
 Route::get('getVisits', [VisitController::class, 'getVisits']);
 Route::post('getVisitsPatient', [VisitController::class, 'getVisitsPatient']);
 Route::post('insertVisit', [VisitController::class, 'insertVisit']);
+Route::post('upload', [VisitController::class, 'upload']);
+Route::post('files', [VisitController::class, 'files']);
+Route::post('filed', [VisitController::class, 'fileDownload']);
+
+
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);

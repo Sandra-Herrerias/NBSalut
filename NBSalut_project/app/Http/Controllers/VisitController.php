@@ -15,6 +15,8 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class VisitController extends Controller
@@ -52,9 +54,18 @@ class VisitController extends Controller
             ->join('invoices', 'visits.id', '=', 'invoices.visit_id')
             ->get();
     }
+    
+
 
     public function insertVisit(Request $request)
     {
+        // $url = Storage::url('/home/david/Imágenes/Wallpapers/Anime/yor.jpg');
+        //$file = Storage::disk('public')->get($request->image);
+
+        // if($request->hasFile('image'))
+        // $completeFileName = $request->file('image');
+        // $destinationPath = 'public/';
+        
 
         //return $request;
 
@@ -80,6 +91,12 @@ class VisitController extends Controller
 
                 $specialist = User::find($request->specialist_id);
                 $patient = User::find($request->user_id);
+
+            //     $attached = new Attached;
+            //     $attached->id;
+            //     $attached->type = "image";
+            //     $attached->document = "file";
+            //     $attached->visit_id = $visit->id;
 
                 foreach ($request->treat as $t) {
                     $tFound = $t['id'];
@@ -147,81 +164,7 @@ class VisitController extends Controller
 
                 return response()->json(['success' => true, 'visit' => $tFound]);
             }
-            //return count($request->treat);
-            // for ($i = 0; $i < count($request->treat); $i++) {
-
-
-            //     // foreach ($request->treat as $t) {
-            //     $tFound = Treatment::find($request->treat[$i]['id'])->first();
-
-            //     $uses = new Uses;
-            //     $uses->visit_id = $visit->id;
-            //     $uses->user_id = $request->user_id;
-            //     $uses->treatment_id = $request->treat[$i]['id'];
-
-            //     $attached = new Attached;
-            //     $attached->id;
-            //     $attached->type = "image";
-            //     $attached->document = "file";
-            //     $attached->visit_id = $visit->id;
-
-            //     // if ($request->facturate == true) {
-            //     //     $invoice = new Invoice;
-            //     //     $invoice->id;
-            //     //     $invoice->payment_type = "Tarjeta";
-            //     //     $invoice->invoice_date = $request->date;
-            //     //     $invoice->total_price = $tFound['price'];
-            //     //     $invoice->visit_id = $visit->id;
-
-            //     //     $invoice->save();
-            //     // }
-
-            //     if ($uses->save() && $attached->save()) {
-            //         return response()->json(['success' => true, 'visit' => $visit]);
-            //     }
-            // }
-            // }
         }
-
-        // if ($validator->fails()) {
-        //     return response()->json(['success' => false]);
-        // } else {
-        //     $visit = new Visit;
-        //     $visit->id;
-        //     $visit->visit_description = $request->description;
-        //     $visit->visit_date = $request->date;
-        //     $visit->ss_private = "No";
-        //     $visit->user_id = $request->user_id;
-
-        //     if($visit->save()) {
-        //         $uses = new Uses;
-        //         $uses->visit_id = $visit->id;
-        //         $uses->user_id = $request->user_id;
-        //         $uses->treatment_id = $request->treat;
-
-        //         $attached = new Attached;
-        //         $attached->id;
-        //         $attached->type = "image";
-        //         $attached->document = "file";
-        //         $attached->visit_id = $visit->id;
-
-        //         if($request->facturate == true) {
-        //             $invoice = new Invoice;
-        //             $invoice->id;
-        //             $invoice->payment_type = "Tarjeta";
-        //             $invoice->invoice_date = $request->date;
-        //             $invoice->total_price = $request->price;
-        //             $invoice->visit_id = $visit->id;
-
-        //             $invoice->save();
-        //         }
-
-        //     if ( $uses->save() && $attached->save()) {
-        //         return response()->json(['success' => true, 'visit' => $visit]);
-        //     }
-        //     }
-        // }
-        // return response()->json(['success' => false]);
     }
 
     public function assignLastNumber($specialist_id)
@@ -254,5 +197,9 @@ class VisitController extends Controller
             inner join `uses` on `visits`.`id` = `uses`.`visit_id` 
             inner join `treatments` on `uses`.`treatment_id` = `treatments`.`id`"
         ));
+    }
+
+    public function upload(Request $request) {
+        return $request;
     }
 }
