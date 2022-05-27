@@ -159,7 +159,6 @@ export class QuarterlyReportComponent implements OnInit {
 
     this.http.getInvoice({invoice_id:id}).subscribe((response: any) => {
       if (response.success) {
-        console.log(response)
         this.dataToPrint =[];
                 this.typeInvoice = true;
         this.dataToPrint = response.data;

@@ -9,7 +9,6 @@ import { ServiceUserService } from 'src/app/services/service-user.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
   selector: 'app-register-visit',
   templateUrl: './register-visit.component.html',
@@ -395,7 +394,7 @@ export class RegisterVisitComponent implements OnInit {
             // Subir ficheros adjuntos
             if (this.selectedFiles) {
               var files = this.selectedFiles.length;
-              
+
               for (let i = 0; i < files; i++) {
                 console.log("fichero " + i + ":");
                 console.log(this.selectedFiles.item(i))
@@ -405,12 +404,17 @@ export class RegisterVisitComponent implements OnInit {
 
               }
             }
+            this.toastr.success('Visita insertado correctamente','', {
+              enableHtml: true,
+            });
 
-
-            console.log(result)
+            // console.log(result)
           } else { //error message
-            console.log("La visita no se ha podido añadir!");
-            console.log(result)
+            // console.log("La visita no se ha podido añadir!");
+            this.toastr.success('La visita no se ha podido añadir!','', {
+              enableHtml: true,
+            });
+            // console.log(result)
           }
         }
       );

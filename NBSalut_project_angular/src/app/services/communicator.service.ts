@@ -10,6 +10,10 @@ import { User } from '../models/user';
 
 
 export class CommunicatorService {
+
+  //https://apps.proven.cat/~DAW212203/NBSalut_project/public
+  //http://127.0.0.1:8000
+
   getLastsInvoicesBySpecialist(id: any) {
     return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getLastsInvoicesBySpecialist",
       {

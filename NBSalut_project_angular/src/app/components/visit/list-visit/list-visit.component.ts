@@ -95,7 +95,7 @@ export class ListVisitComponent implements OnInit {
 
   /**
    * Function that asks confirmation to delete the visit and deletes in case confirmation were successful
-   * @param visitSelected 
+   * @param visitSelected
    */
   confirmDelete(visitSelected: any): void {
     if (confirm("¿Está segura de eliminar definitivamente esta visita?")) {
@@ -105,7 +105,8 @@ export class ListVisitComponent implements OnInit {
       this.communicator.delVisit(info).subscribe(
         (result: any) => {
           if (result.success) {
-            this.deleteVisit(visitSelected);
+            // this.deleteVisit(visitSelected);
+            this.loadVisits();
             this.search();
             alert("Visita eliminada correctamente");
           } else {
@@ -117,7 +118,7 @@ export class ListVisitComponent implements OnInit {
   }
 
   /**
-* This method removes the visit from the list in list visit view. 
+* This method removes the visit from the list in list visit view.
 * @param visitSelected
 */
   deleteVisit(visitSelected: any): void {
