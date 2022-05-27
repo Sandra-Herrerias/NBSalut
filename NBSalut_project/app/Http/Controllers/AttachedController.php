@@ -25,16 +25,11 @@ class AttachedController extends Controller
         if($image = $request->file('image')) {
             $destinationPath = 'public/visits/images';
             // $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $profileImage = $image->getClientOriginalName() . "." . $image->getClientOriginalExtension();
+            $profileImage = $image->getClientOriginalName();
             $image->move($destinationPath, $profileImage); 
+            $input['type'] = $image->getClientOriginalExtension();
             $input['image'] = "$profileImage";
-            $input['visit_id'] = 99 | null;
-
-            // $attached = new Attached;
-            // $attached->type = $image->getClientOriginalExtension();
-            // $attached->image = "$profileImage";
-            // $attached->visit_id = 99;
-            // $attached->save();
+            $input['visit_id'] = $visit_id;
         }
 
         Attached::create($input);
