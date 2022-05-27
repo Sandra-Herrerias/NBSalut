@@ -339,8 +339,8 @@ export class CommunicatorService {
 * @returns response
 */
   delete(info: any) {
-    console.log(info);
-    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/deleteUser",
+    // console.log(info);
+    return this.http.delete("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/deleteUser",
       {
         responseType: "json",
         body: info
@@ -414,7 +414,7 @@ export class CommunicatorService {
 * @returns response
 */
   delVisit(info: any) {
-    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/delVisit",
+    return this.http.delete("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/delVisit",
       {
         responseType: "json",
         body: info
@@ -433,7 +433,7 @@ export class CommunicatorService {
   }
 
   listFiles(id: number) {
-    console.log("id del paciente: " + id)
+    // console.log("id del paciente: " + id)
     return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/listFiles", id,
       {
         responseType: "json"

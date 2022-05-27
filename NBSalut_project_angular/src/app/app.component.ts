@@ -27,7 +27,7 @@ export class AppComponent {
     this.route.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
         this.data = this.route.url;
-        console.log(this.data);
+        // console.log(this.data);
       }
     });
 

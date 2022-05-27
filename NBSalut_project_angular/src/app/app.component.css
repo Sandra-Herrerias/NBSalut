@@ -35,7 +35,15 @@
 /* .show  .hide{
   transition: 0.2s;
 } */
+.show {
+  margin-left: 0 !important;
+  transition: 0.5s;
+}
 
+.hide {
+  display: none !important;
+  transition: 0.5s;
+}
 @media (min-width: 768px) {
   /* #sidebar-wrapper {
     margin-left: 0;
@@ -46,7 +54,7 @@
     width: 100%;
   } */
 
-  .show {
+  /* .show {
     margin-left: 0 !important;
     transition: 0.5s;
   }
@@ -54,11 +62,11 @@
   .hide {
     display: none !important;
     transition: 0.5s;
-  }
+  } */
 }
 
 @media (max-width: 767px) {
-  .show {
+  /* .show {
     display: none !important;
     transition: 0.5s;
   }
@@ -66,7 +74,7 @@
   .hide {
     margin-left: 0 !important;
     transition: 0.5s;
-  }
+  } */
 }
 
 .nav-link:hover{

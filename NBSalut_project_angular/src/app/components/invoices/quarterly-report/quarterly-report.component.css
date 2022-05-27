@@ -6,15 +6,15 @@
     color: rgb(32, 136, 148);
 }
 
-thead,
+/* thead,
 button {
     background-color: rgb(36, 157, 171);
     color: #f8f9fa;
-}
+} */
 
 table {
     border-collapse: collapse;
-    border-radius: 0.5em;
+    /* border-radius: 0.5em; */
     overflow: hidden;
 }
 

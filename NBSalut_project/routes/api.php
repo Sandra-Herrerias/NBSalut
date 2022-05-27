@@ -46,7 +46,7 @@ Route::post('getVisitsPatient', [VisitController::class, 'getVisitsPatient']);
 Route::post('insertVisit', [VisitController::class, 'insertVisit']);
 // Route::delete('delVisit', [VisitController::class, 'delVisit']);
 Route::post('filed', [VisitController::class, 'fileDownload']);
-Route::post('delVisit', [VisitController::class, 'delVisit']);
+Route::delete('delVisit', [VisitController::class, 'delVisit']);
 Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
 Route::get('getTotalVisitsBySpecialist', [VisitController::class, 'getTotalVisitsBySpecialist']);
 Route::get('getLastsVistsBySpecialist', [VisitController::class, 'getLastsVistsBySpecialist']);
@@ -74,7 +74,7 @@ Route::post('listFiles', [AttachedController::class, 'listFiles']);
 
 Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso
-    Route::post('deleteUser', [UserController::class, 'deleteUser']);
+    Route::delete('deleteUser', [UserController::class, 'deleteUser']);
     Route::post('updateUser', [UserController::class, 'updateUser']);
     Route::post('deactivateUser', [UserController::class, 'deactivateUser']);
 });

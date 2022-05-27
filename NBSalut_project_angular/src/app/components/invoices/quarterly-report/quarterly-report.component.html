@@ -1,19 +1,19 @@
 <div class="content-header">
   <div class="container-fluid">
-      <div class="row mb-2">
-          <div class="col-sm-6">
-              <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a class="link-success nb-color-primary"
-                          [routerLink]="['/home']"><i class="fa-solid fa-house-medical"></i> </a>
-                        </li>
-                  <li class="breadcrumb-item active">Lista Facturas & Envío
-                  </li>
-              </ol>
-          </div>
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/home']"><i
+                class="fa-solid fa-house-medical"></i> </a>
+          </li>
+          <li class="breadcrumb-item active">Lista Facturas & Envío
+          </li>
+        </ol>
       </div>
+    </div>
   </div>
 </div>
-<div class="card">
+<div class="card mb-3">
   <div class="card-header">Lista Facturas & Envío</div>
   <div class="card-body">
     <div class="d-flex justify-content-between">
@@ -78,8 +78,10 @@
             <td>{{ invoice.dni }}</td>
             <td>{{ invoice.tratamiento }}</td>
             <td>{{ invoice.precio }} €</td>
-            <td><a [routerLink]="['/invoice', invoice.id]" target="_blank">Ver Factura</a></td>
-            <td><a [routerLink]="['/receipt', invoice.id]" target="_blank">Ver Recibo</a></td>
+            <!-- <td><a [routerLink]="['/invoice', invoice.id]" target="_blank">Ver Factura</a></td>
+            <td><a [routerLink]="['/receipt', invoice.id]" target="_blank">Ver Recibo</a></td> -->
+            <td><a (click)="getInvoice(invoice.id)">Ver Factura</a></td>
+            <td><a (click)="getReceipt(invoice.id)">Ver Factura</a></td>
             <td>
               <span class="badge rounded-pill" [ngClass]="invoice.sent ? 'bg-success' : 'bg-warning'">
                 {{ invoice.sent ? "Enviada" : "Pendiente" }}
@@ -91,6 +93,98 @@
       <div class="d-flex justify-content-end custom-pagination">
         <pagination-controls (pageChange)="currentPage = $event" nextLabel="" previousLabel=""></pagination-controls>
       </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="dataToPrint" class="card">
+  <div class="card-header">{{typeInvoice ? 'Factura' : 'Recibo'}}  </div>
+  <div class="card-body">
+    <div id="invoice" class="container">
+      <div style="width: 750px" class="mx-auto">
+        <div class="d-flex justify-content-center mb-5">
+          <img src="assets/images/logo-imprimir.jpg" height="130px" class="img-responsive">
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-xl-12">
+            <ul class="list-unstyled float-start">
+              <li>{{ dataToPrint[0].first_name }} {{ dataToPrint[0].last_name }}</li>
+              <li>DNI. {{ dataToPrint[0].dni }} Núm Col. {{ dataToPrint[0].collegiate_num }}</li>
+              <li>C. CHAFARINAS 14-16 BAJOS LOCAL.</li>
+              <li>08033 BARCELONA</li>
+              <li>TELF. 93 353 41 42</li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div *ngIf="typeInvoice" class="row mt-5 mb-3" style="border:1pt solid black;">
+          <ul class="list-unstyled float-start">
+            <li>DATOS DEL PACIENTE </li>
+            <li>NOMBRE COMPLETO: {{ dataToPrint[1].first_name }} {{ dataToPrint[1].last_name }}</li>
+            <li>DNI: {{ dataToPrint[1].dni }}</li>
+            <li>DIRECCION: {{ dataToPrint[1].address }}, {{ dataToPrint[1].postal_code }}</li>
+          </ul>
+        </div>
+
+        <div *ngIf="typeInvoice" class="row mb-3" style="border:1pt solid black;">
+          <div class="col-6">
+            NUM DE FACTURA: {{ dataToPrint[0].invoice_number }}
+          </div>
+          <div class="col-6" style="border-left:1pt solid black;">
+            FECHA: {{ dataToPrint[0].invoice_date  | date: 'dd/MM/yyyy' }}
+          </div>
+        </div>
+
+        <div *ngIf="!typeInvoice" class="row mt-5 mb-3" style="border:1pt solid black;">
+          <div class="col-12">
+            RECIBO DE: {{ dataToPrint[1].first_name }} {{ dataToPrint[1].last_name }}
+          </div>
+        </div>
+
+        <div *ngIf="!typeInvoice" class="row mb-3" style="border:1pt solid black;">
+          <div class="col-12" style="border-left:1pt solid black;">
+            FECHA: {{ dataToPrint[0].invoice_date  | date: 'dd/MM/yyyy' }}
+          </div>
+        </div>
+
+
+        <div class="row">
+          <table class="table table-bordered border-dark">
+            <thead>
+              <tr>
+                <th scope="col">CANTIDAD</th>
+                <th scope="col">TRATAMIENTO</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="height:500px !important;"></td>
+                <td>{{ dataToPrint[0].name }}</td>
+                <td>{{ dataToPrint[0].price }} €</td>
+                <td>{{ dataToPrint[0].total_price }} €</td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <th scope="col">FORMA DE PAGO</th>
+                <td scope="col" class="text-capitalize"></td>
+                <th scope="col">TOTAL</th>
+                <td scope="col">{{ dataToPrint[0].total_price }} €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container">
+      <button class="btn btn-success me-1" (click)="download()">Descargar Factura</button>
+      <button class="btn btn-success" (click)="close()">Cerrar Factura</button>
     </div>
   </div>
 </div>

@@ -109,8 +109,8 @@ export class EditPatientComponent implements OnInit {
   getImages(id: number) {
     this.communicator.listFiles(id).subscribe(
       (result: any) => {
-        console.log("Resultado: ")
-        console.log(result)
+        // console.log("Resultado: ")
+        // console.log(result)
         this.images = result.data;
       }
     )
@@ -189,7 +189,7 @@ export class EditPatientComponent implements OnInit {
     if (this.userDetails) {
       this.communicator.modifyDataUser(info).subscribe(
         (result: any) => {
-          console.log(result);
+          // console.log(result);
           if (result.success) { //success message
             alert("Usuario modificado correctamente");
             //Emits father that modify form will be hidden

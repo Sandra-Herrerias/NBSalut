@@ -31,7 +31,7 @@ export class TemplateReceiptComponent implements OnInit {
     this.active = false;
     this.element = document.getElementById('invoice');
     html2canvas(this.element).then((canvas: any) => {
-      console.log(canvas);
+      // console.log(canvas);
       var imgData = canvas.toDataURL('image/png');
       var doc = new jspdf("p", "mm", "a4");
       var width = doc.internal.pageSize.getWidth();
