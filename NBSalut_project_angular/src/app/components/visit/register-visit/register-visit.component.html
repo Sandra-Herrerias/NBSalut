@@ -11,15 +11,6 @@
     </div>
   </div>
 </div>
-<!-- <div class="card mt-3 mb-4">
-    <div class="card-header">List of Files</div>
-    <ul class="list-group list-group-flush" *ngFor="let file of fileInfos | async">
-        <li class="list-group-item">
-            <a href="{{ file.url }}">{{ file.name }}</a>
-        </li>
-    </ul>
-</div> -->
-
 <div class="card">
 
   <div class="card-header">Añadir Visita</div>
@@ -94,15 +85,25 @@
         </div>
       </div>
       <!-- Buttons -->
-      <div class="col-sm-12 col-md-12">
+      <div class="col-sm-12 col-md-4">
         <div *ngIf="!patientExist && checkTypeForm.value.checkType == 'dni'" class="row text-center">
-          <button type="button" class="btn btn-primary col-3 ms-2" [disabled]="validatePatientFormDni.invalid"
-            (click)="checkPatientDni()">Buscar Paciente</button>
+          <!-- <button type="button" class="btn nb-color-primary col-3 ms-2" [disabled]="validatePatientFormDni.invalid"
+            (click)="checkPatientDni()">Buscar Paciente</button> -->
+            <a class="link-success nb-color-primary">
+              <button type="button" class="btn col-12" [disabled]="validatePatientFormDni.invalid" (click)="checkPatientDni()">
+                Buscar Paciente
+              </button>
+            </a>
         </div>
-        <div *ngIf="!patientExist && checkTypeForm.value.checkType == 'name'" class="row text-center mt-2">
-          <button type="button" class="btn btn-primary col-3 ms-2" [disabled]="validatePatientFormName.invalid"
+        <div *ngIf="!patientExist && checkTypeForm.value.checkType == 'name'" class="row text-center">
+          <!-- <button type="button" class="btn nb-color-primary col-3 ms-2" [disabled]="validatePatientFormName.invalid"
             (click)="checkPatientName()">Buscar
-            Paciente</button>
+            Paciente</button> -->
+            <a class="link-success nb-color-primary">
+              <button type="button" class="btn col-12" [disabled]="validatePatientFormName.invalid" (click)="checkPatientName()">
+                Buscar Paciente
+              </button>
+            </a>
         </div>
       </div>
 
@@ -189,46 +190,54 @@
                   <label class="form-label fw-bold">Documento adjunto</label>
                   <input class="form-control" type="file" id="file" formControlName="file" accept="image/*"
                     (change)="selectFile($event)" multiple>
-                  <!-- <button class="btn btn-success btn-sm" [disabled]="!selectedFiles"
-                                        (click)="uploadFile()">
-                                        Upload
-                                    </button> -->
                 </div>
               </div>
-
               <!-- Submit button -->
               <div class="row text-center mt-5">
                 <div class="col-4"></div>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <a class="link-success nb-color-primary">
+                  <button type="button" class="btn col-12" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Registrar visita
+                  </button>
+                </a>
+                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                   Registrar visita
-                </button>
+                </button> -->
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                   tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Confirmación de
+                        <h5 class="modal-title" id="staticBackdropLabel">Confirmar
                           Facturación</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <label class="form-label fw-bold">Facturación</label><br>
-                        <div class="form-check display-1">
-
-                          <input class="form-check-input" formControlName="facturation" type="checkbox" value=""
+                        <label class="form-label fw-bold me-2">Marca para realizar Facturación</label>
+                        <input class="form-check-input nb-color-primary mt-1" formControlName="facturation" type="checkbox" value=""
+                            (change)="checked()" style="margin: 0 auto;">
+                        <!-- <div class="form-check display-1">
+                          <input class="form-check-input nb-color-primary" formControlName="facturation" type="checkbox" value=""
                             (change)="checked()" style="margin: 0 auto;">
                           <label class="text-danger mt-1"
                             *ngIf="registerVisitForm.get('facturation')?.errors?.['required'] && registerVisitForm.get('facturation')?.touched">Facturacion
                             requerida
                           </label>
-                        </div>
+                        </div> -->
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" [disabled]="registerVisitForm.invalid"
+                        <a class="link-success nb-color-primary">
+                          <button type="button" class="btn col-12" [disabled]="registerVisitForm.invalid"
+                            (click)="addVisit()">Registrar Visita</button>
+                        </a>
+                        <a class="link-success nb-color-primary">
+                          <button type="button" class="btn col-12" data-bs-dismiss="modal">Cerrar</button>
+                        </a>
+                        <!-- <button type="button" class="btn btn-primary" [disabled]="registerVisitForm.invalid"
                           (click)="addVisit()">Registrar Visita</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
                       </div>
                     </div>
                   </div>

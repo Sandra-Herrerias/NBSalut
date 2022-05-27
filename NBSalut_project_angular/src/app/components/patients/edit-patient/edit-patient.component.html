@@ -1,153 +1,220 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light pt-5 pb-4">
+<div class="content-header">
     <div class="container-fluid">
-        <div class="container">
-            <h2>MODIFICAR PACIENTE</h2>
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary" [routerLink]="['/home']"><i
+                                class="fa-solid fa-house-medical"></i></a></li>
+                    <li class="breadcrumb-item"><a class="link-success nb-color-primary"
+                            [routerLink]="['/listpatient']">Listar Pacientes</a></li>
+                    <li class="breadcrumb-item active">Modificar Paciente</li>
+                </ol>
+            </div>
         </div>
     </div>
-</nav>
-<div class="mt-5">
-    <div class="row">
-        <form #form1="ngForm" [formGroup]="userDetails" method="post" (ngSubmit)="emitInfoModifyUser()">
-            <!-- Text inputs -->
-            <div class="row mb-3">
-                <div class="mb-3 col-4 form-group">
-                    <label for="id" class="form-label">Nº del historial clínico</label>
-                    <input type="text" class="form-control" formControlName="id" readonly>
-                </div>
-                <div class="mb-3 col-4 form-group">
-                    <label for="register_date" class="form-label">Fecha de registro</label>
-                    <input type="date" name="register_date" class="form-control" formControlName="register_date" readonly>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="mb-3 col-3 form-group">
-                    <label for="center_code" class="form-label">Código del centro</label>
-                    <input type="text" name="center_code" class="form-control" formControlName="center_code">
-                    <div *ngIf="userDetailsFormControl['center_code'].touched && userDetailsFormControl['center_code'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['center_code'].errors?.['required']">Código del centro es obligatorio.
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3 col-3 form-group">
-                    <label for="ss_CIP" class="form-label">CIP</label>
-                    <input type="text" name="ss_CIP" class="form-control" formControlName="ss_CIP">
-                    <div *ngIf="userDetailsFormControl['ss_CIP'].touched && userDetailsFormControl['ss_CIP'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['required']">CIP es obligatorio.</div>
-                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['maxlength']">Máximo 14 carácteres.</div>
-                        <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['pattern']">Sólo se aceptan letras en mayúscula y números. Debe contener 14 carácteres.
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3 col-3 form-group">
-                    <label for="diabetic" id="diabetic"> Diabética/o</label><br><br>
-                    <input type="checkbox" formControlName="diabetic" id="diabeticCheckbox" aria-labelledby="check1">
-                </div>
-                <div class="mb-3 col-3 form-group">
-                    <label for="active" id="active"> Activada/o </label><br><br>
-                    <input type="checkbox" formControlName="active" id="activeCheckbox" aria-labelledby="check2">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="mb-3 col-4 form-group">
-                    <label for="first_name" class="form-label">Nombre</label>
-                    <input type="text" name="first_name" class="form-control" formControlName="first_name">
-                    <div *ngIf="userDetailsFormControl['first_name'].touched && userDetailsFormControl['first_name'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['first_name'].errors?.['required']">El nombre es obligatorio.</div>
-                        <div *ngIf="userDetailsFormControl['first_name'].errors?.['minlength']">Mínimo 2 carácteres.</div>
-                        <div *ngIf="userDetailsFormControl['first_name'].errors?.['pattern']">Sólo se aceptan letras y espacios
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3 col-4 form-group">
-                    <label for="last_name" class="form-label">Apellidos</label>
-                    <input type="text" name="last_name" class="form-control" formControlName="last_name">
-                    <div *ngIf="userDetailsFormControl['last_name'].touched && userDetailsFormControl['last_name'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['last_name'].errors?.['required']">El apellido es obligatorio.</div>
-                        <div *ngIf="userDetailsFormControl['last_name'].errors?.['minlength']">Mínimo 2 carácteres.</div>
-                        <div *ngIf="userDetailsFormControl['last_name'].errors?.['pattern']">Sólo se aceptan letras y espacios
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3 col-4 form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" name="email" class="form-control" formControlName="email">
-                    <div *ngIf="userDetailsFormControl['email'].touched && userDetailsFormControl['email'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['email'].errors?.['required']">Email es obligatorio.</div>
-                        <div *ngIf="userDetailsFormControl['email'].errors?.['email']">Introduzca una dirección de email válida.
-                        </div>
-                        <div *ngIf="userDetailsFormControl['email'].errors?.['pattern']">Formato incorrecto.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="mb-3 col-4 form-group">
-                    <label for="birthdate" class="form-label">Fecha de nacimiento</label>
-                    <input type="date" name="birthdate" class="form-control" formControlName="birthdate" [max]="today">
-                    <div *ngIf="userDetailsFormControl['birthdate'].touched && userDetailsFormControl['birthdate'].invalid" class="text-danger" required>
-                        <div *ngIf="userDetailsFormControl['birthdate'].errors?.['required']">Fecha de nacimiento es obligatoria.
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3 col-4 form-group">
-                    <label for="dni" class="form-label">NIF/NIE</label>
-                    <input type="text" name="dni" class="form-control" formControlName="dni">
-                    <div *ngIf="userDetailsFormControl['dni'].touched && userDetailsFormControl['dni'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['dni'].errors?.['required']">NIF/NIE es obligatorio.</div>
-                        <div class="field-message" *ngIf="userDetailsFormControl['dni'].errors?.['correctDni']">
-                            Formato de NIF/NIE incorrecto.
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3 col-4 form-group">
-                    <label for="phone" class="form-label">Teléfono</label>
-                    <input type="text" name="phone" class="form-control" formControlName="phone">
-                    <div *ngIf="userDetailsFormControl['phone'].touched && userDetailsFormControl['phone'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['phone'].errors?.['required']">Teléfono es obligatorio.</div>
-                    </div>
-                </div>
-            </div>
+</div>
 
-            <div class="row mb-3">
-                <div class="mb-3 col-4 form-group">
-                    <label for="address" class="form-label">Dirección</label>
-                    <input type="text" name="address" class="form-control" formControlName="address">
-                    <div *ngIf="userDetailsFormControl['address'].touched && userDetailsFormControl['address'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['address'].errors?.['required']">Dirección es obligatoria.</div>
-                    </div>
-                </div>
-                <div class="mb-3 col-4 form-group">
-                    <label for="city" class="form-label">Ciudad</label>
-                    <input type="text" name="city" class="form-control" formControlName="city">
-                    <div *ngIf="userDetailsFormControl['city'].touched && userDetailsFormControl['city'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['city'].errors?.['required']">Ciudad es obligatoria.</div>
-                    </div>
-                </div>
-                <div class="mb-3 col-4 form-group">
-                    <label for="postal_code" class="form-label">Código Postal</label>
-                    <input type="text" name="postal_code" class="form-control" formControlName="postal_code">
-                    <div *ngIf="userDetailsFormControl['postal_code'].touched && userDetailsFormControl['postal_code'].invalid" class="text-danger">
-                        <div *ngIf="userDetailsFormControl['postal_code'].errors?.['required']">Código postal es obligatorio.
+<div class="card">
+    <div class="card-header">Modificar paciente</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+
+            </div>
+            <div class="col-sm-12 col-md-2"></div>
+            <div class="col-sm-12 col-md-6"></div>
+        </div>
+        <!-- Form -->
+        <div class="mt-5">
+            <div class="row">
+                <form #form1="ngForm" [formGroup]="userDetails" method="post" (ngSubmit)="emitInfoModifyUser()">
+                    <!-- Text inputs -->
+                    <div class="row mb-3">
+                        <div class="mb-3 col-4 form-group">
+                            <label for="id" class="form-label">Nº del historial clínico</label>
+                            <input type="text" class="form-control" formControlName="id" readonly>
+                        </div>
+                        <div class="mb-3 col-4 form-group">
+                            <label for="register_date" class="form-label">Fecha de registro</label>
+                            <input type="date" name="register_date" class="form-control" formControlName="register_date"
+                                readonly>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Textarea inputs -->
-            <div class="row mb-3">
+                    <div class="row mb-3">
+                        <div class="mb-3 col-3 form-group">
+                            <label for="center_code" class="form-label">Código del centro</label>
+                            <input type="text" name="center_code" class="form-control" formControlName="center_code">
+                            <div *ngIf="userDetailsFormControl['center_code'].touched && userDetailsFormControl['center_code'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['center_code'].errors?.['required']">Código del
+                                    centro es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-3 form-group">
+                            <label for="ss_CIP" class="form-label">CIP</label>
+                            <input type="text" name="ss_CIP" class="form-control" formControlName="ss_CIP">
+                            <div *ngIf="userDetailsFormControl['ss_CIP'].touched && userDetailsFormControl['ss_CIP'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['required']">CIP es obligatorio.
+                                </div>
+                                <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['maxlength']">Máximo 14
+                                    carácteres.</div>
+                                <div *ngIf="userDetailsFormControl['ss_CIP'].errors?.['pattern']">Sólo se aceptan letras
+                                    en mayúscula y números. Debe contener 14 carácteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-3 form-group">
+                            <label for="diabetic" id="diabetic"> Diabética/o</label><br><br>
+                            <input type="checkbox" formControlName="diabetic" id="diabeticCheckbox"
+                                aria-labelledby="check1">
+                        </div>
+                        <div class="mb-3 col-3 form-group">
+                            <label for="active" id="active"> Activada/o </label><br><br>
+                            <input type="checkbox" formControlName="active" id="activeCheckbox"
+                                aria-labelledby="check2">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="mb-3 col-4 form-group">
+                            <label for="first_name" class="form-label">Nombre</label>
+                            <input type="text" name="first_name" class="form-control" formControlName="first_name">
+                            <div *ngIf="userDetailsFormControl['first_name'].touched && userDetailsFormControl['first_name'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['first_name'].errors?.['required']">El nombre es
+                                    obligatorio.</div>
+                                <div *ngIf="userDetailsFormControl['first_name'].errors?.['minlength']">Mínimo 2
+                                    carácteres.</div>
+                                <div *ngIf="userDetailsFormControl['first_name'].errors?.['pattern']">Sólo se aceptan
+                                    letras y espacios
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-4 form-group">
+                            <label for="last_name" class="form-label">Apellidos</label>
+                            <input type="text" name="last_name" class="form-control" formControlName="last_name">
+                            <div *ngIf="userDetailsFormControl['last_name'].touched && userDetailsFormControl['last_name'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['last_name'].errors?.['required']">El apellido es
+                                    obligatorio.</div>
+                                <div *ngIf="userDetailsFormControl['last_name'].errors?.['minlength']">Mínimo 2
+                                    carácteres.</div>
+                                <div *ngIf="userDetailsFormControl['last_name'].errors?.['pattern']">Sólo se aceptan
+                                    letras y espacios
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-4 form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" name="email" class="form-control" formControlName="email">
+                            <div *ngIf="userDetailsFormControl['email'].touched && userDetailsFormControl['email'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['email'].errors?.['required']">Email es obligatorio.
+                                </div>
+                                <div *ngIf="userDetailsFormControl['email'].errors?.['email']">Introduzca una dirección
+                                    de email válida.
+                                </div>
+                                <div *ngIf="userDetailsFormControl['email'].errors?.['pattern']">Formato incorrecto.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="mb-3 col-4 form-group">
+                            <label for="birthdate" class="form-label">Fecha de nacimiento</label>
+                            <input type="date" name="birthdate" class="form-control" formControlName="birthdate"
+                                [max]="today">
+                            <div *ngIf="userDetailsFormControl['birthdate'].touched && userDetailsFormControl['birthdate'].invalid"
+                                class="text-danger" required>
+                                <div *ngIf="userDetailsFormControl['birthdate'].errors?.['required']">Fecha de
+                                    nacimiento es obligatoria.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-4 form-group">
+                            <label for="dni" class="form-label">NIF/NIE</label>
+                            <input type="text" name="dni" class="form-control" formControlName="dni">
+                            <div *ngIf="userDetailsFormControl['dni'].touched && userDetailsFormControl['dni'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['dni'].errors?.['required']">NIF/NIE es obligatorio.
+                                </div>
+                                <div class="field-message" *ngIf="userDetailsFormControl['dni'].errors?.['correctDni']">
+                                    Formato de NIF/NIE incorrecto.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-4 form-group">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="text" name="phone" class="form-control" formControlName="phone">
+                            <div *ngIf="userDetailsFormControl['phone'].touched && userDetailsFormControl['phone'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['phone'].errors?.['required']">Teléfono es
+                                    obligatorio.</div>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="mb-3 col-12 form-group">
-                    <label for="previous_pathologies" class="form-label">Antecedentes personales</label>
-                    <textarea class="form-control" formControlName="previous_pathologies" name="previous_pathologies" placeholder="
-        Alergias a medicamentos, enfermedades destacadas, cirugias importantes, medicación actual"></textarea>
-                </div>
+                    <div class="row mb-3">
+                        <div class="mb-3 col-4 form-group">
+                            <label for="address" class="form-label">Dirección</label>
+                            <input type="text" name="address" class="form-control" formControlName="address">
+                            <div *ngIf="userDetailsFormControl['address'].touched && userDetailsFormControl['address'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['address'].errors?.['required']">Dirección es
+                                    obligatoria.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-4 form-group">
+                            <label for="city" class="form-label">Ciudad</label>
+                            <input type="text" name="city" class="form-control" formControlName="city">
+                            <div *ngIf="userDetailsFormControl['city'].touched && userDetailsFormControl['city'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['city'].errors?.['required']">Ciudad es obligatoria.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-4 form-group">
+                            <label for="postal_code" class="form-label">Código Postal</label>
+                            <input type="text" name="postal_code" class="form-control" formControlName="postal_code">
+                            <div *ngIf="userDetailsFormControl['postal_code'].touched && userDetailsFormControl['postal_code'].invalid"
+                                class="text-danger">
+                                <div *ngIf="userDetailsFormControl['postal_code'].errors?.['required']">Código postal es
+                                    obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Textarea inputs -->
+                    <div class="row mb-3">
+
+                        <div class="mb-3 col-12 form-group">
+                            <label for="previous_pathologies" class="form-label">Antecedentes personales</label>
+                            <textarea class="form-control" formControlName="previous_pathologies"
+                                name="previous_pathologies" placeholder="
+                Alergias a medicamentos, enfermedades destacadas, cirugias importantes, medicación actual"></textarea>
+                        </div>
+                    </div>
+                    <!-- Files -->
+                    <div class="mb-3 col-4 form-group">
+                        <label for="images" class="form-label">Imagenes adjuntas</label>
+                        <ul>
+                            <li *ngFor="let image of this.images">
+                                <img src="../../../../../../NBSalut_project/public/public/visits/images/{{image.image}}"
+                                    alt="{{image.image}}" width="500" height="600">
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Submit button -->
+                    <div class="row text-center">
+                        <div class="col-4"></div>
+                        <button type="submit" class="btn btn-primary btn-lg col-4" [disabled]="form1.invalid">Modificar
+                            paciente</button>
+                        <div class="col-4"></div>
+                    </div>
+                </form>
             </div>
-            <!-- Submit button -->
-            <div class="row text-center">
-                <div class="col-4"></div>
-                <button type="submit" class="btn btn-primary btn-lg col-4" [disabled]="form1.invalid">Modificar
-        paciente</button>
-                <div class="col-4"></div>
-            </div>
-        </form>
+            <br>
+        </div>
     </div>
-    <br>
 </div>
