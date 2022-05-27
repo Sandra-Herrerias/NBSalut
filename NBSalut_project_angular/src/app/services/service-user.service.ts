@@ -8,14 +8,14 @@ import { User } from '../models/user';
 export class ServiceUserService {
   private dataSource: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
   data: Observable<User> = this.dataSource.asObservable();
- 
+
   constructor() { }
 /**
  * sendData function to share data between components
- * @param data 
+ * @param data
  */
   sendData(data: User) {
     this.dataSource.next(data);
   }
 }
-  
+
