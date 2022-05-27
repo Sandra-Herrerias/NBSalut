@@ -7,35 +7,37 @@ import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class CommunicatorService {
   getLastsInvoicesBySpecialist(id: any) {
-    return this.http.get("http://127.0.0.1:8000/api/getLastsInvoicesBySpecialist",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getLastsInvoicesBySpecialist",
       {
         params: { specialist_id: id },
         responseType: "json"
       });
   }
   getLastsVistsBySpecialist(id: any) {
-    return this.http.get("http://127.0.0.1:8000/api/getLastsVistsBySpecialist",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getLastsVistsBySpecialist",
       {
         params: { id: id },
         responseType: "json"
       });
   }
   getLastsPatients() {
-    return this.http.get("http://127.0.0.1:8000/api/getLastsPatients",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getLastsPatients",
       {
         responseType: "json"
       });
   }
   getTotalPatients() {
-    return this.http.get("http://127.0.0.1:8000/api/getTotalPatients",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getTotalPatients",
       {
         responseType: "json"
       });
   }
   getTotalVisitsBySpecialist(id: any) {
-    return this.http.get("http://127.0.0.1:8000/api/getTotalVisitsBySpecialist",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getTotalVisitsBySpecialist",
       {
         params: { specialist_id: id },
         responseType: "json"
@@ -43,7 +45,7 @@ export class CommunicatorService {
   }
 
   getTotalInvoicesBySpecialist(id: any) {
-    return this.http.get("http://127.0.0.1:8000/api/getTotalInvoicesBySpecialist",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getTotalInvoicesBySpecialist",
       {
         params: { specialist_id: id },
         responseType: "json"
@@ -51,7 +53,7 @@ export class CommunicatorService {
   }
 
   getInvoice(data: any) {
-    return this.http.get("http://127.0.0.1:8000/api/getInvoice",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getInvoice",
       {
         params: { invoice_id: data.invoice_id },
         responseType: "json"
@@ -70,7 +72,7 @@ export class CommunicatorService {
   //#region Users Functions
 
   sentInvoicesChecked(invoices: any) {
-    return this.http.put("http://127.0.0.1:8000/api/sentInvoicesChecked", { "invoices": invoices },
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/sentInvoicesChecked", { "invoices": invoices },
       {
         responseType: "json"
       });
@@ -83,7 +85,7 @@ export class CommunicatorService {
    */
   login(user: any) {
 
-    return this.http.post("http://127.0.0.1:8000/api/login",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/login",
       { email: user.email, password: user.password },
       {
         responseType: "json",
@@ -117,7 +119,7 @@ export class CommunicatorService {
    * @returns a list of all the users.
    */
   getUsers() {
-    return this.http.get("http://127.0.0.1:8000/api/getUsers",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getUsers",
       {
         responseType: "json"
       });
@@ -139,14 +141,14 @@ export class CommunicatorService {
    * @returns a list of treatments from the DDBB
    */
   getTreatments() {
-    return this.http.get("http://127.0.0.1:8000/api/getTreatments",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getTreatments",
       {
         responseType: "json"
       });
   }
 
   getTreatmentByID(id: number) {
-    return this.http.post("http://127.0.0.1:8000/api/getTreatment",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getTreatment",
       id,
       {
         responseType: "json"
@@ -154,7 +156,7 @@ export class CommunicatorService {
   }
 
   addTreatment(treat: any) {
-    return this.http.post("http://127.0.0.1:8000/api/addTreatment",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/addTreatment",
       treat,
       {
         responseType: "json"
@@ -162,7 +164,7 @@ export class CommunicatorService {
   }
 
   statusTreatment(treat: any) {
-    return this.http.put("http://127.0.0.1:8000/api/statusTreatment",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/statusTreatment",
       treat,
       {
         responseType: "json"
@@ -170,7 +172,7 @@ export class CommunicatorService {
   }
 
   modifyTreatment(treat: any) {
-    return this.http.put("http://127.0.0.1:8000/api/modTreatment",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/modTreatment",
       treat,
       {
         responseType: "json"
@@ -187,7 +189,7 @@ export class CommunicatorService {
     * @returns a list of invoices from the DDBB
     */
   getInvoices(data: any) {
-    return this.http.get("http://127.0.0.1:8000/api/getInvoices",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getInvoices",
       {
         params: { startDate: data.startDate, endDate: data.endDate, sent: data.sent, specialist_id: data.specialist_id },
         responseType: "json"
@@ -201,7 +203,7 @@ export class CommunicatorService {
    * @returns
    */
   generateInvoice(data: any) {
-    return this.http.post("http://127.0.0.1:8000/api/generateInvoice",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/generateInvoice",
       data,
       {
         responseType: "json"
@@ -212,7 +214,7 @@ export class CommunicatorService {
    * @returns total invoices
    */
   getTotalInvoices(): Observable<any> {
-    return this.http.get("http://127.0.0.1:8000/api/getTotalInvoices",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getTotalInvoices",
       {
         responseType: "json"
       });
@@ -230,7 +232,7 @@ export class CommunicatorService {
    * @returns the patient validated & a response with a success variable.
    */
   checkPatientDni(user: any) {
-    return this.http.post("http://127.0.0.1:8000/api/checkPatientDni",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/checkPatientDni",
       { dni: user.dni },
       {
         responseType: "json"
@@ -243,7 +245,7 @@ export class CommunicatorService {
    * @returns the patient validated & a response with a success variable.
    */
   checkPatientName(user: any) {
-    return this.http.post("http://127.0.0.1:8000/api/checkPatientName",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/checkPatientName",
       {
         name: user.name,
         surname: user.surname
@@ -259,7 +261,7 @@ export class CommunicatorService {
    * @returns patient data
    */
   addPatient(info: any) {
-    return this.http.post("http://127.0.0.1:8000/api/addPatient",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/addPatient",
       info,
       { responseType: "json" });
 
@@ -270,7 +272,7 @@ export class CommunicatorService {
  * @returns a list of all the users.
  */
   getPatients() {
-    return this.http.get("http://127.0.0.1:8000/api/getPatients",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getPatients",
       {
         responseType: "json"
       });
@@ -281,7 +283,7 @@ export class CommunicatorService {
 * @returns a list of all the users.
 */
   getWorkers() {
-    return this.http.get("http://127.0.0.1:8000/api/getWorkers",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getWorkers",
       {
         responseType: "json"
       });
@@ -293,7 +295,7 @@ export class CommunicatorService {
 * @returns worker data
 */
   addWorker(info: any) {
-    return this.http.post("http://127.0.0.1:8000/api/addWorker",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/addWorker",
       info,
       { responseType: "json" });
 
@@ -304,7 +306,7 @@ export class CommunicatorService {
    * @returns max clinical number from the database
    */
   getMaxClinicalLog() {
-    return this.http.get("http://127.0.0.1:8000/api/getMaxClinicalLog",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getMaxClinicalLog",
       {
         responseType: "json"
       });
@@ -315,7 +317,7 @@ export class CommunicatorService {
  * @param info
  */
   modifyDataUser(info: Object) {
-    return this.http.put("http://127.0.0.1:8000/api/updateUser",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/updateUser",
       info,
       { responseType: "json" });
   }
@@ -325,7 +327,7 @@ export class CommunicatorService {
  * @param info
  */
   deactivateUser(info: Object) {
-    return this.http.put("http://127.0.0.1:8000/api/deactivateUser",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/deactivateUser",
       info,
       { responseType: "json" });
   }
@@ -338,7 +340,7 @@ export class CommunicatorService {
 */
   delete(info: any) {
     console.log(info);
-    return this.http.delete("http://localhost:8000/api/deleteUser",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/deleteUser",
       {
         responseType: "json",
         body: info
@@ -358,7 +360,7 @@ export class CommunicatorService {
   */
   getVisitsPatient(patient: any) {
 
-    return this.http.post("http://127.0.0.1:8000/api/getVisitsPatient",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getVisitsPatient",
       {
         id: patient.id
       },
@@ -373,7 +375,7 @@ export class CommunicatorService {
   */
   getVisits() {
 
-    return this.http.get("http://127.0.0.1:8000/api/getVisits",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getVisits",
       {
         responseType: "json"
       });
@@ -384,7 +386,7 @@ export class CommunicatorService {
    * @returns the visit inserted & a response with a success variable.
    */
   registerVisit(visit: any) {
-    return this.http.post("http://127.0.0.1:8000/api/insertVisit",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/insertVisit",
       visit,
       {
         responseType: "json"
@@ -400,7 +402,7 @@ export class CommunicatorService {
 */
   getVisitsList() {
 
-    return this.http.get("http://127.0.0.1:8000/api/getVisitsList",
+    return this.http.get("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/getVisitsList",
       {
         responseType: "json"
       });
@@ -412,7 +414,7 @@ export class CommunicatorService {
 * @returns response
 */
   delVisit(info: any) {
-    return this.http.delete("http://localhost:8000/api/delVisit",
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/delVisit",
       {
         responseType: "json",
         body: info
@@ -424,7 +426,7 @@ export class CommunicatorService {
 
     formData.append('image', file);
 
-    return this.http.post("http://localhost:8000/api/upload", formData,
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/upload", formData,
       // return this.http.post("http://localhost:8000/api/upload",
       // {
       //   image: formData

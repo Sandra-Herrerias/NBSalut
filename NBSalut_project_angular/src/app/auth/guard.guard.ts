@@ -19,12 +19,12 @@ export class GuardGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const user = this.http.usuariData();
+
+    // if (user && route.url[0].path == 'login') {
+    //   console.log("tienes sesion volviendo a home")
+    //   return this.route.navigate(['/home']).then(() => true);
+    // }
     // console.log(route.url[0].path)
-    //  if (user && route.url[0].path == 'login') {
-    //     console.log("tienes sesion volviendo a home")
-    //    return this.route.navigate(['/home']).then(() => true);
-    //   }
-    console.log(route.url[0].path)
     if (user) {
       if (route.url[0].path == 'listworkers'
         || route.url[0].path == 'editworker'
