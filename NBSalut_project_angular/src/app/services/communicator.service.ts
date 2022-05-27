@@ -426,7 +426,7 @@ export class CommunicatorService {
 
     formData.append('image', file);
 
-    return this.http.post("http://localhost:8000/api/upload", formData,
+    return this.http.post("https://apps.proven.cat/~DAW212203/NBSalut_project/public/api/upload", formData,
       {
         responseType: "json"
       });
