@@ -8,13 +8,54 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class CommunicatorService {
+  getLastsInvoicesBySpecialist(id: any) {
+    return this.http.get("http://127.0.0.1:8000/api/getLastsInvoicesBySpecialist",
+      {
+        params: { specialist_id: id },
+        responseType: "json"
+      });
+  }
+  getLastsVistsBySpecialist(id: any) {
+    return this.http.get("http://127.0.0.1:8000/api/getLastsVistsBySpecialist",
+      {
+        params: { id: id },
+        responseType: "json"
+      });
+  }
+  getLastsPatients() {
+    return this.http.get("http://127.0.0.1:8000/api/getLastsPatients",
+      {
+        responseType: "json"
+      });
+  }
+  getTotalPatients() {
+    return this.http.get("http://127.0.0.1:8000/api/getTotalPatients",
+      {
+        responseType: "json"
+      });
+  }
+  getTotalVisitsBySpecialist(id: any) {
+    return this.http.get("http://127.0.0.1:8000/api/getTotalVisitsBySpecialist",
+      {
+        params: { specialist_id: id },
+        responseType: "json"
+      });
+  }
+
+  getTotalInvoicesBySpecialist(id: any) {
+    return this.http.get("http://127.0.0.1:8000/api/getTotalInvoicesBySpecialist",
+      {
+        params: { specialist_id: id },
+        responseType: "json"
+      });
+  }
 
   getInvoice(data: any) {
     return this.http.get("http://127.0.0.1:8000/api/getInvoice",
-    {
-      params: { invoice_id: data.invoice_id },
-      responseType: "json"
-    });
+      {
+        params: { invoice_id: data.invoice_id },
+        responseType: "json"
+      });
   }
 
 
@@ -291,7 +332,7 @@ export class CommunicatorService {
 
 
   /**
-* Service DELETE. Function that deletes a user from the database. 
+* Service DELETE. Function that deletes a user from the database.
 * @param info
 * @returns response
 */
@@ -384,10 +425,10 @@ export class CommunicatorService {
     formData.append('image', file);
 
     return this.http.post("http://localhost:8000/api/upload", formData,
-    // return this.http.post("http://localhost:8000/api/upload", 
-    // {
-    //   image: formData
-    // },
+      // return this.http.post("http://localhost:8000/api/upload",
+      // {
+      //   image: formData
+      // },
       {
         responseType: "json"
       });

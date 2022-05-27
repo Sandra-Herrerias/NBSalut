@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { User } from './models/user';
 import { CommunicatorService } from './services/communicator.service';
 
 @Component({
@@ -14,13 +15,13 @@ export class AppComponent {
     this.status = !this.status;
   }
   user: any;
+
   public data?: string;
 
   constructor(private http: CommunicatorService, private route: Router) {
     this.http.user.subscribe(
       resultat => {
-        this.user = resultat;
-        // console.log(this.user);
+        this.user = Object.assign(new User(), resultat);
       }
     )
     this.route.events.subscribe(e => {

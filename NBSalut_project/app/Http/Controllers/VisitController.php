@@ -24,13 +24,6 @@ class VisitController extends Controller
 
     public function getVisitsPatient(Request $request)
     {
-        // return Visit::select('visits.id', 'visits.visit_date', 'visits.visit_description', 'users.first_name', 'users.last_name', 'users.dni',)
-        //     ->join('users', 'visits.user_id', '=', 'users.id')
-        //     ->join('uses', 'visits.id', '=', 'uses.visit_id')
-
-        //     ->where('visits.user_id', $request->id)
-        //     ->get();
-
         return DB::select(DB::raw(
             "SELECT `visits`.`id`, `visits`.`visit_date`, `visits`.`visit_description`,
             `visits`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`dni`,
@@ -63,7 +56,61 @@ class VisitController extends Controller
             ->get();
     }
 
+    public function getVisitsBySpecialist(Request $request)
+    {
+        return Visit::select(
+            'visits.id',
+            'visits.visit_date',
+            'visits.visit_description',
+            'users.first_name',
+            'users.last_name',
+            'users.dni',
+            'users.diabetic',
+            'uses.treatment_id'
+        )
+            ->join('users', 'visits.user_id', '=', 'users.id')
+            ->join('uses', 'visits.id', '=', 'uses.visit_id')
+            ->join('invoices', 'visits.id', '=', 'invoices.visit_id')
+            ->where('uses', '$request->specialist_id', '=', 'uses.user_id')
+            ->get()->count;
+    }
 
+    public function getTotalVisitsBySpecialist(Request $request)
+    {
+        $totalInvoices = DB::table('visits')
+            // ->join('users', 'visits.user_id', '=', 'users.id')
+            ->join('uses', 'visits.id', '=', 'uses.visit_id')
+            ->where('uses.user_id', '=', $request->specialist_id)
+            ->get()->count();
+
+        if ($totalInvoices) {
+            return response()->json(['success' => true, 'data' => $totalInvoices]);
+        }
+
+        return response()->json(['success' => false, 'data' => []]);
+    }
+
+    public function getLastsVistsBySpecialist(Request $request)
+    {
+        $LastsVists = DB::select(DB::raw(
+            "SELECT `visits`.`id`, `visits`.`visit_date`, `visits`.`visit_description`, `visits`.`user_id`, `users`.`first_name`, `users`.`last_name`, `users`.`dni`, `users`.`diabetic`, `uses`.`treatment_id`, `uses`.`user_id` AS especialist_id, `treatments`.`name`, ( SELECT CONCAT(first_name, ' ', last_name)
+            AS specialist_name FROM users AS t WHERE t.id = uses.user_id )
+            AS specialist_name FROM `visits` INNER JOIN `users`
+            ON `visits`.`user_id` = `users`.`id` INNER JOIN `uses`
+            ON `visits`.`id` = `uses`.`visit_id` INNER JOIN `treatments`
+             ON `uses`.`treatment_id` = `treatments`.`id`
+              WHERE `uses`.`user_id` = $request->id
+              ORDER BY `visits`.`visit_date` DESC
+              LIMIT 7;
+            "
+        ));
+
+        if ($LastsVists) {
+            return response()->json(['success' => true, 'data' => $LastsVists]);
+        }
+
+        return response()->json(['success' => false, 'data' => []]);
+    }
 
     public function insertVisit(Request $request)
     {
@@ -92,11 +139,11 @@ class VisitController extends Controller
                 $specialist = User::find($request->specialist_id);
                 $patient = User::find($request->user_id);
 
-            //     $attached = new Attached;
-            //     $attached->id;
-            //     $attached->type = "image";
-            //     $attached->document = "file";
-            //     $attached->visit_id = $visit->id;
+                //     $attached = new Attached;
+                //     $attached->id;
+                //     $attached->type = "image";
+                //     $attached->document = "file";
+                //     $attached->visit_id = $visit->id;
 
                 foreach ($request->treat as $t) {
                     $tFound = $t['id'];
@@ -197,28 +244,29 @@ class VisitController extends Controller
         ));
     }
 
-    public function upload(Request $request) {
+    public function upload(Request $request)
+    {
         //return $request;
         $request->validate([
             'image' => 'image|max:4096'
         ]);
-
         $input = $request->all();
 
-        if($image = $request->file('image')) {
+        if ($image = $request->file('image')) {
             $destinationPath = 'public/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $profileImage = $image->getClientOriginalName() . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
             $input['visit_id'] = 99;
         }
 
-        Attached::create($input);
+        $file = Attached::create($input);
 
-        return response()->json(['success' => $input]);
+        return response()->json(['success' => $file]);
     }
 
-    public function delVisit(Request $request) {
+    public function delVisit(Request $request)
+    {
         $result = Visit::destroy($request->id);
 
         return response()->json(['success' => $result]);

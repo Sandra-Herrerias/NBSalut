@@ -28,6 +28,7 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TemplateInvoiceComponent } from './components/invoices/template-invoice/template-invoice.component';
+import { TemplateReceiptComponent } from './components/invoices/template-receipt/template-receipt.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { TemplateInvoiceComponent } from './components/invoices/template-invoice
     EditWorkersComponent,
     RegisterWorkerComponent,
     EditTreatmentComponent,
-    TemplateInvoiceComponent
+    TemplateInvoiceComponent,
+    TemplateReceiptComponent
   ],
   imports: [
     BrowserModule,

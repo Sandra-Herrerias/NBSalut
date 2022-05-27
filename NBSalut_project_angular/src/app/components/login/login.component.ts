@@ -46,7 +46,11 @@ export class LoginComponent implements OnInit {
       if (res.success) {
         this.route.navigate(['/home']);
       } else {
-        this.message = "Credenciales incorrectas.";
+        if (res.message) {
+          this.message = res.message;
+        } else {
+          this.message = "Credenciales incorrectas.";
+        }
       }
     })
   }

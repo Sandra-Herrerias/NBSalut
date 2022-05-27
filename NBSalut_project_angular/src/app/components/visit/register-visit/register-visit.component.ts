@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user';
 import { ServiceUserService } from 'src/app/services/service-user.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register-visit',
@@ -116,11 +117,13 @@ export class RegisterVisitComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private communicator: CommunicatorService,
     private route: Router,
-    private serviceUser: ServiceUserService) {
+    private serviceUser: ServiceUserService,
+    private toastr: ToastrService) {
     this.ipp = 10;
     this.cp = 1;
     this.patientExist = false;
     this.visitPatientId = -1;
+
     this.communicator.user.subscribe(
       resultat => {
         this.user = Object.assign(new User(), resultat);
@@ -266,7 +269,11 @@ export class RegisterVisitComponent implements OnInit {
 
 
       } else {
-        this.route.navigate(['/regpatient']);
+        if (res.message) {
+          this.toastr.info(res.message);
+        } else {
+          this.route.navigate(['/regpatient']);
+        }
       }
     })
   }
@@ -295,7 +302,11 @@ export class RegisterVisitComponent implements OnInit {
         //console.log(this.listVisits);
 
       } else {
-        this.route.navigate(['/regpatient']);
+        if (res.message) {
+          this.toastr.info(res.message);
+        } else {
+          this.route.navigate(['/regpatient']);
+        }
       }
     })
   }

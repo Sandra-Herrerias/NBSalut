@@ -17,8 +17,11 @@ class UserController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['success' => false]);
         }
-        // $user = Auth::loginUsingId($user->id);
-        // return $user;
+
+        if ($user->active == 0) {
+            return response()->json(['success' => false, 'message' => 'Usuario se encuentra desactivado']);
+        }
+
         return response()->json(['success' => true, 'user' => $user]);
     }
 
@@ -43,6 +46,11 @@ class UserController extends Controller
         if (!$patient) {
             return response()->json(['success' => false]);
         }
+
+        if ($patient->active == 0) {
+            return response()->json(['success' => false, 'message' => 'Paciente se encuentra desactivado.']);
+        }
+
         return response()->json(['success' => true, 'user' => $patient]);
     }
 
@@ -52,6 +60,11 @@ class UserController extends Controller
         if (!$patient) {
             return response()->json(['success' => false]);
         }
+
+        if ($patient->active == 0) {
+            return response()->json(['success' => false, 'message' => 'Paciente se encuentra desactivado.']);
+        }
+
         return response()->json(['success' => true, 'user' => $patient]);
     }
 
@@ -78,6 +91,17 @@ class UserController extends Controller
         $data = User::max('id');
         return $data;
     }
+
+    public function getLastsPatients()
+    {
+        $data = User::where('role', 'patient')->orderBy('id', 'DESC')->limit(7)->get();
+        if ($data) {
+            return response()->json(['success' => true, 'data' => $data]);
+        }
+        return response()->json(['success' => false]);
+    }
+
+
     /**
      * Method to add a new patient
      *
@@ -185,7 +209,7 @@ class UserController extends Controller
         $user = User::find($request->id);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        if($request->password != ''){
+        if ($request->password != '') {
             $user->password = Hash::make($request->password);
         }
         $user->dni = $request->dni;
@@ -205,7 +229,7 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->register_date = date('Y-m-d', strtotime($request->register_date));
 
-        //Validate unique email  
+        //Validate unique email
         $usersEmail = User::where('id', '!=', $user->id)->where('email', $request->email)->get();
 
         if (count($usersEmail) > 0) {
@@ -254,5 +278,17 @@ class UserController extends Controller
         //$deletedUser->delete();
 
         return response()->json(['success' => $result]);
+    }
+
+    public function  getTotalPatients()
+    {
+        $users = User::where('role', 'patient')->count();
+        if ($users) {
+            return response()->json([
+                'success' =>  true,
+                'data' => $users
+            ]);
+        }
+        return response()->json(['success' => false]);
     }
 }

@@ -112,7 +112,12 @@ export class QuarterlyReportComponent implements OnInit {
     const EXCEL_EXTENSION = ".xlsx";
 
     const worksheet = XLSX.utils.json_to_sheet(
-      this.invoices
+      this.invoices.map((u: any) => ({
+        num_factura: u.num_factura,
+        fecha: u.fecha, nombre: u.nombre, apellidos: u.apellidos,
+        direccion: u.direccion,  codigo_postal: u.codigo_postal,dni: u.dni,
+        tratamiento: u.tratamiento, precio: u.precio
+      }))
     );
     const Workbook = {
       Sheets: {
@@ -126,7 +131,7 @@ export class QuarterlyReportComponent implements OnInit {
       type: "array",
     });
     const blobData = new Blob([excelBuffer], { type: EXCEL_TYPE });
-    this.filesaver.save(blobData, `Factura trimestral ${this.params.startDate} - ${this.params.endDate}`);
+    this.filesaver.save(blobData, `Factura trimestral ${this.user.first_name} - ${this.user.last_name}`);
   }
 
 

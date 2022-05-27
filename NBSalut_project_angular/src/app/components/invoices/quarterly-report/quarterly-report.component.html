@@ -1,5 +1,20 @@
+<div class="content-header">
+  <div class="container-fluid">
+      <div class="row mb-2">
+          <div class="col-sm-6">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a class="link-success nb-color-primary"
+                          [routerLink]="['/home']"><i class="fa-solid fa-house-medical"></i> </a>
+                        </li>
+                  <li class="breadcrumb-item active">Lista Facturas & Envío
+                  </li>
+              </ol>
+          </div>
+      </div>
+  </div>
+</div>
 <div class="card">
-  <div class="card-header">Lista de factura trimestral</div>
+  <div class="card-header">Lista Facturas & Envío</div>
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-3">
@@ -50,19 +65,21 @@
             <th>Tratamiento</th>
             <th>Precio</th>
             <th>Factura</th>
+            <th>Recibo</th>
             <th>Estado</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let invoice of invoices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-            <td>{{ invoice.invoice_number }}</td>
-            <td>{{ invoice.invoice_date | date:'dd/MM/yyyy' }}</td>
-            <td>{{ invoice.first_name }} {{ invoice.last_name }}</td>
-            <td>{{ invoice.address }}, {{ invoice.postal_code }}</td>
+            <td>{{ invoice.num_factura }}</td>
+            <td>{{ invoice.fecha | date:'dd/MM/yyyy' }}</td>
+            <td>{{ invoice.nombre }} {{ invoice.apellidos }}</td>
+            <td>{{ invoice.direccion }}, {{ invoice.codigo_postal }}</td>
             <td>{{ invoice.dni }}</td>
-            <td>{{ invoice.name }}</td>
-            <td>{{ invoice.price }} €</td>
+            <td>{{ invoice.tratamiento }}</td>
+            <td>{{ invoice.precio }} €</td>
             <td><a [routerLink]="['/invoice', invoice.id]" target="_blank">Ver Factura</a></td>
+            <td><a [routerLink]="['/receipt', invoice.id]" target="_blank">Ver Recibo</a></td>
             <td>
               <span class="badge rounded-pill" [ngClass]="invoice.sent ? 'bg-success' : 'bg-warning'">
                 {{ invoice.sent ? "Enviada" : "Pendiente" }}

@@ -47,12 +47,16 @@ Route::post('files', [VisitController::class, 'files']);
 Route::post('filed', [VisitController::class, 'fileDownload']);
 Route::delete('delVisit', [VisitController::class, 'delVisit']);
 Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
+Route::get('getTotalVisitsBySpecialist', [VisitController::class, 'getTotalVisitsBySpecialist']);
+Route::get('getLastsVistsBySpecialist', [VisitController::class, 'getLastsVistsBySpecialist']);
 
 // Invoice Routes
 Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
+Route::get('getInvoice', [InvoiceController::class, 'getInvoice']);
+Route::get('getTotalInvoicesBySpecialist', [InvoiceController::class, 'getTotalInvoicesBySpecialist']);
 Route::get('generateInvoice', [InvoiceController::class, 'generateInvoice']);
-Route::get('getTotalInvoices', [InvoiceController::class, 'getTotalInvoices']);
 Route::put('sentInvoicesChecked', [InvoiceController::class, 'sentInvoicesChecked']);
+Route::get('getLastsInvoicesBySpecialist', [InvoiceController::class, 'getLastsInvoicesBySpecialist']);
 
 // Patients Routes
 Route::post('checkPatientDni', [UserController::class, 'checkPatientDni']);
@@ -60,14 +64,14 @@ Route::post('checkPatientName', [UserController::class, 'checkPatientName']);
 Route::post('addPatient', [UserController::class, 'addPatient']);
 Route::get('getPatients', [UserController::class, 'getPatients']);
 Route::get('getMaxClinicalLog', [UserController::class, 'getMaxClinicalLog']);
-
+Route::get('getTotalPatients', [UserController::class, 'getTotalPatients']);
+Route::get('getLastsPatients', [UserController::class, 'getLastsPatients']);
 
 Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso
     Route::delete('deleteUser', [UserController::class, 'deleteUser']);
     Route::put('updateUser', [UserController::class, 'updateUser']);
     Route::put('deactivateUser', [UserController::class, 'deactivateUser']);
-
 });
 
 
