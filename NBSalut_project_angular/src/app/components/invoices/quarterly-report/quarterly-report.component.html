@@ -162,7 +162,7 @@
             </thead>
             <tbody>
               <tr>
-                <td style="height:500px !important;"></td>
+                <td style="height:500px !important;">{{ dataToPrint[0].quantity }}</td>
                 <td>{{ dataToPrint[0].name }}</td>
                 <td>{{ dataToPrint[0].price }} €</td>
                 <td>{{ dataToPrint[0].total_price }} €</td>
@@ -171,7 +171,7 @@
             <tbody>
               <tr>
                 <th scope="col">FORMA DE PAGO</th>
-                <td scope="col" class="text-capitalize"></td>
+                <td scope="col" class="text-capitalize">{{ dataToPrint[0].payment_type }}</td>
                 <th scope="col">TOTAL</th>
                 <td scope="col">{{ dataToPrint[0].total_price }} €</td>
               </tr>
