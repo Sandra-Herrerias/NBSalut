@@ -425,10 +425,14 @@ export class CommunicatorService {
     formData.append('image', file);
 
     return this.http.post("http://localhost:8000/api/upload", formData,
-      // return this.http.post("http://localhost:8000/api/upload",
-      // {
-      //   image: formData
-      // },
+      {
+        responseType: "json"
+      });
+  }
+
+  listFiles(id: number) {
+    console.log("id del paciente: " + id)
+    return this.http.post("http://localhost:8000/api/listFiles", id,
       {
         responseType: "json"
       });

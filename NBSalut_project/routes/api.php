@@ -68,7 +68,7 @@ Route::get('getLastsPatients', [UserController::class, 'getLastsPatients']);
 
 // Attached Routes
 Route::post('upload', [AttachedController::class, 'upload']);
-Route::post('getImages', [AttachedController::class, 'getImages']);
+Route::post('listFiles', [AttachedController::class, 'listFiles']);
 
 Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso

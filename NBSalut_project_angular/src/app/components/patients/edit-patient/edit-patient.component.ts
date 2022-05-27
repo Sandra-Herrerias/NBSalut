@@ -37,6 +37,8 @@ export class EditPatientComponent implements OnInit {
     + "/" + ("0" + (new Date().getMonth() + 1)).slice(-2)
     + "/" + new Date().getFullYear();
 
+  images: any[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -84,6 +86,8 @@ export class EditPatientComponent implements OnInit {
     this.userDetails.controls['city'].setValue(this.user.city);
     this.userDetails.controls['postal_code'].setValue(this.user.postal_code);
     this.userDetails.controls['previous_pathologies'].setValue(this.user.previous_pathologies);
+
+    this.getImages(this.userDetails.value.id);
   }
 
   /**
@@ -100,6 +104,16 @@ export class EditPatientComponent implements OnInit {
    */
   get userDetailsFormControl() {
     return this.userDetails.controls;
+  }
+
+  getImages(id: number) {
+    this.communicator.listFiles(id).subscribe(
+      (result: any) => {
+        console.log("Resultado: ")
+        console.log(result)
+        this.images = result.data;
+      }
+    )
   }
 
   /**
