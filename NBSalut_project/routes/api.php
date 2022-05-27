@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\TreatmentController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\AttachedController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,8 +44,6 @@ Route::put('modTreatment', [TreatmentController::class, 'modTreatment']);
 Route::get('getVisits', [VisitController::class, 'getVisits']);
 Route::post('getVisitsPatient', [VisitController::class, 'getVisitsPatient']);
 Route::post('insertVisit', [VisitController::class, 'insertVisit']);
-Route::post('upload', [VisitController::class, 'upload']);
-Route::post('files', [VisitController::class, 'files']);
 Route::post('filed', [VisitController::class, 'fileDownload']);
 Route::delete('delVisit', [VisitController::class, 'delVisit']);
 Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
@@ -61,6 +61,9 @@ Route::post('addPatient', [UserController::class, 'addPatient']);
 Route::get('getPatients', [UserController::class, 'getPatients']);
 Route::get('getMaxClinicalLog', [UserController::class, 'getMaxClinicalLog']);
 
+// Attached Routes
+Route::post('upload', [AttachedController::class, 'upload']);
+Route::post('getImages', [AttachedController::class, 'getImages']);
 
 Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso
