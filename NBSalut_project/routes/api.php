@@ -44,7 +44,6 @@ Route::put('modTreatment', [TreatmentController::class, 'modTreatment']);
 Route::get('getVisits', [VisitController::class, 'getVisits']);
 Route::post('getVisitsPatient', [VisitController::class, 'getVisitsPatient']);
 Route::post('insertVisit', [VisitController::class, 'insertVisit']);
-Route::post('filed', [VisitController::class, 'fileDownload']);
 Route::delete('delVisit', [VisitController::class, 'delVisit']);
 Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
 Route::get('getTotalVisitsBySpecialist', [VisitController::class, 'getTotalVisitsBySpecialist']);
