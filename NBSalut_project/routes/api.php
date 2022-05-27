@@ -34,17 +34,19 @@ Route::get('getAuthUser', [UserController::class, 'getAuthUser']);
 Route::get('getTreatments', [TreatmentController::class, 'getTreatments']);
 Route::post('getTreatment', [TreatmentController::class, 'getTreatment']);
 Route::post('addTreatment', [TreatmentController::class, 'addTreatment']);
-Route::delete('delTreatment', [TreatmentController::class, 'delTreatment']);
+Route::post('delTreatment', [TreatmentController::class, 'delTreatment']);
 Route::post('modTreatment', [TreatmentController::class, 'modTreatment']);
-Route::put('statusTreatment', [TreatmentController::class, 'statusTreatment']);
-Route::put('modTreatment', [TreatmentController::class, 'modTreatment']);
+Route::post('statusTreatment', [TreatmentController::class, 'statusTreatment']);
+Route::post('modTreatment', [TreatmentController::class, 'modTreatment']);
 
 
 // Visits Routes
 Route::get('getVisits', [VisitController::class, 'getVisits']);
 Route::post('getVisitsPatient', [VisitController::class, 'getVisitsPatient']);
 Route::post('insertVisit', [VisitController::class, 'insertVisit']);
-Route::delete('delVisit', [VisitController::class, 'delVisit']);
+// Route::delete('delVisit', [VisitController::class, 'delVisit']);
+Route::post('filed', [VisitController::class, 'fileDownload']);
+Route::post('delVisit', [VisitController::class, 'delVisit']);
 Route::get('getVisitsList', [VisitController::class, 'getVisitsList']);
 Route::get('getTotalVisitsBySpecialist', [VisitController::class, 'getTotalVisitsBySpecialist']);
 Route::get('getLastsVistsBySpecialist', [VisitController::class, 'getLastsVistsBySpecialist']);
@@ -54,7 +56,7 @@ Route::get('getInvoices', [InvoiceController::class, 'getInvoices']);
 Route::get('getInvoice', [InvoiceController::class, 'getInvoice']);
 Route::get('getTotalInvoicesBySpecialist', [InvoiceController::class, 'getTotalInvoicesBySpecialist']);
 Route::get('generateInvoice', [InvoiceController::class, 'generateInvoice']);
-Route::put('sentInvoicesChecked', [InvoiceController::class, 'sentInvoicesChecked']);
+Route::post('sentInvoicesChecked', [InvoiceController::class, 'sentInvoicesChecked']);
 Route::get('getLastsInvoicesBySpecialist', [InvoiceController::class, 'getLastsInvoicesBySpecialist']);
 
 // Patients Routes
@@ -72,9 +74,9 @@ Route::post('listFiles', [AttachedController::class, 'listFiles']);
 
 Route::group(['middleware' => ['cors']], function () {
     //Rutas a las que se permitirá acceso
-    Route::delete('deleteUser', [UserController::class, 'deleteUser']);
-    Route::put('updateUser', [UserController::class, 'updateUser']);
-    Route::put('deactivateUser', [UserController::class, 'deactivateUser']);
+    Route::post('deleteUser', [UserController::class, 'deleteUser']);
+    Route::post('updateUser', [UserController::class, 'updateUser']);
+    Route::post('deactivateUser', [UserController::class, 'deactivateUser']);
 });
 
 
